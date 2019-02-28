@@ -1,0 +1,52 @@
+---
+title: Generate input data for the pct package
+---
+
+```{r}
+knitr::opts_chunk$set(eval = FALSE)
+```
+
+
+```{r}
+library(tidyverse)
+library(stplanr)
+library(sf)
+# Download file from:
+# http://wicid.ukdataservice.ac.uk/cider/wicid/downloads.php
+unzip("~/Downloads/wu03ew_v2.zip")
+od_all = read_csv("wu03ew_v2.csv")
+names(od_all) = snakecase::to_snake_case(names(od_all))
+names(od_all)[3] = "all"
+
+zones_leeds = ukboundaries::msoa2011_lds
+summary(zones_leeds$geo_code %in% od_all$area_of_residence)
+od_leeds = od_all %>% 
+  filter(area_of_residence %in% zones_leeds$geo_code & area_of_workplace %in% zones_leeds$geo_code) %>% 
+  filter(area_of_residence != area_of_workplace) %>% 
+  top_n(100, all)
+usethis::use_data(od_leeds, overwrite = TRUE)
+```
+
+```{r}
+desire_lines_leeds = od2line(flow = od_leeds, zones_leeds)
+plot(desire_lines_leeds)
+routes_fast_leeds = line2route(l = desire_lines_leeds)
+# todo: replace with route() and call new cyclestreets package
+mapview::mapview(routes_fast_leeds)
+# pryr::object_size(routes_fast_leeds)
+# usethis::use_data(routes_fast_leeds)
+```
+
+```{r}
+# model to predict cycling levels
+# note: function to combine these 2 geometries sensible
+routes_leeds = cbind(desire_lines_leeds, routes_fast_leeds)
+plot(routes_leeds$geometry.1)
+mod1 = lm(formula = bicycle ~ all + length, data = routes_leeds)
+routes_leeds$bicycle_scenario_1 = predict(object = mod1, routes_leeds) * 2
+plot(routes_leeds$bicycle, routes_leeds$bicycle_scenario_1)
+
+```
+
+
+
