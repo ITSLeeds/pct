@@ -11,4 +11,8 @@ License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Suggests: 
-    testthat
+    testthat,
+    knitr
+VignetteBuilder: knitr
+RoxygenNote: 6.1.1
+Roxygen: list(markdown = TRUE)

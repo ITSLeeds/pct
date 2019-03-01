@@ -13,6 +13,7 @@ library(stplanr)
 library(sf)
 # Download file from:
 # http://wicid.ukdataservice.ac.uk/cider/wicid/downloads.php
+download.file("https://s3-eu-west-1.amazonaws.com/statistics.digitalresources.jisc.ac.uk/dkan/files/FLOW/wu03ew_v2/wu03ew_v2.zip", "~/Downloads/wu03ew_v2.zip")
 unzip("~/Downloads/wu03ew_v2.zip")
 od_all = read_csv("wu03ew_v2.csv")
 names(od_all) = snakecase::to_snake_case(names(od_all))

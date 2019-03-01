@@ -2,3 +2,4 @@
 ^\.Rproj\.user$
 data-raw/*
 ^test-data\.R
+^.*\.log
