@@ -22,3 +22,33 @@ NULL
 #' # see data-raw folder for generation code
 #' zones_leeds
 NULL
+
+#' Route network for Leeds
+#'
+#' @docType data
+#' @keywords datasets
+#' @name rnet_leeds
+#' @examples
+#' # see data-raw folder for generation code
+#' rnet_leeds
+NULL
+
+#' Cycle route desire lines for Leeds
+#'
+#' @docType data
+#' @keywords datasets
+#' @name desire_lines_leeds
+#' @examples
+#' # see data-raw folder for generation code
+#' desire_lines_leeds
+NULL
+
+#' Fastest cycle routes for the desire_lines_leeds
+#'
+#' @docType data
+#' @keywords datasets
+#' @name routes_fast_leeds
+#' @examples
+#' # see data-raw folder for generation code
+#' routes_fast_leeds
+NULL

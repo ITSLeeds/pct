@@ -4,5 +4,3 @@
 uptake <- function() {
   print("Hello, world!")
 }
-
-base()
