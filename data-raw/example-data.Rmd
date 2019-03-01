@@ -17,13 +17,25 @@ unzip("~/Downloads/wu03ew_v2.zip")
 od_all = read_csv("wu03ew_v2.csv")
 names(od_all) = snakecase::to_snake_case(names(od_all))
 names(od_all)[3] = "all"
+names(od_all)[4] = "home"
+names(od_all)[5] = "metro"
+names(od_all)[7] = "bus"
+names(od_all)[9] = "motorcycle"
+names(od_all)[10] = "drive"
+names(od_all)[11] = "passenger"
+names(od_all)[14] = "other"
+summodes = colSums(od_all[4:14])
+barplot(summodes)
 
-zones_leeds = ukboundaries::msoa2011_lds
+zones_leeds = ukboundaries::msoa2011_vsimple[
+  ukboundaries::msoa2011_vsimple$msoa11cd %in%
+    ukboundaries::msoa2011_lds$geo_code,
+] 
 summary(zones_leeds$geo_code %in% od_all$area_of_residence)
 od_leeds = od_all %>% 
   filter(area_of_residence %in% zones_leeds$geo_code & area_of_workplace %in% zones_leeds$geo_code) %>% 
   filter(area_of_residence != area_of_workplace) %>% 
-  top_n(100, all)
+  top_n(10, all)
 usethis::use_data(od_leeds, overwrite = TRUE)
 ```
 
@@ -40,12 +52,25 @@ mapview::mapview(routes_fast_leeds)
 ```{r}
 # model to predict cycling levels
 # note: function to combine these 2 geometries sensible
-routes_leeds = cbind(desire_lines_leeds, routes_fast_leeds)
-plot(routes_leeds$geometry.1)
-mod1 = lm(formula = bicycle ~ all + length, data = routes_leeds)
-routes_leeds$bicycle_scenario_1 = predict(object = mod1, routes_leeds) * 2
-plot(routes_leeds$bicycle, routes_leeds$bicycle_scenario_1)
+routes_leeds = cbind(
+  st_drop_geometry(desire_lines_leeds),
+  st_drop_geometry(routes_fast_leeds)
+  )
+routes_leeds = sf::st_sf(routes_leeds, geometry = routes_fast_leeds$geometry)
+routes_leeds$geometry_straight = desire_lines_leeds$geometry
 
+plot(routes_leeds)
+mod1 = lm(formula = bicycle ~ all + length, data = routes_leeds)
+routes_leeds$scenario_1 = predict(object = mod1, routes_leeds) * 2
+
+plot(routes_leeds$bicycle, routes_leeds$scenario_1)
+
+rnet_leeds = overline2(routes_leeds, c("bicycle", "scenario_1"))
+
+plot(rnet_leeds)
+usethis::use_data(rnet_leeds)
+usethis::use_data(desire_lines_leeds)
+usethis::use_data(zones_leeds, overwrite = TRUE)
 ```
 
 
