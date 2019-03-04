@@ -95,7 +95,7 @@ mtt = mtt[mtt$`Mean Travel Time (Seconds)` <= 15 * 60,]
 leeds_uber_sample = top_n(mtt[order(mtt$`Mean Travel Time (Seconds)`), ], 10)
 object.size(leeds_uber_sample) # ~18,664 bytes
 # mapview::mapview(leeds_uber_sample)
-usethis::use_data(leeds_uber_sample)
+# usethis::use_data(leeds_uber_sample)
 ```
 
 

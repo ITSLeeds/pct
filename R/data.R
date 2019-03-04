@@ -55,6 +55,10 @@ NULL
 
 #' Top 15 min mean journy times within Leeds from Uber
 #'
+#' Data downloaded 4th March 2019.
+#' According to Uber, the dataset is from:
+#' 1/1/2018 - 1/31/2018 (Every day, Daily Average)
+#'
 #' @docType data
 #' @keywords datasets
 #' @name leeds_uber_sample
