@@ -75,5 +75,27 @@ usethis::use_data(desire_lines_leeds)
 usethis::use_data(zones_leeds, overwrite = TRUE)
 ```
 
+Uber
+```{r uber}
+# download Travel_Time and LEEDS_MSOA.JSON from
+# https://movement.uber.com/explore/leeds/travel-times/query?lang=en-GB&lat.=53.7892619&lng.=-1.6582168&z.=10.47&si=260&ti=145&ag=msoa&dt[tpb]=ALL_DAY&dt[wd;]=1,2,3,4,5,6,7&dt[dr][sd]=2018-01-01&dt[dr][ed]=2018-01-31&cd=&sa;=-1.5490774,53.8007554&sdn=Leeds,%20UK&ta;=&tdn=
+
+mtt = read_csv("~/Downloads/Travel_Times.csv")
+leeds_msoa = sf::st_read("~/Downloads/leeds_msoa.json")
+# names(mtt)
+# nrow(mtt)
+# mapview::mapview(leeds_msoa)
+# summary(mtt$`Mean Travel Time (Seconds)`)
+# head(mtt$`Destination Display Name`)
+# summary(mtt$`Destination Display Name` %in% leeds_msoa$DISPLAY_NAME)
+geometry = leeds_msoa$geometry[leeds_msoa$DISPLAY_NAME %in% mtt$`Destination Display Name`] # subset based on mtt not msoa
+mtt = sf::st_sf(mtt, geometry)
+# journeys under 15 mins, Uber provides all despite map selection.
+mtt = mtt[mtt$`Mean Travel Time (Seconds)` <= 15 * 60,]
+leeds_uber_sample = top_n(mtt[order(mtt$`Mean Travel Time (Seconds)`), ], 10)
+object.size(leeds_uber_sample) # ~18,664 bytes
+# mapview::mapview(leeds_uber_sample)
+usethis::use_data(leeds_uber_sample)
+```
 
 

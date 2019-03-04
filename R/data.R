@@ -52,3 +52,13 @@ NULL
 #' # see data-raw folder for generation code
 #' routes_fast_leeds
 NULL
+
+#' Top 15 min mean journy times within Leeds from Uber
+#'
+#' @docType data
+#' @keywords datasets
+#' @name leeds_uber_sample
+#' @examples
+#' # see data-raw folder for generation code
+#' leeds_uber_sample
+NULL
