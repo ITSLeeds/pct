@@ -8,6 +8,8 @@ knitr::opts_chunk$set(eval = FALSE)
 
 
 ```{r}
+devtools::install_github("robinlovelace/ukboundaries")
+install.packages(c("snakecase"))
 library(tidyverse)
 library(stplanr)
 library(sf)
@@ -30,11 +32,10 @@ barplot(summodes)
 
 zones_leeds = ukboundaries::msoa2011_vsimple[
   ukboundaries::msoa2011_vsimple$msoa11cd %in%
-    ukboundaries::msoa2011_lds$geo_code,
-] 
-summary(zones_leeds$geo_code %in% od_all$area_of_residence)
+    ukboundaries::msoa2011_lds$geo_code,] 
+summary(zones_leeds$msoa11cd %in% od_all$area_of_residence)
 od_leeds = od_all %>% 
-  filter(area_of_residence %in% zones_leeds$geo_code & area_of_workplace %in% zones_leeds$geo_code) %>% 
+  filter(area_of_residence %in% zones_leeds$msoa11cd & area_of_workplace %in% zones_leeds$msoa11cd) %>% 
   filter(area_of_residence != area_of_workplace) %>% 
   top_n(10, all)
 usethis::use_data(od_leeds, overwrite = TRUE)
