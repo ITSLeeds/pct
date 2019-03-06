@@ -7,12 +7,12 @@
 #'
 #' @param distance Vector distance numeric values of routes.
 #' @param gradient Vector gradient numeric values of routes.
-#' @param d1 document!
-#' @param d2
-#' @param d3
-#' @param h1
-#' @param i1
-#' @param i2
+#' @param d1 distance
+#' @param d2 document!
+#' @param d3 document!
+#' @param h1 document!
+#' @param i1 document!
+#' @param i2 document!
 #'
 #' @export
 #' @examples
@@ -40,6 +40,7 @@ uptake_pct_govtarget = function(
     distance = distance / 1000
     gradient = gradient / 1000
   }
+  # TODO: extract this out.
   pcycle_scenario = alpha + (d1 * distance) +
     (d2 * sqrt(distance) ) + (d3 * distance^2) +
     (h1 * gradient) +
@@ -49,7 +50,10 @@ uptake_pct_govtarget = function(
 }
 
 #' Go Dutch
-#' @import uptake_pct_govtarget
+#'
+#' https://github.com/Robinlovelace/pct-menai/blob/master/vignettes/menai-bridge-cycle.Rmd#L175
+#'
+#' @inheritParams uptake_pct_govtarget
 #' TODO: extract the shared parts between the two
 uptake_pct_godutch = function(
   distance,

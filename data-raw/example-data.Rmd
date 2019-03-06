@@ -38,7 +38,7 @@ od_leeds = od_all %>%
   filter(area_of_residence %in% zones_leeds$msoa11cd & area_of_workplace %in% zones_leeds$msoa11cd) %>% 
   filter(area_of_residence != area_of_workplace) %>% 
   top_n(10, all)
-usethis::use_data(od_leeds, overwrite = TRUE)
+# usethis::use_data(od_leeds, overwrite = TRUE)
 ```
 
 ```{r}

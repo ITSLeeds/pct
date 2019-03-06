@@ -5,7 +5,9 @@
 \alias{leeds_uber_sample}
 \title{Top 15 min mean journy times within Leeds from Uber}
 \description{
-Top 15 min mean journy times within Leeds from Uber
+Data downloaded 4th March 2019.
+According to Uber, the dataset is from:
+1/1/2018 - 1/31/2018 (Every day, Daily Average)
 }
 \examples{
 # see data-raw folder for generation code
