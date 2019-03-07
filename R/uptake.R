@@ -70,7 +70,7 @@ propensity_to_cycle = function(
 #' pcycle_scenario = uptake_pct_govtarget(l$length, l$cum_hill)
 #' plot(l$length, pcycle_scenario)
 uptake_pct_govtarget = function(distance, gradient) {
-  pcycle = propensity_to_cycle(distance = distance,
+  pcycle_scenario = propensity_to_cycle(distance = distance,
                                gradient = gradient)
   boot::inv.logit(pcycle_scenario)
 }
