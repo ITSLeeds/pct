@@ -66,3 +66,13 @@ NULL
 #' # see data-raw folder for generation code
 #' leeds_uber_sample
 NULL
+
+#' UK MSOA boundary codes and their names in plain text
+#'
+#' @docType data
+#' @keywords datasets
+#' @name ukboundaries
+#' @examples
+#' # see data-raw folder for generation code
+#' ukboundaries
+NULL

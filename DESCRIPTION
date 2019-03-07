@@ -11,7 +11,9 @@ License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Imports: 
-    boot
+    boot,
+    stplanr,
+    readr
 Suggests: 
     testthat,
     knitr,
