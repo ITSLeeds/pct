@@ -1,4 +1,4 @@
-#' Uptake scenario for OD?
+#' Uptake model
 #'
 #' Uptake model that takes distance and hilliness and returns
 #' a percentage of people likely to cycle along a desire line.
@@ -29,12 +29,7 @@
 #' @param i1 document!
 #' @param i2 document!
 #'
-#' @export
-#' @examples
-#' l = routes_fast_leeds
-#' pcycle_scenario = uptake_pct_govtarget(l$length, l$cum_hill)
-#' plot(l$length, pcycle_scenario)
-uptake_pct_govtarget = function(
+propensity_to_cycle = function(
   distance,
   gradient,
   alpha = -3.959,
@@ -55,14 +50,28 @@ uptake_pct_govtarget = function(
     distance = distance / 1000
     gradient = gradient / 1000
   }
-  # TODO: extract this out.
-  pcycle_scenario = alpha +
+  pcycle = alpha +
     (d1 * distance) +    # d1
     (d2 * sqrt(distance)) +  # d2
     (d3 * distance^2) + # d3
     (h1 * gradient) +    # h1
     (i1 * distance * gradient) +  # i1
     (i2 * sqrt(distance) * gradient) # i2
+  pcycle
+}
+
+#' UK Gov target
+#'
+#'
+#' @importFrom propensity_to_cycle
+#' @export
+#' @examples
+#' l = routes_fast_leeds
+#' pcycle_scenario = uptake_pct_govtarget(l$length, l$cum_hill)
+#' plot(l$length, pcycle_scenario)
+uptake_pct_govtarget = function(distance, gradient) {
+  pcycle = propensity_to_cycle(distance = distance,
+                               gradient = gradient)
   boot::inv.logit(pcycle_scenario)
 }
 
@@ -72,32 +81,9 @@ uptake_pct_govtarget = function(
 #'
 #' @inheritParams uptake_pct_govtarget
 #' TODO: extract the shared parts between the two
-uptake_pct_godutch = function(
-  distance,
-  gradient,
-  alpha = -3.959,
-  d1 = -0.5963,
-  d2 = 1.832,
-  d3 = 0.007956,
-  h1 = -0.2872,
-  i1 = 0.01784,
-  i2 = -0.09770
-) {
-  if(!exists(c("distance", "gradient")) |
-     !is.numeric(c(distance, gradient))) {
-    stop("distance and gradient need to be numbers.")
-  }
-  # is it in m
-  if(mean(distance) > 1000) {
-    message("Distance assumed in m, switching to km")
-    distance = distance / 1000
-  }
-  pcycle_scenario = alpha + (d1 * distance) +
-    (d2 * sqrt(distance) ) + (d3 * distance^2) +
-    (h1 * gradient) +
-    (i1 * distance * gradient) +
-    (i2 * sqrt(distance) * gradient)
-  # looks like this
+uptake_pct_godutch = function(distance, gradient) {
+  pcycle_scenario = propensity_to_cycle(distance = distance,
+                                        gradient = gradient)
   pcycle_scenario = pcycle_scenario + 2.499 -0.07384 * distance
   boot::inv.logit(pcycle_scenario)
 }
