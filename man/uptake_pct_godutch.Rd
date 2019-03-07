@@ -8,6 +8,25 @@ uptake_pct_godutch(distance, gradient, alpha = -3.959, d1 = -0.5963,
   d2 = 1.832, d3 = 0.007956, h1 = -0.2872, i1 = 0.01784,
   i2 = -0.0977)
 }
+\arguments{
+\item{distance}{Vector distance numeric values of routes.}
+
+\item{gradient}{Vector gradient numeric values of routes.}
+
+\item{alpha}{The intercept}
+
+\item{d1}{Distance term 1}
+
+\item{d2}{Distance term 2}
+
+\item{d3}{Distance term 3}
+
+\item{h1}{Hilliness term 1}
+
+\item{i1}{document!}
+
+\item{i2}{document!}
+}
 \description{
-Go Dutch
+https://github.com/Robinlovelace/pct-menai/blob/master/vignettes/menai-bridge-cycle.Rmd#L175
 }
