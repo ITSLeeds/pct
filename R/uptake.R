@@ -53,7 +53,6 @@ uptake_pct_govtarget = function(
   if(mean(distance) > 1000) {
     message("Distance assumed in m, switching to km")
     distance = distance / 1000
-    gradient = gradient / 1000
   }
   # TODO: extract this out.
   pcycle_scenario = alpha +
