@@ -4,13 +4,28 @@
 #' a percentage of people likely to cycle along a desire line.
 #' Source: appendix of pct paper:
 #' https://www.jtlu.org/index.php/jtlu/article/downloadSuppFile/862/360
+#' which states that:
+#'
+#' ```
+#' logit (pcycle) = -3.959 +   # alpha
+#'   (-0.5963 * distance) +    # d1
+#'   (1.866 * distancesqrt) +  # d2
+#'   (0.008050 * distancesq) + # d3
+#'   (-0.2710 * gradient) +    # h1
+#'   (0.009394 * distance * gradient) +  # i1
+#'   (-0.05135 * distancesqrt *gradient) # i2
+#'
+#' pcycle = exp ([logit (pcycle)]) / (1 + (exp([logit(pcycle)])
+#' ```
 #'
 #' @param distance Vector distance numeric values of routes.
 #' @param gradient Vector gradient numeric values of routes.
-#' @param d1 distance
-#' @param d2 document!
-#' @param d3 document!
-#' @param h1 document!
+#' @param alpha The intercept
+#' @param d1 Distance term 1
+#' @param d2 Distance term 2
+#' @param d3 Distance term 3
+#' @param h1 Hilliness term 1
+#' @param h2 Hilliness term 2
 #' @param i1 document!
 #' @param i2 document!
 #'
@@ -24,11 +39,11 @@ uptake_pct_govtarget = function(
   gradient,
   alpha = -3.959,
   d1 = -0.5963,
-  d2 = 1.832,
-  d3 = 0.007956,
-  h1 = -0.2872,
-  i1 = 0.01784,
-  i2 = -0.09770
+  d2 = 1.866,
+  d3 = 0.008050,
+  h1 = -0.2710,
+  i1 = 0.009394,
+  i2 = -0.05135
 ) {
   if(!exists(c("distance", "gradient")) |
      !is.numeric(c(distance, gradient))) {
@@ -41,11 +56,13 @@ uptake_pct_govtarget = function(
     gradient = gradient / 1000
   }
   # TODO: extract this out.
-  pcycle_scenario = alpha + (d1 * distance) +
-    (d2 * sqrt(distance) ) + (d3 * distance^2) +
-    (h1 * gradient) +
-    (i1 * distance * gradient) +
-    (i2 * sqrt(distance) * gradient)
+  pcycle_scenario = alpha +
+    (d1 * distance) +    # d1
+    (d2 * sqrt(distance)) +  # d2
+    (d3 * distance^2) + # d3
+    (h1 * gradient) +    # h1
+    (i1 * distance * gradient) +  # i1
+    (i2 * sqrt(distance) * gradient) # i2
   boot::inv.logit(pcycle_scenario)
 }
 
