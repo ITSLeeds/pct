@@ -54,7 +54,6 @@ uptake_pct_govtarget = function(
     message("Distance assumed in m, switching to km")
     distance = distance / 1000
   }
-  # TODO: extract this out.
   pcycle_scenario = alpha +
     (d1 * distance) +    # d1
     (d2 * sqrt(distance)) +  # d2
@@ -70,7 +69,7 @@ uptake_pct_govtarget = function(
 #' https://github.com/Robinlovelace/pct-menai/blob/master/vignettes/menai-bridge-cycle.Rmd#L175
 #'
 #' @inheritParams uptake_pct_govtarget
-#' TODO: extract the shared parts between the two
+#' @export
 uptake_pct_godutch = function(
   distance,
   gradient,

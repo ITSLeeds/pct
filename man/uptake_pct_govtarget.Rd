@@ -5,23 +5,48 @@
 \title{Uptake scenario for OD?}
 \usage{
 uptake_pct_govtarget(distance, gradient, alpha = -3.959, d1 = -0.5963,
-  d2 = 1.832, d3 = 0.007956, h1 = -0.2872, i1 = 0.01784,
-  i2 = -0.0977)
+  d2 = 1.866, d3 = 0.00805, h1 = -0.271, i1 = 0.009394,
+  i2 = -0.05135)
 }
 \arguments{
 \item{distance}{Vector distance numeric values of routes.}
 
 \item{gradient}{Vector gradient numeric values of routes.}
 
-\item{d1}{document!}
+\item{alpha}{The intercept}
 
-\item{i2}{}
+\item{d1}{Distance term 1}
+
+\item{d2}{Distance term 2}
+
+\item{d3}{Distance term 3}
+
+\item{h1}{Hilliness term 1}
+
+\item{i1}{document!}
+
+\item{i2}{document!}
+
+\item{h2}{Hilliness term 2}
 }
 \description{
 Uptake model that takes distance and hilliness and returns
 a percentage of people likely to cycle along a desire line.
 Source: appendix of pct paper:
 https://www.jtlu.org/index.php/jtlu/article/downloadSuppFile/862/360
+which states that:
+}
+\details{
+\preformatted{logit (pcycle) = -3.959 +   # alpha
+  (-0.5963 * distance) +    # d1
+  (1.866 * distancesqrt) +  # d2
+  (0.008050 * distancesq) + # d3
+  (-0.2710 * gradient) +    # h1
+  (0.009394 * distance * gradient) +  # i1
+  (-0.05135 * distancesqrt *gradient) # i2
+
+pcycle = exp ([logit (pcycle)]) / (1 + (exp([logit(pcycle)])
+}
 }
 \examples{
 l = routes_fast_leeds
