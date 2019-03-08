@@ -12,8 +12,6 @@ get_centroids_ew = function() {
  sf::st_as_sf(x = pwc, coords = c("X", "Y"), crs = 4326)
 }
 
-
-
 # Note: this is an attempt to get the LSOA data:
 # u = "https://data.cdrc.ac.uk/dataset/e95b3bef-11c6-4d1e-bd72-a3315e6c398d/resource/90de9c16-f064-4a11-ada1-ab1ab1b5a323/download/englandwelshscotlandpwc2011.csv"
 # pwc = readr::read_csv(u)
