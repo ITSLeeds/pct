@@ -12,6 +12,8 @@ Encoding: UTF-8
 LazyData: true
 Imports: 
     boot,
+    stplanr,
+    readr,
     sf
 Suggests: 
     testthat,

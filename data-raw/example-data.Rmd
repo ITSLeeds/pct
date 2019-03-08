@@ -98,4 +98,3 @@ object.size(leeds_uber_sample) # ~18,664 bytes
 # usethis::use_data(leeds_uber_sample)
 ```
 
-
