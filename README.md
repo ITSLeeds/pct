@@ -3,6 +3,8 @@
 
 # pct
 
+[![Coverage status](https://codecov.io/gh/ITSLeeds/pct/branch/master/graph/badge.svg)](https://codecov.io/github/ITSLeeds/pct?branch=master)
+
 The goal of pct is to increase the reproducibility of the Propensity to
 Cycle Tool (PCT), a research project and web application hosted at
 [www.pct.bike](http://www.pct.bike/). For an overview of what the PCT
