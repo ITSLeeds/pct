@@ -32,7 +32,6 @@ pct_area_desire_lines = function(area = "sheffield", n = 100) {
                           decreasing = TRUE),]
   od_area = od_area[1:n,] # subset before heavy processing.
   # generate desirelines.
-  area_desire_lines = stplanr::od2line(
-    flow = od_area[,c(2,1)], zones)
+  area_desire_lines = stplanr::od2line(flow = od_area, zones)
   area_desire_lines
 }
