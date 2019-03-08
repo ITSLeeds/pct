@@ -9,7 +9,7 @@ knitr::opts_chunk$set(eval = FALSE)
 
 ```{r}
 devtools::install_github("robinlovelace/ukboundaries")
-install.packages(c("snakecase"))
+# install.packages(c("snakecase"))
 library(tidyverse)
 library(stplanr)
 library(sf)
@@ -97,4 +97,30 @@ object.size(leeds_uber_sample) # ~18,664 bytes
 # mapview::mapview(leeds_uber_sample)
 # usethis::use_data(leeds_uber_sample)
 ```
+
+## Mode names data
+
+```{r}
+download.file("https://s3-eu-west-1.amazonaws.com/statistics.digitalresources.jisc.ac.uk/dkan/files/FLOW/wu03ew_v2/wu03ew_v2.zip", "~/Downloads/wu03ew_v2.zip")
+unzip("~/Downloads/wu03ew_v2.zip")
+od_all = read_csv("wu03ew_v2.csv")
+census_names = names(od_all)
+mode_names = readr::read_csv("https://github.com/npct/pct-shiny/raw/master/regions_www/www/static/02_codebooks/commute/od_l_rf_codebook.csv")
+names(mode_names) = c("variable", "description")
+mode_names$census_name = NA
+census_names
+row_from_home = c("from_home", "Works mainly from home", NA)
+mode_names = rbind(
+  mode_names[1:10, ],
+  row_from_home,
+  mode_names[11:nrow(mode_names), ]
+)
+cbind(
+  mode_names$variable[c(2:3, 10:21)],
+  census_names[c(1:4, 12, 13, 10:11, 6, 5, 7:9, 14)]
+)
+mode_names$census_name[c(2:3, 10:21)] = census_names[c(1:4, 12, 13, 10:11, 6, 5, 7:9, 14)]
+# usethis::use_data(mode_names)
+```
+
 

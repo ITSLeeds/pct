@@ -66,3 +66,14 @@ NULL
 #' # see data-raw folder for generation code
 #' leeds_uber_sample
 NULL
+
+#' Mode names in the Census
+#'
+#' And conversion into R-friendly versions
+#'
+#' @docType data
+#' @keywords datasets
+#' @name mode_names
+#' @examples
+#' mode_names
+NULL
