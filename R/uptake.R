@@ -54,6 +54,17 @@ uptake_pct_govtarget = function(
     message("Distance assumed in m, switching to km")
     distance = distance / 1000
   }
+  # = α + d1x + d2sqrt(x) + d3x^2 + hy + i1xy + i2sqrt(x)y
+  # = α + d1x + d2i2xy + d3x^2 + hy + i1xy
+  # = α + d1x + d2i2i12xy + d3x^2 + hy
+  # = α + d3x^2 + d2i2i12xy + d1x + hy
+  ##############################
+  # = α + ax^2 + bxy + cx + dy #
+  ##############################
+  # a = 0.008050
+  # b = -0.000900
+  # c = -0.5963
+  # d = -0.2710
   pcycle_scenario = alpha +
     (d1 * distance) +    # d1
     (d2 * sqrt(distance)) +  # d2
