@@ -1,5 +1,9 @@
 #' Desire lines
 #'
+#' @param area for which desire lines to be generated.
+#' @param n top n number of destinations with most trips in the 2011 census
+#' within the `area`.
+#'
 #' @export
 pct_area_desire_lines = function(area = "sheffield", n = 100) {
   if(!exists("area"))
@@ -32,5 +36,3 @@ pct_area_desire_lines = function(area = "sheffield", n = 100) {
     flow = od_area[,c(2,1)], zones)
   area_desire_lines
 }
-
-d = pct_area_desire_lines(area = "wakefield")
