@@ -25,7 +25,6 @@
 #' @param d2 Distance term 2
 #' @param d3 Distance term 3
 #' @param h1 Hilliness term 1
-#' @param h2 Hilliness term 2
 #' @param i1 document!
 #' @param i2 document!
 #'

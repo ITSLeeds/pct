@@ -15,9 +15,9 @@ pct_area_desire_lines = function(area = "sheffield", n = 100) {
   # get the census file to read the trip counts
   census_file = file.path(tempdir(), "wu03ew_v2.csv")
   if(!exists(census_file)) {
-    download.file("https://s3-eu-west-1.amazonaws.com/statistics.digitalresources.jisc.ac.uk/dkan/files/FLOW/wu03ew_v2/wu03ew_v2.zip",
+    utils::download.file("https://s3-eu-west-1.amazonaws.com/statistics.digitalresources.jisc.ac.uk/dkan/files/FLOW/wu03ew_v2/wu03ew_v2.zip",
                   file.path(tempdir(), "wu03ew_v2.zip"))
-    unzip(file.path(tempdir(), "wu03ew_v2.zip"), exdir = tempdir())
+    utils::unzip(file.path(tempdir(), "wu03ew_v2.zip"), exdir = tempdir())
   }
   od_all = readr::read_csv(census_file)
   # get UK zones with msoa11cd, msoa11nm and the geom for stplanr::od2line

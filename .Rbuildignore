@@ -6,3 +6,4 @@ data-raw/*
 ^test-data\.R
 ^.*\.log
 ^\.travis\.yml$
+^pct-leeds-demo\.png$

@@ -26,8 +26,6 @@ uptake_pct_govtarget(distance, gradient, alpha = -3.959, d1 = -0.5963,
 \item{i1}{document!}
 
 \item{i2}{document!}
-
-\item{h2}{Hilliness term 2}
 }
 \description{
 Uptake model that takes distance and hilliness and returns
