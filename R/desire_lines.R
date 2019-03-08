@@ -6,10 +6,8 @@
 #'
 #' @export
 pct_area_desire_lines = function(area = "sheffield", n = 100) {
-  if(!exists("area"))
-    stop("area is required.")
   if(length(area) != 1L)
-    stop("'package' must be of length 1")
+    stop("'area' must be of length 1")
   if(is.na(area) || (area == "") || !is.character(area))
     stop("invalid area name")
   # get the census file to read the trip counts
