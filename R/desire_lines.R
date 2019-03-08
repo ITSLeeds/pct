@@ -20,15 +20,18 @@ pct_area_desire_lines = function(area = "sheffield", n = 100) {
     utils::unzip(file.path(tempdir(), "wu03ew_v2.zip"), exdir = tempdir())
   }
   od_all = readr::read_csv(census_file)
+  # format columns
+  names(od_all) = pct::mode_names$variable[
+    pct::mode_names$census_name %in% names(od_all)]
   # get UK zones with msoa11cd, msoa11nm and the geom for stplanr::od2line
   zones_all = get_centroids_ew() # TODO: some warning?
   zones = zones_all[grepl(area, zones_all$msoa11nm, ignore.case = T), ]
 
-  od_area = od_all[od_all$`Area of residence` %in% zones$msoa11cd &
-                     od_all$`Area of workplace` %in% zones$msoa11cd, ]
-  od_area = od_area[od_area$`Area of residence` !=
-                      od_area$`Area of workplace`, ]
-  od_area = od_area[order(od_area$`All categories: Method of travel to work`,
+  od_area = od_all[od_all$geo_code1 %in% zones$msoa11cd &
+                     od_all$geo_code2 %in% zones$msoa11cd, ]
+  od_area = od_area[od_area$geo_code1 !=
+                      od_area$geo_code2, ]
+  od_area = od_area[order(od_area$all,
                           decreasing = TRUE),]
   od_area = od_area[1:n,] # subset before heavy processing.
   # generate desirelines.
