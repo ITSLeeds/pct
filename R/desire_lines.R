@@ -15,7 +15,7 @@ pct_area_desire_lines = function(area = "sheffield", n = 100) {
     unzip(file.path(tempdir(), "wu03ew_v2.zip"), exdir = tempdir())
   }
   od_all = readr::read_csv(census_file)
-  zones = pct::msoa2011_vsimple[
+  zones = ukboundaries::msoa2011_vsimple[
     grepl(area, ukboundaries::msoa2011_vsimple$msoa11nm,
           ignore.case = T), ]
 

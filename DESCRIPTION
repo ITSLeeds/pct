@@ -13,7 +13,8 @@ LazyData: true
 Imports: 
     boot,
     stplanr,
-    readr
+    readr,
+    sf
 Suggests: 
     testthat,
     knitr,
