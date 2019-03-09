@@ -8,9 +8,11 @@
 #' pwc = get_centroids_ew()
 #' plot(pwc[sample(nrow(pwc), 1000), ])
 get_centroids_ew = function() {
-  u = "https://opendata.arcgis.com/datasets/b0a6d8a3dc5d4718b3fd62c548d60f81_0.csv"
+  u = paste0("https://opendata.arcgis.com/datasets/",
+             "b0a6d8a3dc5d4718b3fd62c548d60f81_0.csv")
   pwc = readr::read_csv(u)
-  sf::st_as_sf(x = pwc[c("X", "Y", "msoa11cd", "msoa11nm")], coords = c("X", "Y"), crs = 4326)
+  sf::st_as_sf(x = pwc[c("X", "Y", "msoa11cd", "msoa11nm")],
+               coords = c("X", "Y"), crs = 4326)
 }
 
 # Note: this is an attempt to get the LSOA data:
