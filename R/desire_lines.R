@@ -1,11 +1,39 @@
 #' Desire lines
 #'
+#' @inheritParams get_od
+#'
+#' @export
+#' @examples
+#' desire_sheffield = get_desire_lines("sheffield", n = 20)
+#' desire_sheffield
+get_desire_lines = function(area = "sheffield", n = 100) {
+
+  # TODO: explore ways of returning 'intrazonal' flows
+  od_all = get_od(area, n = n * 2 + 100) # ensure enough od pairs are returned
+  # get UK zones with msoa11cd, msoa11nm and the geom for stplanr::od2line
+  zones_all = get_centroids_ew() # TODO: some warning?
+  zones = zones_all[grepl(area, zones_all$msoa11nm, ignore.case = TRUE), ]
+  od = od_all[od_all$geo_code1 %in% zones$msoa11cd &
+                od_all$geo_code2 %in% zones$msoa11cd, ]
+  od = od[od$geo_code1 != od$geo_code2, ]
+  od = order_and_subset(od, "all", n)
+  # generate desirelines.
+  area_desire_lines = stplanr::od2line(flow = od, zones)
+  area_desire_lines
+}
+#' Get origin destination data from the 2011 Census
+#'
 #' @param area for which desire lines to be generated.
 #' @param n top n number of destinations with most trips in the 2011 census
 #' within the `area`.
-#'
+#' @param type the type of subsetting: one of `from`, `to` or `within`, specifying how
+#' the od dataset should be subset in relation to the `area`.
 #' @export
-pct_area_desire_lines = function(area = "sheffield", n = 100) {
+#' @examples \donttest{
+#' od_sheffield = get_od("sheffield", n = 3)
+#' od_sheffield
+#' }
+get_od = function(area = "sheffield", n = 100, type = "within") {
   if(length(area) != 1L)
     stop("'area' must be of length 1")
   if(is.na(area) || (area == "") || !is.character(area))
@@ -21,20 +49,36 @@ pct_area_desire_lines = function(area = "sheffield", n = 100) {
   }
   od_all = readr::read_csv(census_file)
   # format columns
-  names(od_all) = pct::mode_names$variable[
-    pct::mode_names$census_name %in% names(od_all)]
-  # get UK zones with msoa11cd, msoa11nm and the geom for stplanr::od2line
-  zones_all = get_centroids_ew() # TODO: some warning?
-  zones = zones_all[grepl(area, zones_all$msoa11nm, ignore.case = TRUE), ]
+  names(od_all) = rename_od_variables(names(od_all))
 
-  od_area = od_all[od_all$geo_code1 %in% zones$msoa11cd &
-                     od_all$geo_code2 %in% zones$msoa11cd, ]
-  od_area = od_area[od_area$geo_code1 !=
-                      od_area$geo_code2, ]
-  od_area = od_area[order(od_area$all,
-                          decreasing = TRUE),]
-  od_area = od_area[1:n,] # subset before heavy processing.
-  # generate desirelines.
-  area_desire_lines = stplanr::od2line(flow = od_area, zones)
-  area_desire_lines
+  # get centroids to provide zone name lookup
+  zones_all = get_centroids_ew() # TODO: some warning?
+  od_all$geo_name1 = zones_all$msoa11nm[match(od_all$geo_code1, zones_all$msoa11cd)]
+  od_all$geo_name2 = zones_all$msoa11nm[match(od_all$geo_code2, zones_all$msoa11cd)]
+
+  if(type == "within") {
+    od = od_all[
+      grepl(area, od_all$geo_name1, ignore.case = TRUE) &
+        grepl(area, od_all$geo_name2, ignore.case = TRUE),
+      ]
+  }
+
+  od = order_and_subset(od, "all", n)
+
+}
+
+order_and_subset = function(od, var, n) {
+  od = od[order(od[[var]], decreasing = TRUE), ]
+  od[1:n, ] # subset before heavy processing.
+}
+
+# does this want to be exported at some point?
+# x = c("Area of residence", "Area of workplace", "All categories: Method of travel to work",
+#       "Work mainly at or from home", "Underground, metro, light rail, tram",
+#       "Train", "Bus, minibus or coach", "Taxi", "Motorcycle, scooter or moped",
+#       "Driving a car or van", "Passenger in a car or van", "Bicycle",
+#       "On foot", "Other method of travel to work")
+# rename_od_variables(x)
+rename_od_variables = function(x){
+  pct::mode_names$variable[match(x, pct::mode_names$census_name)]
 }
