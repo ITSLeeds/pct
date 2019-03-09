@@ -3,5 +3,7 @@
 export(get_centroids_ew)
 export(get_desire_lines)
 export(get_od)
+export(get_pct)
+export(get_pct_zones)
 export(uptake_pct_godutch)
 export(uptake_pct_govtarget)
