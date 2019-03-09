@@ -3,7 +3,11 @@
 pct · [![Coverage status](https://codecov.io/gh/ITSLeeds/pct/branch/master/graph/badge.svg)](https://codecov.io/github/ITSLeeds/pct?branch=master) [![Travis build status](https://travis-ci.org/ropensci/stats19.svg?branch=master)](https://travis-ci.org/ITSLeeds/pct)
 =========================================================================================================================================================================================================================================================================
 
-The goal of pct is to increase the reproducibility of the Propensity to Cycle Tool (PCT), a research project and web application hosted at [www.pct.bike](https://www.pct.bike/). For an overview of what the PCT can do, click on the previous link and try it out. If you want to know how PCT works, be able to reproduce the results it generates, and build scenarios of cycling uptake to inform transport policies enabling cycling in cities worldwide, this package is for you.
+The goal of pct is to increase the accessibility and reproducibility of the data produced by the Propensity to Cycle Tool (PCT), a research project and web application hosted at [www.pct.bike](https://www.pct.bike/). For an overview of the data provided by the PCT, clicking on the previous link and trying it out is a great place to start. An academic [paper](https://www.jtlu.org/index.php/jtlu/article/view/862) on the PCT provides detail on the motivations for and methods underlying the project.
+
+A major motivation behind the project was making transport evidence more accessible, encouraging evidence-based transport policies. The code base underlying the PCT is publicly available (see [github.com/npct](https://github.com/npct/)). However, the code hosted there is not easy to run or reproduce, which is where this package comes in: it provides quick access to the data underlying the PCT and enables some of the key results to be reproduced quickly. It was developed primarily for educational purposes (including for upcoming PCT training courses) but it may be useful for people to build on the the methods, for example to create a scenario of cycling uptake in their town/city/region.
+
+In summary, if you want to know how PCT works, be able to reproduce some of its results, and build scenarios of cycling uptake to inform transport policies enabling cycling in cities worldwide, this package is for you!
 
 Installation
 ------------
@@ -137,13 +141,13 @@ Now: where to prioritise that infrastructure and those policies?
 ``` r
 rnet = stplanr::overline2(routes_vital, attrib = c("bicycle", "bicycle_govtarget"))
 #> Loading required namespace: pbapply
-#> 2019-03-09 06:47:30 constructing segments
-#> 2019-03-09 06:47:30 transposing 'B to A' to 'A to B'
-#> 2019-03-09 06:47:30 removing duplicates
-#> 2019-03-09 06:47:30 restructuring attributes
-#> 2019-03-09 06:47:30 building geometry
-#> 2019-03-09 06:47:30 simplifying geometry
-#> 2019-03-09 06:47:30 rejoining segments into linestrings
+#> 2019-03-09 07:23:01 constructing segments
+#> 2019-03-09 07:23:01 transposing 'B to A' to 'A to B'
+#> 2019-03-09 07:23:01 removing duplicates
+#> 2019-03-09 07:23:01 restructuring attributes
+#> 2019-03-09 07:23:01 building geometry
+#> 2019-03-09 07:23:01 simplifying geometry
+#> 2019-03-09 07:23:01 rejoining segments into linestrings
 lwd = rnet$bicycle_govtarget / mean(rnet$bicycle_govtarget)
 plot(rnet["bicycle_govtarget"], lwd = lwd)
 ```
