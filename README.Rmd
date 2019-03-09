@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 
 # pct  &middot; [![Coverage status](https://codecov.io/gh/ITSLeeds/pct/branch/master/graph/badge.svg)](https://codecov.io/github/ITSLeeds/pct?branch=master) [![Travis build status](https://travis-ci.org/ropensci/stats19.svg?branch=master)](https://travis-ci.org/ITSLeeds/pct)
 
-The goal of pct is to increase the reproducibility of the Propensity to Cycle Tool (PCT), a research project and web application hosted at [www.pct.bike](http://www.pct.bike/).
+The goal of pct is to increase the reproducibility of the Propensity to Cycle Tool (PCT), a research project and web application hosted at [www.pct.bike](https://www.pct.bike/).
 For an overview of what the PCT can do, click on the previous link and try it out.
 If you want to know how PCT works, be able to reproduce the results it generates, and build scenarios of cycling uptake to inform transport policies enabling cycling in cities worldwide, this package is for you.
 
@@ -23,7 +23,7 @@ If you want to know how PCT works, be able to reproduce the results it generates
 
 You can install the development version of the package as follows:
 
-```{r}
+```{r, eval=FALSE}
 remotes::install_github("ITSLeeds/pct")
 ```
 
