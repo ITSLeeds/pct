@@ -47,8 +47,7 @@ get_od = function(area = "sheffield", n = 100, type = "within") {
   }
   od_all = readr::read_csv(census_file)
   # format columns
-  names(od_all) = pct::mode_names$variable[
-    pct::mode_names$census_name %in% names(od_all)]
+  names(od_all) = rename_od_variables(names(od_all))
 
   # get centroids to provide zone name lookup
   zones_all = get_centroids_ew() # TODO: some warning?
@@ -69,4 +68,15 @@ get_od = function(area = "sheffield", n = 100, type = "within") {
 order_and_subset = function(od, var, n) {
   od = od[order(od[[var]], decreasing = TRUE), ]
   od[1:n, ] # subset before heavy processing.
+}
+
+# does this want to be exported at some point?
+# x = c("Area of residence", "Area of workplace", "All categories: Method of travel to work",
+#       "Work mainly at or from home", "Underground, metro, light rail, tram",
+#       "Train", "Bus, minibus or coach", "Taxi", "Motorcycle, scooter or moped",
+#       "Driving a car or van", "Passenger in a car or van", "Bicycle",
+#       "On foot", "Other method of travel to work")
+# rename_od_variables(x)
+rename_od_variables = function(x){
+  pct::mode_names$variable[match(x, pct::mode_names$census_name)]
 }
