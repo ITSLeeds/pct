@@ -20,6 +20,8 @@
 
 \item{layer}{The PCT layer of interest, \code{z}, \code{c}, \code{l}, \code{rf}, \code{rq} or \code{rnet}
 for zones, centroids, desire lines, routes (fast or quiet) and route networks, respectively}
+
+\item{extension}{The type of file to download (typically \code{.Rds})}
 }
 \description{
 This function gets data generated for the Propensity to Cycle Tool

@@ -9,6 +9,7 @@
 #' @param region The PCT region that contains the data (e.g. `west-yorkshire`)
 #' @param layer The PCT layer of interest, `z`, `c`, `l`, `rf`, `rq` or `rnet`
 #' for zones, centroids, desire lines, routes (fast or quiet) and route networks, respectively
+#' @param extension The type of file to download (typically `.Rds`)
 #' @export
 #' @example
 #' rf = get_pct(region = "isle-of-wight", layer = "rf")

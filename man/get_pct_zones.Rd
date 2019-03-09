@@ -20,6 +20,8 @@ get_pct_zones(region = NULL,
 
 \item{layer}{The PCT layer of interest, \code{z}, \code{c}, \code{l}, \code{rf}, \code{rq} or \code{rnet}
 for zones, centroids, desire lines, routes (fast or quiet) and route networks, respectively}
+
+\item{extension}{The type of file to download (typically \code{.Rds})}
 }
 \description{
 Wrapper around \code{[get_pct()]} that gets zone data from the PCT.
