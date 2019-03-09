@@ -8,9 +8,10 @@ Authors@R: c(
     person("Layik", "Hama", email = "layik.hama@gmail.com", role = c("aut"),
       comment = c(ORCID = "0000-0003-1912-4890"))
     )
-Description: The goal of pct is to increase the reproducibility of 
+Description: Functions and example data to teach and
+  increase the reproducibility of the methods and code underlying 
   the Propensity to Cycle Tool (PCT), a research project and web application 
-  hosted at www.pct.bike.
+  hosted at <https://www.pct.bike/>.
 Depends: R (>= 3.5.0)
 License: GPL-3
 URL: https://pct.bike
