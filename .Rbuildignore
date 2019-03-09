@@ -7,3 +7,4 @@ data-raw/*
 ^.*\.log
 ^\.travis\.yml$
 ^pct-leeds-demo\.png$
+^\.DS_Store$
