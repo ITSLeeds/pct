@@ -24,6 +24,13 @@ get_pct = function(
   layer = NULL,
   extension = ".Rds"
 ) {
+  if(!exists(c("region", "layer")))
+    stop("region and layer are required")
+  if(length(region) != 1L || length(layer) != 1L)
+    stop("'region' and 'layer' must be of length 1")
+  if(is.na(region) || (region == "") || !is.character(region) ||
+     is.na(layer) || (layer == "") || !is.character(layer))
+    stop("invalid region or layer name")
   u_folder = paste(base_url, purpose, geography, region, sep = "/")
   f = paste0(layer, extension)
   u_file = paste(u_folder, f, sep = "/")
@@ -42,11 +49,33 @@ get_pct = function(
 #' plot(z)
 get_pct_zones = function(
   region = NULL,
-  base_url = "https://github.com/npct/pct-outputs-regional-R/raw/master",
   purpose = "commute",
-  geography = "msoa",
-  layer = "z",
-  extension = ".Rds"
+  geography = "msoa"
 ) {
-  get_pct(base_url, purpose, geography, region, layer, extension)
+  get_pct(base_url =
+            "https://github.com/npct/pct-outputs-regional-R/raw/master",
+          purpose, geography, region,
+          layer = "c",
+          extension = ".Rds")
+}
+
+#' Get centroid results from the PCT
+#'
+#' Wrapper around `[get_pct()]` that gets centroid data from the PCT.
+#'
+#' @inheritParams get_pct
+#' @export
+#' @examples
+#' z = get_pct_centroids("isle-of-wight")
+#' plot(z)
+get_pct_centroids = function(
+  region = NULL,
+  purpose = "commute",
+  geography = "msoa"
+) {
+  get_pct(base_url =
+            "https://github.com/npct/pct-outputs-regional-R/raw/master",
+          purpose, geography, region,
+          layer = "z",
+          extension = ".Rds")
 }
