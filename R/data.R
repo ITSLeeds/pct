@@ -77,3 +77,14 @@ NULL
 #' @examples
 #' mode_names
 NULL
+
+#' PCT regions from www.pct.bike
+#'
+#' See data-raw folder for generation code
+#'
+#' @docType data
+#' @keywords datasets
+#' @name pct_regions
+#' @examples
+#' pct_regions
+NULL

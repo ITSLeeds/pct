@@ -124,3 +124,14 @@ mode_names$census_name[c(2:3, 10:21)] = census_names[c(1:4, 12, 13, 10:11, 6, 5,
 ```
 
 
+## PCT Regions
+```{r pct-regions}
+pct_regions = sf::read_sf("https://github.com/npct/pct-shiny/raw/master/regions_www/pct_regions_highres.geojson")
+pryr::object_size(pct_regions)
+#> 458 kB
+pct_regions = rmapshaper::ms_simplify(pct_regions, keep = 0.1,)
+pryr::object_size(pct_regions)
+#> 81.8 kB
+pct_regions = pct_regions[2]
+# usethis::use_data(pct_regions)
+```
