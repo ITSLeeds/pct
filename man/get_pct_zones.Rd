@@ -4,7 +4,8 @@
 \alias{get_pct_zones}
 \title{Get zone results from the PCT}
 \usage{
-get_pct_zones(region = NULL, purpose = "commute", geography = "msoa")
+get_pct_zones(region = NULL, purpose = "commute", geography = "msoa",
+  extension = ".Rds")
 }
 \arguments{
 \item{region}{The PCT region that contains the data (e.g. \code{west-yorkshire})}
@@ -12,6 +13,8 @@ get_pct_zones(region = NULL, purpose = "commute", geography = "msoa")
 \item{purpose}{Trip purpose (typically \code{school} or \code{commute})}
 
 \item{geography}{Geographic resolution of outputs (\code{msoa} or \code{lsoa})}
+
+\item{extension}{The type of file to download (typically \code{.Rds})}
 }
 \description{
 Wrapper around \code{[get_pct()]} that gets zone data from the PCT.

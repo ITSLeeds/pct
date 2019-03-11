@@ -50,7 +50,8 @@ get_pct = function(
 get_pct_zones = function(
   region = NULL,
   purpose = "commute",
-  geography = "msoa"
+  geography = "msoa",
+  extension = ".Rds"
 ) {
   get_pct(base_url =
             "https://github.com/npct/pct-outputs-regional-R/raw/master",
@@ -71,11 +72,100 @@ get_pct_zones = function(
 get_pct_centroids = function(
   region = NULL,
   purpose = "commute",
-  geography = "msoa"
+  geography = "msoa",
+  extension = ".Rds"
 ) {
   get_pct(base_url =
             "https://github.com/npct/pct-outputs-regional-R/raw/master",
           purpose, geography, region,
           layer = "z",
+          extension = ".Rds")
+}
+
+#' Get desire lines results from the PCT
+#'
+#' Wrapper around `[get_pct()]` that gets l (lines) data from the PCT.
+#'
+#' @inheritParams get_pct
+#' @export
+#' @examples
+#' z =  get_pct_lines("isle-of-wight")
+#' plot(z)
+get_pct_lines = function(
+  region = NULL,
+  purpose = "commute",
+  geography = "msoa",
+  extension = ".Rds"
+) {
+  get_pct(base_url =
+            "https://github.com/npct/pct-outputs-regional-R/raw/master",
+          purpose, geography, region,
+          layer = "l",
+          extension = ".Rds")
+}
+
+#' Get fast road network results from the PCT
+#'
+#' Wrapper around `[get_pct()]` that gets rf data from the PCT.
+#'
+#' @inheritParams get_pct
+#' @export
+#' @examples
+#' z = get_pct_routes_fast("isle-of-wight")
+#' plot(z)
+get_pct_routes_fast = function(
+  region = NULL,
+  purpose = "commute",
+  geography = "msoa",
+  extension = ".Rds"
+) {
+  get_pct(base_url =
+            "https://github.com/npct/pct-outputs-regional-R/raw/master",
+          purpose, geography, region,
+          layer = "rf",
+          extension = ".Rds")
+}
+
+#' Get quiet road network results from the PCT
+#'
+#' Wrapper around `[get_pct()]` that gets rq data from the PCT.
+#'
+#' @inheritParams get_pct
+#' @export
+#' @examples
+#' z =  get_pct_routes_quiet("isle-of-wight")
+#' plot(z)
+get_pct_routes_quiet = function(
+  region = NULL,
+  purpose = "commute",
+  geography = "msoa",
+  extension = ".Rds"
+) {
+  get_pct(base_url =
+            "https://github.com/npct/pct-outputs-regional-R/raw/master",
+          purpose, geography, region,
+          layer = "rq",
+          extension = ".Rds")
+}
+
+#' Get road network results from the PCT
+#'
+#' Wrapper around `[get_pct()]` that gets centroid data from the PCT.
+#'
+#' @inheritParams get_pct
+#' @export
+#' @examples
+#' z =  get_pct_rnet("isle-of-wight")
+#' plot(z)
+get_pct_rnet = function(
+  region = NULL,
+  purpose = "commute",
+  geography = "msoa",
+  extension = ".Rds"
+) {
+  get_pct(base_url =
+            "https://github.com/npct/pct-outputs-regional-R/raw/master",
+          purpose, geography, region,
+          layer = "rnet",
           extension = ".Rds")
 }
