@@ -34,9 +34,18 @@ From feedback, we hear that the use of the data is critical in decision making. 
 
 -   `get_pct`: the basic function to obtain data available [here]().
 
-The rest of these should be self explanatory. \* `get_pct_centroids` \* `get_pct_lines` \* `get_pct_rnet` \* `get_pct_routes_fast` \* `get_pct_routes_quiet` \* `get_pct_zones` \* `uptake_pct_godutch` \* `uptake_pct_govtarget`
+The rest of these should be self explanatory.
 
-For example, to get the centroids in Leeds:
+-   `get_pct_centroids`
+-   `get_pct_lines`
+-   `get_pct_rnet`
+-   `get_pct_routes_fast`
+-   `get_pct_routes_quiet`
+-   `get_pct_zones`
+-   `uptake_pct_godutch`
+-   `uptake_pct_govtarget`
+
+For example, to get the centroids in West Yorkshire:
 
 ``` r
 centroids = get_pct_centroids(region = "west-yorkshire")
@@ -46,8 +55,22 @@ plot(centroids[, "geo_name"])
 
 <img src="man/figures/README-centroids-1.png" width="100%" />
 
-Example for Leeds
------------------
+Likewise to download the desirelines for "west-yorkshire":
+
+``` r
+lines = get_pct_lines(region = "west-yorkshire")
+plot(lines[1000:3000, c("geo_name1")])
+```
+
+<img src="man/figures/README-get_pct_lines-1.png" width="100%" />
+
+``` r
+# view the lines on a map
+# mapview::mapview(lines[1:3000, c("geo_name1")])
+```
+
+Scenarios for Leeds
+-------------------
 
 This example shows how scenarios of cycling uptake, and how 'distance decay' works (short trips are more likely to be cycled than long trips).
 
@@ -165,13 +188,13 @@ Now: where to prioritise that infrastructure and those policies?
 ``` r
 rnet = stplanr::overline2(routes_vital, attrib = c("bicycle", "bicycle_govtarget"))
 #> Loading required namespace: pbapply
-#> 2019-03-12 11:25:40 constructing segments
-#> 2019-03-12 11:25:40 transposing 'B to A' to 'A to B'
-#> 2019-03-12 11:25:40 removing duplicates
-#> 2019-03-12 11:25:40 restructuring attributes
-#> 2019-03-12 11:25:40 building geometry
-#> 2019-03-12 11:25:40 simplifying geometry
-#> 2019-03-12 11:25:41 rejoining segments into linestrings
+#> 2019-03-12 13:01:15 constructing segments
+#> 2019-03-12 13:01:15 transposing 'B to A' to 'A to B'
+#> 2019-03-12 13:01:15 removing duplicates
+#> 2019-03-12 13:01:15 restructuring attributes
+#> 2019-03-12 13:01:15 building geometry
+#> 2019-03-12 13:01:15 simplifying geometry
+#> 2019-03-12 13:01:15 rejoining segments into linestrings
 lwd = rnet$bicycle_govtarget / mean(rnet$bicycle_govtarget)
 plot(rnet["bicycle_govtarget"], lwd = lwd)
 ```
