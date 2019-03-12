@@ -28,6 +28,24 @@ Load the package as follows:
 library(pct)
 ```
 
+### Get PCT data
+
+From feedback, we hear that the use of the data is critical in decision making. Therefore, one area where the package could be useful is making the data "easily" available to be processed.
+
+-   `get_pct`: the basic function to obtain data available [here]().
+
+The rest of these should be self explanatory. \* `get_pct_centroids` \* `get_pct_lines` \* `get_pct_rnet` \* `get_pct_routes_fast` \* `get_pct_routes_quiet` \* `get_pct_zones` \* `uptake_pct_godutch` \* `uptake_pct_govtarget`
+
+For example, to get the centroids in Leeds:
+
+``` r
+centroids = get_pct_centroids(region = "west-yorkshire")
+#> Loading required package: sp
+plot(centroids[, "geo_name"])
+```
+
+<img src="man/figures/README-centroids-1.png" width="100%" />
+
 Example for Leeds
 -----------------
 
@@ -53,21 +71,27 @@ od_leeds[c(1:3, 12)]
 class(zones_leeds)
 #> [1] "sf"         "data.frame"
 zones_leeds[1:3, ]
+#> Simple feature collection with 3 features and 6 fields
+#> geometry type:  MULTIPOLYGON
+#> dimension:      XY
+#> bbox:           xmin: -1.727245 ymin: 53.90046 xmax: -1.294313 ymax: 53.94589
+#> epsg (SRID):    4326
+#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
 #>      objectid  msoa11cd  msoa11nm msoa11nmw st_areasha st_lengths
 #> 2270     2270 E02002330 Leeds 001 Leeds 001    3460674  10002.983
 #> 2271     2271 E02002331 Leeds 002 Leeds 002   21870986  26417.665
 #> 2272     2272 E02002332 Leeds 003 Leeds 003    2811303   8586.548
-#>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              geometry
-#> 2270                                                                                                                                                                                                                                                                                                                                           -1.392046, -1.398989, -1.410523, -1.417764, -1.420581, -1.415028, -1.412073, -1.408357, -1.406710, -1.410629, -1.409197, -1.409140, -1.402347, -1.400684, -1.397198, -1.383674, -1.386428, -1.384679, -1.383307, -1.392046, 53.929899, 53.915569, 53.917471, 53.915215, 53.919331, 53.921274, 53.919534, 53.927881, 53.927850, 53.930156, 53.935466, 53.935475, 53.936831, 53.938446, 53.942529, 53.941456, 53.938680, 53.936829, 53.932811, 53.929899
-#> 2271 -1.340405, -1.344712, -1.339539, -1.307191, -1.308992, -1.300420, -1.294313, -1.307311, -1.297203, -1.300588, -1.313723, -1.321054, -1.322272, -1.328700, -1.345094, -1.350501, -1.357661, -1.364050, -1.359934, -1.362844, -1.370039, -1.370925, -1.386029, -1.378174, -1.390462, -1.386554, -1.398211, -1.398989, -1.392046, -1.383307, -1.384679, -1.386428, -1.383674, -1.381683, -1.340405, 53.945888, 53.939502, 53.940810, 53.934543, 53.924098, 53.929417, 53.927217, 53.921494, 53.921682, 53.907486, 53.904702, 53.903480, 53.900457, 53.901750, 53.906925, 53.909079, 53.907272, 53.908818, 53.911667, 53.914355, 53.915530, 53.907548, 53.909903, 53.906165, 53.908110, 53.912444, 53.914786, 53.915569, 53.929899, 53.932811, 53.936829, 53.938680, 53.941456, 53.940487, 53.945888
-#> 2272                                                                                                                                                                                                                                                                                                                                                                                       -1.682211, -1.688594, -1.695156, -1.700993, -1.702196, -1.709330, -1.715693, -1.727245, -1.727217, -1.722314, -1.717959, -1.716302, -1.706112, -1.707084, -1.698520, -1.690103, -1.688199, -1.682211, 53.910461, 53.906725, 53.908527, 53.904621, 53.904330, 53.902113, 53.905049, 53.909524, 53.910197, 53.911958, 53.908542, 53.916552, 53.917071, 53.919131, 53.916921, 53.916713, 53.911742, 53.910461
+#>                            geometry
+#> 2270 MULTIPOLYGON (((-1.392046 5...
+#> 2271 MULTIPOLYGON (((-1.340405 5...
+#> 2272 MULTIPOLYGON (((-1.682211 5...
 ```
 
 The `stplanr` package can be used to convert the non-geographic OD data into geographic desire lines as follows:
 
 ``` r
 library(sf)
-#> Linking to GEOS 3.5.1, GDAL 2.1.2, PROJ 4.9.3
+#> Linking to GEOS 3.6.1, GDAL 2.1.3, PROJ 4.9.3
 desire_lines = stplanr::od2line(flow = od_leeds, zones = zones_leeds[2])
 #> Warning in st_centroid.sf(zones): st_centroid assumes attributes are
 #> constant over geometries of x
@@ -141,13 +165,13 @@ Now: where to prioritise that infrastructure and those policies?
 ``` r
 rnet = stplanr::overline2(routes_vital, attrib = c("bicycle", "bicycle_govtarget"))
 #> Loading required namespace: pbapply
-#> 2019-03-09 07:23:01 constructing segments
-#> 2019-03-09 07:23:01 transposing 'B to A' to 'A to B'
-#> 2019-03-09 07:23:01 removing duplicates
-#> 2019-03-09 07:23:01 restructuring attributes
-#> 2019-03-09 07:23:01 building geometry
-#> 2019-03-09 07:23:01 simplifying geometry
-#> 2019-03-09 07:23:01 rejoining segments into linestrings
+#> 2019-03-12 11:25:40 constructing segments
+#> 2019-03-12 11:25:40 transposing 'B to A' to 'A to B'
+#> 2019-03-12 11:25:40 removing duplicates
+#> 2019-03-12 11:25:40 restructuring attributes
+#> 2019-03-12 11:25:40 building geometry
+#> 2019-03-12 11:25:40 simplifying geometry
+#> 2019-03-12 11:25:41 rejoining segments into linestrings
 lwd = rnet$bicycle_govtarget / mean(rnet$bicycle_govtarget)
 plot(rnet["bicycle_govtarget"], lwd = lwd)
 ```

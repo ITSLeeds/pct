@@ -1,5 +1,7 @@
 #' Desire lines
 #'
+#' This function generates "desire lines" from census 2011 data.
+#'
 #' @inheritParams get_od
 #'
 #' @export
@@ -16,7 +18,7 @@ get_desire_lines = function(area = "sheffield", n = 100) {
   od = od_all[od_all$geo_code1 %in% zones$msoa11cd &
                 od_all$geo_code2 %in% zones$msoa11cd, ]
   od = od[od$geo_code1 != od$geo_code2, ]
-  od = order_and_subset(od, "all", n)
+  od = order_and_subset(od, "all", n) # subset before heavy processing.
   # generate desirelines.
   area_desire_lines = stplanr::od2line(flow = od, zones)
   area_desire_lines
@@ -69,11 +71,12 @@ get_od = function(area = "sheffield", n = 100, type = "within") {
 
 order_and_subset = function(od, var, n) {
   od = od[order(od[[var]], decreasing = TRUE), ]
-  od[1:n, ] # subset before heavy processing.
+  od[1:n, ]
 }
 
 # does this want to be exported at some point?
-# x = c("Area of residence", "Area of workplace", "All categories: Method of travel to work",
+# x = c("Area of residence", "Area of workplace", "All categories:
+#       Method of travel to work",
 #       "Work mainly at or from home", "Underground, metro, light rail, tram",
 #       "Train", "Bus, minibus or coach", "Taxi", "Motorcycle, scooter or moped",
 #       "Driving a car or van", "Passenger in a car or van", "Bicycle",

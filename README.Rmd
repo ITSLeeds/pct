@@ -47,8 +47,30 @@ Load the package as follows:
 library(pct)
 ```
 
+### Get PCT data
 
-## Example for Leeds
+From feedback, we hear that the use of the data is critical in decision making. Therefore, one area where the package could be useful is making the data "easily" available to be processed.
+
+* `get_pct`: the basic function to obtain data available  [here](). 
+
+The rest of these should be self explanatory.
+* `get_pct_centroids`
+* `get_pct_lines` 
+* `get_pct_rnet` 
+* `get_pct_routes_fast` 
+* `get_pct_routes_quiet` 
+* `get_pct_zones` 
+* `uptake_pct_godutch` 
+* `uptake_pct_govtarget` 
+
+For example, to get the centroids in Leeds:
+
+``` {r centroids}
+centroids = get_pct_centroids(region = "west-yorkshire")
+plot(centroids[, "geo_name"])
+```
+
+## Scenarios for Leeds
 
 This example shows how scenarios of cycling uptake, and how 'distance decay' works (short trips are more likely to be cycled than long trips).
 
