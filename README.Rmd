@@ -106,7 +106,8 @@ desire_lines = stplanr::od2line(flow = od_leeds, zones = zones_leeds[2])
 plot(desire_lines[c(1:3, 12)])
 ```
 
-We can convert these straight lines into routes with a routing service, e.g.:
+We can convert these straight lines into routes with a routing service.
+The following code chunk uses the CycleStreets.net routing service, used in the PCT, to do this work (note you will need a CycleStreets.net API key saved in the environment variable CYCLESTREET for this to work, as documented [here](https://ropensci.github.io/stplanr/reference/route_cyclestreet.html#details)):
 
 ```{r}
 routes_fast = stplanr::line2route(desire_lines, route_fun = stplanr::route_cyclestreet)
