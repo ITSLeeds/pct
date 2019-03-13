@@ -67,9 +67,9 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <pre><code>#&gt; 
 #&gt;   
-   checking for file ‘/tmp/RtmpnT0HMi/remotes50d114ff0fb1/ropensci-stplanr-fd06f08/DESCRIPTION’ ...
+   checking for file ‘/tmp/RtmpYMewzU/remotes50da479cb7ad/ropensci-stplanr-fd06f08/DESCRIPTION’ ...
   
-✔  checking for file ‘/tmp/RtmpnT0HMi/remotes50d114ff0fb1/ropensci-stplanr-fd06f08/DESCRIPTION’
+✔  checking for file ‘/tmp/RtmpYMewzU/remotes50da479cb7ad/ropensci-stplanr-fd06f08/DESCRIPTION’
 #&gt; 
   
 ─  preparing ‘stplanr’:
@@ -195,7 +195,7 @@
 <a class="sourceLine" id="cb8-8" data-line-number="8"><span class="co">#&gt; longitude/latitude data</span></a>
 <a class="sourceLine" id="cb8-9" data-line-number="9"><span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(desire_lines[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">12</span>)])</a></code></pre></div>
 <p><img src="reference/figures/README-desire-1.png" width="100%"></p>
-<p>We can convert these straight lines into routes with a routing service, e.g.:</p>
+<p>We can convert these straight lines into routes with a routing service. The following code chunk uses the CycleStreets.net routing service, used in the PCT, to do this work (note you will need a CycleStreets.net API key saved in the environment variable CYCLESTREET for this to work, as documented <a href="https://ropensci.github.io/stplanr/reference/route_cyclestreet.html#details">here</a>):</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">routes_fast =<span class="st"> </span>stplanr<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/stplanr/topics/line2route">line2route</a></span>(desire_lines, <span class="dt">route_fun =</span> stplanr<span class="op">::</span>route_cyclestreet)</a>
 <a class="sourceLine" id="cb9-2" data-line-number="2"><span class="co">#&gt; 10 % out of 10 distances calculated</span></a>
 <a class="sourceLine" id="cb9-3" data-line-number="3"><span class="co">#&gt; 20 % out of 10 distances calculated</span></a>
@@ -233,13 +233,13 @@
 <p>Now: where to prioritise that infrastructure and those policies?</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">rnet =<span class="st"> </span>stplanr<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/stplanr/topics/overline2">overline2</a></span>(routes_vital, <span class="dt">attrib =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"bicycle"</span>, <span class="st">"bicycle_govtarget"</span>))</a>
 <a class="sourceLine" id="cb14-2" data-line-number="2"><span class="co">#&gt; Loading required namespace: pbapply</span></a>
-<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="co">#&gt; 2019-03-13 13:04:41 constructing segments</span></a>
-<a class="sourceLine" id="cb14-4" data-line-number="4"><span class="co">#&gt; 2019-03-13 13:04:41 transposing 'B to A' to 'A to B'</span></a>
-<a class="sourceLine" id="cb14-5" data-line-number="5"><span class="co">#&gt; 2019-03-13 13:04:41 removing duplicates</span></a>
-<a class="sourceLine" id="cb14-6" data-line-number="6"><span class="co">#&gt; 2019-03-13 13:04:41 restructuring attributes</span></a>
-<a class="sourceLine" id="cb14-7" data-line-number="7"><span class="co">#&gt; 2019-03-13 13:04:41 building geometry</span></a>
-<a class="sourceLine" id="cb14-8" data-line-number="8"><span class="co">#&gt; 2019-03-13 13:04:42 simplifying geometry</span></a>
-<a class="sourceLine" id="cb14-9" data-line-number="9"><span class="co">#&gt; 2019-03-13 13:04:42 rejoining segments into linestrings</span></a>
+<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="co">#&gt; 2019-03-13 15:52:27 constructing segments</span></a>
+<a class="sourceLine" id="cb14-4" data-line-number="4"><span class="co">#&gt; 2019-03-13 15:52:27 transposing 'B to A' to 'A to B'</span></a>
+<a class="sourceLine" id="cb14-5" data-line-number="5"><span class="co">#&gt; 2019-03-13 15:52:27 removing duplicates</span></a>
+<a class="sourceLine" id="cb14-6" data-line-number="6"><span class="co">#&gt; 2019-03-13 15:52:27 restructuring attributes</span></a>
+<a class="sourceLine" id="cb14-7" data-line-number="7"><span class="co">#&gt; 2019-03-13 15:52:27 building geometry</span></a>
+<a class="sourceLine" id="cb14-8" data-line-number="8"><span class="co">#&gt; 2019-03-13 15:52:27 simplifying geometry</span></a>
+<a class="sourceLine" id="cb14-9" data-line-number="9"><span class="co">#&gt; 2019-03-13 15:52:27 rejoining segments into linestrings</span></a>
 <a class="sourceLine" id="cb14-10" data-line-number="10">lwd =<span class="st"> </span>rnet<span class="op">$</span>bicycle_govtarget <span class="op">/</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/mean">mean</a></span>(rnet<span class="op">$</span>bicycle_govtarget)</a>
 <a class="sourceLine" id="cb14-11" data-line-number="11"><span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(rnet[<span class="st">"bicycle_govtarget"</span>], <span class="dt">lwd =</span> lwd)</a></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-8-1.png" width="100%"></p>
