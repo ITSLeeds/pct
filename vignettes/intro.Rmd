@@ -18,9 +18,11 @@ knitr::opts_chunk$set(
 )
 ```
 
-## Introduction
+```{r install-stplanr, message=FALSE, echo=FALSE}
+remotes::install_github("ropensci/stplanr")
+```
 
-# pct  &middot; [![Coverage status](https://codecov.io/gh/ITSLeeds/pct/branch/master/graph/badge.svg)](https://codecov.io/github/ITSLeeds/pct?branch=master) [![Travis build status](https://travis-ci.org/ITSLeeds/pct.svg?branch=master)](https://travis-ci.org/ITSLeeds/pct)
+## Introduction
 
 The goal of pct is to increase the accessibility and reproducibility of the data produced by the Propensity to Cycle Tool (PCT), a research project and web application hosted at [www.pct.bike](https://www.pct.bike/).
 For an overview of the data provided by the PCT, clicking on the previous link and trying it out is a great place to start.
@@ -71,102 +73,19 @@ The rest of these should be self explanatory.
 * `uptake_pct_godutch` 
 * `uptake_pct_govtarget` 
 
-For example, to get the centroids in West Yorkshire:
+For example, to get the centroids in Isle of Wight:
 
 ``` {r centroids}
-centroids = get_pct_centroids(region = "west-yorkshire")
+centroids = get_pct_centroids(region = "isle-of-wight")
 plot(centroids[, "geo_name"])
 ```
 
 Likewise to download the desirelines for "west-yorkshire":
 
 ```{r get_pct_lines}
-lines = get_pct_lines(region = "west-yorkshire")
+lines = get_pct_lines(region = "isle-of-wight")
 lines = lines[order(lines$all, decreasing = TRUE), c("all")]
 plot(lines[1:10,], lwd = 4)
 # view the lines on a map
 # mapview::mapview(lines[1:3000, c("geo_name1")])
-```
-
-## Reproduce PCT for Leeds
-
-This example shows how scenarios of cycling uptake, and how 'distance decay' works (short trips are more likely to be cycled than long trips).
-
-The input data looks like this (origin-destination data and geographic zone data):
-
-```{r input-data}
-class(od_leeds)
-od_leeds[c(1:3, 12)]
-class(zones_leeds)
-zones_leeds[1:3, ]
-```
-
-The `stplanr` package can be used to convert the non-geographic OD data into geographic desire lines as follows: 
-
-```{r desire}
-library(sf)
-desire_lines = stplanr::od2line(flow = od_leeds, zones = zones_leeds[2])
-plot(desire_lines[c(1:3, 12)])
-```
-
-We can convert these straight lines into routes with a routing service, e.g.:
-
-```{r}
-routes_fast = stplanr::line2route(desire_lines, route_fun = stplanr::route_cyclestreet)
-```
-
-We got useful information from this routing operation.
-We will add the desire line data onto vital data from the routes (from a cycling uptake perspective, distance and hilliness of routes):
-
-```{r}
-routes_vital = sf::st_sf(
-  cbind(
-  sf::st_drop_geometry(desire_lines[c(1:3, 12)]),
-  sf::st_drop_geometry(routes_fast[c("length", "av_incline")]),
-  geometry = routes_fast$geometry
-  ))
-plot(routes_vital)
-```
-
-Now we estimate cycling uptake:
-
-```{r}
-routes_vital$uptake = uptake_pct_govtarget(distance = routes_vital$length, gradient = routes_vital$av_incline)
-routes_vital$bicycle_govtarget = routes_vital$bicycle +
-  round(routes_vital$uptake * routes_vital$all)
-```
-
-Let's see how many people started cycling:
-
-```{r}
-sum(routes_vital$bicycle_govtarget) - sum(routes_vital$bicycle)
-```
-
-Nearly 1000 more people cycling to work, just in 10 desire is not bad!
-What % cyling is this, for those routes?
-
-```{r}
-sum(routes_vital$bicycle_govtarget) / sum(routes_vital$all)
-sum(routes_vital$bicycle) / sum(routes_vital$all)
-```
-
-It's gone from 4% to 11%, a realistic increase if cycling were enabled by good infrastructure and policies.
-
-Now: where to prioritise that infrastructure and those policies?
-
-```{r}
-rnet = stplanr::overline2(routes_vital, attrib = c("bicycle", "bicycle_govtarget"))
-lwd = rnet$bicycle_govtarget / mean(rnet$bicycle_govtarget)
-plot(rnet["bicycle_govtarget"], lwd = lwd)
-```
-
-We can view the results in an interactive map and share with policy makers, stakeholders, and the public!
-E.g. (see interactive map [here](http://rpubs.com/RobinLovelace/474074)):
-
-```{r, eval=FALSE}
-mapview::mapview(rnet, zcol = "bicycle_govtarget", lwd = lwd * 2)
-```
-
-```{r leeds-map, echo=FALSE}
-knitr::include_graphics("../pct-leeds-demo.png")
 ```
