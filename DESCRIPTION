@@ -28,6 +28,7 @@ Suggests:
     knitr,
     curl,
     covr
+Remotes: r-spatial/sf
 VignetteBuilder: knitr
 RoxygenNote: 6.1.1
 Roxygen: list(markdown = TRUE)
