@@ -72,7 +72,8 @@ The rest of these should be self explanatory.
   - `uptake_pct_godutch`
   - `uptake_pct_govtarget`
 
-For example, to get the centroids in West Yorkshire:
+For example, to get population-weighted zone centroids in West
+Yorkshire:
 
 ``` r
 centroids = get_pct_centroids(region = "west-yorkshire")
@@ -97,29 +98,68 @@ plot(lines[1:10,], lwd = 4)
 # mapview::mapview(lines[1:3000, c("geo_name1")])
 ```
 
-## Scenarios for Leeds
+## Reproduce scenarios of cycling uptake for Leeds
 
-This example shows how scenarios of cycling uptake, and how ‘distance
-decay’ works (short trips are more likely to be cycled than long trips).
+This example shows how scenarios of cycling uptake work. Key to the PCT
+uptake model is ‘distance decay’, meaning that short trips are more
+likely to be cycled than long trips. The function
 
-The input data looks like this (origin-destination data and geographic
-zone data):
+``` r
+distances = 1:20
+hilliness = 0:5
+uptake_df = data.frame(
+  distances = rep(distances, 6),
+  hilliness = rep(hilliness, each = 20)
+)
+p_govtarget = uptake_pct_govtarget(
+    distance = uptake_df$distances,
+    gradient = uptake_df$hilliness
+    )
+p_godutch = uptake_pct_godutch(
+    distance = uptake_df$distances,
+    gradient = uptake_df$hilliness
+    )
+uptake_df = rbind(
+  cbind(uptake_df, scenario = "govtarget", pcycle = p_govtarget),
+  cbind(uptake_df, scenario = "godutch", pcycle = p_godutch)
+)
+
+library(ggplot2)
+ggplot(uptake_df) +
+  geom_line(aes(
+    distances,
+    pcycle,
+    linetype = scenario,
+    colour = as.character(hilliness)
+  )) +
+  scale_color_discrete("Gradient (%)")
+```
+
+<img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
+
+The proportion of trips made by cycling along each origin-destination
+(OD) pair therefore depends on the trip distance and hilliness. The main
+input dataset into the PCT is OD data and, to convert each OD pair into
+a geographic desire line, geographic zone or centroids. Typical input
+data is provided in packaged datasets `od_leeds` and `zones_leeds`:
 
 ``` r
 class(od_leeds)
 #> [1] "tbl_df"     "tbl"        "data.frame"
 od_leeds[c(1:3, 12)]
-#>    area_of_residence area_of_workplace  all bicycle
-#> 1          E02002363         E02006875  922      43
-#> 2          E02002373         E02006875 1037      73
-#> 3          E02002384         E02006875  966      13
-#> 4          E02002385         E02006875  958      52
-#> 5          E02002392         E02006875  753      19
-#> 6          E02002404         E02006875 1145      10
-#> 7          E02002411         E02006875  929      27
-#> 8          E02006852         E02006875 1221      99
-#> 9          E02006861         E02006875 1177      56
-#> 10         E02006876         E02006875 1035      10
+#> # A tibble: 10 x 4
+#>    area_of_residence area_of_workplace   all bicycle
+#>    <chr>             <chr>             <dbl>   <dbl>
+#>  1 E02002363         E02006875           922      43
+#>  2 E02002373         E02006875          1037      73
+#>  3 E02002384         E02006875           966      13
+#>  4 E02002385         E02006875           958      52
+#>  5 E02002392         E02006875           753      19
+#>  6 E02002404         E02006875          1145      10
+#>  7 E02002411         E02006875           929      27
+#>  8 E02006852         E02006875          1221      99
+#>  9 E02006861         E02006875          1177      56
+#> 10 E02006876         E02006875          1035      10
 class(zones_leeds)
 #> [1] "sf"         "data.frame"
 zones_leeds[1:3, ]
@@ -191,7 +231,7 @@ routes_vital = sf::st_sf(
 plot(routes_vital)
 ```
 
-<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
 
 Now we estimate cycling
 uptake:
@@ -229,18 +269,18 @@ policies?
 ``` r
 rnet = stplanr::overline2(routes_vital, attrib = c("bicycle", "bicycle_govtarget"))
 #> Loading required namespace: pbapply
-#> 2019-03-13 15:41:50 constructing segments
-#> 2019-03-13 15:41:50 transposing 'B to A' to 'A to B'
-#> 2019-03-13 15:41:50 removing duplicates
-#> 2019-03-13 15:41:50 restructuring attributes
-#> 2019-03-13 15:41:50 building geometry
-#> 2019-03-13 15:41:50 simplifying geometry
-#> 2019-03-13 15:41:50 rejoining segments into linestrings
+#> 2019-03-13 16:25:35 constructing segments
+#> 2019-03-13 16:25:35 transposing 'B to A' to 'A to B'
+#> 2019-03-13 16:25:36 removing duplicates
+#> 2019-03-13 16:25:36 restructuring attributes
+#> 2019-03-13 16:25:36 building geometry
+#> 2019-03-13 16:25:36 simplifying geometry
+#> 2019-03-13 16:25:36 rejoining segments into linestrings
 lwd = rnet$bicycle_govtarget / mean(rnet$bicycle_govtarget)
 plot(rnet["bicycle_govtarget"], lwd = lwd)
 ```
 
-<img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-9-1.png" width="100%" />
 
 We can view the results in an interactive map and share with policy
 makers, stakeholders, and the public\! E.g. (see interactive map
