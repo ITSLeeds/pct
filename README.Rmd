@@ -68,7 +68,7 @@ The rest of these should be self explanatory.
 * `uptake_pct_godutch` 
 * `uptake_pct_govtarget` 
 
-For example, to get the centroids in West Yorkshire:
+For example, to get population-weighted zone centroids in West Yorkshire:
 
 ``` {r centroids}
 centroids = get_pct_centroids(region = "west-yorkshire")
@@ -85,11 +85,46 @@ plot(lines[1:10,], lwd = 4)
 # mapview::mapview(lines[1:3000, c("geo_name1")])
 ```
 
-## Scenarios for Leeds
+## Reproduce scenarios of cycling uptake for Leeds
 
-This example shows how scenarios of cycling uptake, and how 'distance decay' works (short trips are more likely to be cycled than long trips).
+This example shows how scenarios of cycling uptake work.
+Key to the PCT uptake model is 'distance decay', meaning that short trips are more likely to be cycled than long trips.
+The function 
 
-The input data looks like this (origin-destination data and geographic zone data):
+```{r}
+distances = 1:20
+hilliness = 0:5
+uptake_df = data.frame(
+  distances = rep(distances, 6),
+  hilliness = rep(hilliness, each = 20)
+)
+p_govtarget = uptake_pct_govtarget(
+    distance = uptake_df$distances,
+    gradient = uptake_df$hilliness
+    )
+p_godutch = uptake_pct_godutch(
+    distance = uptake_df$distances,
+    gradient = uptake_df$hilliness
+    )
+uptake_df = rbind(
+  cbind(uptake_df, scenario = "govtarget", pcycle = p_govtarget),
+  cbind(uptake_df, scenario = "godutch", pcycle = p_godutch)
+)
+
+library(ggplot2)
+ggplot(uptake_df) +
+  geom_line(aes(
+    distances,
+    pcycle,
+    linetype = scenario,
+    colour = as.character(hilliness)
+  )) +
+  scale_color_discrete("Gradient (%)")
+```
+
+The proportion of trips made by cycling along each origin-destination (OD) pair therefore depends on the trip distance and hilliness.
+The main input dataset into the PCT is OD data and, to convert each OD pair into a geographic desire line, geographic zone or centroids.
+Typical input data is provided in packaged datasets `od_leeds` and `zones_leeds`:
 
 ```{r input-data}
 class(od_leeds)
