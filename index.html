@@ -67,9 +67,9 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <pre><code>#&gt; 
 #&gt;   
-   checking for file ‘/tmp/RtmpYMewzU/remotes50da479cb7ad/ropensci-stplanr-fd06f08/DESCRIPTION’ ...
+   checking for file ‘/tmp/RtmpvxfBEU/remotes54452109fe43/ropensci-stplanr-fd06f08/DESCRIPTION’ ...
   
-✔  checking for file ‘/tmp/RtmpYMewzU/remotes50da479cb7ad/ropensci-stplanr-fd06f08/DESCRIPTION’
+✔  checking for file ‘/tmp/RtmpvxfBEU/remotes54452109fe43/ropensci-stplanr-fd06f08/DESCRIPTION’
 #&gt; 
   
 ─  preparing ‘stplanr’:
@@ -134,7 +134,7 @@
 <li><code>uptake_pct_godutch</code></li>
 <li><code>uptake_pct_govtarget</code></li>
 </ul>
-<p>For example, to get the centroids in West Yorkshire:</p>
+<p>For example, to get population-weighted zone centroids in West Yorkshire:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">centroids =<span class="st"> </span><span class="kw"><a href="reference/get_pct_centroids.html">get_pct_centroids</a></span>(<span class="dt">region =</span> <span class="st">"west-yorkshire"</span>)</a>
 <a class="sourceLine" id="cb4-2" data-line-number="2"><span class="co">#&gt; Loading required package: sp</span></a>
 <a class="sourceLine" id="cb4-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(centroids[, <span class="st">"geo_name"</span>])</a></code></pre></div>
@@ -148,103 +148,134 @@
 <a class="sourceLine" id="cb6-2" data-line-number="2"><span class="co"># mapview::mapview(lines[1:3000, c("geo_name1")])</span></a></code></pre></div>
 </div>
 </div>
-<div id="scenarios-for-leeds" class="section level2">
+<div id="reproduce-scenarios-of-cycling-uptake-for-leeds" class="section level2">
 <h2 class="hasAnchor">
-<a href="#scenarios-for-leeds" class="anchor"></a>Scenarios for Leeds</h2>
-<p>This example shows how scenarios of cycling uptake, and how ‘distance decay’ works (short trips are more likely to be cycled than long trips).</p>
-<p>The input data looks like this (origin-destination data and geographic zone data):</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/class">class</a></span>(od_leeds)</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="co">#&gt; [1] "tbl_df"     "tbl"        "data.frame"</span></a>
-<a class="sourceLine" id="cb7-3" data-line-number="3">od_leeds[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">12</span>)]</a>
-<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">#&gt;    area_of_residence area_of_workplace  all bicycle</span></a>
-<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="co">#&gt; 1          E02002363         E02006875  922      43</span></a>
-<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="co">#&gt; 2          E02002373         E02006875 1037      73</span></a>
-<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="co">#&gt; 3          E02002384         E02006875  966      13</span></a>
-<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="co">#&gt; 4          E02002385         E02006875  958      52</span></a>
-<a class="sourceLine" id="cb7-9" data-line-number="9"><span class="co">#&gt; 5          E02002392         E02006875  753      19</span></a>
-<a class="sourceLine" id="cb7-10" data-line-number="10"><span class="co">#&gt; 6          E02002404         E02006875 1145      10</span></a>
-<a class="sourceLine" id="cb7-11" data-line-number="11"><span class="co">#&gt; 7          E02002411         E02006875  929      27</span></a>
-<a class="sourceLine" id="cb7-12" data-line-number="12"><span class="co">#&gt; 8          E02006852         E02006875 1221      99</span></a>
-<a class="sourceLine" id="cb7-13" data-line-number="13"><span class="co">#&gt; 9          E02006861         E02006875 1177      56</span></a>
-<a class="sourceLine" id="cb7-14" data-line-number="14"><span class="co">#&gt; 10         E02006876         E02006875 1035      10</span></a>
-<a class="sourceLine" id="cb7-15" data-line-number="15"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/class">class</a></span>(zones_leeds)</a>
-<a class="sourceLine" id="cb7-16" data-line-number="16"><span class="co">#&gt; [1] "sf"         "data.frame"</span></a>
-<a class="sourceLine" id="cb7-17" data-line-number="17">zones_leeds[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, ]</a>
-<a class="sourceLine" id="cb7-18" data-line-number="18"><span class="co">#&gt; Simple feature collection with 3 features and 6 fields</span></a>
-<a class="sourceLine" id="cb7-19" data-line-number="19"><span class="co">#&gt; geometry type:  MULTIPOLYGON</span></a>
-<a class="sourceLine" id="cb7-20" data-line-number="20"><span class="co">#&gt; dimension:      XY</span></a>
-<a class="sourceLine" id="cb7-21" data-line-number="21"><span class="co">#&gt; bbox:           xmin: -1.727245 ymin: 53.90046 xmax: -1.294313 ymax: 53.94589</span></a>
-<a class="sourceLine" id="cb7-22" data-line-number="22"><span class="co">#&gt; epsg (SRID):    4326</span></a>
-<a class="sourceLine" id="cb7-23" data-line-number="23"><span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span></a>
-<a class="sourceLine" id="cb7-24" data-line-number="24"><span class="co">#&gt;      objectid  msoa11cd  msoa11nm msoa11nmw st_areasha st_lengths</span></a>
-<a class="sourceLine" id="cb7-25" data-line-number="25"><span class="co">#&gt; 2270     2270 E02002330 Leeds 001 Leeds 001    3460674  10002.983</span></a>
-<a class="sourceLine" id="cb7-26" data-line-number="26"><span class="co">#&gt; 2271     2271 E02002331 Leeds 002 Leeds 002   21870986  26417.665</span></a>
-<a class="sourceLine" id="cb7-27" data-line-number="27"><span class="co">#&gt; 2272     2272 E02002332 Leeds 003 Leeds 003    2811303   8586.548</span></a>
-<a class="sourceLine" id="cb7-28" data-line-number="28"><span class="co">#&gt;                            geometry</span></a>
-<a class="sourceLine" id="cb7-29" data-line-number="29"><span class="co">#&gt; 2270 MULTIPOLYGON (((-1.392046 5...</span></a>
-<a class="sourceLine" id="cb7-30" data-line-number="30"><span class="co">#&gt; 2271 MULTIPOLYGON (((-1.340405 5...</span></a>
-<a class="sourceLine" id="cb7-31" data-line-number="31"><span class="co">#&gt; 2272 MULTIPOLYGON (((-1.682211 5...</span></a></code></pre></div>
+<a href="#reproduce-scenarios-of-cycling-uptake-for-leeds" class="anchor"></a>Reproduce scenarios of cycling uptake for Leeds</h2>
+<p>This example shows how scenarios of cycling uptake work. Key to the PCT uptake model is ‘distance decay’, meaning that short trips are more likely to be cycled than long trips. The function</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">distances =<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">20</span></a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">hilliness =<span class="st"> </span><span class="dv">0</span><span class="op">:</span><span class="dv">5</span></a>
+<a class="sourceLine" id="cb7-3" data-line-number="3">uptake_df =<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(</a>
+<a class="sourceLine" id="cb7-4" data-line-number="4">  <span class="dt">distances =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/rep">rep</a></span>(distances, <span class="dv">6</span>),</a>
+<a class="sourceLine" id="cb7-5" data-line-number="5">  <span class="dt">hilliness =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/rep">rep</a></span>(hilliness, <span class="dt">each =</span> <span class="dv">20</span>)</a>
+<a class="sourceLine" id="cb7-6" data-line-number="6">)</a>
+<a class="sourceLine" id="cb7-7" data-line-number="7">p_govtarget =<span class="st"> </span><span class="kw"><a href="reference/uptake_pct_govtarget.html">uptake_pct_govtarget</a></span>(</a>
+<a class="sourceLine" id="cb7-8" data-line-number="8">    <span class="dt">distance =</span> uptake_df<span class="op">$</span>distances,</a>
+<a class="sourceLine" id="cb7-9" data-line-number="9">    <span class="dt">gradient =</span> uptake_df<span class="op">$</span>hilliness</a>
+<a class="sourceLine" id="cb7-10" data-line-number="10">    )</a>
+<a class="sourceLine" id="cb7-11" data-line-number="11">p_godutch =<span class="st"> </span><span class="kw"><a href="reference/uptake_pct_godutch.html">uptake_pct_godutch</a></span>(</a>
+<a class="sourceLine" id="cb7-12" data-line-number="12">    <span class="dt">distance =</span> uptake_df<span class="op">$</span>distances,</a>
+<a class="sourceLine" id="cb7-13" data-line-number="13">    <span class="dt">gradient =</span> uptake_df<span class="op">$</span>hilliness</a>
+<a class="sourceLine" id="cb7-14" data-line-number="14">    )</a>
+<a class="sourceLine" id="cb7-15" data-line-number="15">uptake_df =<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cbind">rbind</a></span>(</a>
+<a class="sourceLine" id="cb7-16" data-line-number="16">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cbind">cbind</a></span>(uptake_df, <span class="dt">scenario =</span> <span class="st">"govtarget"</span>, <span class="dt">pcycle =</span> p_govtarget),</a>
+<a class="sourceLine" id="cb7-17" data-line-number="17">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cbind">cbind</a></span>(uptake_df, <span class="dt">scenario =</span> <span class="st">"godutch"</span>, <span class="dt">pcycle =</span> p_godutch)</a>
+<a class="sourceLine" id="cb7-18" data-line-number="18">)</a>
+<a class="sourceLine" id="cb7-19" data-line-number="19"></a>
+<a class="sourceLine" id="cb7-20" data-line-number="20"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(ggplot2)</a>
+<a class="sourceLine" id="cb7-21" data-line-number="21"><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(uptake_df) <span class="op">+</span></a>
+<a class="sourceLine" id="cb7-22" data-line-number="22"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span>(<span class="kw"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(</a>
+<a class="sourceLine" id="cb7-23" data-line-number="23">    distances,</a>
+<a class="sourceLine" id="cb7-24" data-line-number="24">    pcycle,</a>
+<a class="sourceLine" id="cb7-25" data-line-number="25">    <span class="dt">linetype =</span> scenario,</a>
+<a class="sourceLine" id="cb7-26" data-line-number="26">    <span class="dt">colour =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/character">as.character</a></span>(hilliness)</a>
+<a class="sourceLine" id="cb7-27" data-line-number="27">  )) <span class="op">+</span></a>
+<a class="sourceLine" id="cb7-28" data-line-number="28"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/scale_hue.html">scale_color_discrete</a></span>(<span class="st">"Gradient (%)"</span>)</a></code></pre></div>
+<p><img src="reference/figures/README-distance-decay-1.png" width="100%"></p>
+<p>The proportion of trips made by cycling along each origin-destination (OD) pair therefore depends on the trip distance and hilliness. The main input dataset into the PCT is OD data and, to convert each OD pair into a geographic desire line, geographic zone or centroids. Typical input data is provided in packaged datasets <code>od_leeds</code> and <code>zones_leeds</code>:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/class">class</a></span>(od_leeds)</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="co">#&gt; [1] "tbl_df"     "tbl"        "data.frame"</span></a>
+<a class="sourceLine" id="cb8-3" data-line-number="3">od_leeds[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">12</span>)]</a>
+<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="co">#&gt; # A tibble: 10 x 4</span></a>
+<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="co">#&gt;    area_of_residence area_of_workplace   all bicycle</span></a>
+<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="co">#&gt;    &lt;chr&gt;             &lt;chr&gt;             &lt;dbl&gt;   &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb8-7" data-line-number="7"><span class="co">#&gt;  1 E02002363         E02006875           922      43</span></a>
+<a class="sourceLine" id="cb8-8" data-line-number="8"><span class="co">#&gt;  2 E02002373         E02006875          1037      73</span></a>
+<a class="sourceLine" id="cb8-9" data-line-number="9"><span class="co">#&gt;  3 E02002384         E02006875           966      13</span></a>
+<a class="sourceLine" id="cb8-10" data-line-number="10"><span class="co">#&gt;  4 E02002385         E02006875           958      52</span></a>
+<a class="sourceLine" id="cb8-11" data-line-number="11"><span class="co">#&gt;  5 E02002392         E02006875           753      19</span></a>
+<a class="sourceLine" id="cb8-12" data-line-number="12"><span class="co">#&gt;  6 E02002404         E02006875          1145      10</span></a>
+<a class="sourceLine" id="cb8-13" data-line-number="13"><span class="co">#&gt;  7 E02002411         E02006875           929      27</span></a>
+<a class="sourceLine" id="cb8-14" data-line-number="14"><span class="co">#&gt;  8 E02006852         E02006875          1221      99</span></a>
+<a class="sourceLine" id="cb8-15" data-line-number="15"><span class="co">#&gt;  9 E02006861         E02006875          1177      56</span></a>
+<a class="sourceLine" id="cb8-16" data-line-number="16"><span class="co">#&gt; 10 E02006876         E02006875          1035      10</span></a>
+<a class="sourceLine" id="cb8-17" data-line-number="17"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/class">class</a></span>(zones_leeds)</a>
+<a class="sourceLine" id="cb8-18" data-line-number="18"><span class="co">#&gt; [1] "sf"         "data.frame"</span></a>
+<a class="sourceLine" id="cb8-19" data-line-number="19">zones_leeds[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, ]</a>
+<a class="sourceLine" id="cb8-20" data-line-number="20"><span class="co">#&gt; Simple feature collection with 3 features and 6 fields</span></a>
+<a class="sourceLine" id="cb8-21" data-line-number="21"><span class="co">#&gt; geometry type:  MULTIPOLYGON</span></a>
+<a class="sourceLine" id="cb8-22" data-line-number="22"><span class="co">#&gt; dimension:      XY</span></a>
+<a class="sourceLine" id="cb8-23" data-line-number="23"><span class="co">#&gt; bbox:           xmin: -1.727245 ymin: 53.90046 xmax: -1.294313 ymax: 53.94589</span></a>
+<a class="sourceLine" id="cb8-24" data-line-number="24"><span class="co">#&gt; epsg (SRID):    4326</span></a>
+<a class="sourceLine" id="cb8-25" data-line-number="25"><span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span></a>
+<a class="sourceLine" id="cb8-26" data-line-number="26"><span class="co">#&gt;      objectid  msoa11cd  msoa11nm msoa11nmw st_areasha st_lengths</span></a>
+<a class="sourceLine" id="cb8-27" data-line-number="27"><span class="co">#&gt; 2270     2270 E02002330 Leeds 001 Leeds 001    3460674  10002.983</span></a>
+<a class="sourceLine" id="cb8-28" data-line-number="28"><span class="co">#&gt; 2271     2271 E02002331 Leeds 002 Leeds 002   21870986  26417.665</span></a>
+<a class="sourceLine" id="cb8-29" data-line-number="29"><span class="co">#&gt; 2272     2272 E02002332 Leeds 003 Leeds 003    2811303   8586.548</span></a>
+<a class="sourceLine" id="cb8-30" data-line-number="30"><span class="co">#&gt;                            geometry</span></a>
+<a class="sourceLine" id="cb8-31" data-line-number="31"><span class="co">#&gt; 2270 MULTIPOLYGON (((-1.392046 5...</span></a>
+<a class="sourceLine" id="cb8-32" data-line-number="32"><span class="co">#&gt; 2271 MULTIPOLYGON (((-1.340405 5...</span></a>
+<a class="sourceLine" id="cb8-33" data-line-number="33"><span class="co">#&gt; 2272 MULTIPOLYGON (((-1.682211 5...</span></a></code></pre></div>
 <p>The <code>stplanr</code> package can be used to convert the non-geographic OD data into geographic desire lines as follows:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(sf)</a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="co">#&gt; Linking to GEOS 3.5.0, GDAL 2.1.0, PROJ 4.8.0</span></a>
-<a class="sourceLine" id="cb8-3" data-line-number="3">desire_lines =<span class="st"> </span>stplanr<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/stplanr/topics/od2line">od2line</a></span>(<span class="dt">flow =</span> od_leeds, <span class="dt">zones =</span> zones_leeds[<span class="dv">2</span>])</a>
-<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="co">#&gt; Warning in st_centroid.sf(zones): st_centroid assumes attributes are</span></a>
-<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="co">#&gt; constant over geometries of x</span></a>
-<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="co">#&gt; Warning in st_centroid.sfc(st_geometry(x), of_largest_polygon =</span></a>
-<a class="sourceLine" id="cb8-7" data-line-number="7"><span class="co">#&gt; of_largest_polygon): st_centroid does not give correct centroids for</span></a>
-<a class="sourceLine" id="cb8-8" data-line-number="8"><span class="co">#&gt; longitude/latitude data</span></a>
-<a class="sourceLine" id="cb8-9" data-line-number="9"><span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(desire_lines[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">12</span>)])</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(sf)</a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="co">#&gt; Linking to GEOS 3.5.0, GDAL 2.1.0, PROJ 4.8.0</span></a>
+<a class="sourceLine" id="cb9-3" data-line-number="3">desire_lines =<span class="st"> </span>stplanr<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/stplanr/topics/od2line">od2line</a></span>(<span class="dt">flow =</span> od_leeds, <span class="dt">zones =</span> zones_leeds[<span class="dv">2</span>])</a>
+<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="co">#&gt; Warning in st_centroid.sf(zones): st_centroid assumes attributes are</span></a>
+<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="co">#&gt; constant over geometries of x</span></a>
+<a class="sourceLine" id="cb9-6" data-line-number="6"><span class="co">#&gt; Warning in st_centroid.sfc(st_geometry(x), of_largest_polygon =</span></a>
+<a class="sourceLine" id="cb9-7" data-line-number="7"><span class="co">#&gt; of_largest_polygon): st_centroid does not give correct centroids for</span></a>
+<a class="sourceLine" id="cb9-8" data-line-number="8"><span class="co">#&gt; longitude/latitude data</span></a>
+<a class="sourceLine" id="cb9-9" data-line-number="9"><span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(desire_lines[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">12</span>)])</a></code></pre></div>
 <p><img src="reference/figures/README-desire-1.png" width="100%"></p>
 <p>We can convert these straight lines into routes with a routing service. The following code chunk uses the CycleStreets.net routing service, used in the PCT, to do this work (note you will need a CycleStreets.net API key saved in the environment variable CYCLESTREET for this to work, as documented <a href="https://ropensci.github.io/stplanr/reference/route_cyclestreet.html#details">here</a>):</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">routes_fast =<span class="st"> </span>stplanr<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/stplanr/topics/line2route">line2route</a></span>(desire_lines, <span class="dt">route_fun =</span> stplanr<span class="op">::</span>route_cyclestreet)</a>
-<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="co">#&gt; 10 % out of 10 distances calculated</span></a>
-<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="co">#&gt; 20 % out of 10 distances calculated</span></a>
-<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="co">#&gt; 30 % out of 10 distances calculated</span></a>
-<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="co">#&gt; 40 % out of 10 distances calculated</span></a>
-<a class="sourceLine" id="cb9-6" data-line-number="6"><span class="co">#&gt; 50 % out of 10 distances calculated</span></a>
-<a class="sourceLine" id="cb9-7" data-line-number="7"><span class="co">#&gt; 60 % out of 10 distances calculated</span></a>
-<a class="sourceLine" id="cb9-8" data-line-number="8"><span class="co">#&gt; 70 % out of 10 distances calculated</span></a>
-<a class="sourceLine" id="cb9-9" data-line-number="9"><span class="co">#&gt; 80 % out of 10 distances calculated</span></a>
-<a class="sourceLine" id="cb9-10" data-line-number="10"><span class="co">#&gt; 90 % out of 10 distances calculated</span></a>
-<a class="sourceLine" id="cb9-11" data-line-number="11"><span class="co">#&gt; 100 % out of 10 distances calculated</span></a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">routes_fast =<span class="st"> </span>stplanr<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/stplanr/topics/line2route">line2route</a></span>(desire_lines, <span class="dt">route_fun =</span> stplanr<span class="op">::</span>route_cyclestreet)</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="co">#&gt; 10 % out of 10 distances calculated</span></a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="co">#&gt; 20 % out of 10 distances calculated</span></a>
+<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="co">#&gt; 30 % out of 10 distances calculated</span></a>
+<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="co">#&gt; 40 % out of 10 distances calculated</span></a>
+<a class="sourceLine" id="cb10-6" data-line-number="6"><span class="co">#&gt; 50 % out of 10 distances calculated</span></a>
+<a class="sourceLine" id="cb10-7" data-line-number="7"><span class="co">#&gt; 60 % out of 10 distances calculated</span></a>
+<a class="sourceLine" id="cb10-8" data-line-number="8"><span class="co">#&gt; 70 % out of 10 distances calculated</span></a>
+<a class="sourceLine" id="cb10-9" data-line-number="9"><span class="co">#&gt; 80 % out of 10 distances calculated</span></a>
+<a class="sourceLine" id="cb10-10" data-line-number="10"><span class="co">#&gt; 90 % out of 10 distances calculated</span></a>
+<a class="sourceLine" id="cb10-11" data-line-number="11"><span class="co">#&gt; 100 % out of 10 distances calculated</span></a></code></pre></div>
 <p>We got useful information from this routing operation. We will add the desire line data onto vital data from the routes (from a cycling uptake perspective, distance and hilliness of routes):</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">routes_vital =<span class="st"> </span>sf<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/sf">st_sf</a></span>(</a>
-<a class="sourceLine" id="cb10-2" data-line-number="2">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cbind">cbind</a></span>(</a>
-<a class="sourceLine" id="cb10-3" data-line-number="3">  sf<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/st_geometry">st_drop_geometry</a></span>(desire_lines[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">12</span>)]),</a>
-<a class="sourceLine" id="cb10-4" data-line-number="4">  sf<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/st_geometry">st_drop_geometry</a></span>(routes_fast[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"length"</span>, <span class="st">"av_incline"</span>)]),</a>
-<a class="sourceLine" id="cb10-5" data-line-number="5">  <span class="dt">geometry =</span> routes_fast<span class="op">$</span>geometry</a>
-<a class="sourceLine" id="cb10-6" data-line-number="6">  ))</a>
-<a class="sourceLine" id="cb10-7" data-line-number="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(routes_vital)</a></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-4-1.png" width="100%"></p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">routes_vital =<span class="st"> </span>sf<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/sf">st_sf</a></span>(</a>
+<a class="sourceLine" id="cb11-2" data-line-number="2">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cbind">cbind</a></span>(</a>
+<a class="sourceLine" id="cb11-3" data-line-number="3">  sf<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/st_geometry">st_drop_geometry</a></span>(desire_lines[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">12</span>)]),</a>
+<a class="sourceLine" id="cb11-4" data-line-number="4">  sf<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/st_geometry">st_drop_geometry</a></span>(routes_fast[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"length"</span>, <span class="st">"av_incline"</span>)]),</a>
+<a class="sourceLine" id="cb11-5" data-line-number="5">  <span class="dt">geometry =</span> routes_fast<span class="op">$</span>geometry</a>
+<a class="sourceLine" id="cb11-6" data-line-number="6">  ))</a>
+<a class="sourceLine" id="cb11-7" data-line-number="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(routes_vital)</a></code></pre></div>
+<p><img src="reference/figures/README-routes-vital-1.png" width="100%"></p>
 <p>Now we estimate cycling uptake:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">routes_vital<span class="op">$</span>uptake =<span class="st"> </span><span class="kw"><a href="reference/uptake_pct_govtarget.html">uptake_pct_govtarget</a></span>(<span class="dt">distance =</span> routes_vital<span class="op">$</span>length, <span class="dt">gradient =</span> routes_vital<span class="op">$</span>av_incline)</a>
-<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="co">#&gt; Distance assumed in m, switching to km</span></a>
-<a class="sourceLine" id="cb11-3" data-line-number="3">routes_vital<span class="op">$</span>bicycle_govtarget =<span class="st"> </span>routes_vital<span class="op">$</span>bicycle <span class="op">+</span></a>
-<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Round">round</a></span>(routes_vital<span class="op">$</span>uptake <span class="op">*</span><span class="st"> </span>routes_vital<span class="op">$</span>all)</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">routes_vital<span class="op">$</span>uptake =<span class="st"> </span><span class="kw"><a href="reference/uptake_pct_govtarget.html">uptake_pct_govtarget</a></span>(<span class="dt">distance =</span> routes_vital<span class="op">$</span>length, <span class="dt">gradient =</span> routes_vital<span class="op">$</span>av_incline)</a>
+<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="co">#&gt; Distance assumed in m, switching to km</span></a>
+<a class="sourceLine" id="cb12-3" data-line-number="3">routes_vital<span class="op">$</span>bicycle_govtarget =<span class="st"> </span>routes_vital<span class="op">$</span>bicycle <span class="op">+</span></a>
+<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Round">round</a></span>(routes_vital<span class="op">$</span>uptake <span class="op">*</span><span class="st"> </span>routes_vital<span class="op">$</span>all)</a></code></pre></div>
 <p>Let’s see how many people started cycling:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sum">sum</a></span>(routes_vital<span class="op">$</span>bicycle_govtarget) <span class="op">-</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sum">sum</a></span>(routes_vital<span class="op">$</span>bicycle)</a>
-<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="co">#&gt; [1] 768</span></a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sum">sum</a></span>(routes_vital<span class="op">$</span>bicycle_govtarget) <span class="op">-</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sum">sum</a></span>(routes_vital<span class="op">$</span>bicycle)</a>
+<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="co">#&gt; [1] 768</span></a></code></pre></div>
 <p>Nearly 1000 more people cycling to work, just in 10 desire is not bad! What % cyling is this, for those routes?</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sum">sum</a></span>(routes_vital<span class="op">$</span>bicycle_govtarget) <span class="op">/</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sum">sum</a></span>(routes_vital<span class="op">$</span>all)</a>
-<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="co">#&gt; [1] 0.1153505</span></a>
-<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sum">sum</a></span>(routes_vital<span class="op">$</span>bicycle) <span class="op">/</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sum">sum</a></span>(routes_vital<span class="op">$</span>all)</a>
-<a class="sourceLine" id="cb13-4" data-line-number="4"><span class="co">#&gt; [1] 0.03963324</span></a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sum">sum</a></span>(routes_vital<span class="op">$</span>bicycle_govtarget) <span class="op">/</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sum">sum</a></span>(routes_vital<span class="op">$</span>all)</a>
+<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="co">#&gt; [1] 0.1153505</span></a>
+<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sum">sum</a></span>(routes_vital<span class="op">$</span>bicycle) <span class="op">/</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sum">sum</a></span>(routes_vital<span class="op">$</span>all)</a>
+<a class="sourceLine" id="cb14-4" data-line-number="4"><span class="co">#&gt; [1] 0.03963324</span></a></code></pre></div>
 <p>It’s gone from 4% to 11%, a realistic increase if cycling were enabled by good infrastructure and policies.</p>
 <p>Now: where to prioritise that infrastructure and those policies?</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">rnet =<span class="st"> </span>stplanr<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/stplanr/topics/overline2">overline2</a></span>(routes_vital, <span class="dt">attrib =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"bicycle"</span>, <span class="st">"bicycle_govtarget"</span>))</a>
-<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="co">#&gt; Loading required namespace: pbapply</span></a>
-<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="co">#&gt; 2019-03-13 15:52:27 constructing segments</span></a>
-<a class="sourceLine" id="cb14-4" data-line-number="4"><span class="co">#&gt; 2019-03-13 15:52:27 transposing 'B to A' to 'A to B'</span></a>
-<a class="sourceLine" id="cb14-5" data-line-number="5"><span class="co">#&gt; 2019-03-13 15:52:27 removing duplicates</span></a>
-<a class="sourceLine" id="cb14-6" data-line-number="6"><span class="co">#&gt; 2019-03-13 15:52:27 restructuring attributes</span></a>
-<a class="sourceLine" id="cb14-7" data-line-number="7"><span class="co">#&gt; 2019-03-13 15:52:27 building geometry</span></a>
-<a class="sourceLine" id="cb14-8" data-line-number="8"><span class="co">#&gt; 2019-03-13 15:52:27 simplifying geometry</span></a>
-<a class="sourceLine" id="cb14-9" data-line-number="9"><span class="co">#&gt; 2019-03-13 15:52:27 rejoining segments into linestrings</span></a>
-<a class="sourceLine" id="cb14-10" data-line-number="10">lwd =<span class="st"> </span>rnet<span class="op">$</span>bicycle_govtarget <span class="op">/</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/mean">mean</a></span>(rnet<span class="op">$</span>bicycle_govtarget)</a>
-<a class="sourceLine" id="cb14-11" data-line-number="11"><span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(rnet[<span class="st">"bicycle_govtarget"</span>], <span class="dt">lwd =</span> lwd)</a></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-8-1.png" width="100%"></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">rnet =<span class="st"> </span>stplanr<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/stplanr/topics/overline2">overline2</a></span>(routes_vital, <span class="dt">attrib =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"bicycle"</span>, <span class="st">"bicycle_govtarget"</span>))</a>
+<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="co">#&gt; Loading required namespace: pbapply</span></a>
+<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="co">#&gt; 2019-03-13 21:13:54 constructing segments</span></a>
+<a class="sourceLine" id="cb15-4" data-line-number="4"><span class="co">#&gt; 2019-03-13 21:13:54 transposing 'B to A' to 'A to B'</span></a>
+<a class="sourceLine" id="cb15-5" data-line-number="5"><span class="co">#&gt; 2019-03-13 21:13:54 removing duplicates</span></a>
+<a class="sourceLine" id="cb15-6" data-line-number="6"><span class="co">#&gt; 2019-03-13 21:13:54 restructuring attributes</span></a>
+<a class="sourceLine" id="cb15-7" data-line-number="7"><span class="co">#&gt; 2019-03-13 21:13:54 building geometry</span></a>
+<a class="sourceLine" id="cb15-8" data-line-number="8"><span class="co">#&gt; 2019-03-13 21:13:54 simplifying geometry</span></a>
+<a class="sourceLine" id="cb15-9" data-line-number="9"><span class="co">#&gt; 2019-03-13 21:13:54 rejoining segments into linestrings</span></a>
+<a class="sourceLine" id="cb15-10" data-line-number="10">lwd =<span class="st"> </span>rnet<span class="op">$</span>bicycle_govtarget <span class="op">/</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/mean">mean</a></span>(rnet<span class="op">$</span>bicycle_govtarget)</a>
+<a class="sourceLine" id="cb15-11" data-line-number="11"><span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(rnet[<span class="st">"bicycle_govtarget"</span>], <span class="dt">lwd =</span> lwd)</a></code></pre></div>
+<p><img src="reference/figures/README-rnet-1.png" width="100%"></p>
 <p>We can view the results in an interactive map and share with policy makers, stakeholders, and the public! E.g. (see interactive map <a href="http://rpubs.com/RobinLovelace/474074">here</a>):</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">mapview<span class="op">::</span><span class="kw">mapview</span>(rnet, <span class="dt">zcol =</span> <span class="st">"bicycle_govtarget"</span>, <span class="dt">lwd =</span> lwd <span class="op">*</span><span class="st"> </span><span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">mapview<span class="op">::</span><span class="kw">mapview</span>(rnet, <span class="dt">zcol =</span> <span class="st">"bicycle_govtarget"</span>, <span class="dt">lwd =</span> lwd <span class="op">*</span><span class="st"> </span><span class="dv">2</span>)</a></code></pre></div>
 <p><img src="pct-leeds-demo.png"></p>
 </div>
 <div id="next-steps-and-further-resources-work-in-progress" class="section level2">
