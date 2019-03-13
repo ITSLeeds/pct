@@ -14,5 +14,11 @@ before_install:
   - sudo apt-get install --yes libudunits2-dev libproj-dev libgeos-dev libgdal-dev
   - R -e 'install.packages("rgdal", repos="http://R-Forge.R-project.org")'
 
+before_deploy: Rscript -e 'remotes::install_cran("pkgdown")'
+deploy:
+  provider: script
+  script: Rscript -e 'pkgdown::deploy_site_github()'
+  skip_cleanup: true
+
 after_success:
   - Rscript -e 'covr::codecov()'
