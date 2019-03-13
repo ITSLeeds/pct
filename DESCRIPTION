@@ -27,7 +27,8 @@ Suggests:
     testthat,
     knitr,
     curl,
-    covr
+    covr,
+    pbapply
 VignetteBuilder: knitr
 RoxygenNote: 6.1.1
 Roxygen: list(markdown = TRUE)
