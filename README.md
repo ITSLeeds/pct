@@ -189,13 +189,23 @@ Now: where to prioritise that infrastructure and those policies?
 ``` r
 rnet = stplanr::overline2(routes_vital, attrib = c("bicycle", "bicycle_govtarget"))
 #> Loading required namespace: pbapply
-#> 2019-03-13 11:49:18 constructing segments
-#> 2019-03-13 11:49:18 transposing 'B to A' to 'A to B'
-#> 2019-03-13 11:49:18 removing duplicates
-#> 2019-03-13 11:49:18 restructuring attributes
-#> 2019-03-13 11:49:18 building geometry
-#> 2019-03-13 11:49:18 simplifying geometry
-#> 2019-03-13 11:49:19 rejoining segments into linestrings
+<<<<<<< HEAD
+#> 2019-03-13 12:30:52 constructing segments
+#> 2019-03-13 12:30:52 transposing 'B to A' to 'A to B'
+#> 2019-03-13 12:30:52 removing duplicates
+#> 2019-03-13 12:30:52 restructuring attributes
+#> 2019-03-13 12:30:52 building geometry
+#> 2019-03-13 12:30:53 simplifying geometry
+#> 2019-03-13 12:30:53 rejoining segments into linestrings
+=======
+#> 2019-03-13 12:49:41 constructing segments
+#> 2019-03-13 12:49:41 transposing 'B to A' to 'A to B'
+#> 2019-03-13 12:49:41 removing duplicates
+#> 2019-03-13 12:49:41 restructuring attributes
+#> 2019-03-13 12:49:41 building geometry
+#> 2019-03-13 12:49:41 simplifying geometry
+#> 2019-03-13 12:49:41 rejoining segments into linestrings
+>>>>>>> master
 lwd = rnet$bicycle_govtarget / mean(rnet$bicycle_govtarget)
 plot(rnet["bicycle_govtarget"], lwd = lwd)
 ```

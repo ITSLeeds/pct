@@ -1,6 +1,7 @@
 ---
 title: "Vignette Title"
-author: "Vignette Author"
+author: 
+- "R Lovelace and L Hama"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
@@ -8,58 +9,164 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  fig.path = "vignette-",
+  out.width = "100%"
 )
 ```
 
-Vignettes are long form documentation commonly included in packages. Because they are part of the distribution of the package, they need to be as compact as possible. The `html_vignette` output type provides a custom style sheet (and tweaks some options) to ensure that the resulting html is as small as possible. The `html_vignette` format:
+## Introduction
 
-- Never uses retina figures
-- Has a smaller default figure size
-- Uses a custom CSS stylesheet instead of the default Twitter Bootstrap style
+# pct  &middot; [![Coverage status](https://codecov.io/gh/ITSLeeds/pct/branch/master/graph/badge.svg)](https://codecov.io/github/ITSLeeds/pct?branch=master) [![Travis build status](https://travis-ci.org/ITSLeeds/pct.svg?branch=master)](https://travis-ci.org/ITSLeeds/pct)
 
-## Vignette Info
+The goal of pct is to increase the accessibility and reproducibility of the data produced by the Propensity to Cycle Tool (PCT), a research project and web application hosted at [www.pct.bike](https://www.pct.bike/).
+For an overview of the data provided by the PCT, clicking on the previous link and trying it out is a great place to start.
+An academic [paper](https://www.jtlu.org/index.php/jtlu/article/view/862) on the PCT provides detail on the motivations for and methods underlying the project.
 
-Note the various macros within the `vignette` section of the metadata block above. These are required in order to instruct R how to build the vignette. Note that you should change the `title` field and the `\VignetteIndexEntry` to match the title of your vignette.
+A major motivation behind the project was making transport evidence more accessible, encouraging evidence-based transport policies.
+The code base underlying the PCT is publicly available (see [github.com/npct](https://github.com/npct/)).
+However, the code hosted there is not easy to run or reproduce, which is where this package comes in: it provides quick access to the data underlying the PCT and enables some of the key results to be reproduced quickly.
+It was developed primarily for educational purposes (including for upcoming PCT training courses) but it may be useful for people to build on the the methods, for example to create a scenario of cycling uptake in their town/city/region.
 
-## Styles
+In summary, if you want to know how PCT works, be able to reproduce some of its results, and build scenarios of cycling uptake to inform transport policies enabling cycling in cities worldwide, this package is for you!
 
-The `html_vignette` template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows:
+## Installation
 
-    output: 
-      rmarkdown::html_vignette:
-        css: mystyles.css
+You can install the development version of the package as follows:
 
-## Figures
-
-The figure sizes have been customised so that you can easily put two images side-by-side. 
-
-```{r, fig.show='hold'}
-plot(1:10)
-plot(10:1)
+```{r, eval=FALSE}
+remotes::install_github("ITSLeeds/pct")
 ```
 
-You can enable figure captions by `fig_caption: yes` in YAML:
 
-    output:
-      rmarkdown::html_vignette:
-        fig_caption: yes
+<!-- You can install the released version of pct from [CRAN](https://CRAN.R-project.org) with: -->
 
-Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**.
+<!-- ``` r -->
+<!-- install.packages("pct") -->
+<!-- ``` -->
 
-## More Examples
+Load the package as follows:
 
-You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`.
-
-```{r, echo=FALSE, results='asis'}
-knitr::kable(head(mtcars, 10))
+```{r}
+library(pct)
 ```
 
-Also a quote using `>`:
+### Get PCT data
 
-> "He who gives up [code] safety for [code] speed deserves neither."
-([via](https://twitter.com/hadleywickham/status/504368538874703872))
+From feedback, we hear that the use of the data is critical in decision making. Therefore, one area where the package could be useful is making the data "easily" available to be processed.
+
+* `get_pct`: the basic function to obtain data available  [here](). 
+
+The rest of these should be self explanatory.
+
+* `get_pct_centroids`
+* `get_pct_lines` 
+* `get_pct_rnet` 
+* `get_pct_routes_fast` 
+* `get_pct_routes_quiet` 
+* `get_pct_zones` 
+* `uptake_pct_godutch` 
+* `uptake_pct_govtarget` 
+
+For example, to get the centroids in West Yorkshire:
+
+``` {r centroids}
+centroids = get_pct_centroids(region = "west-yorkshire")
+plot(centroids[, "geo_name"])
+```
+
+Likewise to download the desirelines for "west-yorkshire":
+
+```{r get_pct_lines}
+lines = get_pct_lines(region = "west-yorkshire")
+lines = lines[order(lines$all, decreasing = TRUE), c("all")]
+plot(lines[1:10,], lwd = 4)
+# view the lines on a map
+# mapview::mapview(lines[1:3000, c("geo_name1")])
+```
+
+## Reproduce PCT for Leeds
+
+This example shows how scenarios of cycling uptake, and how 'distance decay' works (short trips are more likely to be cycled than long trips).
+
+The input data looks like this (origin-destination data and geographic zone data):
+
+```{r input-data}
+class(od_leeds)
+od_leeds[c(1:3, 12)]
+class(zones_leeds)
+zones_leeds[1:3, ]
+```
+
+The `stplanr` package can be used to convert the non-geographic OD data into geographic desire lines as follows: 
+
+```{r desire}
+library(sf)
+desire_lines = stplanr::od2line(flow = od_leeds, zones = zones_leeds[2])
+plot(desire_lines[c(1:3, 12)])
+```
+
+We can convert these straight lines into routes with a routing service, e.g.:
+
+```{r}
+routes_fast = stplanr::line2route(desire_lines, route_fun = stplanr::route_cyclestreet)
+```
+
+We got useful information from this routing operation.
+We will add the desire line data onto vital data from the routes (from a cycling uptake perspective, distance and hilliness of routes):
+
+```{r}
+routes_vital = sf::st_sf(
+  cbind(
+  sf::st_drop_geometry(desire_lines[c(1:3, 12)]),
+  sf::st_drop_geometry(routes_fast[c("length", "av_incline")]),
+  geometry = routes_fast$geometry
+  ))
+plot(routes_vital)
+```
+
+Now we estimate cycling uptake:
+
+```{r}
+routes_vital$uptake = uptake_pct_govtarget(distance = routes_vital$length, gradient = routes_vital$av_incline)
+routes_vital$bicycle_govtarget = routes_vital$bicycle +
+  round(routes_vital$uptake * routes_vital$all)
+```
+
+Let's see how many people started cycling:
+
+```{r}
+sum(routes_vital$bicycle_govtarget) - sum(routes_vital$bicycle)
+```
+
+Nearly 1000 more people cycling to work, just in 10 desire is not bad!
+What % cyling is this, for those routes?
+
+```{r}
+sum(routes_vital$bicycle_govtarget) / sum(routes_vital$all)
+sum(routes_vital$bicycle) / sum(routes_vital$all)
+```
+
+It's gone from 4% to 11%, a realistic increase if cycling were enabled by good infrastructure and policies.
+
+Now: where to prioritise that infrastructure and those policies?
+
+```{r}
+rnet = stplanr::overline2(routes_vital, attrib = c("bicycle", "bicycle_govtarget"))
+lwd = rnet$bicycle_govtarget / mean(rnet$bicycle_govtarget)
+plot(rnet["bicycle_govtarget"], lwd = lwd)
+```
+
+We can view the results in an interactive map and share with policy makers, stakeholders, and the public!
+E.g. (see interactive map [here](http://rpubs.com/RobinLovelace/474074)):
+
+```{r, eval=FALSE}
+mapview::mapview(rnet, zcol = "bicycle_govtarget", lwd = lwd * 2)
+```
+
+```{r leeds-map, echo=FALSE}
+knitr::include_graphics("../pct-leeds-demo.png")
+```
