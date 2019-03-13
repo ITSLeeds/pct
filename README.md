@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-pct · [![Coverage status](https://codecov.io/gh/ITSLeeds/pct/branch/master/graph/badge.svg)](https://codecov.io/github/ITSLeeds/pct?branch=master) [![Travis build status](https://travis-ci.org/ropensci/stats19.svg?branch=master)](https://travis-ci.org/ITSLeeds/pct)
-=========================================================================================================================================================================================================================================================================
+pct · [![Coverage status](https://codecov.io/gh/ITSLeeds/pct/branch/master/graph/badge.svg)](https://codecov.io/github/ITSLeeds/pct?branch=master) [![Travis build status](https://travis-ci.org/ITSLeeds/pct.svg?branch=master)](https://travis-ci.org/ITSLeeds/pct)
+=====================================================================================================================================================================================================================================================================
 
 The goal of pct is to increase the accessibility and reproducibility of the data produced by the Propensity to Cycle Tool (PCT), a research project and web application hosted at [www.pct.bike](https://www.pct.bike/). For an overview of the data provided by the PCT, clicking on the previous link and trying it out is a great place to start. An academic [paper](https://www.jtlu.org/index.php/jtlu/article/view/862) on the PCT provides detail on the motivations for and methods underlying the project.
 
@@ -59,7 +59,8 @@ Likewise to download the desirelines for "west-yorkshire":
 
 ``` r
 lines = get_pct_lines(region = "west-yorkshire")
-plot(lines[1000:3000, c("geo_name1")])
+lines = lines[order(lines$all, decreasing = TRUE), c("all")]
+plot(lines[1:10,], lwd = 4)
 ```
 
 <img src="man/figures/README-get_pct_lines-1.png" width="100%" />
@@ -188,13 +189,13 @@ Now: where to prioritise that infrastructure and those policies?
 ``` r
 rnet = stplanr::overline2(routes_vital, attrib = c("bicycle", "bicycle_govtarget"))
 #> Loading required namespace: pbapply
-#> 2019-03-12 13:01:15 constructing segments
-#> 2019-03-12 13:01:15 transposing 'B to A' to 'A to B'
-#> 2019-03-12 13:01:15 removing duplicates
-#> 2019-03-12 13:01:15 restructuring attributes
-#> 2019-03-12 13:01:15 building geometry
-#> 2019-03-12 13:01:15 simplifying geometry
-#> 2019-03-12 13:01:15 rejoining segments into linestrings
+#> 2019-03-13 11:49:18 constructing segments
+#> 2019-03-13 11:49:18 transposing 'B to A' to 'A to B'
+#> 2019-03-13 11:49:18 removing duplicates
+#> 2019-03-13 11:49:18 restructuring attributes
+#> 2019-03-13 11:49:18 building geometry
+#> 2019-03-13 11:49:18 simplifying geometry
+#> 2019-03-13 11:49:19 rejoining segments into linestrings
 lwd = rnet$bicycle_govtarget / mean(rnet$bicycle_govtarget)
 plot(rnet["bicycle_govtarget"], lwd = lwd)
 ```
