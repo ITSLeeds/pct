@@ -59,7 +59,8 @@ Likewise to download the desirelines for "west-yorkshire":
 
 ``` r
 lines = get_pct_lines(region = "west-yorkshire")
-plot(lines[1000:3000, c("geo_name1")])
+lines = lines[order(lines$all, decreasing = TRUE), c("all")]
+plot(lines[1:10,], lwd = 4)
 ```
 
 <img src="man/figures/README-get_pct_lines-1.png" width="100%" />
@@ -188,13 +189,13 @@ Now: where to prioritise that infrastructure and those policies?
 ``` r
 rnet = stplanr::overline2(routes_vital, attrib = c("bicycle", "bicycle_govtarget"))
 #> Loading required namespace: pbapply
-#> 2019-03-13 11:40:32 constructing segments
-#> 2019-03-13 11:40:32 transposing 'B to A' to 'A to B'
-#> 2019-03-13 11:40:32 removing duplicates
-#> 2019-03-13 11:40:32 restructuring attributes
-#> 2019-03-13 11:40:32 building geometry
-#> 2019-03-13 11:40:32 simplifying geometry
-#> 2019-03-13 11:40:32 rejoining segments into linestrings
+#> 2019-03-13 11:49:18 constructing segments
+#> 2019-03-13 11:49:18 transposing 'B to A' to 'A to B'
+#> 2019-03-13 11:49:18 removing duplicates
+#> 2019-03-13 11:49:18 restructuring attributes
+#> 2019-03-13 11:49:18 building geometry
+#> 2019-03-13 11:49:18 simplifying geometry
+#> 2019-03-13 11:49:19 rejoining segments into linestrings
 lwd = rnet$bicycle_govtarget / mean(rnet$bicycle_govtarget)
 plot(rnet["bicycle_govtarget"], lwd = lwd)
 ```

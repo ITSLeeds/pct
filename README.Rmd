@@ -75,7 +75,8 @@ Likewise to download the desirelines for "west-yorkshire":
 
 ```{r get_pct_lines}
 lines = get_pct_lines(region = "west-yorkshire")
-plot(lines[1000:3000, c("geo_name1")])
+lines = lines[order(lines$all, decreasing = TRUE), c("all")]
+plot(lines[1:10,], lwd = 4)
 # view the lines on a map
 # mapview::mapview(lines[1:3000, c("geo_name1")])
 ```
