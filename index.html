@@ -67,9 +67,9 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <pre><code>#&gt; 
 #&gt;   
-   checking for file ‘/tmp/RtmpvxfBEU/remotes54452109fe43/ropensci-stplanr-fd06f08/DESCRIPTION’ ...
+   checking for file ‘/tmp/RtmpJxDHHP/remotes537b3eed9346/ropensci-stplanr-fd06f08/DESCRIPTION’ ...
   
-✔  checking for file ‘/tmp/RtmpvxfBEU/remotes54452109fe43/ropensci-stplanr-fd06f08/DESCRIPTION’
+✔  checking for file ‘/tmp/RtmpJxDHHP/remotes537b3eed9346/ropensci-stplanr-fd06f08/DESCRIPTION’
 #&gt; 
   
 ─  preparing ‘stplanr’:
@@ -264,13 +264,13 @@
 <p>Now: where to prioritise that infrastructure and those policies?</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">rnet =<span class="st"> </span>stplanr<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/stplanr/topics/overline2">overline2</a></span>(routes_vital, <span class="dt">attrib =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"bicycle"</span>, <span class="st">"bicycle_govtarget"</span>))</a>
 <a class="sourceLine" id="cb15-2" data-line-number="2"><span class="co">#&gt; Loading required namespace: pbapply</span></a>
-<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="co">#&gt; 2019-03-13 21:13:54 constructing segments</span></a>
-<a class="sourceLine" id="cb15-4" data-line-number="4"><span class="co">#&gt; 2019-03-13 21:13:54 transposing 'B to A' to 'A to B'</span></a>
-<a class="sourceLine" id="cb15-5" data-line-number="5"><span class="co">#&gt; 2019-03-13 21:13:54 removing duplicates</span></a>
-<a class="sourceLine" id="cb15-6" data-line-number="6"><span class="co">#&gt; 2019-03-13 21:13:54 restructuring attributes</span></a>
-<a class="sourceLine" id="cb15-7" data-line-number="7"><span class="co">#&gt; 2019-03-13 21:13:54 building geometry</span></a>
-<a class="sourceLine" id="cb15-8" data-line-number="8"><span class="co">#&gt; 2019-03-13 21:13:54 simplifying geometry</span></a>
-<a class="sourceLine" id="cb15-9" data-line-number="9"><span class="co">#&gt; 2019-03-13 21:13:54 rejoining segments into linestrings</span></a>
+<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="co">#&gt; 2019-03-13 22:31:19 constructing segments</span></a>
+<a class="sourceLine" id="cb15-4" data-line-number="4"><span class="co">#&gt; 2019-03-13 22:31:19 transposing 'B to A' to 'A to B'</span></a>
+<a class="sourceLine" id="cb15-5" data-line-number="5"><span class="co">#&gt; 2019-03-13 22:31:19 removing duplicates</span></a>
+<a class="sourceLine" id="cb15-6" data-line-number="6"><span class="co">#&gt; 2019-03-13 22:31:19 restructuring attributes</span></a>
+<a class="sourceLine" id="cb15-7" data-line-number="7"><span class="co">#&gt; 2019-03-13 22:31:19 building geometry</span></a>
+<a class="sourceLine" id="cb15-8" data-line-number="8"><span class="co">#&gt; 2019-03-13 22:31:19 simplifying geometry</span></a>
+<a class="sourceLine" id="cb15-9" data-line-number="9"><span class="co">#&gt; 2019-03-13 22:31:20 rejoining segments into linestrings</span></a>
 <a class="sourceLine" id="cb15-10" data-line-number="10">lwd =<span class="st"> </span>rnet<span class="op">$</span>bicycle_govtarget <span class="op">/</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/mean">mean</a></span>(rnet<span class="op">$</span>bicycle_govtarget)</a>
 <a class="sourceLine" id="cb15-11" data-line-number="11"><span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(rnet[<span class="st">"bicycle_govtarget"</span>], <span class="dt">lwd =</span> lwd)</a></code></pre></div>
 <p><img src="reference/figures/README-rnet-1.png" width="100%"></p>
