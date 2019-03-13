@@ -91,7 +91,7 @@ This example shows how scenarios of cycling uptake work.
 Key to the PCT uptake model is 'distance decay', meaning that short trips are more likely to be cycled than long trips.
 The function 
 
-```{r}
+```{r distance-decay}
 distances = 1:20
 hilliness = 0:5
 uptake_df = data.frame(
@@ -151,7 +151,7 @@ routes_fast = stplanr::line2route(desire_lines, route_fun = stplanr::route_cycle
 We got useful information from this routing operation.
 We will add the desire line data onto vital data from the routes (from a cycling uptake perspective, distance and hilliness of routes):
 
-```{r}
+```{r routes-vital}
 routes_vital = sf::st_sf(
   cbind(
   sf::st_drop_geometry(desire_lines[c(1:3, 12)]),
@@ -187,7 +187,7 @@ It's gone from 4% to 11%, a realistic increase if cycling were enabled by good i
 
 Now: where to prioritise that infrastructure and those policies?
 
-```{r}
+```{r rnet}
 rnet = stplanr::overline2(routes_vital, attrib = c("bicycle", "bicycle_govtarget"))
 lwd = rnet$bicycle_govtarget / mean(rnet$bicycle_govtarget)
 plot(rnet["bicycle_govtarget"], lwd = lwd)
