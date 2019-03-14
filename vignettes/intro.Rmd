@@ -63,12 +63,12 @@ From feedback, we hear that the use of the data is critical in decision making. 
 To download the data within www.pct.bike, we have added a suite of functions:
 
 * `get_pct()`
-* `get_pct_rnet` 
-* `get_pct_zones` 
-* `get_pct_lines` 
-* `get_pct_centroids`
-* `get_pct_routes_fast` 
-* `get_pct_routes_quiet` 
+* `get_pct_rnet()` 
+* `get_pct_zones()` 
+* `get_pct_lines()` 
+* `get_pct_centroids()`
+* `get_pct_routes_fast()` 
+* `get_pct_routes_quiet()` 
 
 For example, to get the centroids in Isle of Wight:
 
@@ -102,8 +102,8 @@ However, the base of these functions is `get_pct()`. It has various parameters:
 
 The crucial part of the PCT is the two and possibly more functions currently within this package:
 
-* `uptake_pct_godutch`: generates the "GoDutch" scenario level of scycling based on a particular route's hilliness percentage and length.
-* `uptake_pct_govtarget`: generates the UK government target again based on the hilliness and length parameters.
+* `uptake_pct_godutch()`: generates the "GoDutch" scenario level of scycling based on a particular route's hilliness percentage and length.
+* `uptake_pct_govtarget()`: generates the UK government target again based on the hilliness and length parameters.
 
 Therefore, in order to genrate say a UK government target for an area like "Isle of Wight" from scratch:
 

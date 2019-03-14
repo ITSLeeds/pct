@@ -24,8 +24,6 @@ get_pct = function(
   layer = NULL,
   extension = ".Rds"
 ) {
-  if(!exists(c("region", "layer")))
-    stop("region and layer are required")
   if(length(region) != 1L || length(layer) != 1L)
     stop("'region' and 'layer' must be of length 1")
   if(is.na(region) || (region == "") || !is.character(region) ||

@@ -5,6 +5,7 @@ context("test-get-pct")
 test_that("get_pct_ works", {
   expect_error(get_pct_zones())
   expect_error(get_pct_centroids())
+  expect_error(get_pct(region = NA, layer = NA))
   skip_heavy()
   z = get_pct_zones("isle-of-wight")
   expect_true(nrow(z) == 18)
