@@ -58,13 +58,16 @@ get_od = function(area = "sheffield", n = 100, type = "within") {
   od_all$geo_name1 = zones_all$msoa11nm[match(od_all$geo_code1, zones_all$msoa11cd)]
   od_all$geo_name2 = zones_all$msoa11nm[match(od_all$geo_code2, zones_all$msoa11cd)]
 
+  # is area valid? do it once
+  valid_areas = grepl(area, od_all$geo_name1, ignore.case = TRUE)
+  if(!any(valid_areas))
+    stop(paste0("Did you enter the right area name (", area,"?"))
   if(type == "within") {
-    od = od_all[
-      grepl(area, od_all$geo_name1, ignore.case = TRUE) &
-        grepl(area, od_all$geo_name2, ignore.case = TRUE),
-      ]
+    grepl(area, od_all$geo_name1, ignore.case = TRUE) &
+      grepl(area, od_all$geo_name2, ignore.case = TRUE)
   }
-
+  od = od_all[valid_areas,]
+  # finally
   od = order_and_subset(od, "all", n)
 
 }
