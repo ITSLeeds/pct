@@ -28,8 +28,8 @@ Suggests:
     knitr,
     curl,
     covr,
-    rmarkdown,
-    pbapply
+    pbapply,
+    ggplot2
 VignetteBuilder: knitr
 RoxygenNote: 6.1.1
 Roxygen: list(markdown = TRUE)
