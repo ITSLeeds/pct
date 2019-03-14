@@ -107,12 +107,12 @@
 <p>To download the data within www.pct.bike, we have added a suite of functions:</p>
 <ul>
 <li><code><a href="../reference/get_pct.html">get_pct()</a></code></li>
-<li><code>get_pct_rnet</code></li>
-<li><code>get_pct_zones</code></li>
-<li><code>get_pct_lines</code></li>
-<li><code>get_pct_centroids</code></li>
-<li><code>get_pct_routes_fast</code></li>
-<li><code>get_pct_routes_quiet</code></li>
+<li><code><a href="../reference/get_pct_rnet.html">get_pct_rnet()</a></code></li>
+<li><code><a href="../reference/get_pct_zones.html">get_pct_zones()</a></code></li>
+<li><code><a href="../reference/get_pct_lines.html">get_pct_lines()</a></code></li>
+<li><code><a href="../reference/get_pct_centroids.html">get_pct_centroids()</a></code></li>
+<li><code><a href="../reference/get_pct_routes_fast.html">get_pct_routes_fast()</a></code></li>
+<li><code><a href="../reference/get_pct_routes_quiet.html">get_pct_routes_quiet()</a></code></li>
 </ul>
 <p>For example, to get the centroids in Isle of Wight:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">centroids =<span class="st"> </span><span class="kw"><a href="../reference/get_pct_centroids.html">get_pct_centroids</a></span>(<span class="dt">region =</span> <span class="st">"isle-of-wight"</span>)</a>
@@ -150,9 +150,9 @@
 <p>The crucial part of the PCT is the two and possibly more functions currently within this package:</p>
 <ul>
 <li>
-<code>uptake_pct_godutch</code>: generates the “GoDutch” scenario level of scycling based on a particular route’s hilliness percentage and length.</li>
+<code><a href="../reference/uptake_pct_godutch.html">uptake_pct_godutch()</a></code>: generates the “GoDutch” scenario level of scycling based on a particular route’s hilliness percentage and length.</li>
 <li>
-<code>uptake_pct_govtarget</code>: generates the UK government target again based on the hilliness and length parameters.</li>
+<code><a href="../reference/uptake_pct_govtarget.html">uptake_pct_govtarget()</a></code>: generates the UK government target again based on the hilliness and length parameters.</li>
 </ul>
 <p>Therefore, in order to genrate say a UK government target for an area like “Isle of Wight” from scratch:</p>
 <p>Step one: we get the desire line for top destinations (top 100):</p>
