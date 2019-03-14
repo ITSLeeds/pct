@@ -60,18 +60,15 @@ library(pct)
 
 From feedback, we hear that the use of the data is critical in decision making. Therefore, one area where the package could be useful is making the data "easily" available to be processed.
 
-* `get_pct`: the basic function to obtain data available  [here](). 
+To download the data within www.pct.bike, we have added a suite of functions:
 
-The rest of these should be self explanatory.
-
-* `get_pct_centroids`
-* `get_pct_lines` 
+* `get_pct()`
 * `get_pct_rnet` 
+* `get_pct_zones` 
+* `get_pct_lines` 
+* `get_pct_centroids`
 * `get_pct_routes_fast` 
 * `get_pct_routes_quiet` 
-* `get_pct_zones` 
-* `uptake_pct_godutch` 
-* `uptake_pct_govtarget` 
 
 For example, to get the centroids in Isle of Wight:
 
@@ -88,4 +85,31 @@ lines = lines[order(lines$all, decreasing = TRUE), c("all")]
 plot(lines[1:10,], lwd = 4)
 # view the lines on a map
 # mapview::mapview(lines[1:3000, c("geo_name1")])
+```
+The rest of the `get_pct_` functions are similar to the above two examples and download data from www.pct.bike.
+
+However, the base of these functions is `get_pct()`. It has various parameters:
+
+* `base_url = "https://github.com/npct/pct-outputs-regional-R/raw/master"`: just in case if you wanted to download the data from a similar server
+* `purpose = "commute"`: soon there will be "schools" and maybe other modes, but currently commute is the only option. 
+* `geography = "msoa"`: MSOA or LSOA
+* `region = NULL`: regions within `pct::pct_regions`
+* `layer = NULL`: one of `z` (zones), `c` (centroids), `l` (desire lines), `rf` (routes fast), `rq` (routes quiet) or `rnet`.
+* even `extension = ".Rds"` as PCT data is available in various formats. For the purpose of this pacakge we have made the default option of "Rds".
+
+
+## Generate PCT data
+
+The crucial part of the PCT is the two and possibly more functions currently within this package:
+
+* `uptake_pct_godutch`: generates the "GoDutch" scenario level of scycling based on a particular route's hilliness percentage and length.
+* `uptake_pct_govtarget`: generates the UK government target again based on the hilliness and length parameters.
+
+Therefore, in order to genrate say a UK government target for an area like "Isle of Wight" from scratch we can go:
+
+```{r reproduce-pct}
+# top 100 origin destinations by all methods of travel
+wight_od = pct::get_od(area = "isle-of-wight")
+head(wight_od)
+
 ```
