@@ -1,5 +1,5 @@
 ---
-title: "Vignette Title"
+title: "Obtaining and reproducing PCT data."
 author: 
 - "R Lovelace and L Hama"
 date: "`r Sys.Date()`"
@@ -163,4 +163,7 @@ We can also see which routes would have the highest uptake using mapping package
 # mapview::mapview(wight_uptake, zcol = "govtarget")
 # mapview::mapview(wight_uptake, zcol = "godutch")
 ```
-![image](https://user-images.githubusercontent.com/408568/54354252-0f52f880-464e-11e9-893b-dab3ef8bae4d.png)
+
+```{r map, echo=FALSE}
+knitr::include_graphics("https://user-images.githubusercontent.com/408568/54354252-0f52f880-464e-11e9-893b-dab3ef8bae4d.png")
+```
