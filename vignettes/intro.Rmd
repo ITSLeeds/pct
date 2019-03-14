@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r install-stplanr, message=FALSE, echo=FALSE}
+```{r install-stplanr, message=FALSE, echo=FALSE, results='hide'}
 remotes::install_github("ropensci/stplanr")
 ```
 
@@ -105,11 +105,62 @@ The crucial part of the PCT is the two and possibly more functions currently wit
 * `uptake_pct_godutch`: generates the "GoDutch" scenario level of scycling based on a particular route's hilliness percentage and length.
 * `uptake_pct_govtarget`: generates the UK government target again based on the hilliness and length parameters.
 
-Therefore, in order to genrate say a UK government target for an area like "Isle of Wight" from scratch we can go:
+Therefore, in order to genrate say a UK government target for an area like "Isle of Wight" from scratch:
 
-```{r reproduce-pct}
+Step one: we get the desire line for top destinations (top 100):
+
+```{r pct-lines}
 # top 100 origin destinations by all methods of travel
-wight_od = pct::get_od(area = "isle-of-wight")
-head(wight_od)
+wight_desire_lines = pct::get_desire_lines(area = "isle of wight")
+head(wight_desire_lines$all)
+wight_routes_fast = stplanr::line2route(l = wight_desire_lines)
 
+plot(wight_desire_lines$geometry)
 ```
+
+Step two: we generate a fast route network using `stplanr`, we would need a CycleStreets.Net API key for this:
+
+```{r pct-routes-fast}
+library(stplanr)
+wight_routes_fast = stplanr::line2route(l = wight_desire_lines)
+plot(wight_routes_fast[, c("av_incline")])
+```
+
+Step three: we can now get the propensity to cycle percentages from the `uptake_pct_godutch` using the `length` and `av_incline` from the `wight_routes_fast` object.
+
+```{r pct-goducth}
+wight_pcycle_dutch = pct::uptake_pct_godutch(
+  distance = wight_routes_fast$length,
+  gradient = wight_routes_fast$av_incline
+)
+
+wight_psycle_gov = pct::uptake_pct_govtarget(
+  distance = wight_routes_fast$length,
+  gradient = wight_routes_fast$av_incline
+)
+  
+wight_uptake = wight_routes_fast
+wight_uptake$govtarget = wight_psycle_gov
+wight_uptake$godutch = wight_pcycle_dutch
+
+library(ggplot2)
+ggplot(wight_uptake) +
+  geom_line(aes(
+    length,
+    govtarget,
+    colour = "govtarget"
+  )) + 
+  geom_line(aes(
+    length,
+    godutch,
+    colour = "godutch"
+  ))
+```
+
+We can also see which routes would have the highest uptake using mapping packages such as:
+
+```{r pct-map} 
+# mapview::mapview(wight_uptake, zcol = "govtarget")
+# mapview::mapview(wight_uptake, zcol = "godutch")
+```
+![image](https://user-images.githubusercontent.com/408568/54354252-0f52f880-464e-11e9-893b-dab3ef8bae4d.png)
