@@ -29,7 +29,8 @@ Suggests:
     curl,
     covr,
     pbapply,
-    ggplot2
+    ggplot2,
+    remotes
 VignetteBuilder: knitr
 RoxygenNote: 6.1.1
 Roxygen: list(markdown = TRUE)
