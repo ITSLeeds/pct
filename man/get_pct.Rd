@@ -27,3 +27,9 @@ for zones, centroids, desire lines, routes (fast or quiet) and route networks, r
 This function gets data generated for the Propensity to Cycle Tool
 project and returns objects in the modern \code{sf} class.
 }
+\examples{
+rf = get_pct(region = "isle-of-wight", layer = "rf")
+plot(rf)
+z = get_pct(region = "isle-of-wight", layer = "z")
+# rf = get_pct(region = "west-yorkshire", layer = "rf")
+}

@@ -88,3 +88,31 @@ NULL
 #' @examples
 #' pct_regions
 NULL
+
+#' Zones in central Santiago
+#'
+#' See https://github.com/pedalea/pctSantiago folder for generation code
+#'
+#' @docType data
+#' @keywords datasets
+#' @name santiago_zones
+#' @examples
+#' u = "https://github.com/pedalea/pctSantiago/releases/download/0.0.1/z_centre.Rds"
+#' download.file(u, destfile = "z_centre.Rds")
+#' santiago_zones = readRDS("z_centre.Rds")
+#' santiago_zones
+NULL
+
+#' Desire lines in central Santiago
+#'
+#' See https://github.com/pedalea/pctSantiago folder for generation code
+#'
+#' @docType data
+#' @keywords datasets
+#' @name santiago_lines
+#' @examples
+#' # u = "https://github.com/pedalea/pctSantiago/releases/download/0.0.1/od_agg_zone_sub.Rds"
+#' # download.file(u, destfile = "od_agg_zone_sub.Rds")
+#' # desire_lines = readRDS("od_agg_zone_sub.Rds")
+#' santiago_zones
+NULL

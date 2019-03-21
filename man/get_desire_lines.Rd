@@ -13,7 +13,7 @@ get_desire_lines(area = "sheffield", n = 100)
 within the \code{area}.}
 }
 \description{
-Desire lines
+This function generates "desire lines" from census 2011 data.
 }
 \examples{
 desire_sheffield = get_desire_lines("sheffield", n = 20)

@@ -11,7 +11,7 @@
 #' for zones, centroids, desire lines, routes (fast or quiet) and route networks, respectively
 #' @param extension The type of file to download (typically `.Rds`)
 #' @export
-#' @example
+#' @examples
 #' rf = get_pct(region = "isle-of-wight", layer = "rf")
 #' plot(rf)
 #' z = get_pct(region = "isle-of-wight", layer = "z")

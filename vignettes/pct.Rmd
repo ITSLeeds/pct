@@ -1,0 +1,29 @@
+---
+title: "Introduction to the Propensity to Cycle Tool (pct) package"
+author: "Robin Lovelace, Layik Hama"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to the pct}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Introduction
+
+The package README shows how the PCT can be used to get and reproduce some of the datasets from the PCT package, based on an example in the city of Leeds.
+This vignette shows how the package can be used to create estimates of cycling potential in other cities.
+
+## Input data
+
+The input data for this vignetted was created using code in the [pctSantiago](https://github.com/pedalea/pctSantiago) project.
+It looks like this:
+
+
