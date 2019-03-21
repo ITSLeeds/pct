@@ -1,0 +1,67 @@
+---
+title: "Building a Propensity to Cycle Tool for Arica"
+author: "Robin Lovelace, Ignacio Tiznado Aitken, Layik Hama"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{pctArica}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+The aim of this article is to show how the pct package can help estimate cycling potential in new cities based on origin-destination data.
+Specifically, it uses data from Arica, Chile, to demonstrate the methods.
+
+We will use the following packages:
+
+```{r}
+library(stplanr)
+library(pct)
+library(sf)
+```
+
+## Loading the data
+
+```{r data-load, eval=FALSE}
+# Aim: data prep
+library(dplyr)
+u = "http://datos.gob.cl/uploads/recursos/viajes.csv"
+if(!file.exists("viajes.csv")) download.file(u, "viajes.csv")
+trips = readr::read_delim("viajes.csv", delim = ";")
+trips = trips[1:27]
+trips = trips %>% 
+  filter(OrigenCoordX > 0, OrigenCoordY > 0, !is.na(OrigenCoordX))
+names(trips)
+trips_agg = trips %>%
+  group_by(ComunaOrigen, ComunaDestino) %>% 
+  summarise(n = n(),
+            fx = mean(OrigenCoordX), fy = mean(OrigenCoordY),
+            tx = mean(DestinoCoordX), ty = mean(DestinoCoordY)
+            ) %>% 
+  top_n(10, n)
+origins = trips_agg %>% 
+  select(ComunaOrigen, fx, fy) %>% 
+  na.omit() %>% 
+  st_as_sf(coords = c("fx", "fy"))
+```
+
+```{r, eval=FALSE, echo=FALSE}
+
+# url_od = "http://www.sectra.gob.cl/descargas/encuestas_movilidad/Arica/EODH_2010_Arica.zip"
+# download.file(url_od, "EODH_2010_Arica.zip")
+# unzip("EODH_2010_Arica.zip")
+# library(odbc)
+# library(DBI)
+# con <- dbConnect(odbc::odbc(), .connection_string = "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=./EODH_2010_Arica.mdb")
+u = "http://datos.gob.cl/uploads/recursos/Etapas.csv"
+if(!file.exists("Etapas.csv")) download.file(u, "Etapas.csv")
+stages = readr::read_delim("Etapas.csv", delim = ";")
+
+```
