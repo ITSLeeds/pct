@@ -166,6 +166,10 @@ mapview::mapview(rnet, zcol = "bicycle_govtarget", lwd = lwd * 2)
 
 ![](pct-leeds-demo.png)
 
+## Current limitations
+* This package currently does not estimate cycling uptake associated with intrazonal flows and people with no fixed job data.
+* This package currently does not estimate health benefits.
+
 ## Next steps and further resources (work in progress)
 
 - Add additional scenarios of cycling uptake from different places (e.g. goCambridge)
