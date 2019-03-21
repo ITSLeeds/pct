@@ -46,6 +46,9 @@
   </a>
 </li>
 <li>
+  <a href="articles/pct.html">Get started</a>
+</li>
+<li>
   <a href="reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
@@ -167,16 +170,17 @@
 <p>The <code>stplanr</code> package can be used to convert the non-geographic OD data into geographic desire lines as follows:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(sf)</a>
 <a class="sourceLine" id="cb7-2" data-line-number="2"><span class="co">#&gt; Linking to GEOS 3.5.0, GDAL 2.1.0, PROJ 4.8.0</span></a>
-<a class="sourceLine" id="cb7-3" data-line-number="3">desire_lines =<span class="st"> </span>stplanr<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/stplanr/topics/od2line">od2line</a></span>(<span class="dt">flow =</span> od_leeds, <span class="dt">zones =</span> zones_leeds[<span class="dv">2</span>])</a>
-<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">#&gt; Warning in st_centroid.sf(zones): st_centroid assumes attributes are</span></a>
-<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="co">#&gt; constant over geometries of x</span></a>
-<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="co">#&gt; Warning in st_centroid.sfc(st_geometry(x), of_largest_polygon =</span></a>
-<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="co">#&gt; of_largest_polygon): st_centroid does not give correct centroids for</span></a>
-<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="co">#&gt; longitude/latitude data</span></a>
-<a class="sourceLine" id="cb7-9" data-line-number="9"><span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(desire_lines[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">12</span>)])</a></code></pre></div>
+<a class="sourceLine" id="cb7-3" data-line-number="3">desire_lines =<span class="st"> </span>stplanr<span class="op">::</span><span class="kw"><a href="https://ropensci.github.io/stplanr/reference/od2line.html">od2line</a></span>(<span class="dt">flow =</span> od_leeds, <span class="dt">zones =</span> zones_leeds[<span class="dv">2</span>])</a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">#&gt; Creating centroids representing desire line start and end points.</span></a>
+<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="co">#&gt; Warning in st_centroid.sf(zones): st_centroid assumes attributes are</span></a>
+<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="co">#&gt; constant over geometries of x</span></a>
+<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="co">#&gt; Warning in st_centroid.sfc(st_geometry(x), of_largest_polygon =</span></a>
+<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="co">#&gt; of_largest_polygon): st_centroid does not give correct centroids for</span></a>
+<a class="sourceLine" id="cb7-9" data-line-number="9"><span class="co">#&gt; longitude/latitude data</span></a>
+<a class="sourceLine" id="cb7-10" data-line-number="10"><span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(desire_lines[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">12</span>)])</a></code></pre></div>
 <p><img src="reference/figures/README-desire-1.png" width="100%"></p>
 <p>We can convert these straight lines into routes with a routing service, e.g.:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">routes_fast =<span class="st"> </span>stplanr<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/stplanr/topics/line2route">line2route</a></span>(desire_lines, <span class="dt">route_fun =</span> stplanr<span class="op">::</span>route_cyclestreet)</a>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">routes_fast =<span class="st"> </span>stplanr<span class="op">::</span><span class="kw"><a href="https://ropensci.github.io/stplanr/reference/line2route.html">line2route</a></span>(desire_lines, <span class="dt">route_fun =</span> stplanr<span class="op">::</span>route_cyclestreet)</a>
 <a class="sourceLine" id="cb8-2" data-line-number="2"><span class="co">#&gt; 10 % out of 10 distances calculated</span></a>
 <a class="sourceLine" id="cb8-3" data-line-number="3"><span class="co">#&gt; 20 % out of 10 distances calculated</span></a>
 <a class="sourceLine" id="cb8-4" data-line-number="4"><span class="co">#&gt; 30 % out of 10 distances calculated</span></a>
@@ -211,15 +215,15 @@
 <a class="sourceLine" id="cb12-4" data-line-number="4"><span class="co">#&gt; [1] 0.03963324</span></a></code></pre></div>
 <p>It’s gone from 4% to 11%, a realistic increase if cycling were enabled by good infrastructure and policies.</p>
 <p>Now: where to prioritise that infrastructure and those policies?</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">rnet =<span class="st"> </span>stplanr<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/stplanr/topics/overline2">overline2</a></span>(routes_vital, <span class="dt">attrib =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"bicycle"</span>, <span class="st">"bicycle_govtarget"</span>))</a>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">rnet =<span class="st"> </span>stplanr<span class="op">::</span><span class="kw"><a href="https://ropensci.github.io/stplanr/reference/overline2.html">overline2</a></span>(routes_vital, <span class="dt">attrib =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"bicycle"</span>, <span class="st">"bicycle_govtarget"</span>))</a>
 <a class="sourceLine" id="cb13-2" data-line-number="2"><span class="co">#&gt; Loading required namespace: pbapply</span></a>
-<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="co">#&gt; 2019-03-14 17:42:31 constructing segments</span></a>
-<a class="sourceLine" id="cb13-4" data-line-number="4"><span class="co">#&gt; 2019-03-14 17:42:31 transposing 'B to A' to 'A to B'</span></a>
-<a class="sourceLine" id="cb13-5" data-line-number="5"><span class="co">#&gt; 2019-03-14 17:42:31 removing duplicates</span></a>
-<a class="sourceLine" id="cb13-6" data-line-number="6"><span class="co">#&gt; 2019-03-14 17:42:31 restructuring attributes</span></a>
-<a class="sourceLine" id="cb13-7" data-line-number="7"><span class="co">#&gt; 2019-03-14 17:42:31 building geometry</span></a>
-<a class="sourceLine" id="cb13-8" data-line-number="8"><span class="co">#&gt; 2019-03-14 17:42:31 simplifying geometry</span></a>
-<a class="sourceLine" id="cb13-9" data-line-number="9"><span class="co">#&gt; 2019-03-14 17:42:31 rejoining segments into linestrings</span></a>
+<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="co">#&gt; 2019-03-21 13:02:01 constructing segments</span></a>
+<a class="sourceLine" id="cb13-4" data-line-number="4"><span class="co">#&gt; 2019-03-21 13:02:01 transposing 'B to A' to 'A to B'</span></a>
+<a class="sourceLine" id="cb13-5" data-line-number="5"><span class="co">#&gt; 2019-03-21 13:02:01 removing duplicates</span></a>
+<a class="sourceLine" id="cb13-6" data-line-number="6"><span class="co">#&gt; 2019-03-21 13:02:01 restructuring attributes</span></a>
+<a class="sourceLine" id="cb13-7" data-line-number="7"><span class="co">#&gt; 2019-03-21 13:02:01 building geometry</span></a>
+<a class="sourceLine" id="cb13-8" data-line-number="8"><span class="co">#&gt; 2019-03-21 13:02:01 simplifying geometry</span></a>
+<a class="sourceLine" id="cb13-9" data-line-number="9"><span class="co">#&gt; 2019-03-21 13:02:01 rejoining segments into linestrings</span></a>
 <a class="sourceLine" id="cb13-10" data-line-number="10">lwd =<span class="st"> </span>rnet<span class="op">$</span>bicycle_govtarget <span class="op">/</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/mean">mean</a></span>(rnet<span class="op">$</span>bicycle_govtarget)</a>
 <a class="sourceLine" id="cb13-11" data-line-number="11"><span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(rnet[<span class="st">"bicycle_govtarget"</span>], <span class="dt">lwd =</span> lwd)</a></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-8-1.png" width="100%"></p>
