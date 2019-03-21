@@ -1,46 +1,169 @@
 ---
-title: "Introduction to the Propensity to Cycle Tool (pct) package"
-author: "Robin Lovelace, Layik Hama"
+title: "Obtaining and reproducing PCT data."
+author: 
+- "R Lovelace and L Hama"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Introduction to the pct}
+  %\VignetteIndexEntry{Vignette Title}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  fig.path = "vignette-",
+  out.width = "100%"
 )
+```
+
+```{r install-stplanr, message=FALSE, echo=FALSE, results='hide'}
+remotes::install_github("ropensci/stplanr")
 ```
 
 ## Introduction
 
-The package README shows how the PCT can be used to get and reproduce some of the datasets from the PCT package, based on an example in the city of Leeds.
-This vignette shows how the package can be used to create estimates of cycling potential in other cities.
+The goal of pct is to increase the accessibility and reproducibility of the data produced by the Propensity to Cycle Tool (PCT), a research project and web application hosted at [www.pct.bike](https://www.pct.bike/).
+For an overview of the data provided by the PCT, clicking on the previous link and trying it out is a great place to start.
+An academic [paper](https://www.jtlu.org/index.php/jtlu/article/view/862) on the PCT provides detail on the motivations for and methods underlying the project.
 
-Let's start by loading the package:
+A major motivation behind the project was making transport evidence more accessible, encouraging evidence-based transport policies.
+The code base underlying the PCT is publicly available (see [github.com/npct](https://github.com/npct/)).
+However, the code hosted there is not easy to run or reproduce, which is where this package comes in: it provides quick access to the data underlying the PCT and enables some of the key results to be reproduced quickly.
+It was developed primarily for educational purposes (including for upcoming PCT training courses) but it may be useful for people to build on the the methods, for example to create a scenario of cycling uptake in their town/city/region.
+
+In summary, if you want to know how PCT works, be able to reproduce some of its results, and build scenarios of cycling uptake to inform transport policies enabling cycling in cities worldwide, this package is for you!
+
+## Installation
+
+You can install the development version of the package as follows:
+
+```{r, eval=FALSE}
+remotes::install_github("ITSLeeds/pct")
+```
+
+
+<!-- You can install the released version of pct from [CRAN](https://CRAN.R-project.org) with: -->
+
+<!-- ``` r -->
+<!-- install.packages("pct") -->
+<!-- ``` -->
+
+Load the package as follows:
 
 ```{r}
 library(pct)
 ```
 
-## Input data
+### Get PCT data
 
-The input data for this vignetted was created using code in the [pctSantiago](https://github.com/pedalea/pctSantiago) project.
-It looks like this, in terms of the flow data:
+From feedback, we hear that the use of the data is critical in decision making. Therefore, one area where the package could be useful is making the data "easily" available to be processed.
 
-```{r}
-head(santiago_od)
+To download the data within www.pct.bike, we have added a suite of functions:
+
+* `get_pct()`
+* `get_pct_rnet()` 
+* `get_pct_zones()` 
+* `get_pct_lines()` 
+* `get_pct_centroids()`
+* `get_pct_routes_fast()` 
+* `get_pct_routes_quiet()` 
+
+For example, to get the centroids in Isle of Wight:
+
+``` {r centroids}
+centroids = get_pct_centroids(region = "isle-of-wight")
+plot(centroids[, "geo_name"])
 ```
 
-In terms of the zone data, they look like this:
+Likewise to download the desirelines for "west-yorkshire":
+
+```{r get_pct_lines}
+lines = get_pct_lines(region = "isle-of-wight")
+lines = lines[order(lines$all, decreasing = TRUE), c("all")]
+plot(lines[1:10,], lwd = 4)
+# view the lines on a map
+# mapview::mapview(lines[1:3000, c("geo_name1")])
+```
+The rest of the `get_pct_` functions are similar to the above two examples and download data from www.pct.bike.
+
+However, the base of these functions is `get_pct()`. It has various parameters:
+
+* `base_url = "https://github.com/npct/pct-outputs-regional-R/raw/master"`: just in case if you wanted to download the data from a similar server
+* `purpose = "commute"`: soon there will be "schools" and maybe other modes, but currently commute is the only option. 
+* `geography = "msoa"`: MSOA or LSOA
+* `region = NULL`: regions within `pct::pct_regions`
+* `layer = NULL`: one of `z` (zones), `c` (centroids), `l` (desire lines), `rf` (routes fast), `rq` (routes quiet) or `rnet`.
+* even `extension = ".Rds"` as PCT data is available in various formats. For the purpose of this pacakge we have made the default option of "Rds".
 
 
+## Generate PCT data
 
-```{r}
-sf:::print.sf(santiago_zones)
-plot(santiago_zones)
+The crucial part of the PCT is the two and possibly more functions currently within this package:
+
+* `uptake_pct_godutch()`: generates the "GoDutch" scenario level of scycling based on a particular route's hilliness percentage and length.
+* `uptake_pct_govtarget()`: generates the UK government target again based on the hilliness and length parameters.
+
+Therefore, in order to genrate say a UK government target for an area like "Isle of Wight" from scratch:
+
+Step one: we get the desire line for top destinations (top 100):
+
+```{r pct-lines}
+# top 100 origin destinations by all methods of travel
+wight_desire_lines = pct::get_desire_lines(area = "isle of wight")
+head(wight_desire_lines$all)
+wight_routes_fast = stplanr::line2route(l = wight_desire_lines)
+
+plot(wight_desire_lines$geometry)
+```
+
+Step two: we generate a fast route network using `stplanr`, we would need a CycleStreets.Net API key for this:
+
+```{r pct-routes-fast}
+library(stplanr)
+wight_routes_fast = stplanr::line2route(l = wight_desire_lines)
+plot(wight_routes_fast[, c("av_incline")])
+```
+
+Step three: we can now get the propensity to cycle percentages from the `uptake_pct_godutch` using the `length` and `av_incline` from the `wight_routes_fast` object.
+
+```{r pct-goducth}
+wight_pcycle_dutch = pct::uptake_pct_godutch(
+  distance = wight_routes_fast$length,
+  gradient = wight_routes_fast$av_incline
+)
+
+wight_psycle_gov = pct::uptake_pct_govtarget(
+  distance = wight_routes_fast$length,
+  gradient = wight_routes_fast$av_incline
+)
+  
+wight_uptake = wight_routes_fast
+wight_uptake$govtarget = wight_psycle_gov
+wight_uptake$godutch = wight_pcycle_dutch
+
+library(ggplot2)
+ggplot(wight_uptake) +
+  geom_line(aes(
+    length,
+    govtarget,
+    colour = "govtarget"
+  )) + 
+  geom_line(aes(
+    length,
+    godutch,
+    colour = "godutch"
+  ))
+```
+
+We can also see which routes would have the highest uptake using mapping packages such as:
+
+```{r pct-map} 
+# mapview::mapview(wight_uptake, zcol = "govtarget")
+# mapview::mapview(wight_uptake, zcol = "godutch")
+```
+
+```{r map, echo=FALSE}
+knitr::include_graphics("https://user-images.githubusercontent.com/408568/54354252-0f52f880-464e-11e9-893b-dab3ef8bae4d.png")
 ```
