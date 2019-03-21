@@ -38,9 +38,77 @@ head(santiago_od)
 
 In terms of the zone data, they look like this:
 
-
-
 ```{r}
 sf:::print.sf(santiago_zones)
 plot(santiago_zones)
 ```
+
+Note that we have cycling estimates for each desire line.
+If this data is not known, current cycling levels can be approximated for all desire lines as the city-wide average, e.g. around 5% for Santiago.
+
+## Creating desire lines
+
+The origin-destination data can be converted to geographic desire lines using the `stplanr` function `od2line` as follows:
+
+```{r, warning=FALSE}
+desire_lines = stplanr::od2line(flow = santiago_od, zones = santiago_zones)
+```
+
+The resulting lines can then be plotted on top of zone data as follows:
+
+```{r, out.width="100%"}
+plot(santiago_zones$geometry)
+plot(santiago_lines["pcycle"], lwd = santiago_lines$n / 3, add = TRUE)
+```
+
+The previous map suggests that the data is reliable: we have created a good approximation of the travel pattern in central Santiago.
+
+## Estimating cycling uptake
+
+To estimate cycling potential, we need estimates of distance and hilliness.
+The area under investigation is relatively flat so we can make the simplifying assumption that hilliness is 0% for all lines (normally we would get this information from a routing service):
+
+```{r}
+desire_lines$hilliness = 0
+```
+
+And what about the distance?
+We can calculated it as follows (note we converted this into a numeric object to prevent issues associated with the `units` package):
+
+```{r}
+desire_lines$distance = as.numeric(sf::st_length(desire_lines))
+```
+
+Now we have (very) crude estimates of distance and hilliness, we can estimate the cycling potential as follows:
+
+```{r}
+desire_lines$godutch_pcycle = uptake_pct_godutch(distance = desire_lines$distance, gradient = 0)
+```
+
+Let's take a look at the results, compared with the current levels of cycling, and compared with distance:
+
+```{r}
+cor(x = desire_lines$pcycle, y = desire_lines$godutch_pcycle)
+plot(x = desire_lines$pcycle, y = desire_lines$godutch_pcycle)
+plot(x = desire_lines$distance, y = desire_lines$godutch_pcycle)
+```
+
+As expected, there is a positive (albeit small) positive correlation between current and potential levels of cycling.
+The result shows clearly that distance decay kicks in just after 2km, but still at 8 km there is a 25% mode share, suggesting a major switch to cycling.
+
+We can put the results on a map as follows:
+
+```{r}
+library(leaflet)
+leaflet() %>% addTiles() %>% addPolylines(data = desire_lines, weight = desire_lines$pcycle * 5)
+leaflet() %>% addTiles() %>% addPolylines(data = desire_lines, weight = desire_lines$godutch_pcycle * 5)
+```
+
+
+
+## Next steps
+
+Clearly to do this in a production environment we would use a larger dataset, but the concepts would be the same.
+We would refine the method in multiple ways.
+The next basic step, however, would be to convert the straight desire lines into routes, to calculate more accurate distance and hilliness levels for each OD pair.
+Then we would be able to create a route network to help prioritise cycling across the city.
