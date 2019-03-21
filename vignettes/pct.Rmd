@@ -24,6 +24,10 @@ This vignette shows how the package can be used to create estimates of cycling p
 ## Input data
 
 The input data for this vignetted was created using code in the [pctSantiago](https://github.com/pedalea/pctSantiago) project.
-It looks like this:
+It looks like this, in terms of the flow data:
+
+```{r}
+
+```
 
 

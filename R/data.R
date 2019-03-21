@@ -116,3 +116,17 @@ NULL
 #' # desire_lines = readRDS("od_agg_zone_sub.Rds")
 #' santiago_zones
 NULL
+
+#' OD data in central Santiago
+#'
+#' See https://github.com/pedalea/pctSantiago folder for generation code
+#'
+#' @docType data
+#' @keywords datasets
+#' @name santiago_od
+#' @examples
+#' u = "https://github.com/pedalea/pctSantiago/releases/download/0.0.1/santiago_od.Rds"
+#' download.file(u, destfile = "santiago_od.Rds")
+#' santiago_od = readRDS("santiago_od.Rds")
+#' santiago_od
+NULL
