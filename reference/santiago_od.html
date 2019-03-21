@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Top 15 min mean journy times within Leeds from Uber — leeds_uber_sample • pct</title>
+<title>OD data in central Santiago — santiago_od • pct</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,11 +30,9 @@
 
 
 
-<meta property="og:title" content="Top 15 min mean journy times within Leeds from Uber — leeds_uber_sample" />
+<meta property="og:title" content="OD data in central Santiago — santiago_od" />
 
-<meta property="og:description" content="Data downloaded 4th March 2019.
-According to Uber, the dataset is from:
-1/1/2018 - 1/31/2018 (Every day, Daily Average)" />
+<meta property="og:description" content="See https://github.com/pedalea/pctSantiago folder for generation code" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -111,73 +109,37 @@ According to Uber, the dataset is from:
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Top 15 min mean journy times within Leeds from Uber</h1>
+    <h1>OD data in central Santiago</h1>
     
-    <div class="hidden name"><code>leeds_uber_sample.Rd</code></div>
+    <div class="hidden name"><code>santiago_od.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Data downloaded 4th March 2019.
-According to Uber, the dataset is from:
-1/1/2018 - 1/31/2018 (Every day, Daily Average)</p>
+    <p>See https://github.com/pedalea/pctSantiago folder for generation code</p>
     
     </div>
 
         
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># see data-raw folder for generation code</span>
-<span class='no'>leeds_uber_sample</span></div><div class='output co'>#&gt; Simple feature collection with 10 features and 8 fields
-#&gt; geometry type:  MULTIPOLYGON
-#&gt; dimension:      XY
-#&gt; bbox:           xmin: -1.684864 ymin: 53.699 xmax: -1.394285 ymax: 53.8621
-#&gt; epsg (SRID):    4326
-#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs
-#&gt;    Origin Movement ID Origin Display Name Destination Movement ID
-#&gt; 1                 260           Leeds, UK                     239
-#&gt; 2                 260           Leeds, UK                     234
-#&gt; 3                 260           Leeds, UK                     203
-#&gt; 4                 260           Leeds, UK                     223
-#&gt; 5                 260           Leeds, UK                     128
-#&gt; 6                 260           Leeds, UK                     137
-#&gt; 7                 260           Leeds, UK                     132
-#&gt; 8                 260           Leeds, UK                     130
-#&gt; 9                 260           Leeds, UK                     213
-#&gt; 10                260           Leeds, UK                     125
-#&gt;    Destination Display Name                                     Date Range
-#&gt; 1                 Leeds 073 1/1/2018 - 1/31/2018, Every day, Daily Average
-#&gt; 2                 Leeds 062 1/1/2018 - 1/31/2018, Every day, Daily Average
-#&gt; 3                 Leeds 102 1/1/2018 - 1/31/2018, Every day, Daily Average
-#&gt; 4                 Leeds 057 1/1/2018 - 1/31/2018, Every day, Daily Average
-#&gt; 5                 Leeds 020 1/1/2018 - 1/31/2018, Every day, Daily Average
-#&gt; 6                 Leeds 028 1/1/2018 - 1/31/2018, Every day, Daily Average
-#&gt; 7                 Leeds 024 1/1/2018 - 1/31/2018, Every day, Daily Average
-#&gt; 8                 Leeds 018 1/1/2018 - 1/31/2018, Every day, Daily Average
-#&gt; 9                 Leeds 108 1/1/2018 - 1/31/2018, Every day, Daily Average
-#&gt; 10                Leeds 015 1/1/2018 - 1/31/2018, Every day, Daily Average
-#&gt;    Mean Travel Time (Seconds) Range - Lower Bound Travel Time (Seconds)
-#&gt; 1                         862                                       650
-#&gt; 2                         870                                       678
-#&gt; 3                         876                                       621
-#&gt; 4                         877                                       648
-#&gt; 5                         881                                       659
-#&gt; 6                         881                                       684
-#&gt; 7                         886                                       657
-#&gt; 8                         889                                       665
-#&gt; 9                         894                                       653
-#&gt; 10                        897                                       664
-#&gt;    Range - Upper Bound Travel Time (Seconds)                       geometry
-#&gt; 1                                       1142 MULTIPOLYGON (((-1.414275 5...
-#&gt; 2                                       1115 MULTIPOLYGON (((-1.674156 5...
-#&gt; 3                                       1235 MULTIPOLYGON (((-1.576414 5...
-#&gt; 4                                       1186 MULTIPOLYGON (((-1.425153 5...
-#&gt; 5                                       1176 MULTIPOLYGON (((-1.497964 5...
-#&gt; 6                                       1134 MULTIPOLYGON (((-1.623951 5...
-#&gt; 7                                       1193 MULTIPOLYGON (((-1.51571 53...
-#&gt; 8                                       1188 MULTIPOLYGON (((-1.53484 53...
-#&gt; 9                                       1223 MULTIPOLYGON (((-1.565741 5...
-#&gt; 10                                      1211 MULTIPOLYGON (((-1.535273 5...</div></pre>
+    <pre class="examples"><div class='input'><span class='co'># u = "https://github.com/pedalea/pctSantiago/releases/download/0.0.1/santiago_od.Rds"</span>
+<span class='co'># download.file(u, destfile = "santiago_od.Rds")</span>
+<span class='co'># santiago_od = readRDS("santiago_od.Rds")</span>
+<span class='no'>santiago_od</span></div><div class='output co'>#&gt; # A tibble: 200 x 7
+#&gt;    ZonaOrigen ZonaDestino     n av_weight    all range_weights pcycle
+#&gt;         &lt;dbl&gt;       &lt;dbl&gt; &lt;int&gt;     &lt;dbl&gt;  &lt;dbl&gt;         &lt;dbl&gt;  &lt;dbl&gt;
+#&gt;  1        259         497     5      691.  3453.          62.4 0     
+#&gt;  2        260         261    17      206.  3495.         967.  0     
+#&gt;  3        261         260    17      228.  3868.         967.  0     
+#&gt;  4        263         264     5      517.  2586.         819.  0     
+#&gt;  5        264         263     5      508.  2542.         853.  0     
+#&gt;  6        266         501     2     1982.  3965.        1700.  0     
+#&gt;  7        266         508     5      738.  3689.        1029.  0     
+#&gt;  8        292         497     6      790.  4742.        1558.  0.0496
+#&gt;  9        292         510     3     2329   6987            0   0     
+#&gt; 10        293         295     4     2673. 10693.        5921.  0     
+#&gt; # … with 190 more rows</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
