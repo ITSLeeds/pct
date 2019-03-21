@@ -23,7 +23,9 @@ This vignette shows how the package can be used to create estimates of cycling p
 
 Let's start by loading the package:
 
-```{r}
+```{r libraries, message=FALSE}
+# devtools::install_github("ATFutures/geoplumber")
+# require("geojsonsf")
 library(pct)
 ```
 
@@ -59,6 +61,11 @@ The resulting lines can then be plotted on top of zone data as follows:
 ```{r, out.width="100%"}
 plot(santiago_zones$geometry)
 plot(santiago_lines["pcycle"], lwd = santiago_lines$n / 3, add = TRUE)
+# gj = geojsonsf::sf_geojson(santiago_lines)
+# path = file.path(tempdir(), "dl.geojson")
+# write(gj, path)
+# html_map = geoplumber::gp_map(path, browse_map = FALSE)
+# htmltools::includeHTML(html_map)
 ```
 
 The previous map suggests that the data is reliable: we have created a good approximation of the travel pattern in central Santiago.
@@ -100,8 +107,8 @@ We can put the results on a map as follows:
 
 ```{r}
 library(leaflet)
-leaflet() %>% addTiles() %>% addPolylines(data = desire_lines, weight = desire_lines$pcycle * 5)
-leaflet() %>% addTiles() %>% addPolylines(data = desire_lines, weight = desire_lines$godutch_pcycle * 5)
+leaflet(width = "100%") %>% addTiles() %>% addPolylines(data = desire_lines, weight = desire_lines$pcycle * 5)
+leaflet(width = "100%") %>% addTiles() %>% addPolylines(data = desire_lines, weight = desire_lines$godutch_pcycle * 5)
 ```
 
 
