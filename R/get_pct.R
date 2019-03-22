@@ -33,7 +33,8 @@ get_pct = function(
   f = paste0(layer, extension)
   u_file = paste(u_folder, f, sep = "/")
   destfile = file.path(tempdir(), f)
-  utils::download.file(url = u_file, destfile = destfile)
+  utils::download.file(url = u_file,
+                       destfile = destfile, mode = "wb")
   sf::st_as_sf(readRDS(destfile))
 }
 #' Get zone results from the PCT
