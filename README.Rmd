@@ -13,10 +13,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r install-stplanr, message=FALSE, echo=FALSE, results='hide'}
-remotes::install_github("ropensci/stplanr")
-```
-
 # pct  &middot; [![Coverage status](https://codecov.io/gh/ITSLeeds/pct/branch/master/graph/badge.svg)](https://codecov.io/github/ITSLeeds/pct?branch=master) [![Travis build status](https://travis-ci.org/ITSLeeds/pct.svg?branch=master)](https://travis-ci.org/ITSLeeds/pct)
 
 The goal of pct is to increase the accessibility and reproducibility of the data produced by the Propensity to Cycle Tool (PCT), a research project and web application hosted at [www.pct.bike](https://www.pct.bike/).
@@ -151,8 +147,8 @@ It's gone from 4% to 11%, a realistic increase if cycling were enabled by good i
 
 Now: where to prioritise that infrastructure and those policies?
 
-```{r}
-rnet = stplanr::overline2(routes_vital, attrib = c("bicycle", "bicycle_govtarget"))
+```{r, message=FALSE}
+rnet = stplanr::overline(routes_vital, attrib = c("bicycle", "bicycle_govtarget"))
 lwd = rnet$bicycle_govtarget / mean(rnet$bicycle_govtarget)
 plot(rnet["bicycle_govtarget"], lwd = lwd)
 ```
