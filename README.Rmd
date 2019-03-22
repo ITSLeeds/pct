@@ -75,7 +75,7 @@ centroids = get_pct_centroids(region = "west-yorkshire")
 plot(centroids[, "geo_name"])
 ```
 
-Likewise to download the desirelines for "west-yorkshire":
+Likewise to download the desire lines for "west-yorkshire":
 
 ```{r get_pct_lines}
 lines = get_pct_lines(region = "west-yorkshire")
@@ -140,7 +140,7 @@ sum(routes_vital$bicycle_govtarget) - sum(routes_vital$bicycle)
 ```
 
 Nearly 1000 more people cycling to work, just in 10 desire is not bad!
-What % cyling is this, for those routes?
+What % cycling is this, for those routes?
 
 ```{r}
 sum(routes_vital$bicycle_govtarget) / sum(routes_vital$all)

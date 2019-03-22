@@ -78,7 +78,7 @@ centroids = get_pct_centroids(region = "isle-of-wight")
 plot(centroids[, "geo_name"])
 ```
 
-Likewise to download the desirelines for "west-yorkshire":
+Likewise to download the desire lines for "west-yorkshire":
 
 ```{r get_pct_lines}
 lines = get_pct_lines(region = "isle-of-wight")
@@ -96,17 +96,17 @@ However, the base of these functions is `get_pct()`. It has various parameters:
 * `geography = "msoa"`: MSOA or LSOA
 * `region = NULL`: regions within `pct::pct_regions`
 * `layer = NULL`: one of `z` (zones), `c` (centroids), `l` (desire lines), `rf` (routes fast), `rq` (routes quiet) or `rnet`.
-* even `extension = ".Rds"` as PCT data is available in various formats. For the purpose of this pacakge we have made the default option of "Rds".
+* even `extension = ".Rds"` as PCT data is available in various formats. For the purpose of this package we have made the default option of "Rds".
 
 
 ## Generate PCT data
 
 The crucial part of the PCT is the two and possibly more functions currently within this package:
 
-* `uptake_pct_godutch()`: generates the "GoDutch" scenario level of scycling based on a particular route's hilliness percentage and length.
+* `uptake_pct_godutch()`: generates the "GoDutch" scenario level of cycling based on a particular route's hilliness percentage and length.
 * `uptake_pct_govtarget()`: generates the UK government target again based on the hilliness and length parameters.
 
-Therefore, in order to genrate say a UK government target for an area like "Isle of Wight" from scratch:
+Therefore, in order to generate say a UK government target for an area like "Isle of Wight" from scratch:
 
 Step one: we get the desire line for top destinations (top 100):
 
