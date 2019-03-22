@@ -24,7 +24,9 @@ get_desire_lines = function(area = "sheffield", n = NULL) {
   od = od_all[od_all$geo_code1 %in% zones$msoa11cd &
                 od_all$geo_code2 %in% zones$msoa11cd, ]
   od = od[od$geo_code1 != od$geo_code2, ]
-  od = order_and_subset(od, "all", n) # subset before heavy processing.
+  if(!is.null(n)) {
+    od = order_and_subset(od, "all", n) # subset before processing
+  }
   # generate desirelines.
   area_desire_lines = stplanr::od2line(flow = od, zones)
   area_desire_lines
@@ -82,6 +84,7 @@ get_od = function(area = "sheffield", n = NULL, type = "within") {
 }
 
 order_and_subset = function(od, var, n) {
+
   od = od[order(od[[var]], decreasing = TRUE), ]
   od[1:n, ]
 }

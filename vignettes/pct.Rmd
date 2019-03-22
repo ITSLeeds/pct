@@ -113,24 +113,30 @@ To estimate cycling levels under the UK government target for the Isle of Wight,
 
 ```{r pct-lines}
 # top 100 origin destinations by all methods of travel
-wight_desire_lines = get_desire_lines(area = "isle of wight", n = 1e6)
-sum(wight_desire_lines$all)
+wight_desire_lines = get_desire_lines(area = "isle of wight")
 nrow(wight_desire_lines)
-wight_routes_fast = stplanr::line2route(l = wight_desire_lines)
+sum(wight_desire_lines$all)
+```
 
+The code above downloads and processes 306 origin-destination pairs, representing inter-zonal commuting trips made by 32,683 people on the island (population: [140,000](https://en.wikipedia.org/wiki/Isle_of_Wight), the function omits intra-zonal flows).
+The next step is to convert these straight desire lines into routes that can be cycled, e.g. as follows:
+
+```{r, eval=FALSE}
+wight_routes_fast = stplanr::line2route(l = wight_desire_lines)
 plot(wight_desire_lines$geometry)
 ```
 
+
 Step two: we generate a fast route network using `stplanr`, we would need a CycleStreets.Net API key for this:
 
-```{r pct-routes-fast}
+```{r pct-routes-fast, eval=FALSE}
 wight_routes_fast = stplanr::line2route(l = pct_lines_min)
 plot(wight_routes_fast[, c("av_incline")])
 ```
 
 Step three: we can now get the propensity to cycle percentages from the `uptake_pct_godutch` using the `length` and `av_incline` from the `wight_routes_fast` object.
 
-```{r pct-goducth}
+```{r pct-goducth, eval=FALSE}
 wight_pcycle_dutch = pct::uptake_pct_godutch(
   distance = wight_routes_fast$length,
   gradient = wight_routes_fast$av_incline
