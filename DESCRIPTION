@@ -31,7 +31,8 @@ Suggests:
     pbapply,
     ggplot2,
     remotes,
-    rmarkdown
+    rmarkdown,
+    leaflet
 VignetteBuilder: knitr
 RoxygenNote: 6.1.1
 Roxygen: list(markdown = TRUE)
