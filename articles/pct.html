@@ -5,11 +5,11 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Obtaining and reproducing PCT data. • pct</title>
+<title>An Introduction to the pct package • pct</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Obtaining and reproducing PCT data.">
+<script src="../pkgdown.js"></script><meta property="og:title" content="An Introduction to the pct package">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -73,7 +73,8 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>Obtaining and reproducing PCT data.</h1>
+      <h1>An Introduction to the pct package</h1>
+            <h3 class="subtitle">Obtaining and reproducing data from the Propensity to Cycle Tool (PCT)</h3>
                         <h4 class="author">R Lovelace and L Hama</h4>
             
             <h4 class="date">2019-03-22</h4>
@@ -123,13 +124,15 @@
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">centroids =<span class="st"> </span><span class="kw"><a href="../reference/get_pct_centroids.html">get_pct_centroids</a></span>(<span class="dt">region =</span> <span class="st">"isle-of-wight"</span>)</a>
 <a class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(centroids[, <span class="st">"geo_name"</span>])</a></code></pre></div>
 <p><img src="vignette-centroids-1.png" width="100%"></p>
-<p>Likewise to download the desire lines for “west-yorkshire”:</p>
+<p>Likewise, the following command downloads the desire lines for the Isle of Wight:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">lines =<span class="st"> </span><span class="kw"><a href="../reference/get_pct_lines.html">get_pct_lines</a></span>(<span class="dt">region =</span> <span class="st">"isle-of-wight"</span>)</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2">lines =<span class="st"> </span>lines[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/order">order</a></span>(lines<span class="op">$</span>all, <span class="dt">decreasing =</span> <span class="ot">TRUE</span>), <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"all"</span>)]</a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(lines[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>,], <span class="dt">lwd =</span> <span class="dv">4</span>)</a></code></pre></div>
-<p><img src="vignette-get_pct_lines-1.png" width="100%"></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="co"># view the lines on a map</span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="co"># mapview::mapview(lines[1:3000, c("geo_name1")])</span></a></code></pre></div>
+<a class="sourceLine" id="cb5-2" data-line-number="2">pct_lines_isle_of_wight =</a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="st">  </span>lines[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/order">order</a></span>(lines<span class="op">$</span>all, <span class="dt">decreasing =</span> <span class="ot">TRUE</span>), ]</a>
+<a class="sourceLine" id="cb5-4" data-line-number="4">pct_lines_min =<span class="st"> </span>pct_lines_isle_of_wight[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>,]</a></code></pre></div>
+<p>The resulting <code>pct_lines_min</code> is available in the package. Note: it contains many variables, three of which (the number of people cycling, driving and walking along the desire lines from the 2011 Census) is shown below:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">lwd =<span class="st"> </span>pct_lines_min<span class="op">$</span>all <span class="op">/</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/mean">mean</a></span>(pct_lines_min<span class="op">$</span>all) <span class="op">*</span><span class="st"> </span><span class="dv">3</span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(pct_lines_min[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"bicycle"</span>, <span class="st">"car_driver"</span>, <span class="st">"foot"</span>)], <span class="dt">lwd =</span> lwd)</a></code></pre></div>
+<p><img src="vignette-pct-lines-min-1.png" width="100%"></p>
 <p>The rest of the <code>get_pct_</code> functions are similar to the above two examples and download data from www.pct.bike.</p>
 <p>However, the base of these functions is <code><a href="../reference/get_pct.html">get_pct()</a></code>. It has various parameters:</p>
 <ul>
