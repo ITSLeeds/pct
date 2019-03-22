@@ -98,7 +98,6 @@ lwd = pct_lines_min$all / mean(pct_lines_min$all) * 3
 plot(pct_lines_min[c("bicycle", "car_driver", "foot")], lwd = lwd)
 ```
 
-
 The rest of the `get_pct_` functions are similar to the above two examples and download data from www.pct.bike.
 
 However, the base of these functions is `get_pct()`. It has various parameters:
@@ -109,7 +108,6 @@ However, the base of these functions is `get_pct()`. It has various parameters:
 * `region = NULL`: regions within `pct::pct_regions`
 * `layer = NULL`: one of `z` (zones), `c` (centroids), `l` (desire lines), `rf` (routes fast), `rq` (routes quiet) or `rnet`.
 * even `extension = ".Rds"` as PCT data is available in various formats. For the purpose of this package we have made the default option of "Rds".
-
 
 ## Generate PCT data
 

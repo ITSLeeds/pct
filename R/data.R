@@ -130,3 +130,16 @@ NULL
 #' # santiago_od = readRDS("santiago_od.Rds")
 #' santiago_od
 NULL
+
+#' A minimum example of desire line data from the PCT
+#'
+#' This data was obtained using code shown in the introductory
+#' [pct package vignette](https://itsleeds.github.io/pct/articles/pct.html).
+#'
+#' @docType data
+#' @keywords datasets
+#' @name pct_lines_min
+#' @examples
+#' names(pct_lines_min)
+#' plot(pct_lines_min)
+NULL
