@@ -97,9 +97,9 @@ NULL
 #' @keywords datasets
 #' @name santiago_zones
 #' @examples
-#' u = "https://github.com/pedalea/pctSantiago/releases/download/0.0.1/z_centre.Rds"
-#' download.file(u, destfile = "z_centre.Rds", mode = "wb")
-#' santiago_zones = readRDS("z_centre.Rds")
+#' # u = "https://github.com/pedalea/pctSantiago/releases/download/0.0.1/z_centre.Rds"
+#' # download.file(u, destfile = "z_centre.Rds", mode = "wb")
+#' # santiago_zones = readRDS("z_centre.Rds")
 #' santiago_zones
 NULL
 

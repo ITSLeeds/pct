@@ -9,7 +9,7 @@ See https://github.com/pedalea/pctSantiago folder for generation code
 }
 \examples{
 # u = "https://github.com/pedalea/pctSantiago/releases/download/0.0.1/santiago_od.Rds"
-# download.file(u, destfile = "santiago_od.Rds")
+# download.file(u, destfile = "santiago_od.Rds", mode = "wb")
 # santiago_od = readRDS("santiago_od.Rds")
 santiago_od
 }
