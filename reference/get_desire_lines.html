@@ -32,7 +32,9 @@
 
 <meta property="og:title" content="Desire lines — get_desire_lines" />
 
-<meta property="og:description" content="This function generates &quot;desire lines&quot; from census 2011 data." />
+<meta property="og:description" content="This function generates &quot;desire lines&quot; from census 2011 data.
+By default gets all desire lines from census in region, but
+can get the top n." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -116,11 +118,13 @@
 
     <div class="ref-description">
     
-    <p>This function generates "desire lines" from census 2011 data.</p>
+    <p>This function generates "desire lines" from census 2011 data.
+By default gets all desire lines from census in region, but
+can get the top <code>n</code>.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>get_desire_lines</span>(<span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"sheffield"</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>)</pre>
+    <pre class="usage"><span class='fu'>get_desire_lines</span>(<span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"sheffield"</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
