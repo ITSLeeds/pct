@@ -3,6 +3,9 @@ context("test-desire_lines")
 
 test_that("get_desire_lines works", {
   skip_heavy()
+  if(.Platform$OS.type == "windows") {
+    skip("stplanr might need a env var. Skipping.")
+  }
   expect_equal(nrow(get_desire_lines(n = 10)), 10)
   expect_error(get_desire_lines(area = "baz"))
   expect_error(get_desire_lines(area = ""))
