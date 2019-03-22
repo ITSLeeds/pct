@@ -1,6 +1,8 @@
 #' Desire lines
 #'
 #' This function generates "desire lines" from census 2011 data.
+#' By default gets all desire lines from census in region, but
+#' can get the top `n`.
 #'
 #' @inheritParams get_od
 #'
@@ -8,10 +10,14 @@
 #' @examples
 #' desire_sheffield = get_desire_lines("sheffield", n = 20)
 #' desire_sheffield
-get_desire_lines = function(area = "sheffield", n = 100) {
+get_desire_lines = function(area = "sheffield", n = NULL) {
 
   # TODO: explore ways of returning 'intrazonal' flows
-  od_all = get_od(area, n = n * 2 + 100) # ensure enough od pairs are returned
+  if(is.null(n)) {
+    od_all = get_od(area)
+  } else {
+    od_all = get_od(area, n = n * 2 + 100) # ensure enough od pairs are returned
+  }
   # get UK zones with msoa11cd, msoa11nm and the geom for stplanr::od2line
   zones_all = get_centroids_ew() # TODO: some warning?
   zones = zones_all[grepl(area, zones_all$msoa11nm, ignore.case = TRUE), ]
@@ -35,7 +41,7 @@ get_desire_lines = function(area = "sheffield", n = 100) {
 #' od_sheffield = get_od("sheffield", n = 3)
 #' od_sheffield
 #' }
-get_od = function(area = "sheffield", n = 100, type = "within") {
+get_od = function(area = "sheffield", n = NULL, type = "within") {
   if(length(area) != 1L)
     stop("'area' must be of length 1")
   if(is.na(area) || (area == "") || !is.character(area))
@@ -67,9 +73,12 @@ get_od = function(area = "sheffield", n = 100, type = "within") {
       grepl(area, od_all$geo_name2, ignore.case = TRUE)
   }
   od = od_all[valid_areas,]
-  # finally
-  od = order_and_subset(od, "all", n)
 
+  # finally
+  if(!is.null(n)) {
+    od = order_and_subset(od, "all", n)
+  }
+  od
 }
 
 order_and_subset = function(od, var, n) {

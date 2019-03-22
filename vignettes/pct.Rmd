@@ -53,13 +53,6 @@ Load the package as follows:
 library(pct)
 ```
 
-We'll also use `stplanr`:
-
-```{r}
-library(stplanr)
-```
-
-
 ### Get PCT data
 
 From feedback, we hear that the use of the data is critical in decision making. Therefore, one area where the package could be useful is making the data "easily" available to be processed.
@@ -109,21 +102,20 @@ However, the base of these functions is `get_pct()`. It has various parameters:
 * `layer = NULL`: one of `z` (zones), `c` (centroids), `l` (desire lines), `rf` (routes fast), `rq` (routes quiet) or `rnet`.
 * even `extension = ".Rds"` as PCT data is available in various formats. For the purpose of this package we have made the default option of "Rds".
 
-## Generate PCT data
+## Estimate cycling uptake
 
-The crucial part of the PCT is the two and possibly more functions currently within this package:
+Functions named with `uptake_*()` estimate cycling uptake:
 
 * `uptake_pct_godutch()`: generates the "GoDutch" scenario level of cycling based on a particular route's hilliness percentage and length.
 * `uptake_pct_govtarget()`: generates the UK government target again based on the hilliness and length parameters.
 
-Therefore, in order to generate say a UK government target for an area like "Isle of Wight" from scratch:
-
-Step one: we get the desire line for top destinations (top 100):
+To estimate cycling levels under the UK government target for the Isle of Wight, you would first get the desire lines (the code below gets the top code not run):
 
 ```{r pct-lines}
 # top 100 origin destinations by all methods of travel
-wight_desire_lines = pct::get_desire_lines(area = "isle of wight")
-head(wight_desire_lines$all)
+wight_desire_lines = get_desire_lines(area = "isle of wight", n = 1e6)
+sum(wight_desire_lines$all)
+nrow(wight_desire_lines)
 wight_routes_fast = stplanr::line2route(l = wight_desire_lines)
 
 plot(wight_desire_lines$geometry)
@@ -132,8 +124,7 @@ plot(wight_desire_lines$geometry)
 Step two: we generate a fast route network using `stplanr`, we would need a CycleStreets.Net API key for this:
 
 ```{r pct-routes-fast}
-library(stplanr)
-wight_routes_fast = stplanr::line2route(l = wight_desire_lines)
+wight_routes_fast = stplanr::line2route(l = pct_lines_min)
 plot(wight_routes_fast[, c("av_incline")])
 ```
 

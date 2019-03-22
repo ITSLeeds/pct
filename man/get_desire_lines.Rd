@@ -4,7 +4,7 @@
 \alias{get_desire_lines}
 \title{Desire lines}
 \usage{
-get_desire_lines(area = "sheffield", n = 100)
+get_desire_lines(area = "sheffield", n = NULL)
 }
 \arguments{
 \item{area}{for which desire lines to be generated.}
@@ -14,6 +14,8 @@ within the \code{area}.}
 }
 \description{
 This function generates "desire lines" from census 2011 data.
+By default gets all desire lines from census in region, but
+can get the top \code{n}.
 }
 \examples{
 desire_sheffield = get_desire_lines("sheffield", n = 20)
