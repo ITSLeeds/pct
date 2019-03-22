@@ -1,14 +1,16 @@
 ---
-title: "Obtaining and reproducing PCT data."
+title: "An Introduction to the pct package"
+subtitle: "Obtaining and reproducing data from the Propensity to Cycle Tool (PCT)"
 author: 
 - "R Lovelace and L Hama"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{An introduction to the pct package}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
+
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -48,13 +50,13 @@ remotes::install_github("ITSLeeds/pct")
 
 Load the package as follows:
 
-```{r, eval=FALSE}
+```{r}
 library(pct)
 ```
 
 We'll also use `stplanr`:
 
-```{r, eval=FALSE}
+```{r}
 library(stplanr)
 ```
 
@@ -75,28 +77,28 @@ To download the data within www.pct.bike, we have added a suite of functions:
 
 For example, to get the centroids in Isle of Wight:
 
-``` {r centroids, eval=FALSE}
+``` {r centroids}
 centroids = get_pct_centroids(region = "isle-of-wight")
 plot(centroids[, "geo_name"])
 ```
 
-```{r centroids-1, echo=FALSE}
-knitr::include_graphics("vignette-centroids-1.png")
-```
-
-Likewise to download the desire lines for "west-yorkshire":
+Likewise, the following command downloads the desire lines for the Isle of Wight:
 
 ```{r get_pct_lines, eval=FALSE}
 lines = get_pct_lines(region = "isle-of-wight")
-lines = lines[order(lines$all, decreasing = TRUE), c("all")]
-plot(lines[1:10,], lwd = 4)
-# view the lines on a map
-# mapview::mapview(lines[1:3000, c("geo_name1")])
+pct_lines_isle_of_wight =
+  lines[order(lines$all, decreasing = TRUE), ]
+pct_lines_min = pct_lines_isle_of_wight[1:5,]
 ```
 
-```{r get_pct_lines-1, echo=FALSE}
-knitr::include_graphics("vignette-get_pct_lines-1.png")
+The resulting `pct_lines_min` is available in the package.
+Note: it contains many variables, three of which (the number of people cycling, driving and walking along the desire lines from the 2011 Census) is shown below:
+
+```{r, pct-lines-min}
+lwd = pct_lines_min$all / mean(pct_lines_min$all) * 3
+plot(pct_lines_min[c("bicycle", "car_driver", "foot")], lwd = lwd)
 ```
+
 
 The rest of the `get_pct_` functions are similar to the above two examples and download data from www.pct.bike.
 
