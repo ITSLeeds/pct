@@ -121,7 +121,7 @@
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">centroids =<span class="st"> </span><span class="kw"><a href="../reference/get_pct_centroids.html">get_pct_centroids</a></span>(<span class="dt">region =</span> <span class="st">"isle-of-wight"</span>)</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(centroids[, <span class="st">"geo_name"</span>])</a></code></pre></div>
 <p><img src="vignette-centroids-1.png" width="100%"></p>
-<p>Likewise to download the desirelines for “west-yorkshire”:</p>
+<p>Likewise to download the desire lines for “west-yorkshire”:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">lines =<span class="st"> </span><span class="kw"><a href="../reference/get_pct_lines.html">get_pct_lines</a></span>(<span class="dt">region =</span> <span class="st">"isle-of-wight"</span>)</a>
 <a class="sourceLine" id="cb4-2" data-line-number="2">lines =<span class="st"> </span>lines[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/order">order</a></span>(lines<span class="op">$</span>all, <span class="dt">decreasing =</span> <span class="ot">TRUE</span>), <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"all"</span>)]</a>
 <a class="sourceLine" id="cb4-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(lines[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>,], <span class="dt">lwd =</span> <span class="dv">4</span>)</a></code></pre></div>
@@ -142,7 +142,7 @@
 </li>
 <li>
 <code>layer = NULL</code>: one of <code>z</code> (zones), <code>c</code> (centroids), <code>l</code> (desire lines), <code>rf</code> (routes fast), <code>rq</code> (routes quiet) or <code>rnet</code>.</li>
-<li>even <code>extension = ".Rds"</code> as PCT data is available in various formats. For the purpose of this pacakge we have made the default option of “Rds”.</li>
+<li>even <code>extension = ".Rds"</code> as PCT data is available in various formats. For the purpose of this package we have made the default option of “Rds”.</li>
 </ul>
 </div>
 </div>
@@ -152,11 +152,11 @@
 <p>The crucial part of the PCT is the two and possibly more functions currently within this package:</p>
 <ul>
 <li>
-<code><a href="../reference/uptake_pct_godutch.html">uptake_pct_godutch()</a></code>: generates the “GoDutch” scenario level of scycling based on a particular route’s hilliness percentage and length.</li>
+<code><a href="../reference/uptake_pct_godutch.html">uptake_pct_godutch()</a></code>: generates the “GoDutch” scenario level of cycling based on a particular route’s hilliness percentage and length.</li>
 <li>
 <code><a href="../reference/uptake_pct_govtarget.html">uptake_pct_govtarget()</a></code>: generates the UK government target again based on the hilliness and length parameters.</li>
 </ul>
-<p>Therefore, in order to genrate say a UK government target for an area like “Isle of Wight” from scratch:</p>
+<p>Therefore, in order to generate say a UK government target for an area like “Isle of Wight” from scratch:</p>
 <p>Step one: we get the desire line for top destinations (top 100):</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="co"># top 100 origin destinations by all methods of travel</span></a>
 <a class="sourceLine" id="cb6-2" data-line-number="2">wight_desire_lines =<span class="st"> </span>pct<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/pct/topics/get_desire_lines">get_desire_lines</a></span>(<span class="dt">area =</span> <span class="st">"isle of wight"</span>)</a>
