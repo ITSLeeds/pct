@@ -18,11 +18,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r install-stplanr, message=FALSE, echo=FALSE, results='hide'}
-remotes::install_github("ropensci/stplanr")
-library(stplanr)
-```
-
 ## Introduction
 
 The goal of pct is to increase the accessibility and reproducibility of the data produced by the Propensity to Cycle Tool (PCT), a research project and web application hosted at [www.pct.bike](https://www.pct.bike/).
@@ -56,6 +51,13 @@ Load the package as follows:
 ```{r}
 library(pct)
 ```
+
+We'll also use `stplanr`:
+
+```{r}
+library(stplanr)
+```
+
 
 ### Get PCT data
 
