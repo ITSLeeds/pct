@@ -144,7 +144,7 @@ into geographic desire lines as follows:
 
 ``` r
 library(sf)
-#> Linking to GEOS 3.6.2, GDAL 2.2.3, PROJ 4.9.3
+#> Linking to GEOS 3.7.0, GDAL 2.4.0, PROJ 5.2.0
 desire_lines = stplanr::od2line(flow = od_leeds, zones = zones_leeds[2])
 #> Creating centroids representing desire line start and end points.
 #> Warning in st_centroid.sf(zones): st_centroid assumes attributes are
@@ -224,15 +224,7 @@ Now: where to prioritise that infrastructure and those
 policies?
 
 ``` r
-rnet = stplanr::overline2(routes_vital, attrib = c("bicycle", "bicycle_govtarget"))
-#> Loading required namespace: pbapply
-#> 2019-03-22 11:29:45 constructing segments
-#> 2019-03-22 11:29:45 transposing 'B to A' to 'A to B'
-#> 2019-03-22 11:29:45 removing duplicates
-#> 2019-03-22 11:29:45 restructuring attributes
-#> 2019-03-22 11:29:45 building geometry
-#> 2019-03-22 11:29:45 simplifying geometry
-#> 2019-03-22 11:29:45 rejoining segments into linestrings
+rnet = stplanr::overline(routes_vital, attrib = c("bicycle", "bicycle_govtarget"))
 lwd = rnet$bicycle_govtarget / mean(rnet$bicycle_govtarget)
 plot(rnet["bicycle_govtarget"], lwd = lwd)
 ```
