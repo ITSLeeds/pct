@@ -10,7 +10,6 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -123,7 +122,7 @@ Therefore, in order to generate say a UK government target for an area like "Isl
 
 Step one: we get the desire line for top destinations (top 100):
 
-```{r pct-lines, eval=FALSE}
+```{r pct-lines}
 # top 100 origin destinations by all methods of travel
 wight_desire_lines = pct::get_desire_lines(area = "isle of wight")
 head(wight_desire_lines$all)
@@ -132,25 +131,17 @@ wight_routes_fast = stplanr::line2route(l = wight_desire_lines)
 plot(wight_desire_lines$geometry)
 ```
 
-```{r lines-1, echo=FALSE}
-knitr::include_graphics("vignette-pct-lines-1.png")
-```
-
 Step two: we generate a fast route network using `stplanr`, we would need a CycleStreets.Net API key for this:
 
-```{r pct-routes-fast, eval=FALSE}
+```{r pct-routes-fast}
 library(stplanr)
 wight_routes_fast = stplanr::line2route(l = wight_desire_lines)
 plot(wight_routes_fast[, c("av_incline")])
 ```
 
-```{r routes-fast, echo=FALSE}
-knitr::include_graphics("vignette-pct-routes-fast-1.png")
-```
-
 Step three: we can now get the propensity to cycle percentages from the `uptake_pct_godutch` using the `length` and `av_incline` from the `wight_routes_fast` object.
 
-```{r pct-goducth, eval=FALSE}
+```{r pct-goducth}
 wight_pcycle_dutch = pct::uptake_pct_godutch(
   distance = wight_routes_fast$length,
   gradient = wight_routes_fast$av_incline
@@ -177,10 +168,6 @@ ggplot(wight_uptake) +
     godutch,
     colour = "godutch"
   ))
-```
-
-```{r goducth-1, echo=FALSE}
-knitr::include_graphics("vignette-pct-goducth-1.png")
 ```
 
 We can also see which routes would have the highest uptake using mapping packages such as:
