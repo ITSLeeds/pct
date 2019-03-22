@@ -126,10 +126,10 @@
 <p>Likewise to download the desire lines for “west-yorkshire”:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">lines =<span class="st"> </span><span class="kw"><a href="../reference/get_pct_lines.html">get_pct_lines</a></span>(<span class="dt">region =</span> <span class="st">"isle-of-wight"</span>)</a>
 <a class="sourceLine" id="cb5-2" data-line-number="2">lines =<span class="st"> </span>lines[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/order">order</a></span>(lines<span class="op">$</span>all, <span class="dt">decreasing =</span> <span class="ot">TRUE</span>), <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"all"</span>)]</a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(lines[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>,], <span class="dt">lwd =</span> <span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co"># view the lines on a map</span></a>
-<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="co"># mapview::mapview(lines[1:3000, c("geo_name1")])</span></a></code></pre></div>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(lines[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>,], <span class="dt">lwd =</span> <span class="dv">4</span>)</a></code></pre></div>
 <p><img src="vignette-get_pct_lines-1.png" width="100%"></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="co"># view the lines on a map</span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="co"># mapview::mapview(lines[1:3000, c("geo_name1")])</span></a></code></pre></div>
 <p>The rest of the <code>get_pct_</code> functions are similar to the above two examples and download data from www.pct.bike.</p>
 <p>However, the base of these functions is <code><a href="../reference/get_pct.html">get_pct()</a></code>. It has various parameters:</p>
 <ul>
@@ -160,49 +160,105 @@
 </ul>
 <p>Therefore, in order to generate say a UK government target for an area like “Isle of Wight” from scratch:</p>
 <p>Step one: we get the desire line for top destinations (top 100):</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="co"># top 100 origin destinations by all methods of travel</span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2">wight_desire_lines =<span class="st"> </span>pct<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/pct/topics/get_desire_lines">get_desire_lines</a></span>(<span class="dt">area =</span> <span class="st">"isle of wight"</span>)</a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(wight_desire_lines<span class="op">$</span>all)</a>
-<a class="sourceLine" id="cb6-4" data-line-number="4">wight_routes_fast =<span class="st"> </span>stplanr<span class="op">::</span><span class="kw"><a href="https://ropensci.github.io/stplanr/reference/line2route.html">line2route</a></span>(<span class="dt">l =</span> wight_desire_lines)</a>
-<a class="sourceLine" id="cb6-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(wight_desire_lines<span class="op">$</span>geometry)</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co"># top 100 origin destinations by all methods of travel</span></a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">wight_desire_lines =<span class="st"> </span>pct<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/pct/topics/get_desire_lines">get_desire_lines</a></span>(<span class="dt">area =</span> <span class="st">"isle of wight"</span>)</a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="co">#&gt; Parsed with column specification:</span></a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">#&gt; cols(</span></a>
+<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="co">#&gt;   `Area of residence` = col_character(),</span></a>
+<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="co">#&gt;   `Area of workplace` = col_character(),</span></a>
+<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="co">#&gt;   `All categories: Method of travel to work` = col_double(),</span></a>
+<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="co">#&gt;   `Work mainly at or from home` = col_double(),</span></a>
+<a class="sourceLine" id="cb7-9" data-line-number="9"><span class="co">#&gt;   `Underground, metro, light rail, tram` = col_double(),</span></a>
+<a class="sourceLine" id="cb7-10" data-line-number="10"><span class="co">#&gt;   Train = col_double(),</span></a>
+<a class="sourceLine" id="cb7-11" data-line-number="11"><span class="co">#&gt;   `Bus, minibus or coach` = col_double(),</span></a>
+<a class="sourceLine" id="cb7-12" data-line-number="12"><span class="co">#&gt;   Taxi = col_double(),</span></a>
+<a class="sourceLine" id="cb7-13" data-line-number="13"><span class="co">#&gt;   `Motorcycle, scooter or moped` = col_double(),</span></a>
+<a class="sourceLine" id="cb7-14" data-line-number="14"><span class="co">#&gt;   `Driving a car or van` = col_double(),</span></a>
+<a class="sourceLine" id="cb7-15" data-line-number="15"><span class="co">#&gt;   `Passenger in a car or van` = col_double(),</span></a>
+<a class="sourceLine" id="cb7-16" data-line-number="16"><span class="co">#&gt;   Bicycle = col_double(),</span></a>
+<a class="sourceLine" id="cb7-17" data-line-number="17"><span class="co">#&gt;   `On foot` = col_double(),</span></a>
+<a class="sourceLine" id="cb7-18" data-line-number="18"><span class="co">#&gt;   `Other method of travel to work` = col_double()</span></a>
+<a class="sourceLine" id="cb7-19" data-line-number="19"><span class="co">#&gt; )</span></a>
+<a class="sourceLine" id="cb7-20" data-line-number="20"><span class="co">#&gt; Parsed with column specification:</span></a>
+<a class="sourceLine" id="cb7-21" data-line-number="21"><span class="co">#&gt; cols(</span></a>
+<a class="sourceLine" id="cb7-22" data-line-number="22"><span class="co">#&gt;   X = col_double(),</span></a>
+<a class="sourceLine" id="cb7-23" data-line-number="23"><span class="co">#&gt;   Y = col_double(),</span></a>
+<a class="sourceLine" id="cb7-24" data-line-number="24"><span class="co">#&gt;   objectid = col_double(),</span></a>
+<a class="sourceLine" id="cb7-25" data-line-number="25"><span class="co">#&gt;   msoa11cd = col_character(),</span></a>
+<a class="sourceLine" id="cb7-26" data-line-number="26"><span class="co">#&gt;   msoa11nm = col_character()</span></a>
+<a class="sourceLine" id="cb7-27" data-line-number="27"><span class="co">#&gt; )</span></a>
+<a class="sourceLine" id="cb7-28" data-line-number="28"><span class="co">#&gt; Parsed with column specification:</span></a>
+<a class="sourceLine" id="cb7-29" data-line-number="29"><span class="co">#&gt; cols(</span></a>
+<a class="sourceLine" id="cb7-30" data-line-number="30"><span class="co">#&gt;   X = col_double(),</span></a>
+<a class="sourceLine" id="cb7-31" data-line-number="31"><span class="co">#&gt;   Y = col_double(),</span></a>
+<a class="sourceLine" id="cb7-32" data-line-number="32"><span class="co">#&gt;   objectid = col_double(),</span></a>
+<a class="sourceLine" id="cb7-33" data-line-number="33"><span class="co">#&gt;   msoa11cd = col_character(),</span></a>
+<a class="sourceLine" id="cb7-34" data-line-number="34"><span class="co">#&gt;   msoa11nm = col_character()</span></a>
+<a class="sourceLine" id="cb7-35" data-line-number="35"><span class="co">#&gt; )</span></a>
+<a class="sourceLine" id="cb7-36" data-line-number="36"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(wight_desire_lines<span class="op">$</span>all)</a>
+<a class="sourceLine" id="cb7-37" data-line-number="37"><span class="co">#&gt; [1] 852 831 809 621 621 603</span></a>
+<a class="sourceLine" id="cb7-38" data-line-number="38">wight_routes_fast =<span class="st"> </span>stplanr<span class="op">::</span><span class="kw"><a href="https://ropensci.github.io/stplanr/reference/line2route.html">line2route</a></span>(<span class="dt">l =</span> wight_desire_lines)</a>
+<a class="sourceLine" id="cb7-39" data-line-number="39"><span class="co">#&gt; 10 % out of 100 distances calculated</span></a>
+<a class="sourceLine" id="cb7-40" data-line-number="40"><span class="co">#&gt; 20 % out of 100 distances calculated</span></a>
+<a class="sourceLine" id="cb7-41" data-line-number="41"><span class="co">#&gt; 30 % out of 100 distances calculated</span></a>
+<a class="sourceLine" id="cb7-42" data-line-number="42"><span class="co">#&gt; 40 % out of 100 distances calculated</span></a>
+<a class="sourceLine" id="cb7-43" data-line-number="43"><span class="co">#&gt; 50 % out of 100 distances calculated</span></a>
+<a class="sourceLine" id="cb7-44" data-line-number="44"><span class="co">#&gt; 60 % out of 100 distances calculated</span></a>
+<a class="sourceLine" id="cb7-45" data-line-number="45"><span class="co">#&gt; 70 % out of 100 distances calculated</span></a>
+<a class="sourceLine" id="cb7-46" data-line-number="46"><span class="co">#&gt; 80 % out of 100 distances calculated</span></a>
+<a class="sourceLine" id="cb7-47" data-line-number="47"><span class="co">#&gt; 90 % out of 100 distances calculated</span></a>
+<a class="sourceLine" id="cb7-48" data-line-number="48"><span class="co">#&gt; 100 % out of 100 distances calculated</span></a>
+<a class="sourceLine" id="cb7-49" data-line-number="49"></a>
+<a class="sourceLine" id="cb7-50" data-line-number="50"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(wight_desire_lines<span class="op">$</span>geometry)</a></code></pre></div>
 <p><img src="vignette-pct-lines-1.png" width="100%"></p>
 <p>Step two: we generate a fast route network using <code>stplanr</code>, we would need a CycleStreets.Net API key for this:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(stplanr)</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2">wight_routes_fast =<span class="st"> </span>stplanr<span class="op">::</span><span class="kw"><a href="https://ropensci.github.io/stplanr/reference/line2route.html">line2route</a></span>(<span class="dt">l =</span> wight_desire_lines)</a>
-<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(wight_routes_fast[, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"av_incline"</span>)])</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(stplanr)</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">wight_routes_fast =<span class="st"> </span>stplanr<span class="op">::</span><span class="kw"><a href="https://ropensci.github.io/stplanr/reference/line2route.html">line2route</a></span>(<span class="dt">l =</span> wight_desire_lines)</a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="co">#&gt; 10 % out of 100 distances calculated</span></a>
+<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="co">#&gt; 20 % out of 100 distances calculated</span></a>
+<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="co">#&gt; 30 % out of 100 distances calculated</span></a>
+<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="co">#&gt; 40 % out of 100 distances calculated</span></a>
+<a class="sourceLine" id="cb8-7" data-line-number="7"><span class="co">#&gt; 50 % out of 100 distances calculated</span></a>
+<a class="sourceLine" id="cb8-8" data-line-number="8"><span class="co">#&gt; 60 % out of 100 distances calculated</span></a>
+<a class="sourceLine" id="cb8-9" data-line-number="9"><span class="co">#&gt; 70 % out of 100 distances calculated</span></a>
+<a class="sourceLine" id="cb8-10" data-line-number="10"><span class="co">#&gt; 80 % out of 100 distances calculated</span></a>
+<a class="sourceLine" id="cb8-11" data-line-number="11"><span class="co">#&gt; 90 % out of 100 distances calculated</span></a>
+<a class="sourceLine" id="cb8-12" data-line-number="12"><span class="co">#&gt; 100 % out of 100 distances calculated</span></a>
+<a class="sourceLine" id="cb8-13" data-line-number="13"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(wight_routes_fast[, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"av_incline"</span>)])</a></code></pre></div>
 <p><img src="vignette-pct-routes-fast-1.png" width="100%"></p>
 <p>Step three: we can now get the propensity to cycle percentages from the <code>uptake_pct_godutch</code> using the <code>length</code> and <code>av_incline</code> from the <code>wight_routes_fast</code> object.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">wight_pcycle_dutch =<span class="st"> </span>pct<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/pct/topics/uptake_pct_godutch">uptake_pct_godutch</a></span>(</a>
-<a class="sourceLine" id="cb8-2" data-line-number="2">  <span class="dt">distance =</span> wight_routes_fast<span class="op">$</span>length,</a>
-<a class="sourceLine" id="cb8-3" data-line-number="3">  <span class="dt">gradient =</span> wight_routes_fast<span class="op">$</span>av_incline</a>
-<a class="sourceLine" id="cb8-4" data-line-number="4">)</a>
-<a class="sourceLine" id="cb8-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb8-6" data-line-number="6">wight_psycle_gov =<span class="st"> </span>pct<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/pct/topics/uptake_pct_govtarget">uptake_pct_govtarget</a></span>(</a>
-<a class="sourceLine" id="cb8-7" data-line-number="7">  <span class="dt">distance =</span> wight_routes_fast<span class="op">$</span>length,</a>
-<a class="sourceLine" id="cb8-8" data-line-number="8">  <span class="dt">gradient =</span> wight_routes_fast<span class="op">$</span>av_incline</a>
-<a class="sourceLine" id="cb8-9" data-line-number="9">)</a>
-<a class="sourceLine" id="cb8-10" data-line-number="10">  </a>
-<a class="sourceLine" id="cb8-11" data-line-number="11">wight_uptake =<span class="st"> </span>wight_routes_fast</a>
-<a class="sourceLine" id="cb8-12" data-line-number="12">wight_uptake<span class="op">$</span>govtarget =<span class="st"> </span>wight_psycle_gov</a>
-<a class="sourceLine" id="cb8-13" data-line-number="13">wight_uptake<span class="op">$</span>godutch =<span class="st"> </span>wight_pcycle_dutch</a>
-<a class="sourceLine" id="cb8-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb8-15" data-line-number="15"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(ggplot2)</a>
-<a class="sourceLine" id="cb8-16" data-line-number="16"><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>(wight_uptake) <span class="op">+</span></a>
-<a class="sourceLine" id="cb8-17" data-line-number="17"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/geom_path">geom_line</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(</a>
-<a class="sourceLine" id="cb8-18" data-line-number="18">    length,</a>
-<a class="sourceLine" id="cb8-19" data-line-number="19">    govtarget,</a>
-<a class="sourceLine" id="cb8-20" data-line-number="20">    <span class="dt">colour =</span> <span class="st">"govtarget"</span></a>
-<a class="sourceLine" id="cb8-21" data-line-number="21">  )) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb8-22" data-line-number="22"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/geom_path">geom_line</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(</a>
-<a class="sourceLine" id="cb8-23" data-line-number="23">    length,</a>
-<a class="sourceLine" id="cb8-24" data-line-number="24">    godutch,</a>
-<a class="sourceLine" id="cb8-25" data-line-number="25">    <span class="dt">colour =</span> <span class="st">"godutch"</span></a>
-<a class="sourceLine" id="cb8-26" data-line-number="26">  ))</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">wight_pcycle_dutch =<span class="st"> </span>pct<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/pct/topics/uptake_pct_godutch">uptake_pct_godutch</a></span>(</a>
+<a class="sourceLine" id="cb9-2" data-line-number="2">  <span class="dt">distance =</span> wight_routes_fast<span class="op">$</span>length,</a>
+<a class="sourceLine" id="cb9-3" data-line-number="3">  <span class="dt">gradient =</span> wight_routes_fast<span class="op">$</span>av_incline</a>
+<a class="sourceLine" id="cb9-4" data-line-number="4">)</a>
+<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="co">#&gt; Distance assumed in m, switching to km</span></a>
+<a class="sourceLine" id="cb9-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb9-7" data-line-number="7">wight_psycle_gov =<span class="st"> </span>pct<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/pct/topics/uptake_pct_govtarget">uptake_pct_govtarget</a></span>(</a>
+<a class="sourceLine" id="cb9-8" data-line-number="8">  <span class="dt">distance =</span> wight_routes_fast<span class="op">$</span>length,</a>
+<a class="sourceLine" id="cb9-9" data-line-number="9">  <span class="dt">gradient =</span> wight_routes_fast<span class="op">$</span>av_incline</a>
+<a class="sourceLine" id="cb9-10" data-line-number="10">)</a>
+<a class="sourceLine" id="cb9-11" data-line-number="11"><span class="co">#&gt; Distance assumed in m, switching to km</span></a>
+<a class="sourceLine" id="cb9-12" data-line-number="12">  </a>
+<a class="sourceLine" id="cb9-13" data-line-number="13">wight_uptake =<span class="st"> </span>wight_routes_fast</a>
+<a class="sourceLine" id="cb9-14" data-line-number="14">wight_uptake<span class="op">$</span>govtarget =<span class="st"> </span>wight_psycle_gov</a>
+<a class="sourceLine" id="cb9-15" data-line-number="15">wight_uptake<span class="op">$</span>godutch =<span class="st"> </span>wight_pcycle_dutch</a>
+<a class="sourceLine" id="cb9-16" data-line-number="16"></a>
+<a class="sourceLine" id="cb9-17" data-line-number="17"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(ggplot2)</a>
+<a class="sourceLine" id="cb9-18" data-line-number="18"><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>(wight_uptake) <span class="op">+</span></a>
+<a class="sourceLine" id="cb9-19" data-line-number="19"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/geom_path">geom_line</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(</a>
+<a class="sourceLine" id="cb9-20" data-line-number="20">    length,</a>
+<a class="sourceLine" id="cb9-21" data-line-number="21">    govtarget,</a>
+<a class="sourceLine" id="cb9-22" data-line-number="22">    <span class="dt">colour =</span> <span class="st">"govtarget"</span></a>
+<a class="sourceLine" id="cb9-23" data-line-number="23">  )) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb9-24" data-line-number="24"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/geom_path">geom_line</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(</a>
+<a class="sourceLine" id="cb9-25" data-line-number="25">    length,</a>
+<a class="sourceLine" id="cb9-26" data-line-number="26">    godutch,</a>
+<a class="sourceLine" id="cb9-27" data-line-number="27">    <span class="dt">colour =</span> <span class="st">"godutch"</span></a>
+<a class="sourceLine" id="cb9-28" data-line-number="28">  ))</a></code></pre></div>
 <p><img src="vignette-pct-goducth-1.png" width="100%"></p>
 <p>We can also see which routes would have the highest uptake using mapping packages such as:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="co"># mapview::mapview(wight_uptake, zcol = "govtarget")</span></a>
-<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="co"># mapview::mapview(wight_uptake, zcol = "godutch")</span></a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="co"># mapview::mapview(wight_uptake, zcol = "govtarget")</span></a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="co"># mapview::mapview(wight_uptake, zcol = "godutch")</span></a></code></pre></div>
 <p><img src="https://user-images.githubusercontent.com/408568/54354252-0f52f880-464e-11e9-893b-dab3ef8bae4d.png" width="100%"></p>
 </div>
   </div>
