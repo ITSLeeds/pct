@@ -116,6 +116,9 @@ To estimate cycling levels under the UK government target for the Isle of Wight,
 wight_desire_lines = get_desire_lines(area = "isle of wight")
 nrow(wight_desire_lines)
 sum(wight_desire_lines$all)
+# view 10 lines
+library(leaflet)
+leaflet(width = "100%") %>% addTiles() %>% addPolylines(data = wight_desire_lines[1:10,])
 ```
 
 The code above downloads and processes 306 origin-destination pairs, representing inter-zonal commuting trips made by 32,683 people on the island (population: [140,000](https://en.wikipedia.org/wiki/Isle_of_Wight), the function omits intra-zonal flows).
