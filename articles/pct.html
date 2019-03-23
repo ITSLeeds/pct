@@ -70,14 +70,17 @@
 <!--/.navbar -->
 
       
-      </header><div class="row">
+      </header><script src="pct_files/htmlwidgets-1.3/htmlwidgets.js"></script><script src="pct_files/jquery-1.12.4/jquery.min.js"></script><link href="pct_files/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<script src="pct_files/leaflet-1.3.1/leaflet.js"></script><link href="pct_files/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+<script src="pct_files/Proj4Leaflet-1.0.1/proj4-compressed.js"></script><script src="pct_files/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="pct_files/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+<script src="pct_files/leaflet-binding-2.0.2/leaflet.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>An Introduction to the pct package</h1>
             <h3 class="subtitle">Obtaining and reproducing data from the Propensity to Cycle Tool (PCT)</h3>
                         <h4 class="author">R Lovelace and L Hama</h4>
             
-            <h4 class="date">2019-03-22</h4>
+            <h4 class="date">2019-03-23</h4>
       
       
       <div class="hidden name"><code>pct.Rmd</code></div>
@@ -199,8 +202,12 @@
 <a class="sourceLine" id="cb6-36" data-line-number="36"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/nrow">nrow</a></span>(wight_desire_lines)</a>
 <a class="sourceLine" id="cb6-37" data-line-number="37"><span class="co">#&gt; [1] 306</span></a>
 <a class="sourceLine" id="cb6-38" data-line-number="38"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sum">sum</a></span>(wight_desire_lines<span class="op">$</span>all)</a>
-<a class="sourceLine" id="cb6-39" data-line-number="39"><span class="co">#&gt; [1] 32683</span></a></code></pre></div>
-<p>The code above downloads and processes 306 origin-destination pairs, representing inter-zonal commuting trips made by 32,683 people on the island (population: <a href="https://en.wikipedia.org/wiki/Isle_of_Wight">140,000</a>, the function omits intra-zonal flows). The next step is to convert these straight desire lines into routes that can be cycled, e.g. as follows:</p>
+<a class="sourceLine" id="cb6-39" data-line-number="39"><span class="co">#&gt; [1] 32683</span></a>
+<a class="sourceLine" id="cb6-40" data-line-number="40"><span class="co"># view 10 lines</span></a>
+<a class="sourceLine" id="cb6-41" data-line-number="41"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(leaflet)</a>
+<a class="sourceLine" id="cb6-42" data-line-number="42"><span class="kw"><a href="https://www.rdocumentation.org/packages/leaflet/topics/leaflet">leaflet</a></span>(<span class="dt">width =</span> <span class="st">"100%"</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/leaflet/topics/map-layers">addTiles</a></span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/leaflet/topics/map-layers">addPolylines</a></span>(<span class="dt">data =</span> wight_desire_lines[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>,])</a></code></pre></div>
+<div id="htmlwidget-cae12755b5a93ff5151e" style="width:100%;height:432.632880098888px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-cae12755b5a93ff5151e">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addPolylines","args":[[[[{"lng":[-1.29751408324623,-1.31006711916123],"lat":[50.7571421447456,50.7534038592352]}]],[[{"lng":[-1.29751408324623,-1.28149160450734],"lat":[50.7571421447456,50.751845127431]}]],[[{"lng":[-1.29751408324623,-1.15850885830822],"lat":[50.7571421447456,50.7287388002202]}]],[[{"lng":[-1.29751408324623,-1.22406933736016],"lat":[50.7571421447456,50.726134669078]}]],[[{"lng":[-1.29751408324623,-1.1738784568452],"lat":[50.7571421447456,50.723010861409]}]],[[{"lng":[-1.29751408324623,-1.15588435552669],"lat":[50.7571421447456,50.7218561008228]}]],[[{"lng":[-1.29751408324623,-1.28428479295049],"lat":[50.7571421447456,50.7032568564458]}]],[[{"lng":[-1.29751408324623,-1.30234477290129],"lat":[50.7571421447456,50.7026730223134]}]],[[{"lng":[-1.29751408324623,-1.09659838923648],"lat":[50.7571421447456,50.694244497424]}]],[[{"lng":[-1.29751408324623,-1.30109588996732],"lat":[50.7571421447456,50.694111412435]}]]],null,null,{"interactive":true,"className":"","stroke":true,"color":"#03F","weight":5,"opacity":0.5,"fill":false,"fillColor":"#03F","fillOpacity":0.2,"smoothFactor":1,"noClip":false},null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[50.694111412435,50.7571421447456],"lng":[-1.31006711916123,-1.09659838923648]}},"evals":[],"jsHooks":[]}</script><p>The code above downloads and processes 306 origin-destination pairs, representing inter-zonal commuting trips made by 32,683 people on the island (population: <a href="https://en.wikipedia.org/wiki/Isle_of_Wight">140,000</a>, the function omits intra-zonal flows). The next step is to convert these straight desire lines into routes that can be cycled, e.g. as follows:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">wight_routes_fast =<span class="st"> </span>stplanr<span class="op">::</span><span class="kw"><a href="https://ropensci.github.io/stplanr/reference/line2route.html">line2route</a></span>(<span class="dt">l =</span> wight_desire_lines)</a>
 <a class="sourceLine" id="cb7-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(wight_desire_lines<span class="op">$</span>geometry)</a></code></pre></div>
 <p>Step two: we generate a fast route network using <code>stplanr</code>, we would need a CycleStreets.Net API key for this:</p>
