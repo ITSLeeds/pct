@@ -120,7 +120,8 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>get_od</span>(<span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"sheffield"</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"within"</span>)</pre>
+    <pre class="usage"><span class='fu'>get_od</span>(<span class='kw'>area</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"within"</span>,
+  <span class='kw'>omit_intrazonal</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -139,11 +140,16 @@ within the <code>area</code>.</p></td>
       <td><p>the type of subsetting: one of <code>from</code>, <code>to</code> or <code>within</code>, specifying how
 the od dataset should be subset in relation to the <code>area</code>.</p></td>
     </tr>
+    <tr>
+      <th>omit_intrazonal</th>
+      <td><p>should intrazonal OD pairs be omited from result?
+<code>FALSE</code> by default.</p></td>
+    </tr>
     </table>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>od_sheffield</span> <span class='kw'>=</span> <span class='fu'>get_od</span>(<span class='st'>"sheffield"</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+    <pre class="examples"><div class='input'><span class='fu'>get_od</span>(<span class='st'>"wight"</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  `Area of residence` = col_character(),</span>
 #&gt; <span class='message'>  `Area of workplace` = col_character(),</span>
@@ -166,12 +172,12 @@ the od dataset should be subset in relation to the <code>area</code>.</p></td>
 #&gt; <span class='message'>  objectid = col_double(),</span>
 #&gt; <span class='message'>  msoa11cd = col_character(),</span>
 #&gt; <span class='message'>  msoa11nm = col_character()</span>
-#&gt; <span class='message'>)</span></div><div class='input'><span class='no'>od_sheffield</span></div><div class='output co'>#&gt; # A tibble: 3 x 16
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; # A tibble: 3 x 16
 #&gt;   geo_code1 geo_code2   all from_home light_rail train   bus  taxi motorbike
 #&gt;   &lt;chr&gt;     &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
-#&gt; 1 E02001614 E02001614   773         0          0     9    57     2         1
-#&gt; 2 E02001678 OD0000001   759       759          0     0     0     0         0
-#&gt; 3 E02001611 E02001611   671         0          6     0    19     1         2
+#&gt; 1 E02003592 E02003592  1164         0          0     1    41     3        10
+#&gt; 2 E02003589 E02003589   875         0          0     0    12     1         8
+#&gt; 3 E02003591 E02003589   852         0          0     1     6     0        11
 #&gt; # … with 7 more variables: car_driver &lt;dbl&gt;, car_passenger &lt;dbl&gt;,
 #&gt; #   bicycle &lt;dbl&gt;, foot &lt;dbl&gt;, other &lt;dbl&gt;, geo_name1 &lt;chr&gt;, geo_name2 &lt;chr&gt;</div></pre>
   </div>

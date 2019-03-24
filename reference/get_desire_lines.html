@@ -124,7 +124,7 @@ can get the top <code>n</code>.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>get_desire_lines</span>(<span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"sheffield"</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>get_desire_lines</span>(<span class='kw'>area</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>omit_intrazonal</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -138,11 +138,16 @@ can get the top <code>n</code>.</p>
       <td><p>top n number of destinations with most trips in the 2011 census
 within the <code>area</code>.</p></td>
     </tr>
+    <tr>
+      <th>omit_intrazonal</th>
+      <td><p>should intrazonal OD pairs be omited from result?
+<code>FALSE</code> by default.</p></td>
+    </tr>
     </table>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>desire_sheffield</span> <span class='kw'>=</span> <span class='fu'>get_desire_lines</span>(<span class='st'>"sheffield"</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>20</span>)</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+    <pre class="examples"><div class='input'><span class='no'>desire_lines</span> <span class='kw'>=</span> <span class='fu'>get_desire_lines</span>(<span class='st'>"wight"</span>)</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  `Area of residence` = col_character(),</span>
 #&gt; <span class='message'>  `Area of workplace` = col_character(),</span>
@@ -172,46 +177,8 @@ within the <code>area</code>.</p></td>
 #&gt; <span class='message'>  objectid = col_double(),</span>
 #&gt; <span class='message'>  msoa11cd = col_character(),</span>
 #&gt; <span class='message'>  msoa11nm = col_character()</span>
-#&gt; <span class='message'>)</span></div><div class='input'><span class='no'>desire_sheffield</span></div><div class='output co'>#&gt; Simple feature collection with 20 features and 16 fields
-#&gt; geometry type:  LINESTRING
-#&gt; dimension:      XY
-#&gt; bbox:           xmin: -1.599568 ymin: 53.34726 xmax: -1.39669 ymax: 53.47986
-#&gt; epsg (SRID):    4326
-#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs
-#&gt; First 10 features:
-#&gt;    geo_code1 geo_code2 all from_home light_rail train bus taxi motorbike
-#&gt; 1  E02001613 E02001614 489         0          1     1  94    0         2
-#&gt; 2  E02001634 E02001640 483         0         17     0  95    1         1
-#&gt; 3  E02001624 E02001632 473         0         15     3  47    3         4
-#&gt; 4  E02001624 E02001628 465         0          8     0  38    2         3
-#&gt; 5  E02001652 E02006843 411         0          1     5  66    0         4
-#&gt; 6  E02001660 E02006843 401         0          2     2 130    1         1
-#&gt; 7  E02001634 E02006843 386         0         29     1 113    0         3
-#&gt; 8  E02001622 E02001627 384         0          1     0  81    0         3
-#&gt; 9  E02001639 E02001640 374         0          1     0  50    4         0
-#&gt; 10 E02006868 E02006843 370         0         16     1 129    1         0
-#&gt;    car_driver car_passenger bicycle foot other     geo_name1     geo_name2
-#&gt; 1         273            36       7   74     1 Sheffield 003 Sheffield 004
-#&gt; 2          99            35      19  216     0 Sheffield 024 Sheffield 030
-#&gt; 3         292            42       7   59     1 Sheffield 014 Sheffield 022
-#&gt; 4         225            43       7  138     1 Sheffield 014 Sheffield 018
-#&gt; 5          56             2      16  260     1 Sheffield 042 Sheffield 073
-#&gt; 6         105            14      37  107     2 Sheffield 050 Sheffield 073
-#&gt; 7         119            15      20   86     0 Sheffield 024 Sheffield 073
-#&gt; 8         187            32       5   75     0 Sheffield 012 Sheffield 017
-#&gt; 9          62            11       8  238     0 Sheffield 029 Sheffield 030
-#&gt; 10         77             9      11  126     0 Sheffield 075 Sheffield 073
-#&gt;                          geometry
-#&gt; 1  LINESTRING (-1.491037 53.47...
-#&gt; 2  LINESTRING (-1.502796 53.39...
-#&gt; 3  LINESTRING (-1.426467 53.41...
-#&gt; 4  LINESTRING (-1.426467 53.41...
-#&gt; 5  LINESTRING (-1.472207 53.36...
-#&gt; 6  LINESTRING (-1.487981 53.35...
-#&gt; 7  LINESTRING (-1.502796 53.39...
-#&gt; 8  LINESTRING (-1.490116 53.41...
-#&gt; 9  LINESTRING (-1.510365 53.38...
-#&gt; 10 LINESTRING (-1.446929 53.37...</div></pre>
+#&gt; <span class='message'>)</span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>desire_lines</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: plotting the first 10 out of 16 attributes; use max.plot = 16 to plot all</span></div><div class='img'><img src='get_desire_lines-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>intra_zonal</span> <span class='kw'>=</span> <span class='no'>desire_lines</span>$<span class='no'>geo_code1</span> <span class='kw'>==</span> <span class='no'>desire_lines</span>$<span class='no'>geo_code2</span>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>desire_lines</span>[<span class='no'>intra_zonal</span>, ])</div><div class='output co'>#&gt; <span class='warning'>Warning: plotting the first 10 out of 16 attributes; use max.plot = 16 to plot all</span></div><div class='img'><img src='get_desire_lines-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
