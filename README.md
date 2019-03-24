@@ -224,7 +224,7 @@ Now: where to prioritise that infrastructure and those
 policies?
 
 ``` r
-rnet = stplanr::overline(routes_vital, attrib = c("bicycle", "bicycle_govtarget"))
+rnet = stplanr::overline2(routes_vital, attrib = c("bicycle", "bicycle_govtarget"))
 lwd = rnet$bicycle_govtarget / mean(rnet$bicycle_govtarget)
 plot(rnet["bicycle_govtarget"], lwd = lwd)
 ```
@@ -239,7 +239,7 @@ makers, stakeholders, and the public\! E.g. (see interactive map
 mapview::mapview(rnet, zcol = "bicycle_govtarget", lwd = lwd * 2)
 ```
 
-![](pct-leeds-demo.png)
+![](https://raw.githubusercontent.com/ITSLeeds/pct/master/pct-leeds-demo.png)
 
 ## Current limitations
 

@@ -148,7 +148,7 @@ It's gone from 4% to 11%, a realistic increase if cycling were enabled by good i
 Now: where to prioritise that infrastructure and those policies?
 
 ```{r, message=FALSE}
-rnet = stplanr::overline(routes_vital, attrib = c("bicycle", "bicycle_govtarget"))
+rnet = stplanr::overline2(routes_vital, attrib = c("bicycle", "bicycle_govtarget"))
 lwd = rnet$bicycle_govtarget / mean(rnet$bicycle_govtarget)
 plot(rnet["bicycle_govtarget"], lwd = lwd)
 ```
@@ -160,7 +160,7 @@ E.g. (see interactive map [here](http://rpubs.com/RobinLovelace/474074)):
 mapview::mapview(rnet, zcol = "bicycle_govtarget", lwd = lwd * 2)
 ```
 
-![](pct-leeds-demo.png)
+![](https://raw.githubusercontent.com/ITSLeeds/pct/master/pct-leeds-demo.png)
 
 ## Current limitations
 * This package currently does not estimate cycling uptake associated with intrazonal flows and people with no fixed job data.
