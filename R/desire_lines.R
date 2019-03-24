@@ -7,23 +7,25 @@
 #' @inheritParams get_od
 #'
 #' @export
-#' @examples \donttest {
+#' @examples \donttest{
 #' desire_lines = get_desire_lines("wight")
 #' plot(desire_lines)
 #' intra_zonal = desire_lines$geo_code1 == desire_lines$geo_code2
 #' plot(desire_lines[intra_zonal, ])
 #' }
-get_desire_lines = function(area = NULL, n = NULL) {
+get_desire_lines = function(area = NULL, n = NULL, omit_intrazonal = FALSE) {
 
-  if(is.null(area)) stop("Select a region or local authority name.")
+  if(is.null(area)){
+    stop("Select a region or local authority name.")
+  }
   # TODO: explore ways of returning 'intrazonal' flows
   od_all = get_od(area)
   # get UK zones with msoa11cd, msoa11nm and the geom for stplanr::od2line
   zones_all = get_centroids_ew() # TODO: some warning?
   zones = zones_all[grepl(area, zones_all$msoa11nm, ignore.case = TRUE), ]
-  od = od_all[od_all$geo_code1 %in% zones$msoa11cd &
-                od_all$geo_code2 %in% zones$msoa11cd, ]
-  # od = od[od$geo_code1 != od$geo_code2, ]
+  sel_in_orig = od_all$geo_code1 %in% zones$msoa11cd
+  sel_in_dest = od_all$geo_code2 %in% zones$msoa11cd
+  od = od_all[sel_in_orig & sel_in_dest, ]
   if(!is.null(n)) {
     od = order_and_subset(od, "all", n) # subset before processing
   }
@@ -38,11 +40,16 @@ get_desire_lines = function(area = NULL, n = NULL) {
 #' within the `area`.
 #' @param type the type of subsetting: one of `from`, `to` or `within`, specifying how
 #' the od dataset should be subset in relation to the `area`.
+#' @param omit_intrazonal should intrazonal OD pairs be omited from result?
+#' `FALSE` by default.
 #' @export
 #' @examples \donttest{
 #' get_od("wight", n = 3)
 #' }
-get_od = function(area = NULL, n = NULL, type = "within") {
+get_od = function(area = NULL,
+                  n = NULL,
+                  type = "within",
+                  omit_intrazonal = FALSE) {
   if(is.null(area)) stop("Select a region or local authority name.")
   if(length(area) != 1L)
     stop("'area' must be of length 1")
@@ -65,7 +72,9 @@ get_od = function(area = NULL, n = NULL, type = "within") {
   zones_all = get_centroids_ew() # TODO: some warning?
   od_all$geo_name1 = zones_all$msoa11nm[match(od_all$geo_code1, zones_all$msoa11cd)]
   od_all$geo_name2 = zones_all$msoa11nm[match(od_all$geo_code2, zones_all$msoa11cd)]
-
+  if(omit_intrazonal) {
+    od = od[od$geo_code1 != od$geo_code2, ]
+  }
   # is area valid? do it once
   valid_areas = grepl(area, od_all$geo_name1, ignore.case = TRUE)
   if(!any(valid_areas))
@@ -87,6 +96,7 @@ order_and_subset = function(od, var, n) {
 
   od = od[order(od[[var]], decreasing = TRUE), ]
   od[1:n, ]
+
 }
 
 # does this want to be exported at some point?

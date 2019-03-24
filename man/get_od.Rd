@@ -4,7 +4,8 @@
 \alias{get_od}
 \title{Get origin destination data from the 2011 Census}
 \usage{
-get_od(area = NULL, n = NULL, type = "within")
+get_od(area = NULL, n = NULL, type = "within",
+  omit_intrazonal = FALSE)
 }
 \arguments{
 \item{area}{for which desire lines to be generated.}
@@ -14,6 +15,9 @@ within the \code{area}.}
 
 \item{type}{the type of subsetting: one of \code{from}, \code{to} or \code{within}, specifying how
 the od dataset should be subset in relation to the \code{area}.}
+
+\item{omit_intrazonal}{should intrazonal OD pairs be omited from result?
+\code{FALSE} by default.}
 }
 \description{
 Get origin destination data from the 2011 Census

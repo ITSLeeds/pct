@@ -4,13 +4,16 @@
 \alias{get_desire_lines}
 \title{Desire lines}
 \usage{
-get_desire_lines(area = NULL, n = NULL)
+get_desire_lines(area = NULL, n = NULL, omit_intrazonal = FALSE)
 }
 \arguments{
 \item{area}{for which desire lines to be generated.}
 
 \item{n}{top n number of destinations with most trips in the 2011 census
 within the \code{area}.}
+
+\item{omit_intrazonal}{should intrazonal OD pairs be omited from result?
+\code{FALSE} by default.}
 }
 \description{
 This function generates "desire lines" from census 2011 data.
@@ -18,7 +21,7 @@ By default gets all desire lines from census in region, but
 can get the top \code{n}.
 }
 \examples{
-\donttest {
+\donttest{
 desire_lines = get_desire_lines("wight")
 plot(desire_lines)
 intra_zonal = desire_lines$geo_code1 == desire_lines$geo_code2
