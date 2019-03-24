@@ -55,7 +55,7 @@ get_pct_zones = function(
   get_pct(base_url =
             "https://github.com/npct/pct-outputs-regional-R/raw/master",
           purpose, geography, region,
-          layer = "c",
+          layer = "z",
           extension = ".Rds")
 }
 
@@ -77,7 +77,7 @@ get_pct_centroids = function(
   get_pct(base_url =
             "https://github.com/npct/pct-outputs-regional-R/raw/master",
           purpose, geography, region,
-          layer = "z",
+          layer = "c",
           extension = ".Rds")
 }
 
