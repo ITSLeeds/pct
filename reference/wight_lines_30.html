@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get centroid results from the PCT — get_pct_centroids • pct</title>
+<title>Desire lines from the PCT for the Isle of Wight — wight_lines_30 • pct</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,10 @@
 
 
 
-<meta property="og:title" content="Get centroid results from the PCT — get_pct_centroids" />
+<meta property="og:title" content="Desire lines from the PCT for the Isle of Wight — wight_lines_30" />
 
-<meta property="og:description" content="Wrapper around [get_pct()] that gets centroid data from the PCT." />
+<meta property="og:description" content="This data was obtained using code shown in the introductory
+pct package vignette." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -109,50 +110,51 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get centroid results from the PCT</h1>
+    <h1>Desire lines from the PCT for the Isle of Wight</h1>
     
-    <div class="hidden name"><code>get_pct_centroids.Rd</code></div>
+    <div class="hidden name"><code>wight_lines_30.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Wrapper around <code>[get_pct()]</code> that gets centroid data from the PCT.</p>
+    <p>This data was obtained using code shown in the introductory
+<a href='https://itsleeds.github.io/pct/articles/pct.html'>pct package vignette</a>.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>get_pct_centroids</span>(<span class='kw'>region</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>purpose</span> <span class='kw'>=</span> <span class='st'>"commute"</span>,
-  <span class='kw'>geography</span> <span class='kw'>=</span> <span class='st'>"msoa"</span>, <span class='kw'>extension</span> <span class='kw'>=</span> <span class='st'>".Rds"</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>region</th>
-      <td><p>The PCT region that contains the data (e.g. <code>west-yorkshire</code>)</p></td>
-    </tr>
-    <tr>
-      <th>purpose</th>
-      <td><p>Trip purpose (typically <code>school</code> or <code>commute</code>)</p></td>
-    </tr>
-    <tr>
-      <th>geography</th>
-      <td><p>Geographic resolution of outputs (<code>msoa</code> or <code>lsoa</code>)</p></td>
-    </tr>
-    <tr>
-      <th>extension</th>
-      <td><p>The type of file to download (typically <code>.Rds</code>)</p></td>
-    </tr>
-    </table>
-    
+        
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>z</span> <span class='kw'>=</span> <span class='fu'>get_pct_centroids</span>(<span class='st'>"isle-of-wight"</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>z</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: plotting the first 10 out of 63 attributes; use max.plot = 63 to plot all</span></div><div class='img'><img src='get_pct_centroids-1.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/names'>names</a></span>(<span class='no'>wight_lines_30</span>)</div><div class='output co'>#&gt;  [1] "id"                     "geo_code1"              "geo_code2"             
+#&gt;  [4] "geo_name1"              "geo_name2"              "lad11cd1"              
+#&gt;  [7] "lad11cd2"               "lad_name1"              "lad_name2"             
+#&gt; [10] "all"                    "bicycle"                "foot"                  
+#&gt; [13] "car_driver"             "car_passenger"          "train"                 
+#&gt; [16] "light_rail"             "bus"                    "taxi"                  
+#&gt; [19] "motorbike"              "other"                  "govtarget_slc"         
+#&gt; [22] "govtarget_sic"          "govtarget_slw"          "govtarget_siw"         
+#&gt; [25] "govtarget_sld"          "govtarget_sid"          "gendereq_slc"          
+#&gt; [28] "gendereq_sic"           "gendereq_slw"           "gendereq_siw"          
+#&gt; [31] "gendereq_sld"           "gendereq_sid"           "dutch_slc"             
+#&gt; [34] "dutch_sic"              "dutch_slw"              "dutch_siw"             
+#&gt; [37] "dutch_sld"              "dutch_sid"              "ebike_slc"             
+#&gt; [40] "ebike_sic"              "ebike_slw"              "ebike_siw"             
+#&gt; [43] "ebike_sld"              "ebike_sid"              "govtarget_sldeath_heat"
+#&gt; [46] "govtarget_slvalue_heat" "govtarget_sideath_heat" "govtarget_sivalue_heat"
+#&gt; [49] "gendereq_sldeath_heat"  "gendereq_slvalue_heat"  "gendereq_sideath_heat" 
+#&gt; [52] "gendereq_sivalue_heat"  "dutch_sldeath_heat"     "dutch_slvalue_heat"    
+#&gt; [55] "dutch_sideath_heat"     "dutch_sivalue_heat"     "ebike_sldeath_heat"    
+#&gt; [58] "ebike_slvalue_heat"     "ebike_sideath_heat"     "ebike_sivalue_heat"    
+#&gt; [61] "govtarget_slco2"        "govtarget_sico2"        "gendereq_slco2"        
+#&gt; [64] "gendereq_sico2"         "dutch_slco2"            "dutch_sico2"           
+#&gt; [67] "ebike_slco2"            "ebike_sico2"            "e_dist_km"             
+#&gt; [70] "rf_dist_km"             "rq_dist_km"             "dist_rf_e"             
+#&gt; [73] "dist_rq_rf"             "rf_avslope_perc"        "rq_avslope_perc"       
+#&gt; [76] "rf_time_min"            "rq_time_min"            "geometry"              </div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>wight_lines_30</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: plotting the first 9 out of 77 attributes; use max.plot = 77 to plot all</span></div><div class='img'><img src='wight_lines_30-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
             
       <li><a href="#examples">Examples</a></li>
     </ul>
