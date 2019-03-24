@@ -9,7 +9,20 @@ vignette: >
   %\VignetteIndexEntry{An introduction to the pct package}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+bibliography: refs.bib
 ---
+
+```{r, eval=FALSE, echo=FALSE}
+# Aim: generate references.bib - run only if references change
+refs = RefManageR::ReadZotero(group = "418217", .params = list(collection = "TJEQMXJR", limit = 100))
+RefManageR::WriteBib(refs, "vignettes/references.bib")
+citr::tidy_bib_file(
+  rmd_file = "vignettes/pct.Rmd",
+  messy_bibliography = "vignettes/references.bib",
+  file = "vignettes/refs.bib")
+```
+
+
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -25,7 +38,15 @@ The goal of pct is to increase the accessibility and reproducibility of the data
 For an overview of the data provided by the PCT, clicking on the previous link and trying it out is a great place to start.
 An academic [paper](https://www.jtlu.org/index.php/jtlu/article/view/862) on the PCT provides detail on the motivations for and methods underlying the project.
 
-A major motivation behind the project was making transport evidence more accessible, encouraging evidence-based transport policies.
+This introductory vignette demonstrates how the package works with an example from the Isle of Wight, an island on the southern coast of Britain, with a population of ~140,000 people.
+Before cracking on with a demonstration of package's functionality, it's worth providing a little context.
+
+## Why this package?
+
+The Propensity to Cycle Tool was commissioned by the UK's Department for Transport to help planners and others prioritise investment and policies to get people cycling, as outlined in the Government report [National propensity to cycle: full report with annexes](https://www.gov.uk/government/publications/national-propensity-to-cycle-first-phase-development-study).
+However, the academic team leading the project had a wider sub-aim: of making transport evidence more accessible, encouraging evidence-based transport policies, and encouraging a more democratic transport planning process, and that means open transport data and open source transport modelling tools [@lovelace_propensity_2017].
+
+
 The code base underlying the PCT is publicly available (see [github.com/npct](https://github.com/npct/)).
 However, the code hosted there is not easy to run or reproduce, which is where this package comes in: it provides quick access to the data underlying the PCT and enables some of the key results to be reproduced quickly.
 It was developed primarily for educational purposes (including for upcoming PCT training courses) but it may be useful for people to build on the the methods, for example to create a scenario of cycling uptake in their town/city/region.
@@ -67,20 +88,24 @@ To download the data within www.pct.bike, we have added a suite of functions:
 * `get_pct_routes_fast()` 
 * `get_pct_routes_quiet()` 
 
-For example, to get the centroids in Isle of Wight:
+For example, to get the centroids in Isle of Wight, you would run:
+
+```{r, eval=FALSE}
+wight_centroids = get_pct_centroids(region = "isle-of-wight")
+```
+
 
 ``` {r centroids}
-centroids = get_pct_centroids(region = "isle-of-wight")
-plot(centroids[, "geo_name"])
+plot(wight_centroids[, "geo_name"])
 ```
 
 Likewise, the following command downloads the desire lines for the Isle of Wight:
 
 ```{r get_pct_lines, eval=FALSE}
 lines = get_pct_lines(region = "isle-of-wight")
-pct_lines_isle_of_wight =
+pct_lines_isle =
   lines[order(lines$all, decreasing = TRUE), ]
-pct_lines_min = pct_lines_isle_of_wight[1:5,]
+pct_lines_min = pct_lines_isle[1:5,]
 ```
 
 The resulting `pct_lines_min` is available in the package.
@@ -112,7 +137,6 @@ Functions named with `uptake_*()` estimate cycling uptake:
 To estimate cycling levels under the UK government target for the Isle of Wight, you would first get the desire lines (the code below gets the top code not run):
 
 ```{r pct-lines}
-# top 100 origin destinations by all methods of travel
 wight_desire_lines = get_desire_lines(area = "isle of wight")
 nrow(wight_desire_lines)
 sum(wight_desire_lines$all)
@@ -175,3 +199,5 @@ We can also see which routes would have the highest uptake using mapping package
 ```{r map, echo=FALSE}
 knitr::include_graphics("https://user-images.githubusercontent.com/408568/54354252-0f52f880-464e-11e9-893b-dab3ef8bae4d.png")
 ```
+
+# References
