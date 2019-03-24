@@ -131,15 +131,43 @@ NULL
 #' santiago_od
 NULL
 
-#' A minimum example of desire line data from the PCT
+#' Desire lines from the PCT for the Isle of Wight
 #'
 #' This data was obtained using code shown in the introductory
 #' [pct package vignette](https://itsleeds.github.io/pct/articles/pct.html).
 #'
 #' @docType data
 #' @keywords datasets
-#' @name pct_lines_min
+#' @name wight_lines_30
+#' @aliases wight_lines_pct
 #' @examples
-#' names(pct_lines_min)
-#' plot(pct_lines_min)
+#' names(wight_lines_30)
+#' plot(wight_lines_30)
+NULL
+
+#' Zones and centroid data from the PCT for the Isle of Wight
+#'
+#' This data was obtained using code shown in the introductory
+#' [pct package vignette](https://itsleeds.github.io/pct/articles/pct.html).
+#'
+#' @docType data
+#' @keywords datasets
+#' @name wight_zones
+#' @aliases wight_centroids
+#' @examples
+#' names(wight_lines_30)
+#' plot(wight_lines_30)
+NULL
+
+#' Official origin-destination data for the Isle of Wight
+#'
+#' This data was obtained using code shown in the introductory
+#' [pct package vignette](https://itsleeds.github.io/pct/articles/pct.html).
+#'
+#' @docType data
+#' @keywords datasets
+#' @name wight_od
+#' @examples
+#' names(wight_od)
+#' head(wight_od)
 NULL
