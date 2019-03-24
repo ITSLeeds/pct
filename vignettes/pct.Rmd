@@ -74,6 +74,13 @@ Load the package as follows:
 library(pct)
 ```
 
+We will also use the `leaflet` package, for interactive maps:
+
+```{r}
+library(leaflet)
+```
+
+
 ### Get PCT data
 
 From feedback, we hear that the use of the data is critical in decision making. Therefore, one area where the package could be useful is making the data "easily" available to be processed.
@@ -91,30 +98,65 @@ To download the data within www.pct.bike, we have added a suite of functions:
 For example, to get the centroids in Isle of Wight, you would run:
 
 ```{r, eval=FALSE}
+library(pct)
 wight_centroids = get_pct_centroids(region = "isle-of-wight")
+wight_zones = get_pct_zones(region = "isle-of-wight")
 ```
 
+Let's verify that the data gave us what we would expect to see:
 
-``` {r centroids}
-plot(wight_centroids[, "geo_name"])
+```{r centroids}
+plot(wight_centroids[, "bicycle"])
+plot(wight_zones[, "bicycle"])
 ```
 
+The results are indeed as we would expect, with the centroid data showing points and the zone data showing zones.
+The zones with higher cycling levels are in the more densly populated south of the island, as we would expect.
 Likewise, the following command downloads the desire lines for the Isle of Wight:
 
 ```{r get_pct_lines, eval=FALSE}
-lines = get_pct_lines(region = "isle-of-wight")
-pct_lines_isle =
-  lines[order(lines$all, decreasing = TRUE), ]
-pct_lines_min = pct_lines_isle[1:5,]
+wight_lines_pct = get_pct_lines(region = "isle-of-wight")
 ```
 
-The resulting `pct_lines_min` is available in the package.
-Note: it contains many variables, three of which (the number of people cycling, driving and walking along the desire lines from the 2011 Census) is shown below:
+# Comparing downloaded data with the PCT web app
+
+To compare the downloaded data with data in the PCT web app, we will take a subset of the `wight_lines_pct` dataset.
+The top 30 travelled desire lines by number of commuters who use cycling as their main mode is taken in the following code chunk.
+The reason for selecting the top 30 will become apparent (the `wight_lines_30` object is provided in the PCT package):
+
+```{r, eval=FALSE}
+line_order = order(wight_lines_pct$bicycle, decreasing = TRUE)
+wight_lines_30 = wight_lines_pct[line_order[1:30], ]
+```
+
+The resulting `wight_lines_pct` and `wight_lines_30` datasets are available in the package.
+We'll use the smaller one for speed.
+Note: these contain many variables, three of which (the number of people cycling, driving and walking along the desire lines from the 2011 Census) are shown below for the Isle of Wight:
 
 ```{r, pct-lines-min}
-lwd = pct_lines_min$all / mean(pct_lines_min$all) * 3
-plot(pct_lines_min[c("bicycle", "car_driver", "foot")], lwd = lwd)
+lwd = wight_lines_30$all / mean(wight_lines_30$all) * 5
+plot(wight_lines_30[c("bicycle", "car_driver", "foot")], lwd = lwd)
 ```
+
+To provide another view of the data, focus on cycling, let's create a leaflet map:
+
+```{r}
+pal = colorNumeric(palette = "RdYlBu", domain = wight_lines_30$bicycle)
+leaflet(data = wight_lines_30) %>% 
+  addTiles() %>% 
+  addPolylines(weight = lwd,
+               color = ~ pal(bicycle)) %>% 
+  addLegend(pal = pal, values = ~bicycle)
+```
+
+There was a reason for selecting the top 30 lines:
+it mirrors the view of the desire lines available from the PCT web application for the island, available at [www.pct.bike/m/?r=isle-of-wight](http://www.pct.bike/m/?r=isle-of-wight) (note that Straight Lines is selected from the Cycling Flows dropdown menu in the image below, and by default shows the top 30 flows by number of bicycle trips).
+
+```{r isle-pct-bike, echo=FALSE}
+# i = magick::image_read("vignettes/isle-pct-bike.png")
+knitr::include_graphics("https://user-images.githubusercontent.com/1825120/54882128-c4f02980-4e4e-11e9-8eb8-49c43507165a.png")
+```
+
 
 The rest of the `get_pct_` functions are similar to the above two examples and download data from www.pct.bike.
 
@@ -136,12 +178,11 @@ Functions named with `uptake_*()` estimate cycling uptake:
 
 To estimate cycling levels under the UK government target for the Isle of Wight, you would first get the desire lines (the code below gets the top code not run):
 
-```{r pct-lines}
+```{r pct-lines, eval=FALSE}
 wight_desire_lines = get_desire_lines(area = "isle of wight")
 nrow(wight_desire_lines)
 sum(wight_desire_lines$all)
 # view 10 lines
-library(leaflet)
 leaflet(width = "100%") %>% addTiles() %>% addPolylines(data = wight_desire_lines[1:10,])
 ```
 
@@ -157,7 +198,7 @@ plot(wight_desire_lines$geometry)
 Step two: we generate a fast route network using `stplanr`, we would need a CycleStreets.Net API key for this:
 
 ```{r pct-routes-fast, eval=FALSE}
-wight_routes_fast = stplanr::line2route(l = pct_lines_min)
+wight_routes_fast = stplanr::line2route(l = wight_lines_30)
 plot(wight_routes_fast[, c("av_incline")])
 ```
 
