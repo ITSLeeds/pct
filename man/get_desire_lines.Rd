@@ -4,7 +4,7 @@
 \alias{get_desire_lines}
 \title{Desire lines}
 \usage{
-get_desire_lines(area = "sheffield", n = NULL)
+get_desire_lines(area = NULL, n = NULL)
 }
 \arguments{
 \item{area}{for which desire lines to be generated.}
@@ -18,6 +18,10 @@ By default gets all desire lines from census in region, but
 can get the top \code{n}.
 }
 \examples{
-desire_sheffield = get_desire_lines("sheffield", n = 20)
-desire_sheffield
+\donttest {
+desire_lines = get_desire_lines("wight")
+plot(desire_lines)
+intra_zonal = desire_lines$geo_code1 == desire_lines$geo_code2
+plot(desire_lines[intra_zonal, ])
+}
 }

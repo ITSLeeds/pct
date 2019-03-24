@@ -4,7 +4,7 @@
 \alias{get_od}
 \title{Get origin destination data from the 2011 Census}
 \usage{
-get_od(area = "sheffield", n = NULL, type = "within")
+get_od(area = NULL, n = NULL, type = "within")
 }
 \arguments{
 \item{area}{for which desire lines to be generated.}
@@ -20,7 +20,6 @@ Get origin destination data from the 2011 Census
 }
 \examples{
 \donttest{
-od_sheffield = get_od("sheffield", n = 3)
-od_sheffield
+get_od("wight", n = 3)
 }
 }

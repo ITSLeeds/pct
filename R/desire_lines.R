@@ -7,23 +7,23 @@
 #' @inheritParams get_od
 #'
 #' @export
-#' @examples
-#' desire_sheffield = get_desire_lines("sheffield", n = 20)
-#' desire_sheffield
-get_desire_lines = function(area = "sheffield", n = NULL) {
+#' @examples \donttest {
+#' desire_lines = get_desire_lines("wight")
+#' plot(desire_lines)
+#' intra_zonal = desire_lines$geo_code1 == desire_lines$geo_code2
+#' plot(desire_lines[intra_zonal, ])
+#' }
+get_desire_lines = function(area = NULL, n = NULL) {
 
+  if(is.null(area)) stop("Select a region or local authority name.")
   # TODO: explore ways of returning 'intrazonal' flows
-  if(is.null(n)) {
-    od_all = get_od(area)
-  } else {
-    od_all = get_od(area, n = n * 2 + 100) # ensure enough od pairs are returned
-  }
+  od_all = get_od(area)
   # get UK zones with msoa11cd, msoa11nm and the geom for stplanr::od2line
   zones_all = get_centroids_ew() # TODO: some warning?
   zones = zones_all[grepl(area, zones_all$msoa11nm, ignore.case = TRUE), ]
   od = od_all[od_all$geo_code1 %in% zones$msoa11cd &
                 od_all$geo_code2 %in% zones$msoa11cd, ]
-  od = od[od$geo_code1 != od$geo_code2, ]
+  # od = od[od$geo_code1 != od$geo_code2, ]
   if(!is.null(n)) {
     od = order_and_subset(od, "all", n) # subset before processing
   }
@@ -40,10 +40,10 @@ get_desire_lines = function(area = "sheffield", n = NULL) {
 #' the od dataset should be subset in relation to the `area`.
 #' @export
 #' @examples \donttest{
-#' od_sheffield = get_od("sheffield", n = 3)
-#' od_sheffield
+#' get_od("wight", n = 3)
 #' }
-get_od = function(area = "sheffield", n = NULL, type = "within") {
+get_od = function(area = NULL, n = NULL, type = "within") {
+  if(is.null(area)) stop("Select a region or local authority name.")
   if(length(area) != 1L)
     stop("'area' must be of length 1")
   if(is.na(area) || (area == "") || !is.character(area))
