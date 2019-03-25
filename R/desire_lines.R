@@ -23,6 +23,7 @@ get_desire_lines = function(area = NULL, n = NULL, omit_intrazonal = FALSE) {
   # get UK zones with msoa11cd, msoa11nm and the geom for stplanr::od2line
   zones_all = get_centroids_ew() # TODO: some warning?
   zones = zones_all[grepl(area, zones_all$msoa11nm, ignore.case = TRUE), ]
+  od = od_all
   if(!is.null(n)) {
     od = order_and_subset(od_all, "all", n) # subset before processing
   }
@@ -70,7 +71,7 @@ get_od = function(area = NULL,
   od_all$geo_name1 = zones_all$msoa11nm[match(od_all$geo_code1, zones_all$msoa11cd)]
   od_all$geo_name2 = zones_all$msoa11nm[match(od_all$geo_code2, zones_all$msoa11cd)]
   if(omit_intrazonal) {
-    od = od[od$geo_code1 != od$geo_code2, ]
+    od_all = od_all[od_all$geo_code1 != od_all$geo_code2, ]
   }
   # is area valid? do it once
   valid_areas = grepl(area, od_all$geo_name1, ignore.case = TRUE)

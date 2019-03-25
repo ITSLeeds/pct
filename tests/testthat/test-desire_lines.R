@@ -7,9 +7,11 @@ test_that("get_desire_lines works", {
     skip("stplanr might need a env var. Skipping.")
   }
   expect_equal(nrow(get_desire_lines(area = "wight", n = 10)), 10)
+  expect_true(nrow(get_desire_lines(area = "isle", omit_intrazonal = TRUE)) > 10)
   expect_error(get_desire_lines(area = "baz"))
   expect_error(get_desire_lines(area = ""))
   expect_error(get_desire_lines(area = NULL))
+  expect_error(get_od(area = NULL))
   expect_error(get_desire_lines(area = NA))
   expect_error(get_desire_lines(area = LETTERS))
 })
