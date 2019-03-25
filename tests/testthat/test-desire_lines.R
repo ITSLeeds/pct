@@ -12,6 +12,7 @@ test_that("get_desire_lines works", {
   expect_error(get_desire_lines(area = ""))
   expect_error(get_desire_lines(area = NULL))
   expect_error(get_od(area = NULL))
+  expect_equal(nrow(get_od(area = "wight", n = 10)), 10)
   expect_error(get_desire_lines(area = NA))
   expect_error(get_desire_lines(area = LETTERS))
 })
