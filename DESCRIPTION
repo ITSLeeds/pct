@@ -16,8 +16,8 @@ Description: Functions and example data to teach and
   see Lovelace et al (2017) <doi:10.5198/jtlu.2016.862>.
 Depends: R (>= 3.5.0)
 License: GPL-3
-URL: https://pct.bike
-BugReports: https://github.com/ropensci/stats19/issues
+URL: http://www.pct.bike/, https://itsleeds.github.io/pct/
+BugReports: https://github.com/ITSLeeds/pct/issues
 Encoding: UTF-8
 LazyData: true
 Imports: 

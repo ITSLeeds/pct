@@ -1,10 +1,10 @@
 ---
-title: "Introduction to the Propensity to Cycle Tool (pct) package"
+title: "International application of the PCT methods"
 author: "Robin Lovelace, Layik Hama"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Introduction to the pct}
+  %\VignetteIndexEntry{International application of the PCT}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -110,8 +110,6 @@ library(leaflet)
 leaflet(width = "100%") %>% addTiles() %>% addPolylines(data = desire_lines, weight = desire_lines$pcycle * 5)
 leaflet(width = "100%") %>% addTiles() %>% addPolylines(data = desire_lines, weight = desire_lines$godutch_pcycle * 5)
 ```
-
-
 
 ## Next steps
 
