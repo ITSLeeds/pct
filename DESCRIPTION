@@ -11,7 +11,9 @@ Authors@R: c(
 Description: Functions and example data to teach and
   increase the reproducibility of the methods and code underlying 
   the Propensity to Cycle Tool (PCT), a research project and web application 
-  hosted at <https://www.pct.bike/>.
+  hosted at <https://www.pct.bike/>. 
+  For more about the PCT itself see Lovelace et al (2017). 
+  <http://dx.doi.org/10.5198/jtlu.2016.862>.
 Depends: R (>= 3.5.0)
 License: GPL-3
 URL: https://pct.bike
