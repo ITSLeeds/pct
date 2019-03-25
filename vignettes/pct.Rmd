@@ -355,7 +355,7 @@ wight_routes_fast$govtarget = uptake_pct_govtarget(
 wight_rnet = overline2(wight_routes_fast, "govtarget")
 ```
 
-```{r}
+```{r, out.width="100%"}
 pal = colorNumeric(palette = "RdYlBu", domain = wight_rnet$govtarget)
 leaflet(data = wight_rnet) %>% 
   addTiles() %>% 
