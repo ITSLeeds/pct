@@ -8,3 +8,5 @@ data-raw/*
 ^\.travis\.yml$
 ^pct-leeds-demo\.png$
 ^\.DS_Store$
+^cran-comments.md$
+^NEWS.md$
