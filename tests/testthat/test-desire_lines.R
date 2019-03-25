@@ -6,7 +6,7 @@ test_that("get_desire_lines works", {
   if(.Platform$OS.type == "windows") {
     skip("stplanr might need a env var. Skipping.")
   }
-  expect_equal(nrow(get_desire_lines(area = "isle", n = 10)), 10)
+  expect_equal(nrow(get_desire_lines(area = "wight", n = 10)), 10)
   expect_error(get_desire_lines(area = "baz"))
   expect_error(get_desire_lines(area = ""))
   expect_error(get_desire_lines(area = NULL))

@@ -19,15 +19,12 @@ get_desire_lines = function(area = NULL, n = NULL, omit_intrazonal = FALSE) {
     stop("Select a region or local authority name.")
   }
   # TODO: explore ways of returning 'intrazonal' flows
-  od_all = get_od(area)
+  od_all = get_od(area, omit_intrazonal = omit_intrazonal)
   # get UK zones with msoa11cd, msoa11nm and the geom for stplanr::od2line
   zones_all = get_centroids_ew() # TODO: some warning?
   zones = zones_all[grepl(area, zones_all$msoa11nm, ignore.case = TRUE), ]
-  sel_in_orig = od_all$geo_code1 %in% zones$msoa11cd
-  sel_in_dest = od_all$geo_code2 %in% zones$msoa11cd
-  od = od_all[sel_in_orig & sel_in_dest, ]
   if(!is.null(n)) {
-    od = order_and_subset(od, "all", n) # subset before processing
+    od = order_and_subset(od_all, "all", n) # subset before processing
   }
   # generate desirelines.
   area_desire_lines = stplanr::od2line(flow = od, zones)

@@ -2,7 +2,7 @@
 title: "An Introduction to the pct package"
 subtitle: "Obtaining and reproducing data from the Propensity to Cycle Tool (PCT)"
 author: 
-- "R Lovelace and L Hama"
+- "Robin Lovelace and Layik Hama"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
@@ -10,16 +10,18 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 bibliography: refs.bib
+csl: nature.csl
 ---
 
 ```{r, eval=FALSE, echo=FALSE}
 # Aim: generate references.bib - run only if references change
-refs = RefManageR::ReadZotero(group = "418217", .params = list(collection = "TJEQMXJR", limit = 100))
+refs = RefManageR::ReadZotero(group = "418217", .params = list(collection = "8Y9DU4DR", limit = 100))
 RefManageR::WriteBib(refs, "vignettes/references.bib")
 citr::tidy_bib_file(
   rmd_file = "vignettes/pct.Rmd",
   messy_bibliography = "vignettes/references.bib",
   file = "vignettes/refs.bib")
+file.remove("vignettes/references.bib")
 ```
 
 
@@ -32,16 +34,24 @@ knitr::opts_chunk$set(
 
 ## Introduction
 
-The goal of pct is to increase the accessibility and reproducibility of the data produced by the Propensity to Cycle Tool (PCT), a research project and web application hosted at [www.pct.bike](https://www.pct.bike/).
+The goal of the `pct` package is to increase the accessibility and reproducibility of the outputs from the Propensity to Cycle Tool (PCT), a research project and web application hosted at [www.pct.bike](https://www.pct.bike/).
+The tool is of just 300 [central government websites](https://www.gov.uk/performance/central-government-websites) exempt from the requirement to transition to the .gov.uk domain name, and is a recommended source of evidence in the preparation of Local Walking and Cycling plans (LCWIPs), as outlined in [technical guidance](https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/607016/cycling-walking-infrastructure-technical-guidance.pdf) [@department_for_transport_local_2017], supporting the Cycling and Walking Infrastructure Strategy ([CWIS](https://www.gov.uk/government/publications/cycling-and-walking-investment-strategy)), an ammendment of the [Infrastructure Act](http://www.legislation.gov.uk/ukpga/2015/7/contents/enacted) 2015.
 For an overview of the data provided by the PCT, clicking on the previous link and trying it out is a great place to start.
-An academic [paper](https://www.jtlu.org/index.php/jtlu/article/view/862) on the PCT provides detail on the motivations for and methods underlying the project.
+An academic [paper](https://www.jtlu.org/index.php/jtlu/article/view/862) on the PCT provides detail on the motivations and methods underlying the project [@lovelace_propensity_2017].
 
-This introductory vignette demonstrates how the package works with an example from the Isle of Wight, an island on the southern coast of Britain, with a population of ~140,000 people.
-Before cracking on with a demonstration of package's functionality, it's worth providing a little context.
+Since work on the package began in 2015, for example during the ODI Leeds Hack my Route [hackathon](https://datamillnorth.org/community/blog/hack-my-route-live-blog/) (see [an early prototype of the tool here](https://twitter.com/robinlovelace/status/611979463803432960)), the features and demand for the PCT have evolved substantially.
+In early 2019, for example, the [School travel layer](https://blog.pct.bike/2019/03/18/propensity-to-cycle-to-school-layer-deployed/) was added to the main PCT site to provide evidence nationwide on the potential benefits of scenarios of cycling uptake, and where [safe routes to school](http://guide.saferoutesinfo.org/steps/index.cfm) should be prioritised [@goodman_scenarios_2019].
+In fact, a major aim of the PCT was to enable people to extend the tool [@lovelace_propensity_2017]:
+
+> We envision stakeholders in local government modifying scenarios for their own purposes, and that academics in relevant fields may add new features and develop new use cases
+of the PCT.
+
+Motivated by this vision of adaptable transport planning tools, this introductory vignette demonstrates how the package works with an example from the [Isle of Wight](https://en.wikipedia.org/wiki/Isle_of_Wight), an island just off the southern coast of Britain, with a population of ~140,000 people.
+Before demonstrating some of the package's key functions, it's worth providing a little context.
 
 ## Why this package?
 
-The Propensity to Cycle Tool was commissioned by the UK's Department for Transport to help planners and others prioritise investment and policies to get people cycling, as outlined in the Government report [National propensity to cycle: full report with annexes](https://www.gov.uk/government/publications/national-propensity-to-cycle-first-phase-development-study).
+The Propensity to Cycle Tool was commissioned by the UK's Department for Transport to help planners and others prioritise investment and policies to get people cycling, as outlined in the Government report [National propensity to cycle: full report with annexes](https://www.gov.uk/government/publications/national-propensity-to-cycle-first-phase-development-study) [@department_for_transport_national_2016].
 However, the academic team leading the project had a wider sub-aim: of making transport evidence more accessible, encouraging evidence-based transport policies, and encouraging a more democratic transport planning process, and that means open transport data and open source transport modelling tools [@lovelace_propensity_2017].
 
 
@@ -204,15 +214,10 @@ wight_od = wight_od_all[
 To convert the results to geographic desire lines, we can use the function `od2line()` from the `stplanr` package:
 
 ```{r pct-lines}
-wight_lines_census = od2line(wight_od, wight_centroids)
-nrow(wight_lines_census)
-sum(wight_lines_census$all)
-# view 10 lines
-leaflet(width = "100%") %>%
-  addTiles() %>%
-  addPolylines(data = wight_lines_census)
+wight_lines = od2line(wight_od, wight_centroids)
+nrow(wight_lines)
+sum(wight_lines$all)
 ```
-
 
 
 ```{r, eval=FALSE, echo=FALSE}
@@ -228,19 +233,71 @@ nrow(wight_lines_census2)
 ```
 
 
-The previous code chunk downloads and processes 306 origin-destination pairs, representing inter-zonal commuting trips made by 42,139 people on the island (population: [140,000](https://en.wikipedia.org/wiki/Isle_of_Wight), the function omits intra-zonal flows).
-We can verify this as follows:
+The previous code chunk downloads and processes 324 origin-destination pairs, representing inter-zonal commuting trips made by 42,139 people on the island (population: [140,000](https://en.wikipedia.org/wiki/Isle_of_Wight)).
+By default, the function includes intra-zonal flows, but these can be omited as follows (the argument `omit_intrazonal` in `get_od()` does the same thing):
 
 ```{r}
-nrow(wight_od)
-sum(wight_od$all)
+wight_lines_census = wight_lines[
+  wight_lines$geo_code1 != wight_lines$geo_code2, ]
+nrow(wight_lines_census)
+sum(wight_lines_census$all)
 ```
 
-The next step is to convert these straight desire lines into routes that can be cycled, e.g. as follows:
+Another OD data processing step developed for the PCT was converting oneway lines into 2 way lines.
+This can be done as follows:
 
-To estimate cycling levels under the UK government target for the Isle of Wight, you would first get the desire lines (the code below gets all the lines, not run because you need an API key from CycleStreets.net and it takes some time):
+```{r}
+wight_lines_census1 = onewaygeo(
+  wight_lines_census,
+  attrib = c("all", "bicycle")
+  )
+nrow(wight_lines_census1) / nrow(wight_lines_census)
+sum(wight_lines_census1$all) / sum(wight_lines_census$all)
+```
 
+Note that the resulting lines contain 50% of the number of lines, but the same number of trips: this is because 2 separate lines between the same zones have been coverted into 1 line representing the combined number of trips in both directions, for each OD pair.
+This step is not essential but it has a couple of advantages:
+it was used in the PCT to make the routing more computationally efficient (less work computing the same route twice); and it makes visualising the lines and routes simpler.
 
+Now that the lines data contains data on 2 way trips between zones, we can estimate routes (note: the results on the PCT website contain estimated uptake levels from intrazonal flow)
+Visually, this involves converting the straight desire lines shown in the previous map into routes that can be cycled, as shown in the next code chunk.
+Note: this code does not run dynamically, because you need an [CycleStreets.net API key](https://www.cyclestreets.net/api/apply/) for this, and it takes some time:
+
+```{r pct-routes-fast, eval=FALSE}
+wight_routes_fast = line2route(
+  l = wight_lines_census1,
+  route_fun = route_cyclestreet,
+  plan = "fastest")
+```
+
+A sample of these is provided in the package as `wight_routes_30`, which was generated as follows (the second line of which generates the top 30 desire lines, the third line of which we do not run dynamically):
+
+```{r}
+line_order = order(wight_lines_census1$bicycle, decreasing = TRUE)
+wight_lines_census_30 = wight_lines_census1[line_order[1:30], ]
+```
+
+```{r, eval=FALSE}
+wight_routes_30 = wight_routes_fast[line_order[1:30], ] 
+```
+
+A simple verification that we have the right desire lines matched to the routes involves plotting the Euclidean vs Route distance, e.g. as follows:
+
+```{r}
+d = as.numeric(st_length(wight_lines_census_30))
+plot(d, wight_routes_30$length)
+```
+
+How well does that match the route distance data downloaded from the PCT?
+
+```{r}
+plot(wight_lines_30$rf_dist_km, wight_routes_30$length)
+```
+
+Almost perfectly for most of the routes.
+Some routes have become shorter, which can be explained by changes in infrastructure since the PCT results were first generated (these will be updated in the Propensity to Cycle Tool online data later in 2019).
+
+We now have everthing needed to estimate cycling uptake for each desire lines on the Isle of Wight (we'll do the calculation on the top 30 by current cycling levels).
 
 ## Estimate cycling uptake
 
@@ -249,56 +306,61 @@ Functions named with `uptake_*()` estimate cycling uptake:
 * `uptake_pct_godutch()`: generates the "GoDutch" scenario level of cycling based on a particular route's hilliness percentage and length.
 * `uptake_pct_govtarget()`: generates the UK government target again based on the hilliness and length parameters.
 
+We will estimate cycling potential with `uptake_pct_godutch()`, using the `length` and `av_incline` from the `wight_routes_30` object.
 
-
-
-Step two: we generate a fast route network using `stplanr`, we would need a CycleStreets.Net API key for this:
-
-```{r pct-routes-fast, eval=FALSE}
-wight_routes_fast = stplanr::line2route(l = wight_lines_30)
-plot(wight_routes_fast[, c("av_incline")])
+```{r pct-goducth}
+pcycle_govtarget = uptake_pct_govtarget(
+  distance = wight_routes_30$length,
+  gradient = wight_routes_30$av_incline * 100
+)
 ```
 
-Step three: we can now get the propensity to cycle percentages from the `uptake_pct_godutch` using the `length` and `av_incline` from the `wight_routes_fast` object.
+In terms of cycling uptake, the results are shown below:
 
-```{r pct-goducth, eval=FALSE}
-wight_pcycle_dutch = pct::uptake_pct_godutch(
-  distance = wight_routes_fast$length,
-  gradient = wight_routes_fast$av_incline
-)
-
-wight_psycle_gov = pct::uptake_pct_govtarget(
-  distance = wight_routes_fast$length,
-  gradient = wight_routes_fast$av_incline
-)
-  
-wight_uptake = wight_routes_fast
-wight_uptake$govtarget = wight_psycle_gov
-wight_uptake$godutch = wight_pcycle_dutch
-
+```{r}
+wight_routes_30$govtarget = wight_lines_census_30$bicycle +
+  pcycle_govtarget * wight_lines_census_30$all
+wight_routes_30$govtarget_pct = wight_lines_30$govtarget_slc
 library(ggplot2)
-ggplot(wight_uptake) +
-  geom_line(aes(
+ggplot(wight_routes_30) +
+  geom_point(aes(
     length,
     govtarget,
-    colour = "govtarget"
-  )) + 
-  geom_line(aes(
+    colour = "red"
+  )) +
+  geom_point(aes(
     length,
-    godutch,
+    govtarget_pct,
     colour = "godutch"
   ))
+cor(wight_routes_30$govtarget, wight_routes_30$govtarget_pct)
 ```
 
-We can also see which routes would have the highest uptake using mapping packages such as:
+The final computational stage is also one of the most important from a policy perspective:
+estimating cycling potential down to the street level, to help prioritise investment where it is most needed.
+This work is done by the `overline2()` funtion, as follows:
 
-```{r pct-map} 
-# mapview::mapview(wight_uptake, zcol = "govtarget")
-# mapview::mapview(wight_uptake, zcol = "godutch")
+```{r}
+rnet = overline2(wight_routes_30, "govtarget")
+plot(rnet)
 ```
 
-```{r map, echo=FALSE}
-knitr::include_graphics("https://user-images.githubusercontent.com/408568/54354252-0f52f880-464e-11e9-893b-dab3ef8bae4d.png")
+Running the same function for all routes in `wight_routes_fast`, generates the packaged data object `wight_rnet`, which was created as follows:
+
+```{r, eval=FALSE}
+wight_routes_fast$govtarget = uptake_pct_govtarget(
+  distance = wight_routes_fast$length,
+  gradient = wight_routes_fast$av_incline * 100
+  ) * wight_lines_census1$all + wight_lines_census1$bicycle
+wight_rnet = overline2(wight_routes_fast, "govtarget")
+```
+
+```{r}
+pal = colorNumeric(palette = "RdYlBu", domain = wight_rnet$govtarget)
+leaflet(data = wight_rnet) %>% 
+  addTiles() %>% 
+  addPolylines(color = ~ pal(govtarget)) %>% 
+  addLegend(pal = pal, values = ~govtarget)
 ```
 
 # References

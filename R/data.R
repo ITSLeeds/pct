@@ -171,3 +171,18 @@ NULL
 #' names(wight_od)
 #' head(wight_od)
 NULL
+
+#' Cycle route data for the Isle of Wight
+#'
+#' This data was obtained using code shown in the introductory
+#' [pct package vignette](https://itsleeds.github.io/pct/articles/pct.html).
+#'
+#' @docType data
+#' @keywords datasets
+#' @name wight_routes_30
+#' @aliases wight_rnet
+#' @examples
+#' names(wight_routes_30)
+#' head(wight_routes_30)
+#' plot(wight_routes_30)
+NULL
