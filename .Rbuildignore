@@ -9,4 +9,3 @@ data-raw/*
 ^pct-leeds-demo\.png$
 ^\.DS_Store$
 ^cran-comments.md$
-^NEWS.md$
