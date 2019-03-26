@@ -10,28 +10,40 @@
 #' @param layer The PCT layer of interest, `z`, `c`, `l`, `rf`, `rq` or `rnet`
 #' for zones, centroids, desire lines, routes (fast or quiet) and route networks, respectively
 #' @param extension The type of file to download (typically `.Rds`)
+#' @param national Download nationwide data? `FALSE` by default
 #' @export
 #' @examples
 #' rf = get_pct(region = "isle-of-wight", layer = "rf")
 #' plot(rf)
 #' z = get_pct(region = "isle-of-wight", layer = "z")
 #' # rf = get_pct(region = "west-yorkshire", layer = "rf")
+#' # z_all = get_pct(layer = "z", national = TRUE)
 get_pct = function(
   base_url = "https://github.com/npct/pct-outputs-regional-R/raw/master",
   purpose = "commute",
   geography = "msoa",
   region = NULL,
   layer = NULL,
-  extension = ".Rds"
+  extension = ".Rds",
+  national = FALSE
 ) {
-  if(length(region) != 1L || length(layer) != 1L)
-    stop("'region' and 'layer' must be of length 1")
-  if(is.na(region) || (region == "") || !is.character(region) ||
-     is.na(layer) || (layer == "") || !is.character(layer))
-    stop("invalid region or layer name")
-  u_folder = paste(base_url, purpose, geography, region, sep = "/")
-  f = paste0(layer, extension)
-  u_file = paste(u_folder, f, sep = "/")
+  if(national) {
+    layer = paste0(layer, "_all")
+    base_url = "https://github.com/npct/pct-outputs-national/raw/master"
+    u_folder = paste(base_url, purpose, geography, sep = "/")
+    f = paste0(layer, extension)
+    u_file = paste(u_folder, f, sep = "/")
+
+  } else {
+    if(length(region) != 1L || length(layer) != 1L)
+      stop("'region' and 'layer' must be of length 1")
+    if(is.na(region) || (region == "") || !is.character(region) ||
+       is.na(layer) || (layer == "") || !is.character(layer))
+      stop("invalid region or layer name")
+    u_folder = paste(base_url, purpose, geography, region, sep = "/")
+    f = paste0(layer, extension)
+    u_file = paste(u_folder, f, sep = "/")
+  }
   destfile = file.path(tempdir(), f)
   utils::download.file(url = u_file,
                        destfile = destfile, mode = "wb")

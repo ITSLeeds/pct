@@ -7,7 +7,7 @@
 
   get_pct(base_url = "https://github.com/npct/pct-outputs-regional-R/raw/master",
   purpose = "commute", geography = "msoa", region = NULL,
-  layer = NULL, extension = ".Rds")
+  layer = NULL, extension = ".Rds", national = FALSE)
 }
 \arguments{
 \item{base_url}{Where the data is stored.}
@@ -22,6 +22,8 @@
 for zones, centroids, desire lines, routes (fast or quiet) and route networks, respectively}
 
 \item{extension}{The type of file to download (typically \code{.Rds})}
+
+\item{national}{Download nationwide data? \code{FALSE} by default}
 }
 \description{
 This function gets data generated for the Propensity to Cycle Tool
@@ -32,4 +34,5 @@ rf = get_pct(region = "isle-of-wight", layer = "rf")
 plot(rf)
 z = get_pct(region = "isle-of-wight", layer = "z")
 # rf = get_pct(region = "west-yorkshire", layer = "rf")
+# z_all = get_pct(layer = "z", national = TRUE)
 }
