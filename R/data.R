@@ -186,3 +186,18 @@ NULL
 #' head(wight_routes_30)
 #' plot(wight_routes_30)
 NULL
+
+#' 200 cycle routes in central Santiago, Chile
+#'
+#' This data was obtained using code shown in the
+#' International application of the PCT methods
+#' [vignette](https://itsleeds.github.io/pct/articles/pct-international.html).
+#'
+#' @docType data
+#' @keywords datasets
+#' @name santiago_routes_cs
+#' @examples
+#' names(santiago_routes_cs)
+#' head(santiago_routes_cs)
+#' plot(santiago_routes_cs)
+NULL
