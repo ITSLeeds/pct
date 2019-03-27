@@ -168,10 +168,11 @@ Update results...
 ```{r}
 routes$godutch_slc = round(routes$godutch_pcycle * routes$all)
 rnet = stplanr::overline2(routes, "godutch_slc")
-library(tmap)
-tmap_mode("view")
-  tm_shape(rnet) +
-  tm_lines(lwd = "godutch_slc", scale = 9) 
+plot(rnet, lwd = rnet$godutch_slc / mean(rnet$godutch_slc))
+# library(tmap)
+# tmap_mode("view")
+#   tm_shape(rnet) +
+#   tm_lines(lwd = "godutch_slc", scale = 9) 
 ```
 
 
