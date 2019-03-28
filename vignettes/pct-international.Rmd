@@ -105,11 +105,76 @@ The result shows clearly that distance decay kicks in just after 2km, but still 
 
 We can put the results on a map as follows:
 
-```{r}
+```{r, out.width="50%", fig.show='hold'}
 library(leaflet)
-leaflet(width = "100%") %>% addTiles() %>% addPolylines(data = desire_lines, weight = desire_lines$pcycle * 5)
-leaflet(width = "100%") %>% addTiles() %>% addPolylines(data = desire_lines, weight = desire_lines$godutch_pcycle * 5)
+leaflet(width = "100%") %>%
+  addTiles() %>%
+  addPolylines(data = desire_lines, weight = desire_lines$pcycle * 5)
+leaflet(width = "100%") %>%
+  addTiles() %>%
+  addPolylines(data = desire_lines, weight = desire_lines$godutch_pcycle * 5)
 ```
+
+The results show that there is substantial potential for increasing the levels of cycling in central Santiago, based on origin-destination data alone.
+However, to inform policy, more detailed estimates of cycling potential are needed, with results that go down to the level of individual streets.
+This involves routing.
+
+## Routing
+
+There are many ways to do calculate a path on the street network.
+The main options are local routing, where the calculation is done based on data stored locally (on your computer) and routing services, where the data is done remotely ('in the cloud').
+Let's use a remote routing service to convert the straight lines generated in the previous section into routes that could realistically be taken by people cycling.
+
+```{r, eval=FALSE}
+santiago_routes_cs = stplanr::line2route(desire_lines)
+# > 10 % out of 200 distances calculated
+# > 20 % out of 200 distances calculated
+# > 30 % out of 200 distances calculated
+# > 40 % out of 200 distances calculated
+# > 50 % out of 200 distances calculated
+# > 60 % out of 200 distances calculated
+# > 70 % out of 200 distances calculated
+# > 80 % out of 200 distances calculated
+# > 90 % out of 200 distances calculated
+# > 100 % out of 200 distances calculated
+# > Warning message:
+# > In value[[3L]](cond) : Fail for line number 32
+```
+
+Note that one of the routes failed.
+We can look at this route as follows, to try to understand what happened:
+
+```{r}
+leaflet() %>% 
+  addTiles() %>% 
+  addPolylines(data = santiago_routes_cs[32, ])
+```
+
+The result shows that one end of the route connects to the Sendero Ciclistas, which the routing service may be unable to reach.
+At this stage there are 2 main options: 1) to omit the data point from the analysis, acknowledging that the data is incomplete; or 2) identify a nearby location where the service *can* route to.
+In this case we will take option 1.
+Before we remove the offending line 32 from the analysis, we will join the data from the desire lines back onto the results:
+
+```{r}
+routes = sf::st_sf(
+  cbind(sf::st_drop_geometry(santiago_routes_cs),
+  sf::st_drop_geometry(desire_lines)),
+  geometry = santiago_routes_cs$geometry
+)
+```
+
+Update results...
+
+```{r}
+routes$godutch_slc = round(routes$godutch_pcycle * routes$all)
+rnet = stplanr::overline2(routes, "godutch_slc")
+plot(rnet, lwd = rnet$godutch_slc / mean(rnet$godutch_slc))
+# library(tmap)
+# tmap_mode("view")
+#   tm_shape(rnet) +
+#   tm_lines(lwd = "godutch_slc", scale = 9) 
+```
+
 
 ## Next steps
 
