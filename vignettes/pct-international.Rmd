@@ -147,7 +147,7 @@ We can look at this route as follows, to try to understand what happened:
 ```{r}
 leaflet() %>% 
   addTiles() %>% 
-  addPolylines(data = routes_santiago_cs[32, ])
+  addPolylines(data = santiago_routes_cs[32, ])
 ```
 
 The result shows that one end of the route connects to the Sendero Ciclistas, which the routing service may be unable to reach.
@@ -157,9 +157,9 @@ Before we remove the offending line 32 from the analysis, we will join the data 
 
 ```{r}
 routes = sf::st_sf(
-  cbind(sf::st_drop_geometry(routes_santiago_cs),
+  cbind(sf::st_drop_geometry(santiago_routes_cs),
   sf::st_drop_geometry(desire_lines)),
-  geometry = routes_santiago_cs$geometry
+  geometry = santiago_routes_cs$geometry
 )
 ```
 
