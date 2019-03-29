@@ -19,4 +19,7 @@ test_that("get_pct_ works", {
   expect_true(nrow(z) == 137)
   z = get_pct_rnet(region = "isle-of-wight")
   expect_true(nrow(z) == 238)
+  # national
+  r = get_pct(national = TRUE, layer = "z")
+  expect_true(inherits(r, "sf"))
 })

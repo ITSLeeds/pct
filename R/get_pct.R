@@ -27,7 +27,7 @@ get_pct = function(
   extension = ".Rds",
   national = FALSE
 ) {
-  if(national) {
+  if(national & is.character(purpose) & is.character(layer)) {
     layer = paste0(layer, "_all")
     base_url = "https://github.com/npct/pct-outputs-national/raw/master"
     u_folder = paste(base_url, purpose, geography, sep = "/")
