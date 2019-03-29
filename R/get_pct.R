@@ -27,7 +27,11 @@ get_pct = function(
   extension = ".Rds",
   national = FALSE
 ) {
-  if(national & is.character(purpose) & is.character(layer)) {
+  layers = c("z", "c", "l", "rf", "rq", "rnet")
+  if(is.null(layer) || !is.element(layer, layers))
+    stop(c("Layer needs to be one of: ",
+         paste0(layers, collapse = ", "), "."))
+  if(national & is.character(purpose)) {
     layer = paste0(layer, "_all")
     base_url = "https://github.com/npct/pct-outputs-national/raw/master"
     u_folder = paste(base_url, purpose, geography, sep = "/")
@@ -35,11 +39,10 @@ get_pct = function(
     u_file = paste(u_folder, f, sep = "/")
 
   } else {
-    if(length(region) != 1L || length(layer) != 1L)
-      stop("'region' and 'layer' must be of length 1")
-    if(is.na(region) || (region == "") || !is.character(region) ||
-       is.na(layer) || (layer == "") || !is.character(layer))
-      stop("invalid region or layer name")
+    if(length(region) != 1L)
+      stop("'region' must be of length 1")
+    if(is.na(region) || (region == "") || !is.character(region))
+      stop("invalid region name")
     u_folder = paste(base_url, purpose, geography, region, sep = "/")
     f = paste0(layer, extension)
     u_file = paste(u_folder, f, sep = "/")
