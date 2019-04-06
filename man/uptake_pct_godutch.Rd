@@ -2,7 +2,7 @@
 % Please edit documentation in R/uptake.R
 \name{uptake_pct_godutch}
 \alias{uptake_pct_godutch}
-\title{Go Dutch}
+\title{Calculate cycling uptake for UK 'Go Dutch' scenario}
 \usage{
 uptake_pct_godutch(distance, gradient, alpha = -3.959, d1 = -0.5963,
   d2 = 1.832, d3 = 0.007956, h1 = -0.2872, i1 = 0.01784,
@@ -28,5 +28,5 @@ uptake_pct_godutch(distance, gradient, alpha = -3.959, d1 = -0.5963,
 \item{i2}{document!}
 }
 \description{
-https://github.com/Robinlovelace/pct-menai/blob/master/vignettes/menai-bridge-cycle.Rmd#L175
+See \code{\link[=uptake_pct_govtarget]{uptake_pct_govtarget()}}.
 }

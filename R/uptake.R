@@ -1,9 +1,9 @@
-#' Uptake scenario for OD?
+#' Calculate cycling uptake for UK 'Government Target' scenario
 #'
 #' Uptake model that takes distance and hilliness and returns
 #' a percentage of people likely to cycle along a desire line.
-#' Source: appendix of pct paper:
-#' https://www.jtlu.org/index.php/jtlu/article/downloadSuppFile/862/360
+#' Source: appendix of pct paper, hosted at:
+#' [www.jtlu.org](https://www.jtlu.org/index.php/jtlu/article/downloadSuppFile/862/360)
 #' which states that:
 #'
 #' ```
@@ -74,9 +74,9 @@ uptake_pct_govtarget = function(
   boot::inv.logit(pcycle_scenario)
 }
 
-#' Go Dutch
+#' Calculate cycling uptake for UK 'Go Dutch' scenario
 #'
-#' https://github.com/Robinlovelace/pct-menai/blob/master/vignettes/menai-bridge-cycle.Rmd#L175
+#' See [uptake_pct_govtarget()].
 #'
 #' @inheritParams uptake_pct_govtarget
 #' @export

@@ -2,7 +2,7 @@
 % Please edit documentation in R/uptake.R
 \name{uptake_pct_govtarget}
 \alias{uptake_pct_govtarget}
-\title{Uptake scenario for OD?}
+\title{Calculate cycling uptake for UK 'Government Target' scenario}
 \usage{
 uptake_pct_govtarget(distance, gradient, alpha = -3.959, d1 = -0.5963,
   d2 = 1.866, d3 = 0.00805, h1 = -0.271, i1 = 0.009394,
@@ -30,8 +30,8 @@ uptake_pct_govtarget(distance, gradient, alpha = -3.959, d1 = -0.5963,
 \description{
 Uptake model that takes distance and hilliness and returns
 a percentage of people likely to cycle along a desire line.
-Source: appendix of pct paper:
-https://www.jtlu.org/index.php/jtlu/article/downloadSuppFile/862/360
+Source: appendix of pct paper, hosted at:
+\href{https://www.jtlu.org/index.php/jtlu/article/downloadSuppFile/862/360}{www.jtlu.org}
 which states that:
 }
 \details{
