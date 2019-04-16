@@ -169,8 +169,8 @@ for zones, centroids, desire lines, routes (fast or quiet) and route networks, r
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/names'>names</a></span>(<span class='no'>rf</span>)[<span class='fl'>1</span>:<span class='fl'>20</span>]</div><div class='output co'>#&gt;  [1] "id"            "geo_code1"     "geo_code2"     "geo_name1"    
 #&gt;  [5] "geo_name2"     "lad11cd1"      "lad11cd2"      "lad_name1"    
 #&gt;  [9] "lad_name2"     "all"           "bicycle"       "foot"         
-#&gt; [13] "car_driver"    "car_passenger" "train"         "light_rail"   
-#&gt; [17] "bus"           "taxi"          "motorbike"     "other"        </div><div class='input'><span class='no'>vars_to_plot</span> <span class='kw'>=</span> <span class='fl'>10</span>:<span class='fl'>13</span>
+#&gt; [13] "car_driver"    "car_passenger" "motorbike"     "train_tube"   
+#&gt; [17] "bus"           "taxi_other"    "govtarget_slc" "govtarget_sic"</div><div class='input'><span class='no'>vars_to_plot</span> <span class='kw'>=</span> <span class='fl'>10</span>:<span class='fl'>13</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>rf</span>[<span class='no'>vars_to_plot</span>])</div><div class='img'><img src='get_pct-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>z</span> <span class='kw'>=</span> <span class='fu'>get_pct</span>(<span class='kw'>region</span> <span class='kw'>=</span> <span class='st'>"isle-of-wight"</span>, <span class='kw'>layer</span> <span class='kw'>=</span> <span class='st'>"z"</span>)
 <span class='co'># rf = get_pct(region = "west-yorkshire", layer = "rf")</span>
 <span class='co'># z_all = get_pct(layer = "z", national = TRUE)</span></div></pre>
