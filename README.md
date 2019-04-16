@@ -1,7 +1,12 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# pct · [![](http://www.r-pkg.org/badges/version/pct)](http://www.r-pkg.org/pkg/pct)[![Coverage status](https://codecov.io/gh/ITSLeeds/pct/branch/master/graph/badge.svg)](https://codecov.io/github/ITSLeeds/pct?branch=master) [![Travis build status](https://travis-ci.org/ITSLeeds/pct.svg?branch=master)](https://travis-ci.org/ITSLeeds/pct)
+[![](http://www.r-pkg.org/badges/version/pct)](http://www.r-pkg.org/pkg/pct)[![Coverage
+status](https://codecov.io/gh/ITSLeeds/pct/branch/master/graph/badge.svg)](https://codecov.io/github/ITSLeeds/pct?branch=master)
+[![Travis build
+status](https://travis-ci.org/ITSLeeds/pct.svg?branch=master)](https://travis-ci.org/ITSLeeds/pct)
+
+# pct
 
 The goal of pct is to increase the accessibility and reproducibility of
 the data produced by the Propensity to Cycle Tool (PCT), a research
@@ -150,7 +155,7 @@ ggplot(uptake_df) +
   scale_color_discrete("Gradient (%)")
 ```
 
-<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
+<img src="man/figures/README-decay-1.png" width="100%" />
 
 The proportion of trips made by cycling along each origin-destination
 (OD) pair therefore depends on the trip distance and hilliness. The main
@@ -207,7 +212,7 @@ into geographic desire lines as follows:
 
 ``` r
 library(sf)
-#> Linking to GEOS 3.7.0, GDAL 2.2.3, PROJ 5.2.0
+#> Linking to GEOS 3.7.0, GDAL 2.4.0, PROJ 5.2.0
 desire_lines = stplanr::od2line(flow = od_leeds, zones = zones_leeds[2])
 #> Creating centroids representing desire line start and end points.
 #> Warning in st_centroid.sf(zones): st_centroid assumes attributes are
@@ -251,7 +256,7 @@ routes_vital = sf::st_sf(
 plot(routes_vital)
 ```
 
-<img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />
+<img src="man/figures/README-routes_vital-1.png" width="100%" />
 
 Now we estimate cycling
 uptake:
@@ -292,7 +297,7 @@ lwd = rnet$bicycle_govtarget / mean(rnet$bicycle_govtarget)
 plot(rnet["bicycle_govtarget"], lwd = lwd)
 ```
 
-<img src="man/figures/README-unnamed-chunk-10-1.png" width="100%" />
+<img src="man/figures/README-rnetgove-1.png" width="100%" />
 
 We can view the results in an interactive map and share with policy
 makers, stakeholders, and the public\! E.g. (see interactive map

@@ -13,7 +13,10 @@ knitr::opts_chunk$set(
 )
 ```
 
-# pct  &middot; [![](http://www.r-pkg.org/badges/version/pct)](http://www.r-pkg.org/pkg/pct)[![Coverage status](https://codecov.io/gh/ITSLeeds/pct/branch/master/graph/badge.svg)](https://codecov.io/github/ITSLeeds/pct?branch=master) [![Travis build status](https://travis-ci.org/ITSLeeds/pct.svg?branch=master)](https://travis-ci.org/ITSLeeds/pct)
+[![](http://www.r-pkg.org/badges/version/pct)](http://www.r-pkg.org/pkg/pct)[![Coverage status](https://codecov.io/gh/ITSLeeds/pct/branch/master/graph/badge.svg)](https://codecov.io/github/ITSLeeds/pct?branch=master) [![Travis build status](https://travis-ci.org/ITSLeeds/pct.svg?branch=master)](https://travis-ci.org/ITSLeeds/pct)
+
+# pct
+
 
 The goal of pct is to increase the accessibility and reproducibility of the data produced by the Propensity to Cycle Tool (PCT), a research project and web application hosted at [www.pct.bike](https://www.pct.bike/).
 For an overview of the data provided by the PCT, clicking on the previous link and trying it out is a great place to start.
@@ -93,7 +96,7 @@ The functions `uptake_pct_govtarget()` and `uptake_pct_godutch()` implement upta
 The scenarios of cycling uptake produced by these functions are not predictions of what *will* happen, but illustrative snapshots of what *could* happen if overall propensity to cycle reached a certain level.
 The uptake levels produced by Go Dutch and Government Target scenarios (which represent increases in cycling, not final levels) are illustrated in the graph below (other scenarios could be produced, see the [source code](https://itsleeds.github.io/pct/reference/uptake_pct_govtarget.html) see how these models work):
 
-```{r}
+```{r decay}
 distances = 1:20
 hilliness = 0:5
 uptake_df = data.frame(
@@ -157,7 +160,7 @@ routes_fast = stplanr::line2route(desire_lines, route_fun = stplanr::route_cycle
 We got useful information from this routing operation.
 We will add the desire line data onto vital data from the routes (from a cycling uptake perspective, distance and hilliness of routes):
 
-```{r}
+```{r routes_vital}
 routes_vital = sf::st_sf(
   cbind(
   sf::st_drop_geometry(desire_lines[c(1:3, 12)]),
@@ -193,7 +196,7 @@ It's gone from 4% to 11%, a realistic increase if cycling were enabled by good i
 
 Now: where to prioritise that infrastructure and those policies?
 
-```{r, message=FALSE}
+```{r rnetgove, message=FALSE}
 rnet = stplanr::overline2(routes_vital, attrib = c("bicycle", "bicycle_govtarget"))
 lwd = rnet$bicycle_govtarget / mean(rnet$bicycle_govtarget)
 plot(rnet["bicycle_govtarget"], lwd = lwd)
