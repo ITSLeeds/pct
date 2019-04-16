@@ -85,10 +85,10 @@
     
     
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-<div id="pct-coverage-status-travis-build-status" class="section level1">
+
+<div id="pct" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#pct-coverage-status-travis-build-status" class="anchor"></a>pct · <a href="http://www.r-pkg.org/pkg/pct"><img src="http://www.r-pkg.org/badges/version/pct"></a><a href="https://codecov.io/github/ITSLeeds/pct?branch=master"><img src="https://codecov.io/gh/ITSLeeds/pct/branch/master/graph/badge.svg" alt="Coverage status"></a> <a href="https://travis-ci.org/ITSLeeds/pct"><img src="https://travis-ci.org/ITSLeeds/pct.svg?branch=master" alt="Travis build status"></a>
-</h1></div>
+<a href="#pct" class="anchor"></a>pct</h1></div>
 <p>The goal of pct is to increase the accessibility and reproducibility of the data produced by the Propensity to Cycle Tool (PCT), a research project and web application hosted at <a href="https://www.pct.bike/">www.pct.bike</a>. For an overview of the data provided by the PCT, clicking on the previous link and trying it out is a great place to start. An academic <a href="https://www.jtlu.org/index.php/jtlu/article/view/862">paper</a> on the PCT provides detail on the motivations for and methods underlying the project.</p>
 <p>A major motivation behind the project was making transport evidence more accessible, encouraging evidence-based transport policies. The code base underlying the PCT is publicly available (see <a href="https://github.com/npct/">github.com/npct</a>). However, the code hosted there is not easy to run or reproduce, which is where this package comes in: it provides quick access to the data underlying the PCT and enables some of the key results to be reproduced quickly. It was developed primarily for educational purposes (including for upcoming PCT training courses) but it may be useful for people to build on the the methods, for example to create a scenario of cycling uptake in their town/city/region.</p>
 <p>In summary, if you want to know how PCT works, be able to reproduce some of its results, and build scenarios of cycling uptake to inform transport policies enabling cycling in cities worldwide, this package is for you!</p>
@@ -169,7 +169,7 @@
 <a class="sourceLine" id="cb7-25" data-line-number="25">    <span class="dt">colour =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/character">as.character</a></span>(hilliness)</a>
 <a class="sourceLine" id="cb7-26" data-line-number="26">  )) <span class="op">+</span></a>
 <a class="sourceLine" id="cb7-27" data-line-number="27"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/scale_hue">scale_color_discrete</a></span>(<span class="st">"Gradient (%)"</span>)</a></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-4-1.png" width="100%"></p>
+<p><img src="reference/figures/README-decay-1.png" width="100%"></p>
 <p>The proportion of trips made by cycling along each origin-destination (OD) pair therefore depends on the trip distance and hilliness. The main input dataset into the PCT is OD data and, to convert each OD pair into a geographic desire line, geographic zone or centroids. Typical input data is provided in packaged datasets <code>od_leeds</code> and <code>zones_leeds</code>:</p>
 </div>
 <div id="reproduce-pct-for-leeds" class="section level2">
@@ -242,7 +242,7 @@
 <a class="sourceLine" id="cb11-5" data-line-number="5">  <span class="dt">geometry =</span> routes_fast<span class="op">$</span>geometry</a>
 <a class="sourceLine" id="cb11-6" data-line-number="6">  ))</a>
 <a class="sourceLine" id="cb11-7" data-line-number="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(routes_vital)</a></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-6-1.png" width="100%"></p>
+<p><img src="reference/figures/README-routes_vital-1.png" width="100%"></p>
 <p>Now we estimate cycling uptake:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">routes_vital<span class="op">$</span>uptake =<span class="st"> </span><span class="kw"><a href="reference/uptake_pct_govtarget.html">uptake_pct_govtarget</a></span>(<span class="dt">distance =</span> routes_vital<span class="op">$</span>length, <span class="dt">gradient =</span> routes_vital<span class="op">$</span>av_incline)</a>
 <a class="sourceLine" id="cb12-2" data-line-number="2"><span class="co">#&gt; Distance assumed in m, switching to km</span></a>
@@ -261,7 +261,7 @@
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">rnet =<span class="st"> </span>stplanr<span class="op">::</span><span class="kw"><a href="https://ropensci.github.io/stplanr/reference/overline2.html">overline2</a></span>(routes_vital, <span class="dt">attrib =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"bicycle"</span>, <span class="st">"bicycle_govtarget"</span>))</a>
 <a class="sourceLine" id="cb15-2" data-line-number="2">lwd =<span class="st"> </span>rnet<span class="op">$</span>bicycle_govtarget <span class="op">/</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/mean">mean</a></span>(rnet<span class="op">$</span>bicycle_govtarget)</a>
 <a class="sourceLine" id="cb15-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(rnet[<span class="st">"bicycle_govtarget"</span>], <span class="dt">lwd =</span> lwd)</a></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-10-1.png" width="100%"></p>
+<p><img src="reference/figures/README-rnetgove-1.png" width="100%"></p>
 <p>We can view the results in an interactive map and share with policy makers, stakeholders, and the public! E.g. (see interactive map <a href="http://rpubs.com/RobinLovelace/474074">here</a>):</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">mapview<span class="op">::</span><span class="kw">mapview</span>(rnet, <span class="dt">zcol =</span> <span class="st">"bicycle_govtarget"</span>, <span class="dt">lwd =</span> lwd <span class="op">*</span><span class="st"> </span><span class="dv">2</span>)</a></code></pre></div>
 <p><img src="https://raw.githubusercontent.com/ITSLeeds/pct/master/pct-leeds-demo.png"></p>
@@ -311,7 +311,15 @@
 </ul>
 </div>
 
-      </div>
+      <div class="dev-status">
+<h2>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="http://www.r-pkg.org/pkg/pct"><img src="http://www.r-pkg.org/badges/version/pct"></a></li>
+<li><a href="https://codecov.io/github/ITSLeeds/pct?branch=master"><img src="https://codecov.io/gh/ITSLeeds/pct/branch/master/graph/badge.svg" alt="Coverage status"></a></li>
+<li><a href="https://travis-ci.org/ITSLeeds/pct"><img src="https://travis-ci.org/ITSLeeds/pct.svg?branch=master" alt="Travis build status"></a></li>
+</ul>
+</div>
+</div>
 
 </div>
 
