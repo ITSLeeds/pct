@@ -45,6 +45,10 @@ get_pct = function(
       stop("'region' must be of length 1")
     if(is.na(region) || (region == "") || !is.character(region))
       stop("invalid region name")
+    if(geography == "msoa" && layer == "rnet") {
+      message("No MSOA route network data available, downloading LSOA data")
+      geography = "lsoa"
+    }
     u_folder = paste(base_url, purpose, geography, region, sep = "/")
     f = paste0(layer, extension)
     u_file = paste(u_folder, f, sep = "/")
