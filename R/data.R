@@ -202,3 +202,17 @@ NULL
 #' plot(santiago_routes_cs)
 NULL
 
+#' Lookup table matching PCT regions to local authorities
+#'
+#' For matching pct_regions object with local authority names in England and Wales.
+#'
+#' @docType data
+#' @keywords datasets
+#' @name santiago_routes_cs
+#' @examples
+#'
+#' names(pct_regions_lookup)
+#' head(pct_regions_lookup)
+NULL
+
+

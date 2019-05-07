@@ -33,6 +33,12 @@ get_desire_lines = function(area = NULL, n = NULL, omit_intrazonal = FALSE) {
 }
 #' Get origin destination data from the 2011 Census
 #'
+#' This function downloads a .csv file representing movement
+#' between MSOA areas in England and Wales.
+#' By default it returns national data, but
+#' `area` can be set to subset the output to a specific
+#' local authority or region.
+#'
 #' @param area for which desire lines to be generated.
 #' @param n top n number of destinations with most trips in the 2011 census
 #' within the `area`.
@@ -48,11 +54,16 @@ get_od = function(area = NULL,
                   n = NULL,
                   type = "within",
                   omit_intrazonal = FALSE) {
-  if(is.null(area)) stop("Select a region or local authority name.")
-  if(length(area) != 1L)
-    stop("'area' must be of length 1")
-  if(is.na(area) || (area == "") || !is.character(area))
-    stop("invalid area name")
+  if(length(area) > 1L) {
+    stop("'area' must be of length 0 or 1")
+  }
+  if(is.na(area) || (area == "") || !is.character(area)) {
+    if(is.null(area)) {
+      message("No area provided. Returning national OD data.")
+    } else {
+      stop("invalid area name")
+    }
+  }
   # get the census file to read the trip counts
   census_file = file.path(tempdir(), "wu03ew_v2.csv")
   if(!exists(census_file)) {
@@ -70,6 +81,13 @@ get_od = function(area = NULL,
   zones_all = get_centroids_ew() # TODO: some warning?
   od_all$geo_name1 = zones_all$msoa11nm[match(od_all$geo_code1, zones_all$msoa11cd)]
   od_all$geo_name2 = zones_all$msoa11nm[match(od_all$geo_code2, zones_all$msoa11cd)]
+
+  if(is.null(area)) {
+    od_all$la_1 = gsub(" [0-9][0-9][0-9]", replacement = "", x = od_all$geo_name1)
+    od_all$la_2 = gsub(" [0-9][0-9][0-9]", replacement = "", x = od_all$geo_name2)
+    return(od_all)
+  }
+
   if(omit_intrazonal) {
     od_all = od_all[od_all$geo_code1 != od_all$geo_code2, ]
   }

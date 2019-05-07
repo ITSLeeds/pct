@@ -135,3 +135,30 @@ pryr::object_size(pct_regions)
 pct_regions = pct_regions[2]
 # usethis::use_data(pct_regions)
 ```
+
+## Get LA names + lookup
+
+```{r}
+lads = sf::st_centroid(ukboundaries::lad2016_simple)
+pct_lads = sf::st_join(lads, pct_regions)
+pct_regions_lookup = pct_lads[c("lad16cd", "lad16nm", "region_name")]
+pct_regions_lookup = sf::st_drop_geometry(pct_regions_lookup)
+for(i in names(pct_regions_lookup))
+  pct_regions_lookup[[i]] = as.character(pct_regions_lookup[[i]])
+names(pct_regions_lookup)
+od = get_od()
+pct_lad_names = unique(od$la_1)
+summary({sel = pct_regions_lookup$lad16nm %in% od$la_1})
+pct_lads$lad16nm[!sel]
+summary({sel = pct_lad_names %in% pct_regions_lookup$lad16nm })
+new_names = pct_lad_names[!sel]
+pct_regions_lookup$lad16nm[grepl("Hull", pct_regions_lookup$lad16nm)] =
+  new_names[grepl("Hull", new_names)]
+pct_regions_lookup$lad16nm[grepl("Hereford", pct_regions_lookup$lad16nm)] =
+  new_names[grepl("Hereford", new_names)]
+pct_regions_lookup$lad16nm[grepl("Bristol", pct_regions_lookup$lad16nm)] =
+  new_names[grepl("Bristol", new_names)]
+head(pct_regions_lookup)
+usethis::use_data(pct_regions_lookup)
+```
+
