@@ -1,0 +1,50 @@
+---
+title: "Propensity to Cycle Tool Training course"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{pct_training}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Introduction
+
+This workshop demonstrates how the PCT was built using the open source statistical programming language R.
+It will demonstrate how a command-line interface can be used to access the underlying data and use this for additional analysis, such as comparing how routes with high cycling potential compare with existing infrastructure.
+
+There will be 2 courses:
+
+- In London on **21st June** - see booking information here.
+- In Leeds on **28th June** - see booking information here.
+
+## Prerequisites
+
+- Attendees should have experience of geographic area and route data of the type used in the PCT
+- Attendees should have experience using software for geographic data Knowledge of R or an alternative such as Python is highly recommended
+- Attendees are expected to bring their own laptop
+
+**To ensure your computer is ready for the course, please test that the following works on your computer, resulting in the image below:**
+
+```{r, eval=FALSE}
+install.packages("remotes")
+install.packages("stats19")
+install.packages("stplanr")
+install.packages("tmap")
+```
+
+
+```{r setup, out.width="100%"}
+remotes::install_github("ITSLeeds/pct")
+library(pct)
+leeds_zones = get_pct_zones("west-yorkshire")
+leeds_lines = get_pct_lines("west-yorkshire")
+plot(leeds_zones$geometry)
+plot(leeds_lines$geometry[leeds_lines$all > 500], col = "red", add = TRUE)
+```
