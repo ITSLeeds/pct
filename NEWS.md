@@ -1,3 +1,7 @@
+# pct 0.2.0
+
+- Updates to allow od data to be downloaded for `pct_regions`: see https://github.com/ITSLeeds/pct/issues/44
+
 # pct 0.1.3
 
 - Fix issue with `rnet` downloads - see https://github.com/ITSLeeds/pct/issues/45

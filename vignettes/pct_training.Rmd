@@ -5,6 +5,7 @@ vignette: >
   %\VignetteIndexEntry{pct_training}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+bibliography: refs_training.bib
 ---
 
 ```{r, include = FALSE}
@@ -14,7 +15,17 @@ knitr::opts_chunk$set(
 )
 ```
 
-## Introduction
+```{r, eval=FALSE, echo=FALSE}
+# get citations
+refs = RefManageR::ReadZotero(group = "418217", .params = list(collection = "JFR868KJ", limit = 100))
+refs2 = RefManageR::ReadBib("vignettes/refs.bib")
+refs = c(refs, refs2)
+citr::insert_citation(bib_file = "vignettes/refs_training.bib")
+RefManageR::WriteBib(refs, "vignettes/refs_training.bib")
+citr::tidy_bib_file(rmd_file = "vignettes/pct_training.Rmd", messy_bibliography = "vignettes/refs_training.bib")
+```
+
+# Introduction
 
 This workshop will demonstrate how the PCT was built using the open source statistical programming language R, how the underlying data can be accessed from the command-line for reproducible analysis, and how the methods can be used to generate new scenarios of cycling uptake.
 
@@ -23,7 +34,7 @@ There will be 2 courses:
 - In London on **Friday 21st June** 
 - In Leeds on **Friday 2nd August** 
 
-## Prerequisites
+# Prerequisites
 
 This is an advanced training course with specific pre-requisites.
 Please only register if you:
@@ -34,9 +45,20 @@ Please only register if you:
 
 In addition, if you want to do routing on your computer: 
 
-- Attendees should have registered for a CycleStreets.net API key if they want to do their own routing (not essential)
+- Register for a CycleStreets.net API key from: https://www.cyclestreets.net/api/
 
-### R packages
+If you are new to R this course may not be appropriate for you.
+If you are an intermediate user, it may be worth brushing-up on your R skills, e.g. by taking a free online course such as that provided by [DataCamp](https://www.datacamp.com/courses/free-introduction-to-r) or by working through [Chapter 2 onwards of the open source book *Geocomputation with R*](https://geocompr.robinlovelace.net/spatial-class.html) (see reading list below for more transport-specific resources).
+
+## Prior reading
+
+In addition to computer hardware (a laptop) and software (an up-to-date R set-up and experience using R) pre-requisites, you should have read, or at least have working knowledge of the contents of, the following publications, all of which are freely available online:
+
+- The original paper on the Propensity to Cycle Tool [@lovelace_propensity_2017]
+- The transport chapter ([12](https://geocompr.robinlovelace.net/transport.html)) in the open source book [*Geocomputation with R*](https://geocompr.robinlovelace.net/)  [@lovelace_geocomputation_2019]
+- The vignette that describes the pct R package, which can be found here: https://itsleeds.github.io/pct/articles/pct.html
+
+## R packages
 
 **To ensure your computer is ready for the course, please test that you can run the following lines of R code on your computer, resulting in the map shown below:**
 
@@ -56,13 +78,13 @@ remotes::install_cran(pkgs)
 # remotes::install_github("ITSLeeds/pct")
 ```
 
-### Test code
+## Test code
 
 To test your computer is ready to work with PCT data in R, try running the following commands.
 It should result in the map below showing the % of short trips in West Yorkshire made by active modes.
 
 
-```{r setup, out.width="100%"}
+```{r setup, out.width="100%", message=FALSE}
 library(pct)
 library(dplyr)   # in the tidyverse
 library(leaflet) # installed alongside mapvew
@@ -98,7 +120,7 @@ leaflet(data = car_dependent) %>%
   addLegend(pal = pal, values = ~`Percent Drive`)
 ```
 
-## Agenda
+# Agenda
 
 - 09:30 - 10:00: Arrival and set-up
 - 10:00 - 11:00: Data and methods underlying the PCT
@@ -125,4 +147,4 @@ Coffee break and presentation of results
     - User interface
     - Policy uptake
 
-
+# References
