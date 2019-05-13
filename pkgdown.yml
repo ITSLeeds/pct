@@ -4,4 +4,5 @@ pkgdown_sha: ~
 articles:
   pct-international: pct-international.html
   pct: pct.html
+  pct_training: pct_training.html
 

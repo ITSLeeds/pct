@@ -63,6 +63,9 @@
 <li>
       <a href="articles/pct-international.html">International application of the PCT methods</a>
     </li>
+    <li>
+      <a href="articles/pct_training.html">Propensity to Cycle Tool Training course</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -161,14 +164,19 @@
 <a class="sourceLine" id="cb7-17" data-line-number="17">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cbind">cbind</a></span>(uptake_df, <span class="dt">scenario =</span> <span class="st">"godutch"</span>, <span class="dt">pcycle =</span> p_godutch)</a>
 <a class="sourceLine" id="cb7-18" data-line-number="18">)</a>
 <a class="sourceLine" id="cb7-19" data-line-number="19"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(ggplot2)</a>
-<a class="sourceLine" id="cb7-20" data-line-number="20"><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>(uptake_df) <span class="op">+</span></a>
-<a class="sourceLine" id="cb7-21" data-line-number="21"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/geom_path">geom_line</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(</a>
-<a class="sourceLine" id="cb7-22" data-line-number="22">    distances,</a>
-<a class="sourceLine" id="cb7-23" data-line-number="23">    pcycle,</a>
-<a class="sourceLine" id="cb7-24" data-line-number="24">    <span class="dt">linetype =</span> scenario,</a>
-<a class="sourceLine" id="cb7-25" data-line-number="25">    <span class="dt">colour =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/character">as.character</a></span>(hilliness)</a>
-<a class="sourceLine" id="cb7-26" data-line-number="26">  )) <span class="op">+</span></a>
-<a class="sourceLine" id="cb7-27" data-line-number="27"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/scale_hue">scale_color_discrete</a></span>(<span class="st">"Gradient (%)"</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb7-20" data-line-number="20"><span class="co">#&gt; Registered S3 methods overwritten by 'ggplot2':</span></a>
+<a class="sourceLine" id="cb7-21" data-line-number="21"><span class="co">#&gt;   method         from </span></a>
+<a class="sourceLine" id="cb7-22" data-line-number="22"><span class="co">#&gt;   [.quosures     rlang</span></a>
+<a class="sourceLine" id="cb7-23" data-line-number="23"><span class="co">#&gt;   c.quosures     rlang</span></a>
+<a class="sourceLine" id="cb7-24" data-line-number="24"><span class="co">#&gt;   print.quosures rlang</span></a>
+<a class="sourceLine" id="cb7-25" data-line-number="25"><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>(uptake_df) <span class="op">+</span></a>
+<a class="sourceLine" id="cb7-26" data-line-number="26"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/geom_path">geom_line</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(</a>
+<a class="sourceLine" id="cb7-27" data-line-number="27">    distances,</a>
+<a class="sourceLine" id="cb7-28" data-line-number="28">    pcycle,</a>
+<a class="sourceLine" id="cb7-29" data-line-number="29">    <span class="dt">linetype =</span> scenario,</a>
+<a class="sourceLine" id="cb7-30" data-line-number="30">    <span class="dt">colour =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/character">as.character</a></span>(hilliness)</a>
+<a class="sourceLine" id="cb7-31" data-line-number="31">  )) <span class="op">+</span></a>
+<a class="sourceLine" id="cb7-32" data-line-number="32"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/scale_hue">scale_color_discrete</a></span>(<span class="st">"Gradient (%)"</span>)</a></code></pre></div>
 <p><img src="reference/figures/README-decay-1.png" width="100%"></p>
 <p>The proportion of trips made by cycling along each origin-destination (OD) pair therefore depends on the trip distance and hilliness. The main input dataset into the PCT is OD data and, to convert each OD pair into a geographic desire line, geographic zone or centroids. Typical input data is provided in packaged datasets <code>od_leeds</code> and <code>zones_leeds</code>:</p>
 </div>
@@ -214,13 +222,16 @@
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(sf)</a>
 <a class="sourceLine" id="cb9-2" data-line-number="2"><span class="co">#&gt; Linking to GEOS 3.5.0, GDAL 2.1.0, PROJ 4.8.0</span></a>
 <a class="sourceLine" id="cb9-3" data-line-number="3">desire_lines =<span class="st"> </span>stplanr<span class="op">::</span><span class="kw"><a href="https://ropensci.github.io/stplanr/reference/od2line.html">od2line</a></span>(<span class="dt">flow =</span> od_leeds, <span class="dt">zones =</span> zones_leeds[<span class="dv">2</span>])</a>
-<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="co">#&gt; Creating centroids representing desire line start and end points.</span></a>
-<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="co">#&gt; Warning in st_centroid.sf(zones): st_centroid assumes attributes are</span></a>
-<a class="sourceLine" id="cb9-6" data-line-number="6"><span class="co">#&gt; constant over geometries of x</span></a>
-<a class="sourceLine" id="cb9-7" data-line-number="7"><span class="co">#&gt; Warning in st_centroid.sfc(st_geometry(x), of_largest_polygon =</span></a>
-<a class="sourceLine" id="cb9-8" data-line-number="8"><span class="co">#&gt; of_largest_polygon): st_centroid does not give correct centroids for</span></a>
-<a class="sourceLine" id="cb9-9" data-line-number="9"><span class="co">#&gt; longitude/latitude data</span></a>
-<a class="sourceLine" id="cb9-10" data-line-number="10"><span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(desire_lines[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">12</span>)])</a></code></pre></div>
+<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="co">#&gt; Registered S3 method overwritten by 'R.oo':</span></a>
+<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="co">#&gt;   method        from       </span></a>
+<a class="sourceLine" id="cb9-6" data-line-number="6"><span class="co">#&gt;   throw.default R.methodsS3</span></a>
+<a class="sourceLine" id="cb9-7" data-line-number="7"><span class="co">#&gt; Creating centroids representing desire line start and end points.</span></a>
+<a class="sourceLine" id="cb9-8" data-line-number="8"><span class="co">#&gt; Warning in st_centroid.sf(zones): st_centroid assumes attributes are</span></a>
+<a class="sourceLine" id="cb9-9" data-line-number="9"><span class="co">#&gt; constant over geometries of x</span></a>
+<a class="sourceLine" id="cb9-10" data-line-number="10"><span class="co">#&gt; Warning in st_centroid.sfc(st_geometry(x), of_largest_polygon =</span></a>
+<a class="sourceLine" id="cb9-11" data-line-number="11"><span class="co">#&gt; of_largest_polygon): st_centroid does not give correct centroids for</span></a>
+<a class="sourceLine" id="cb9-12" data-line-number="12"><span class="co">#&gt; longitude/latitude data</span></a>
+<a class="sourceLine" id="cb9-13" data-line-number="13"><span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(desire_lines[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">12</span>)])</a></code></pre></div>
 <p><img src="reference/figures/README-desire-1.png" width="100%"></p>
 <p>We can convert these straight lines into routes with a routing service, e.g.:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">routes_fast =<span class="st"> </span>stplanr<span class="op">::</span><span class="kw"><a href="https://ropensci.github.io/stplanr/reference/line2route.html">line2route</a></span>(desire_lines, <span class="dt">route_fun =</span> stplanr<span class="op">::</span>route_cyclestreet)</a>
