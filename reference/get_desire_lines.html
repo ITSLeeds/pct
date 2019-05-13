@@ -130,19 +130,20 @@ can get the top <code>n</code>.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>get_desire_lines</span>(<span class='kw'>area</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>omit_intrazonal</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>get_desire_lines</span>(<span class='kw'>region</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>omit_intrazonal</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>area</th>
-      <td><p>for which desire lines to be generated.</p></td>
+      <th>region</th>
+      <td><p>The PCT region or local authority to download data from (e.g. <code>west-yorkshire</code> or <code>Leeds</code>).
+See <code><a href='https://www.rdocumentation.org/packages/utils/topics/View'>View(pct_regions_lookup)</a></code> for a full list of possible region names.</p></td>
     </tr>
     <tr>
       <th>n</th>
       <td><p>top n number of destinations with most trips in the 2011 census
-within the <code>area</code>.</p></td>
+within the <code>region</code>.</p></td>
     </tr>
     <tr>
       <th>omit_intrazonal</th>
@@ -184,7 +185,7 @@ within the <code>area</code>.</p></td>
 #&gt; <span class='message'>  msoa11cd = col_character(),</span>
 #&gt; <span class='message'>  msoa11nm = col_character()</span>
 #&gt; <span class='message'>)</span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>desire_lines</span>)</div><div class='output co'>#&gt; <span class='error'>Error in if (xsize * ysize * n &gt; prod(total_size)) {    ysize = total_size[2]/nrow    xsize = ysize/asp}: missing value where TRUE/FALSE needed</span></div><div class='input'><span class='no'>intra_zonal</span> <span class='kw'>=</span> <span class='no'>desire_lines</span>$<span class='no'>geo_code1</span> <span class='kw'>==</span> <span class='no'>desire_lines</span>$<span class='no'>geo_code2</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>desire_lines</span>[<span class='no'>intra_zonal</span>, ])</div><div class='output co'>#&gt; <span class='warning'>Warning: plotting the first 10 out of 16 attributes; use max.plot = 16 to plot all</span></div><div class='img'><img src='get_desire_lines-1.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>desire_lines</span>[<span class='no'>intra_zonal</span>, ])</div><div class='output co'>#&gt; <span class='warning'>Warning: plotting the first 10 out of 18 attributes; use max.plot = 18 to plot all</span></div><div class='img'><img src='get_desire_lines-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

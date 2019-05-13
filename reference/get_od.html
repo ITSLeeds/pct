@@ -33,9 +33,9 @@
 <meta property="og:title" content="Get origin destination data from the 2011 Census — get_od" />
 
 <meta property="og:description" content="This function downloads a .csv file representing movement
-between MSOA areas in England and Wales.
+between MSOA zones in England and Wales.
 By default it returns national data, but
-area can be set to subset the output to a specific
+region can be set to subset the output to a specific
 local authority or region." />
 <meta name="twitter:card" content="summary" />
 
@@ -127,32 +127,33 @@ local authority or region." />
     <div class="ref-description">
     
     <p>This function downloads a .csv file representing movement
-between MSOA areas in England and Wales.
+between MSOA zones in England and Wales.
 By default it returns national data, but
-<code>area</code> can be set to subset the output to a specific
+<code>region</code> can be set to subset the output to a specific
 local authority or region.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>get_od</span>(<span class='kw'>area</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"within"</span>,
+    <pre class="usage"><span class='fu'>get_od</span>(<span class='kw'>region</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"within"</span>,
   <span class='kw'>omit_intrazonal</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>area</th>
-      <td><p>for which desire lines to be generated.</p></td>
+      <th>region</th>
+      <td><p>The PCT region or local authority to download data from (e.g. <code>west-yorkshire</code> or <code>Leeds</code>).
+See <code><a href='https://www.rdocumentation.org/packages/utils/topics/View'>View(pct_regions_lookup)</a></code> for a full list of possible region names.</p></td>
     </tr>
     <tr>
       <th>n</th>
       <td><p>top n number of destinations with most trips in the 2011 census
-within the <code>area</code>.</p></td>
+within the <code>region</code>.</p></td>
     </tr>
     <tr>
       <th>type</th>
       <td><p>the type of subsetting: one of <code>from</code>, <code>to</code> or <code>within</code>, specifying how
-the od dataset should be subset in relation to the <code>area</code>.</p></td>
+the od dataset should be subset in relation to the <code>region</code>.</p></td>
     </tr>
     <tr>
       <th>omit_intrazonal</th>
@@ -186,14 +187,15 @@ the od dataset should be subset in relation to the <code>area</code>.</p></td>
 #&gt; <span class='message'>  objectid = col_double(),</span>
 #&gt; <span class='message'>  msoa11cd = col_character(),</span>
 #&gt; <span class='message'>  msoa11nm = col_character()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; # A tibble: 3 x 16
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; # A tibble: 3 x 18
 #&gt;   geo_code1 geo_code2   all from_home light_rail train   bus  taxi motorbike
 #&gt;   &lt;chr&gt;     &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
 #&gt; 1 E02003592 E02003592  1164         0          0     1    41     3        10
 #&gt; 2 E02003589 E02003589   875         0          0     0    12     1         8
 #&gt; 3 E02003591 E02003589   852         0          0     1     6     0        11
-#&gt; # … with 7 more variables: car_driver &lt;dbl&gt;, car_passenger &lt;dbl&gt;,
-#&gt; #   bicycle &lt;dbl&gt;, foot &lt;dbl&gt;, other &lt;dbl&gt;, geo_name1 &lt;chr&gt;, geo_name2 &lt;chr&gt;</div></pre>
+#&gt; # … with 9 more variables: car_driver &lt;dbl&gt;, car_passenger &lt;dbl&gt;,
+#&gt; #   bicycle &lt;dbl&gt;, foot &lt;dbl&gt;, other &lt;dbl&gt;, geo_name1 &lt;chr&gt;, geo_name2 &lt;chr&gt;,
+#&gt; #   la_1 &lt;chr&gt;, la_2 &lt;chr&gt;</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
