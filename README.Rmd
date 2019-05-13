@@ -58,7 +58,7 @@ library(pct)
 
 From feedback, we hear that the use of the data is critical in decision making. Therefore, one area where the package could be useful is making the data "easily" available to be processed.
 
-* `get_pct`: the basic function to obtain data available  [here](). 
+* `get_pct`: the basic function to obtain data available  [here](https://itsleeds.github.io/pct/reference/get_pct.html). 
 
 The rest of these should be self explanatory.
 
@@ -212,8 +212,9 @@ mapview::mapview(rnet, zcol = "bicycle_govtarget", lwd = lwd * 2)
 ![](https://raw.githubusercontent.com/ITSLeeds/pct/master/pct-leeds-demo.png)
 
 ## Current limitations
-* This package currently does not estimate cycling uptake associated with intrazonal flows and people with no fixed job data.
-* This package currently does not estimate health benefits.
+
+* This package currently does not estimate cycling uptake associated with intrazonal flows and people with no fixed job data
+* This package currently does not estimate health benefits
 
 ## Next steps and further resources (work in progress)
 
