@@ -4,26 +4,27 @@
 \alias{get_od}
 \title{Get origin destination data from the 2011 Census}
 \usage{
-get_od(area = NULL, n = NULL, type = "within",
+get_od(region = NULL, n = NULL, type = "within",
   omit_intrazonal = FALSE)
 }
 \arguments{
-\item{area}{for which desire lines to be generated.}
+\item{region}{The PCT region or local authority to download data from (e.g. \code{west-yorkshire} or \code{Leeds}).
+See \code{View(pct_regions_lookup)} for a full list of possible region names.}
 
 \item{n}{top n number of destinations with most trips in the 2011 census
-within the \code{area}.}
+within the \code{region}.}
 
 \item{type}{the type of subsetting: one of \code{from}, \code{to} or \code{within}, specifying how
-the od dataset should be subset in relation to the \code{area}.}
+the od dataset should be subset in relation to the \code{region}.}
 
 \item{omit_intrazonal}{should intrazonal OD pairs be omited from result?
 \code{FALSE} by default.}
 }
 \description{
 This function downloads a .csv file representing movement
-between MSOA areas in England and Wales.
+between MSOA zones in England and Wales.
 By default it returns national data, but
-\code{area} can be set to subset the output to a specific
+\code{region} can be set to subset the output to a specific
 local authority or region.
 }
 \examples{

@@ -13,57 +13,74 @@
 #' intra_zonal = desire_lines$geo_code1 == desire_lines$geo_code2
 #' plot(desire_lines[intra_zonal, ])
 #' }
-get_desire_lines = function(area = NULL, n = NULL, omit_intrazonal = FALSE) {
+get_desire_lines = function(region = NULL, n = NULL, omit_intrazonal = FALSE) {
 
-  if(is.null(area)){
+  if(is.null(region)){
     stop("Select a region or local authority name.")
   }
   # TODO: explore ways of returning 'intrazonal' flows
-  od_all = get_od(area, omit_intrazonal = omit_intrazonal)
+  od_all = get_od(region, omit_intrazonal = omit_intrazonal)
   # get UK zones with msoa11cd, msoa11nm and the geom for stplanr::od2line
   zones_all = get_centroids_ew() # TODO: some warning?
-  zones = zones_all[grepl(area, zones_all$msoa11nm, ignore.case = TRUE), ]
+  zones = zones_all[grepl(region, zones_all$msoa11nm, ignore.case = TRUE), ]
   od = od_all
   if(!is.null(n)) {
     od = order_and_subset(od_all, "all", n) # subset before processing
   }
   # generate desirelines.
-  area_desire_lines = stplanr::od2line(flow = od, zones)
-  area_desire_lines
+  region_desire_lines = stplanr::od2line(flow = od, zones)
+  region_desire_lines
 }
 #' Get origin destination data from the 2011 Census
 #'
 #' This function downloads a .csv file representing movement
-#' between MSOA areas in England and Wales.
+#' between MSOA zones in England and Wales.
 #' By default it returns national data, but
-#' `area` can be set to subset the output to a specific
+#' `region` can be set to subset the output to a specific
 #' local authority or region.
 #'
-#' @param area for which desire lines to be generated.
 #' @param n top n number of destinations with most trips in the 2011 census
-#' within the `area`.
+#' within the `region`.
 #' @param type the type of subsetting: one of `from`, `to` or `within`, specifying how
-#' the od dataset should be subset in relation to the `area`.
+#' the od dataset should be subset in relation to the `region`.
 #' @param omit_intrazonal should intrazonal OD pairs be omited from result?
 #' `FALSE` by default.
+#' @inheritParams get_pct
 #' @export
 #' @examples \donttest{
 #' get_od("wight", n = 3)
 #' }
-get_od = function(area = NULL,
+get_od = function(region = NULL,
                   n = NULL,
                   type = "within",
                   omit_intrazonal = FALSE) {
-  if(length(area) > 1L) {
-    stop("'area' must be of length 0 or 1")
+
+  if(length(region) > 1L) {
+    stop("region must be of length 0 or 1")
   }
-  if(is.na(area) || (area == "") || !is.character(area)) {
-    if(is.null(area)) {
-      message("No area provided. Returning national OD data.")
+
+  valid_region = region %in% c(pct_regions_lookup$region_name)
+  valid_region_match = grepl(region, pct_regions_lookup$region_name)
+  valid_la_match = grepl(region, pct_regions_lookup$lad16cd)
+  if(!valid_region & !any(valid_la_match) & !any(valid_region_match)) {
+    stop("region must contain a valid name in the pct_regions_lookup")
+  }
+
+  if(is.na(region) || (region == "") || !is.character(region)) {
+    if(is.null(region)) {
+      message("No region provided. Returning national OD data.")
     } else {
-      stop("invalid area name")
+      stop("invalid region name")
     }
   }
+
+  # find matching las
+  if(valid_region) {
+    las = pct_regions_lookup$lad16nm[pct_regions_lookup$region_name %in% region]
+  } else {
+    las = pct_regions_lookup$lad16nm[grepl(pattern = region, pct_regions_lookup$lad16nm, ignore.case = TRUE)]
+  }
+
   # get the census file to read the trip counts
   census_file = file.path(tempdir(), "wu03ew_v2.csv")
   if(!exists(census_file)) {
@@ -82,24 +99,24 @@ get_od = function(area = NULL,
   od_all$geo_name1 = zones_all$msoa11nm[match(od_all$geo_code1, zones_all$msoa11cd)]
   od_all$geo_name2 = zones_all$msoa11nm[match(od_all$geo_code2, zones_all$msoa11cd)]
 
-  if(is.null(area)) {
-    od_all$la_1 = gsub(" [0-9][0-9][0-9]", replacement = "", x = od_all$geo_name1)
-    od_all$la_2 = gsub(" [0-9][0-9][0-9]", replacement = "", x = od_all$geo_name2)
+  od_all$la_1 = gsub(" [0-9][0-9][0-9]", replacement = "", x = od_all$geo_name1)
+  od_all$la_2 = gsub(" [0-9][0-9][0-9]", replacement = "", x = od_all$geo_name2)
+
+  if(is.null(region)) {
     return(od_all)
   }
 
   if(omit_intrazonal) {
     od_all = od_all[od_all$geo_code1 != od_all$geo_code2, ]
   }
-  # is area valid? do it once
-  valid_areas = grepl(area, od_all$geo_name1, ignore.case = TRUE)
-  if(!any(valid_areas))
-    stop(paste0("Did you enter the right area name (", area,"?"))
-  if(type == "within") {
-    grepl(area, od_all$geo_name1, ignore.case = TRUE) &
-      grepl(area, od_all$geo_name2, ignore.case = TRUE)
-  }
-  od = od_all[valid_areas,]
+  # is region valid? do it once
+
+  # if(type == "within") {
+  #   grepl(region, od_all$geo_name1, ignore.case = TRUE) &
+  #     grepl(region, od_all$geo_name2, ignore.case = TRUE)
+  # }
+
+  od = od_all[od_all$la_1 %in% las, ]
 
   # finally
   if(!is.null(n)) {
@@ -116,7 +133,7 @@ order_and_subset = function(od, var, n) {
 }
 
 # does this want to be exported at some point?
-# x = c("Area of residence", "Area of workplace", "All categories:
+# x = c("region of residence", "Area of workplace", "All categories:
 #       Method of travel to work",
 #       "Work mainly at or from home", "Underground, metro, light rail, tram",
 #       "Train", "Bus, minibus or coach", "Taxi", "Motorcycle, scooter or moped",

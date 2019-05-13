@@ -4,13 +4,14 @@
 \alias{get_desire_lines}
 \title{Desire lines}
 \usage{
-get_desire_lines(area = NULL, n = NULL, omit_intrazonal = FALSE)
+get_desire_lines(region = NULL, n = NULL, omit_intrazonal = FALSE)
 }
 \arguments{
-\item{area}{for which desire lines to be generated.}
+\item{region}{The PCT region or local authority to download data from (e.g. \code{west-yorkshire} or \code{Leeds}).
+See \code{View(pct_regions_lookup)} for a full list of possible region names.}
 
 \item{n}{top n number of destinations with most trips in the 2011 census
-within the \code{area}.}
+within the \code{region}.}
 
 \item{omit_intrazonal}{should intrazonal OD pairs be omited from result?
 \code{FALSE} by default.}

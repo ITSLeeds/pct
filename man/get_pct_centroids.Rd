@@ -8,7 +8,8 @@ get_pct_centroids(region = NULL, purpose = "commute",
   geography = "msoa", extension = ".Rds")
 }
 \arguments{
-\item{region}{The PCT region that contains the data (e.g. \code{west-yorkshire})}
+\item{region}{The PCT region or local authority to download data from (e.g. \code{west-yorkshire} or \code{Leeds}).
+See \code{View(pct_regions_lookup)} for a full list of possible region names.}
 
 \item{purpose}{Trip purpose (typically \code{school} or \code{commute})}
 

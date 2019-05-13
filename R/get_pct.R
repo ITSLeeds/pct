@@ -6,7 +6,8 @@
 #' @param base_url Where the data is stored.
 #' @param purpose Trip purpose (typically `school` or `commute`)
 #' @param geography Geographic resolution of outputs (`msoa` or `lsoa`)
-#' @param region The PCT region that contains the data (e.g. `west-yorkshire`)
+#' @param region The PCT region or local authority to download data from (e.g. `west-yorkshire` or `Leeds`).
+#' See `View(pct_regions_lookup)` for a full list of possible region names.
 #' @param layer The PCT layer of interest, `z`, `c`, `l`, `rf`, `rq` or `rnet`
 #' for zones, centroids, desire lines, routes (fast or quiet) and route networks, respectively
 #' @param extension The type of file to download (typically `.Rds`)

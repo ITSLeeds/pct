@@ -16,7 +16,8 @@
 
 \item{geography}{Geographic resolution of outputs (\code{msoa} or \code{lsoa})}
 
-\item{region}{The PCT region that contains the data (e.g. \code{west-yorkshire})}
+\item{region}{The PCT region or local authority to download data from (e.g. \code{west-yorkshire} or \code{Leeds}).
+See \code{View(pct_regions_lookup)} for a full list of possible region names.}
 
 \item{layer}{The PCT layer of interest, \code{z}, \code{c}, \code{l}, \code{rf}, \code{rq} or \code{rnet}
 for zones, centroids, desire lines, routes (fast or quiet) and route networks, respectively}
