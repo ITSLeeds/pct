@@ -16,35 +16,108 @@ knitr::opts_chunk$set(
 
 ## Introduction
 
-This workshop demonstrates how the PCT was built using the open source statistical programming language R.
-It will demonstrate how a command-line interface can be used to access the underlying data and use this for additional analysis, such as comparing how routes with high cycling potential compare with existing infrastructure.
+This workshop will demonstrate how the PCT was built using the open source statistical programming language R, how the underlying data can be accessed from the command-line for reproducible analysis, and how the methods can be used to generate new scenarios of cycling uptake.
 
 There will be 2 courses:
 
-- In London on **21st June** - see booking information here.
-- In Leeds on **28th June** - see booking information here.
+- In London on **Friday 21st June** 
+- In Leeds on **Friday 2nd August** 
 
 ## Prerequisites
 
-- Attendees should have experience of geographic area and route data of the type used in the PCT
-- Attendees should have experience using software for geographic data Knowledge of R or an alternative such as Python is highly recommended
-- Attendees are expected to bring their own laptop
+This is an advanced training course with specific pre-requisites.
+Please only register if you:
 
-**To ensure your computer is ready for the course, please test that the following works on your computer, resulting in the image below:**
+- Have experience analysing geographic area and route data of the type used in the PCT
+- Have experience using software for geographic data, including working knowledge of the statistical programming language R
+- Can bring a laptop that has up-to-date versions of R, RStudio and the necessary R packages installed (see next section)
+
+In addition, if you want to do routing on your computer: 
+
+- Attendees should have registered for a CycleStreets.net API key if they want to do their own routing (not essential)
+
+### R packages
+
+**To ensure your computer is ready for the course, please test that you can run the following lines of R code on your computer, resulting in the map shown below:**
 
 ```{r, eval=FALSE}
 install.packages("remotes")
-install.packages("stats19")
-install.packages("stplanr")
-install.packages("tmap")
+pkgs = c(
+  "cyclestreets",
+  "mapview",
+  "pct",
+  "sf",
+  "stats19",
+  "stplanr",
+  "tidyverse",
+  "devtools"
+)
+remotes::install_cran(pkgs)
+# remotes::install_github("ITSLeeds/pct")
 ```
+
+### Test code
+
+To test your computer is ready to work with PCT data in R, try running the following commands.
+It should result in the map below showing the % of short trips in West Yorkshire made by active modes.
 
 
 ```{r setup, out.width="100%"}
-remotes::install_github("ITSLeeds/pct")
 library(pct)
-leeds_zones = get_pct_zones("west-yorkshire")
-leeds_lines = get_pct_lines("west-yorkshire")
-plot(leeds_zones$geometry)
-plot(leeds_lines$geometry[leeds_lines$all > 500], col = "red", add = TRUE)
+library(dplyr)   # in the tidyverse
+library(leaflet) # installed alongside mapvew
+zones_all = get_pct_zones("west-yorkshire")
+lines_all = get_pct_lines("west-yorkshire")
+
+# basic plot
+plot(zones_all$geometry)
+plot(lines_all$geometry[lines_all$all > 500], col = "red", add = TRUE)
+
+# interactive plot
+active = lines_all %>% 
+  mutate(`Percent Active` = (bicycle + foot) / all * 100) %>% 
+  filter(e_dist_km < 5)
+pal = colorBin(palette = "RdYlBu", domain = active$`Percent Active`, bins = c(0, 2, 4, 10, 15, 20, 30, 40, 90))
+leaflet(data = active) %>% 
+  addProviderTiles(providers$OpenStreetMap.BlackAndWhite) %>% 
+  addPolylines(color = ~pal(`Percent Active`), weight = active$all / 100) %>% 
+  addLegend(pal = pal, values = ~`Percent Active`)
 ```
+
+We can also use the data to explore entrenched car dependence, as follows:
+
+```{r}
+# car dependent desire lines
+car_dependent = lines_all %>% 
+  mutate(`Percent Drive` = (car_driver) / all * 100) %>% 
+  filter(e_dist_km < 5)
+pal = colorBin(palette = "RdYlBu", domain = car_dependent$`Percent Active`, bins = c(0, 2, 4, 10, 15, 20, 30, 40, 90), reverse = TRUE)
+leaflet(data = car_dependent) %>% 
+  addProviderTiles(providers$OpenStreetMap.BlackAndWhite) %>% 
+  addPolylines(color = ~pal(`Percent Drive`), weight = active$all / 100) %>% 
+  addLegend(pal = pal, values = ~`Percent Drive`)
+```
+
+## Agenda
+
+- 09:30 - 10:00: Arrival and set-up
+- 10:00 - 11:00: Data and methods underlying the PCT
+- 11:00 - 12:30: Getting and analysing PCT data
+  - Comparing PCT results with existing road infrastructure
+  <!-- - Identify gaps in the network -->
+
+Lunch break
+
+- 13:30 - 15:30: Extending the PCT: minihack
+  - Alternative scenarios of cycling uptake
+  - New input data
+
+Coffee break and presentation of results
+
+- 16:00 - 16:30: Policy implementation
+  - Building open source web applications
+  - Community-building
+  - User interface
+  - Policy uptake
+
+
