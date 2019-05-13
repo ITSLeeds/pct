@@ -208,7 +208,7 @@ NULL
 #'
 #' @docType data
 #' @keywords datasets
-#' @name santiago_routes_cs
+#' @name pct_regions_lookup
 #' @examples
 #'
 #' names(pct_regions_lookup)
