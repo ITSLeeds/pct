@@ -20,7 +20,11 @@ the od dataset should be subset in relation to the \code{area}.}
 \code{FALSE} by default.}
 }
 \description{
-Get origin destination data from the 2011 Census
+This function downloads a .csv file representing movement
+between MSOA areas in England and Wales.
+By default it returns national data, but
+\code{area} can be set to subset the output to a specific
+local authority or region.
 }
 \examples{
 \donttest{
