@@ -1,5 +1,7 @@
 # pct 0.2.1
 
+- `get_od()` now gets national data by default
+
 # pct 0.2.0
 
 - Updates to allow od data to be downloaded for `pct_regions`: see https://github.com/ITSLeeds/pct/issues/44
