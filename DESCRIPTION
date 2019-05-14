@@ -24,19 +24,18 @@ Imports:
     boot,
     stplanr (>= 0.2.8),
     readr,
-    sf,
-    magrittr
+    sf
 Suggests: 
-    testthat,
-    knitr,
-    curl,
     covr,
-    pbapply,
+    curl,
+    dplyr,
     ggplot2,
+    knitr,
+    leaflet,
+    pbapply,
     remotes,
     rmarkdown,
-    leaflet,
-    dplyr
+    testthat
 VignetteBuilder: knitr
 RoxygenNote: 6.1.1
 Roxygen: list(markdown = TRUE)
