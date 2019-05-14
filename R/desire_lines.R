@@ -59,11 +59,21 @@ get_od = function(region = NULL,
     stop("region must be of length 0 or 1")
   }
 
-  valid_region = region %in% c(pct_regions_lookup$region_name)
-  valid_region_match = grepl(region, pct_regions_lookup$region_name)
-  valid_la_match = grepl(region, pct_regions_lookup$lad16cd)
-  if(!valid_region & !any(valid_la_match) & !any(valid_region_match)) {
-    stop("region must contain a valid name in the pct_regions_lookup")
+  if(!is.null(region)) {
+
+    valid_region = region %in% c(pct_regions_lookup$region_name)
+    valid_region_match = grepl(region, pct_regions_lookup$region_name)
+    valid_la_match = grepl(region, pct_regions_lookup$lad16cd)
+    if(!valid_region & !any(valid_la_match) & !any(valid_region_match)) {
+      stop("region must contain a valid name in the pct_regions_lookup")
+    }
+
+    # find matching las
+    if(valid_region) {
+      las = pct_regions_lookup$lad16nm[pct_regions_lookup$region_name %in% region]
+    } else {
+      las = pct_regions_lookup$lad16nm[grepl(pattern = region, pct_regions_lookup$lad16nm, ignore.case = TRUE)]
+    }
   }
 
   if(is.na(region) || (region == "") || !is.character(region)) {
@@ -72,13 +82,6 @@ get_od = function(region = NULL,
     } else {
       stop("invalid region name")
     }
-  }
-
-  # find matching las
-  if(valid_region) {
-    las = pct_regions_lookup$lad16nm[pct_regions_lookup$region_name %in% region]
-  } else {
-    las = pct_regions_lookup$lad16nm[grepl(pattern = region, pct_regions_lookup$lad16nm, ignore.case = TRUE)]
   }
 
   # get the census file to read the trip counts
