@@ -27,12 +27,16 @@ citr::tidy_bib_file(rmd_file = "vignettes/pct_training.Rmd", messy_bibliography 
 
 # Introduction
 
-This workshop will demonstrate how the PCT was built using the open source statistical programming language R, how the underlying data can be accessed from the command-line for reproducible analysis, and how the methods can be used to generate new scenarios of cycling uptake.
+This vignette supports workshops on advanced usage and development of the Propensity to Cycle Tool (PCT).
+Beginner and intermediate PCT events focus on using the PCT via the web application hosted at [www.pct.bike](http://www.pct.bike/) and the data provided by the PCT in [QGIS](https://www.qgis.org/en/site/).
+
+The focus here is on analysing cycling potential in the open source statistical programming language R, in which the majority of the PCT was built.
+It will show how the code underlying the PCT works, how the underlying data can be accessed using R for reproducible analysis, and how the methods can be used to generate new scenarios of cycling uptake.
 
 There will be 2 courses:
 
 - In London on **Friday 21st June** 
-- In Leeds on **Friday 2nd August** 
+- In Leeds on **Friday 2nd August (TBC)** 
 
 # Prerequisites
 
@@ -139,7 +143,7 @@ Lunch break
         - Travel to stations
     - Other extensions of the PCT
 
-Coffee break and presentation of results
+Break and presentation of results
 
 - 16:00 - 16:30: Policy implementation
     - Building open source web applications
