@@ -92,8 +92,8 @@ It should result in the map below showing the % of short trips in West Yorkshire
 library(pct)
 library(dplyr)   # in the tidyverse
 library(leaflet) # installed alongside mapvew
-zones_all = get_pct_zones("west-yorkshire")
-lines_all = get_pct_lines("west-yorkshire")
+zones_all = get_pct_zones("london")
+lines_all = get_pct_lines("london")
 
 # basic plot
 plot(zones_all$geometry)
@@ -116,9 +116,16 @@ We can also use the data to explore entrenched car dependence, as follows:
 # car dependent desire lines
 car_dependent = lines_all %>% 
   mutate(`Percent Drive` = (car_driver) / all * 100) %>% 
-  filter(e_dist_km < 5)
-pal = colorBin(palette = "RdYlBu", domain = car_dependent$`Percent Active`, bins = c(0, 20, 40, 60, 80, 100), reverse = TRUE)
-leaflet(data = car_dependent) %>% 
+  filter(e_dist_km < 5) %>% 
+  top_n(100, all)
+
+routes_dependent = stplanr::line2route(car_dependent)
+routes_dependent_joined = cbind(sf::st_drop_geometry(routes_dependent), sf::st_drop_geometry(car_dependent))
+routes_dependent_joined = sf::st_sf(routes_dependent_joined, geometry = routes_dependent$geometry)
+
+pal = colorBin(palette = "RdYlBu", domain = car_dependent$`Percent Active`,
+               bins = c(0, 20, 40, 60, 80, 100), reverse = TRUE)
+leaflet(data = routes_dependent_joined) %>% 
   addProviderTiles(providers$OpenStreetMap.BlackAndWhite) %>% 
   addPolylines(color = ~pal(`Percent Drive`), weight = active$all / 100) %>% 
   addLegend(pal = pal, values = ~`Percent Drive`)
