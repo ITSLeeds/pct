@@ -148,5 +148,73 @@ Break and presentation of results
     - Community-building
     - User interface
     - Policy uptake
+    
+# Exercises
+
+## How the PCT works and what you can use it for
+
+- Take a look at the image below. Which parts of the process are of most use for your work?
+
+![](https://raw.githubusercontent.com/npct/pct-team/master/flow-model/flow-diag2.png)
+
+- In groups of 2, identify 3 real world questions/problems that you could use the PCT to help answer/solve
+
+<!-- Communicating a vision -->
+<!-- Deciding on network scale/size/shape -->
+<!-- Generating business case for investment -->
+Feed into consulation
+Extend it to look at cycling integraton
+
+- Name 3 limitations of the data currently provided by the PCT and discuss how you could overcome them
+
+
+
+## Getting and viewing PCT data
+
+Using the online interface, identify the MSOA **zone** that has the highest number of people who cycle to work.
+
+Using data downloaded with the command `get_pct_zones()`, identify the zone that has highest level of cycling.
+
+```{r, eval=FALSE}
+library(pct)
+library(tidyverse)
+z_original = get_pct_zones("isle-of-wight")
+z = z_original %>% 
+  select(geo_code, geo_name, all, bicycle, car_driver)
+View(z)
+z %>% 
+  top_n(n = 1, wt = bicycle)
+```
+
+Using the online interface, identify the MSOA to MSOA **desire line** that has the highest number of people who cycle to work.
+
+Using data downloaded with the command `get_pct_lines()`, identify the zone that has highest level of cycling.
+
+```{r, eval=FALSE}
+l_original = get_pct_lines("isle-of-wight")
+l = l_original %>% 
+  select(geo_code1, geo_code2, all, bicycle, car_driver)
+View(l)
+l %>% 
+  top_n(n = 1, wt = bicycle)
+```
+
+## 
+
+## Accessing data
+
+
+## Scenarios of change
+
+
+## Routing
+
+
+## Route networks
+
+## Ideas for training
+
+- Create a quiet route network for Westminter
+- Boris bikes
 
 # References
