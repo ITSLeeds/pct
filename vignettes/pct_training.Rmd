@@ -162,12 +162,24 @@ Break and presentation of results
 <!-- Communicating a vision -->
 <!-- Deciding on network scale/size/shape -->
 <!-- Generating business case for investment -->
-Feed into consulation
-Extend it to look at cycling integraton
+<!-- Feed into consulation -->
+<!-- Extend it to look at cycling integraton -->
+
+The PCT provides data at 4 geographic levels:
+
+- Zones
+- Desire lines
+- Routes
+- Route networks
+
+Which types of data are most appropriate to tackle each of the questions/problems you identified?
 
 - Name 3 limitations of the data currently provided by the PCT and discuss how you could overcome them
 
-
+<!-- OD data is old -> use new OD data -->
+<!-- Only single stage journeys -> Model travel to rail, for example -->
+<!-- It does not predict future levels of cycling following new infrastructure -> -->
+<!--   Wait until follow-on work building CyIPT is developed -->
 
 ## Getting and viewing PCT data
 
@@ -214,7 +226,11 @@ l %>%
 
 ## Ideas for training
 
-- Create a quiet route network for Westminter
-- Boris bikes
+- Identify quiet routes and design a quiet route network for Westminter
+
+<!-- - Design interventions to replace short car trips across London (or another region of your choice) using the PCT methods/data to support your decisions -->
+<!-- - Identify priority routes to improve for bike share users by using OD data from TfL's bike share (if we get time to do this) -->
+
+<!-- Demonstrate routing with cyclestreets.net -->
 
 # References
