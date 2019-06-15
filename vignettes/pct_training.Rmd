@@ -185,18 +185,32 @@ Which types of data are most appropriate to tackle each of the questions/problem
 
 Using the online interface, identify the MSOA **zone** that has the highest number of people who cycle to work.
 
-Using data downloaded with the command `get_pct_zones()`, identify the zone that has highest level of cycling.
+Using data downloaded with the command `get_pct_zones()`, identify the zone that has highest level of cycling with the function `top_n()` and save the result as an object called `z_highest_cycling` (hint: you may want to start by 'cleaning' the data you have downloaded to include only a few key columns with the function `select()`, as follows):
 
-```{r, eval=FALSE}
+```{r}
 library(pct)
 library(tidyverse)
 z_original = get_pct_zones("isle-of-wight")
 z = z_original %>% 
   select(geo_code, geo_name, all, bicycle, car_driver)
-View(z)
-z %>% 
+```
+
+```{r, echo=FALSE}
+# the solution:
+# View(z)
+z_highest_cycling = z %>% 
   top_n(n = 1, wt = bicycle)
 ```
+
+Use the `plot()` command to visualise where on the Ilse of Wight this 'high cycling' zone is (hint: you will need to use the `plot()` function twice, once to plot `z$geometry`, and again with the argument `add = TURE` and a `col` argument to add the layer on top of the base layer and give it a colour).
+The result should look like something this:
+
+```{r, echo=FALSE}
+plot(z$geometry)
+plot(z_highest_cycling$geometry, col = "red", add = TRUE)
+```
+
+
 
 Using the online interface, identify the MSOA to MSOA **desire line** that has the highest number of people who cycle to work.
 
