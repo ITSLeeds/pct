@@ -189,7 +189,7 @@ Using data downloaded with the command `get_pct_zones()`, identify the zone that
 
 ```{r}
 library(pct)
-library(tidyverse)
+library(dplyr)
 z_original = get_pct_zones("isle-of-wight")
 z = z_original %>% 
   select(geo_code, geo_name, all, bicycle, car_driver)
