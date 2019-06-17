@@ -210,8 +210,6 @@ plot(z$geometry)
 plot(z_highest_cycling$geometry, col = "red", add = TRUE)
 ```
 
-
-
 Using the online interface, identify the MSOA to MSOA **desire line** that has the highest number of people who cycle to work.
 
 Using data downloaded with the command `get_pct_lines()`, identify the zone that has highest level of cycling.
@@ -225,9 +223,7 @@ l %>%
   top_n(n = 1, wt = bicycle)
 ```
 
-## 
-
-## Accessing data
+## Identifying routes/roads of interest
 
 
 ## Scenarios of change
@@ -243,6 +239,7 @@ l %>%
 - Identify quiet routes and design a quiet route network for Westminter
 
 <!-- - Design interventions to replace short car trips across London (or another region of your choice) using the PCT methods/data to support your decisions -->
+
 <!-- - Identify priority routes to improve for bike share users by using OD data from TfL's bike share (if we get time to do this) -->
 
 <!-- Demonstrate routing with cyclestreets.net -->
