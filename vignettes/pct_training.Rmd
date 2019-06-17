@@ -212,15 +212,19 @@ plot(z_highest_cycling$geometry, col = "red", add = TRUE)
 
 - G4: Using the online interface, identify the top 5 MSOA to MSOA **desire lines** that have the highest number of people who cycle to work.
 
-- G5: Using the function `get_pct_lines()`, identify the top 5 MSOA to MSOA **desire lines** that have the highest number of people who cycle to work.
+- G5: Using the function `get_pct_lines()`, identify the top 5 MSOA to MSOA **desire lines** that have the highest number of people who cycle to work (hint: you might want to start with the code shown below).
     - Bonus: also find the 5 desire lines with the highest number of people driving to work. Plot them and find the straight line distance of these lines with the function `st_distance()`.
-
-```{r, echo=FALSE, warning=FALSE, fig.show='hold', fig.cap="Top 5 MSOA to MSOA desire lines with highest number of people cycling (left) and driving (right) in the Isle of Wight."}
+    
+```{r get routes}
 # Aim: get top 5 cycle routes
 l_original = get_pct_lines("isle-of-wight")
-l = l_original %>% 
-  select(geo_code1, geo_code2, all, bicycle, car_driver)
+l_msoa = l_original %>% 
+  select(geo_code1, geo_code2, all, bicycle, car_driver, rf_avslope_perc, rf_dist_km)
+```
+
+```{r, echo=FALSE, warning=FALSE, fig.show='hold', fig.cap="Top 5 MSOA to MSOA desire lines with highest number of people cycling (left) and driving (right) in the Isle of Wight."}
 # View(l)
+l = l_msoa
 l_top_cycling = l %>% 
   top_n(n = 5, wt = bicycle)
 plot(z$geometry)
@@ -278,11 +282,50 @@ plot(z$geometry)
 plot(l_top_driving, add = TRUE, lwd = l_top_driving$car_driver / mean(l_top_driving$car_driver), col = "red")
 ```
 
-## Identifying routes/roads of interest
+## Modifying PCT data to identify routes/roads of interest
 
+- M1: Building on the example above, add a new column called `pcycle` to the object `l_msoa` that contains the % who cycle to work (hint: you might want to start this by typing `l_msoa$pcycle = ...`) and plot the results (shown in left hand panel in plot below).
+
+```{r p2}
+l_msoa$pcycle = l_msoa$bicycle / l_msoa$all * 100
+# plot(l_msoa["pcycle"], lwd = l_msoa$all / mean(l_msoa$all), breaks = c(0, 5, 10, 20, 50))
+```
+
+- M2 (bonus): identify road segments with the highest estimated number of people cycling currently, and under the Go Dutch scenario (hint: you can download the route network with `get_pct_rnet("isle-of-wight")`)
+
+```{r eval=FALSE, echo=FALSE}
+rnet = get_pct_rnet("isle-of-wight")
+```
 
 ## Scenarios of change
 
+- S1: Generate a 'Go Dutch' scenario for the Isle of Wight using the function `uptake_pct_godutch()` (hint: the following code chunk will create a 'Government Target' scenario):
+
+```{r}
+l_msoa$euclidean_distance = as.numeric(sf::st_length(l_msoa))
+l_msoa$pcycle_govtarget = uptake_pct_govtarget(
+  distance = l_msoa$rf_dist_km,
+  gradient = l_msoa$rf_avslope_perc
+  ) * 100 + l_msoa$pcycle
+```
+
+```{r change, echo=FALSE}
+l_msoa$pcycle_dutch = uptake_pct_godutch(
+  distance = l_msoa$rf_dist_km,
+  gradient = l_msoa$rf_avslope_perc
+  ) * 100 + l_msoa$pcycle
+```
+
+```{r dutch_pcycle, echo=FALSE, warning=FALSE, fig.show='hold', fig.cap="Percent cycling currently (left) and under a 'Go Dutch' scenario (right) in the Isle of Wight."}
+plot(l_msoa["pcycle"], lwd = l_msoa$all / mean(l_msoa$all), breaks = c(0, 5, 10, 20, 50))
+plot(l_msoa["pcycle_dutch"], lwd = l_msoa$all / mean(l_msoa$all), breaks = c(0, 5, 10, 20, 50))
+# cor(l_original$dutch_slc / l_original$all, l_msoa$pcycle_dutch)
+# cor(l_original$govtarget_slc / l_original$all, l_msoa$pcycle_govtarget)
+# plot(l_original$dutch_slc / l_original$all, l_msoa$pcycle_dutch)
+```
+
+- S2: Think of alternative scenarios that would be useful for your work
+- S3 (bonus): look inside the function [`pct_uptake_godutch()`](https://github.com/ITSLeeds/pct/blob/master/R/uptake.R#L36) - how could it be modified?
 
 ## Routing
 
