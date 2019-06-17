@@ -16,7 +16,7 @@ Description: Functions and example data to teach and
   see Lovelace et al (2017) <doi:10.5198/jtlu.2016.862>.
 Depends: R (>= 3.5.0)
 License: GPL-3
-URL: http://www.pct.bike/, https://itsleeds.github.io/pct/
+URL: https://itsleeds.github.io/pct/, https://github.com/ITSLeeds/pct
 BugReports: https://github.com/ITSLeeds/pct/issues
 Encoding: UTF-8
 LazyData: true
