@@ -215,7 +215,7 @@ plot(z_highest_cycling$geometry, col = "red", add = TRUE)
 - G5: Using the function `get_pct_lines()`, identify the top 5 MSOA to MSOA **desire lines** that have the highest number of people who cycle to work.
     - Bonus: also find the 5 desire lines with the highest number of people driving to work. Plot them and find the straight line distance of these lines with the function `st_distance()`.
 
-```{r, echo=FALSE, warning=FALSE, fig.show='hold'}
+```{r, echo=FALSE, warning=FALSE, fig.show='hold', fig.cap="Top 5 desire lines with highest number of people cycling (left) and driving (right) in the Isle of Wight."}
 # Aim: get top 5 cycle routes
 l_original = get_pct_lines("isle-of-wight")
 l = l_original %>% 
@@ -231,6 +231,14 @@ l_top_driving = l %>%
   top_n(n = 5, wt = car_driver)
 plot(z$geometry)
 plot(l_top_driving, add = TRUE, lwd = 5, col = "red")
+
+# summary(sf::st_length(l_top_cycling))
+# summary(sf::st_length(l_top_driving))
+
+# library(tmap)
+# tmap_mode("view")
+# tm_shape(l_top_cycling) + tm_lines("green", lwd = 7) + tm_basemap(server = leaflet::providers$OpenStreetMap.BlackAndWhite)
+# tm_shape(l_top_driving) + tm_lines("red", lwd = 7) + tm_basemap(server = leaflet::providers$OpenStreetMap.BlackAndWhite)
 ```
 
 - G6 (Bonus): 
