@@ -153,7 +153,7 @@ Break and presentation of results
 
 ## How the PCT works and what you can use it for
 
-- Take a look at the image below. Which parts of the process are of most use for your work?
+- Take a look at the image below from [@lovelace_propensity_2017]. Which parts of the process are of most use for your work?
 
 ![](https://raw.githubusercontent.com/npct/pct-team/master/flow-model/flow-diag2.png)
 
@@ -183,13 +183,13 @@ Which types of data are most appropriate to tackle each of the questions/problem
 
 ## Getting and viewing PCT data
 
-Using the online interface, identify the MSOA **zone** that has the highest number of people who cycle to work.
+- G1: Using the PCT's online interface, hosted at [www.pct.bike/m/?r=isle-of-wight](http://www.pct.bike/m/?r=isle-of-wight), identify the MSOA **zone** that has the highest number of people who cycle to work.
 
-Using data downloaded with the command `get_pct_zones()`, identify the zone that has highest level of cycling with the function `top_n()` and save the result as an object called `z_highest_cycling` (hint: you may want to start by 'cleaning' the data you have downloaded to include only a few key columns with the function `select()`, as follows):
+- G2: Using data downloaded with the command `get_pct_zones()`, identify the zone that has highest level of cycling with the function `top_n()` and save the result as an object called `z_highest_cycling` (hint: you may want to start by 'cleaning' the data you have downloaded to include only a few key columns with the function `select()`, as follows):
 
 ```{r}
 library(pct)
-library(dplyr)
+library(dplyr) # suggestion: use library(tidyverse)
 z_original = get_pct_zones("isle-of-wight")
 z = z_original %>% 
   select(geo_code, geo_name, all, bicycle, car_driver)
@@ -202,26 +202,50 @@ z_highest_cycling = z %>%
   top_n(n = 1, wt = bicycle)
 ```
 
-Use the `plot()` command to visualise where on the Ilse of Wight this 'high cycling' zone is (hint: you will need to use the `plot()` function twice, once to plot `z$geometry`, and again with the argument `add = TURE` and a `col` argument to add the layer on top of the base layer and give it a colour).
-The result should look like something this:
+- G3: Use the `plot()` command to visualise where on the Ilse of Wight this 'high cycling' zone is (hint: you will need to use the `plot()` function twice, once to plot `z$geometry`, and again with the argument `add = TURE` and a `col` argument to add the layer on top of the base layer and give it a colour).
+The result should look something like something this:
 
 ```{r, echo=FALSE}
 plot(z$geometry)
 plot(z_highest_cycling$geometry, col = "red", add = TRUE)
 ```
 
-Using the online interface, identify the MSOA to MSOA **desire line** that has the highest number of people who cycle to work.
+- G4: Using the online interface, identify the top 5 MSOA to MSOA **desire lines** that have the highest number of people who cycle to work.
 
-Using data downloaded with the command `get_pct_lines()`, identify the zone that has highest level of cycling.
+- G5: Using the function `get_pct_lines()`, identify the top 5 MSOA to MSOA **desire lines** that have the highest number of people who cycle to work.
+    - Bonus: also find the 5 desire lines with the highest number of people driving to work. Plot them and find the straight line distance of these lines with the function `st_distance()`.
+
+```{r, echo=FALSE, warning=FALSE, fig.show='hold'}
+# Aim: get top 5 cycle routes
+l_original = get_pct_lines("isle-of-wight")
+l = l_original %>% 
+  select(geo_code1, geo_code2, all, bicycle, car_driver)
+# View(l)
+l_top_cycling = l %>% 
+  top_n(n = 5, wt = bicycle)
+plot(z$geometry)
+plot(l_top_cycling, add = TRUE, lwd = 5, col = "green")
+
+# Aim: get top 5 cycle routes
+l_top_driving = l %>% 
+  top_n(n = 5, wt = car_driver)
+plot(z$geometry)
+plot(l_top_driving, add = TRUE, lwd = 5, col = "red")
+```
+
+- G6 (Bonus): 
 
 ```{r, eval=FALSE}
-l_original = get_pct_lines("isle-of-wight")
+# at the lsoa level
+l_original = get_pct_lines("isle-of-wight", geography = "lsoa")
 l = l_original %>% 
   select(geo_code1, geo_code2, all, bicycle, car_driver)
 View(l)
 l %>% 
   top_n(n = 1, wt = bicycle)
 ```
+
+Is 
 
 ## Identifying routes/roads of interest
 
