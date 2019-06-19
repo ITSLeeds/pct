@@ -171,14 +171,14 @@
 <a class="sourceLine" id="cb7-17" data-line-number="17">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cbind">cbind</a></span>(uptake_df, <span class="dt">scenario =</span> <span class="st">"godutch"</span>, <span class="dt">pcycle =</span> p_godutch)</a>
 <a class="sourceLine" id="cb7-18" data-line-number="18">)</a>
 <a class="sourceLine" id="cb7-19" data-line-number="19"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(ggplot2)</a>
-<a class="sourceLine" id="cb7-20" data-line-number="20"><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>(uptake_df) <span class="op">+</span></a>
-<a class="sourceLine" id="cb7-21" data-line-number="21"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/geom_path">geom_line</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(</a>
+<a class="sourceLine" id="cb7-20" data-line-number="20"><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(uptake_df) <span class="op">+</span></a>
+<a class="sourceLine" id="cb7-21" data-line-number="21"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span>(<span class="kw"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(</a>
 <a class="sourceLine" id="cb7-22" data-line-number="22">    distances,</a>
 <a class="sourceLine" id="cb7-23" data-line-number="23">    pcycle,</a>
 <a class="sourceLine" id="cb7-24" data-line-number="24">    <span class="dt">linetype =</span> scenario,</a>
 <a class="sourceLine" id="cb7-25" data-line-number="25">    <span class="dt">colour =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/character">as.character</a></span>(hilliness)</a>
 <a class="sourceLine" id="cb7-26" data-line-number="26">  )) <span class="op">+</span></a>
-<a class="sourceLine" id="cb7-27" data-line-number="27"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/scale_hue">scale_color_discrete</a></span>(<span class="st">"Gradient (%)"</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb7-27" data-line-number="27"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/scale_hue.html">scale_color_discrete</a></span>(<span class="st">"Gradient (%)"</span>)</a></code></pre></div>
 <p><img src="reference/figures/README-decay-1.png" width="100%"></p>
 <p>The proportion of trips made by cycling along each origin-destination (OD) pair therefore depends on the trip distance and hilliness. The main input dataset into the PCT is OD data and, to convert each OD pair into a geographic desire line, geographic zone or centroids. Typical input data is provided in packaged datasets <code>od_leeds</code> and <code>zones_leeds</code>:</p>
 </div>
