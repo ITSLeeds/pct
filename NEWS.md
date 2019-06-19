@@ -1,4 +1,7 @@
-# pct (development version)
+# pct 0.2.2
+
+- Updated training materials
+- Fixed bug in `get_od()`
 
 # pct 0.2.1
 
