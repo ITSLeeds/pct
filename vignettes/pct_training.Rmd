@@ -330,14 +330,63 @@ plot(l_msoa["pcycle_dutch"], lwd = l_msoa$all / mean(l_msoa$all), breaks = c(0, 
 
 ## Routing
 
+- R1: Using the function `route_osrm()` find the route associated with the most cycled desire line in the Isle of Wight. The result should look similar to that displayed in the map below (hint: you may want to start your answer with the following lines of code - **warning: the function may need to run a few times before it works**):
+
+```{r}
+library(stplanr)
+l_top = l_msoa %>% 
+  top_n(n = 1, wt = bicycle)
+```
+
+```{r, eval=FALSE, echo=FALSE}
+r_top = stplanr::route_osrm(l_top)
+sf::write_sf(sf::st_as_sf(r_top), "r_top.geojson")
+piggyback::pb_upload("r_top.geojson")
+piggyback::pb_download_url()
+```
+
+```{r, echo=FALSE}
+r_top = sf::read_sf("https://github.com/ITSLeeds/pct/releases/download/0.0.1/r_top.geojson")
+leaflet() %>% 
+  addTiles() %>% 
+  addPolylines(data = r_top)
+```
+
+- R2: What are the problems associated with this route from a cycling perspective? Take a look at the help page opened by entering `?route_osrm` to identify the reason why the route is not particularly useful from a cycling perspective.
+
+- R3: Regenerate the route using the function `line2route()`. What is the difference in the length between each route, and what other differences can you spot? **Note: this exercise requires an API Key from CycleStreets.net.**
+
+```{r, echo=FALSE}
+r_cs = stplanr::line2route(l_top)
+leaflet() %>% 
+  addTiles() %>% 
+  addPolylines(data = r_cs)
+```
+
+- R4 (bonus): what features of a routing service would be most useful for your work and why? 
 
 ## Route networks
 
-## Ideas for training
+- RN1: Generate a 'route network' showing number of people walking in the top 30 routes in the Isle of Wight, allocated to the transport network (hint: use the `overline2()` function and begin the script as follows, the results should look similar to the results below):
 
-- Identify quiet routes and design a quiet route network for Westminter
+```{r}
+route_data = sf::st_sf(wight_lines_30, geometry = wight_routes_30$geometry)
+```
 
-<!-- - Design interventions to replace short car trips across London (or another region of your choice) using the PCT methods/data to support your decisions -->
+```{r, echo=FALSE, message=FALSE}
+rnet_walk = overline2(x = route_data, "foot")
+leaflet() %>% 
+  addTiles() %>% 
+  addPolylines(data = rnet_walk, weight = rnet_walk$foot / mean(rnet_walk$foot) * 5)
+```
+
+## Ideas for further work and a 'minihack'
+
+- Create a route network reflecting where you would invest if the priority was reducing car trips of less than 5 km
+- Design interventions to replace short car trips across London (or another region of your choice) using the PCT methods/data to support your decisions
+- Identify quiet routes and design a quiet route network for city/region of your choice, e.g. Westminter
+- Import alternative origin-destination datasets and use those as the basis for propensity to cycle analysis for trip purposes other than single stage commutes, encapsulated in the commut layer in the PCT
+- Any other layers/scenarios/hacks: welcome! Comments in this repo's [issue tracker](https://github.com/ITSLeeds/pct/issues) also welcome.
 
 <!-- - Identify priority routes to improve for bike share users by using OD data from TfL's bike share (if we get time to do this) -->
 
