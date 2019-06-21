@@ -380,6 +380,62 @@ leaflet() %>%
   addPolylines(data = rnet_walk, weight = rnet_walk$foot / mean(rnet_walk$foot) * 5)
 ```
 
+```{r, echo = FALSE, eval = FALSE}
+# Demon PCT Analysis#
+# Make a commuting quiet route network for Isle of Wight
+# and combine it with the travle to school route network
+
+# Step 1: Load Library
+library(tidyverse)
+library(sf)
+library(pct)
+library(stplanr)
+
+# Step 2: Get Data
+routes_commute = get_pct_routes_quiet(region = "isle-of-wight",
+                              purpose = "commute",
+                              geography = "lsoa")
+
+lines_commute = get_pct_lines(region = "isle-of-wight",
+                              purpose = "commute",
+                              geography = "lsoa")
+
+rnet_school = get_pct_rnet(region = "isle-of-wight",
+                           purpose = "school",
+                           geography = "lsoa")
+
+# Step 3: Prepare Data
+lines_commute = lines_commute %>%
+  st_drop_geometry() %>%
+  select(id, bicycle, dutch_slc)
+
+routes_commute = routes_commute %>%
+  select(id)
+
+# Join Cycling Levels to Routes
+routes_commute = left_join(routes_commute, lines_commute)
+plot(routes_commute["bicycle"])
+
+# Make a commuting Rnet
+rnet_commute = overline2(routes_commute, 
+                         attrib = c("bicycle","dutch_slc"))
+plot(rnet_commute["bicycle"])
+
+# Combine commuting and travel to schools
+rnet_school <- rnet_school %>%
+  select(dutch_slc)
+rnet_commute <- rnet_commute %>%
+  select(dutch_slc)
+rnet_commute$bicycle <- NULL
+
+
+rnet_both = rbind(rnet_commute, rnet_school)
+rnet_both = overline2(rnet_both, 
+                         attrib = c("dutch_slc"))
+mapview::mapview(rnet_both, at = c(50,100,200,500,1000))
+
+```
+
 ## Ideas for further work and a 'minihack'
 
 - Create a route network reflecting where you would invest if the priority was reducing car trips of less than 5 km
