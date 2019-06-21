@@ -16,6 +16,7 @@ output:
 
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(message = FALSE)
 library(RefManageR)
 BibOptions(check.entries = FALSE, 
            bib.style = "authoryear", 
@@ -25,7 +26,33 @@ BibOptions(check.entries = FALSE,
            hyperlink = FALSE, 
            dashed = FALSE)
 my_bib = ReadBib("../vignettes/refs.bib", check = FALSE)
+library(leaflet)
 ```
+
+# Agenda
+
+- 09:30 - 10:00: Arrival and set-up
+- 10:00 - 11:00: Data and methods underlying the PCT
+- 11:00 - 12:30: Getting and analysing PCT data
+    - Comparing PCT results with existing road infrastructure
+        - Getting data from the CyIPT
+        - Identfying 'weak links'
+        - Identify gaps in the network
+
+Lunch break
+
+- 13:30 - 15:30: Extending the PCT: minihack
+    - Alternative scenarios of cycling uptake
+        - A 'replace short car trips' scenario
+    - New input data
+        - Travel to stations
+    - Other extensions of the PCT
+
+Break and presentation of results
+
+- 16:00 - 16:30: Policy implementation
+
+---
 
 # The PCT Advanced Workshop Team
 
@@ -58,7 +85,11 @@ my_bib = ReadBib("../vignettes/refs.bib", check = FALSE)
 - And the PCT training vignette: [itsleeds.github.io/pct/articles/pct_training.html](https://itsleeds.github.io/pct/articles/pct_training.html)
 
 ```{r, echo=FALSE}
-knitr::include_graphics("https://raw.githubusercontent.com/ITSLeeds/TDS/master/courses/tds-oneday_files/figure-gfm/unnamed-chunk-2-1.png")
+l = stplanr::geo_code("35 Marylebone Road")
+leaflet() %>% 
+  addProviderTiles(provider = providers$OpenStreetMap.BlackAndWhite) %>%
+  addTiles(urlTemplate = "https://tile.waymarkedtrails.org/cycling/{z}/{x}/{y}.png") %>% 
+  addMarkers(lng = l[1], lat = l[2])
 ```
 
 ---
@@ -164,13 +195,17 @@ background-size: cover
 class: center, middle
 
 
-# Applications
+# Overview of the PCT
 
 ---
 
-## What can you use these skills for?
+## The first prototype of the PCT
 
-- Example: the Propensity to Cycle Tool ([PCT.bike](http://www.pct.bike/)) (Lovelace et al. 2017)
+- Developed at a Hackathon at ODI Leeds in February 2015
+
+- Involved identifying key routes and mapping them
+
+- For detailed description, see the first PCT paper (Lovelace et al. 2017)
 
 ```{r, echo=FALSE}
 knitr::include_graphics("https://raw.githubusercontent.com/npct/pct-team/master/figures/early.png")
@@ -178,10 +213,10 @@ knitr::include_graphics("https://raw.githubusercontent.com/npct/pct-team/master/
 
 ---
 
-## How is data science used in the PCT?
+## Key stages of PCT
 
-- It's all reproducible, e.g.:
-- Find short in which more people drive than cycle
+- It's all reproducible, enabling modifications, e.g.:
+- Find short routes in which more people drive than cycle
 
 --
 
@@ -191,7 +226,7 @@ knitr::include_graphics("https://raw.githubusercontent.com/npct/pct-team/master/
 # Aim: get top 1000 lines in repo
 library(dplyr)
 library(sf)
-desire_lines_all = pct::get_pct_lines(region = "west-yorkshire")
+desire_lines_all = pct::get_pct_lines(region = "isle-of-wight")
 desire_lines = desire_lines_all %>% 
   top_n(1000, all)
 write_sf(desire_lines, "desire_lines.geojson")
@@ -199,30 +234,31 @@ piggyback::pb_upload("desire_lines.geojson")
 ```
 
 
-```{r, message=FALSE, eval=FALSE}
+```{r, message=FALSE}
 # Set-up, after installing pct and checking out www.pct.bike:
 library(dplyr)
 library(sf)
-desire_lines_all = pct::get_pct_lines(region = "west-yorkshire") %>% 
+desire_lines_all = pct::get_pct_lines(region = "isle-of-wight") %>% 
   top_n(n = 1000, wt = all)
 ```
 
+
 ---
 
-## Stage II: Geographic data analysis
+## Stage II: Subset data of interest
 
-- Interested only in top 200 lines in Leeds
+- Interested only in major lines
 
-```{r, eval=FALSE}
-leeds = osmdata::getbb(place_name = "leeds", format_out = "sf_polygon")
-desire_lines = desire_lines_all[leeds, , op = st_within] %>% 
-  top_n(n = 200, wt = all)
+```{r}
+desire_lines = desire_lines_all %>% 
+  filter(all > 500) %>% 
+  select(geo_code1, geo_code2, all, bicycle, foot, car_driver, rf_dist_km)
+plot(desire_lines)
 ```
 
-
 ---
 
-## Stage III: Visualising (polution) data
+## Stage III: Visualisation
 
 <!-- A fundamental part of data science is being able to understand your data. -->
 
@@ -239,14 +275,13 @@ plot(desire_lines)
 
 <!-- - Interactively: -->
 
-```{r, message=FALSE, eval=FALSE}
+```{r, message=FALSE}
 library(tmap)
 tmap_mode("view")
 tm_shape(desire_lines) +
   tm_lines("all") +
-  tm_basemap(server = c(leaflet::providers$OpenStreetMap, leaflet::providers$SafeCast))
+  tm_basemap(server = leaflet::providers$OpenStreetMap)
 ```
-
 
 ---
 
@@ -256,7 +291,7 @@ tm_shape(desire_lines) +
 
 - Which places are most car dependent? 
 
-```{r, eval=FALSE}
+```{r}
 car_dependent_routes = desire_lines %>% 
   mutate(percent_drive = car_driver / all * 100) %>% 
   filter(rf_dist_km < 3 & rf_dist_km > 1) 
@@ -276,6 +311,35 @@ car_dependent_routes$geometry = routes$geometry
 --
 
 - Everyone happy with RStudio?
+
+---
+
+# Supporting reference materials
+
+All interactive programming/analysis with command line interface involves frequent reference to documentation, and data science is no exception. Places to look for help (in roughly descending order):
+
+--
+
+- Your colleague
+- R's internal help (e.g. with `?functonname` or `vignettes(package = "packagename)`)
+- Online documentation, e.g. for the pct package: https://itsleeds.github.io/pct/ 
+- *Transport and Geographic Data Science with R*: An introduction to R aimed at transport planners: https://git.io/tds2dayex
+
+- The transport chapter ([12](https://geocompr.robinlovelace.net/transport.html)) in the open source book [*Geocomputation with R*](https://geocompr.robinlovelace.net/)
+- R for Data Science
+
+---
+
+# Exercises
+
+
+
+- If you're happy with R, work through G1 to G8 in the [exercises](https://itsleeds.github.io/pct/articles/pct_training.html#exercises), starting:
+    - G1: Using the PCT's online interface, hosted at [www.pct.bike/m/?r=isle-of-wight](http://www.pct.bike/m/?r=isle-of-wight), identify the MSOA **zone** that has the highest number of people who cycle to work.
+
+- If you're just getting started with RStudio: Work through Section 1 of https://git.io/tds2dayex
+
+- Getting up to speed with data manipulation in the tidyverse: Work through and reproduce the code in Section [5.2](https://r4ds.had.co.nz/transform.html#filter-rows-with-filter) of R for Data Science.
 
 ---
 
