@@ -14,12 +14,6 @@ output:
 # bibliography: ../vignettes/ref.bib
 ---
 
-background-image: url(https://c1.staticflickr.com/2/1216/1096671706_571a263b63_b.jpg)
-background-position: 50% 50%
-class: center, bottom, inverse
-
-# Credit: Mandeep Lota via [flickr](https://www.flickr.com/photos/deepster2k/1096671706)
-
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE)
 library(RefManageR)
@@ -33,28 +27,23 @@ BibOptions(check.entries = FALSE,
 my_bib = ReadBib("../vignettes/refs.bib", check = FALSE)
 ```
 
----
-
-# The Transport Data Science team
+# The PCT Advanced Workshop Team
 
 ### Robin Lovelace
 
-- Especially cycling potential ([e.g. to school](http://eprints.whiterose.ac.uk/141852/))
-- R developer and teacher, with a couple of books on the subject 
+- Geographer by Training
+- University Academic Fellow in Transport and Big Data, Institute for Transport Studies, University of Leeds
+- Lead Developer of the Propensity to Cycle Tool
+- R developer and teacher, author of open source books *Efficient R Programming* and *Gecomputation with R*
 
 --
 
-### Nikée Groot
+### Malcolm Morgan
 
-- Biological data analyst by training
-- Worked on transport projects with the WHO
-
---
-
-### [James Tate](http://www.its.leeds.ac.uk/people/j.tate)
-
-- Vehicle emissions and air quality expert
-- Using R as the primary tool for data analysis
+- Civil Engineer by training
+- Moved into transport via the Propensity to Cycle Tool Project
+- Interest in machine learning and routing
+- Focus on multi-modal routing and energy use (UKERC)
 
 --
 
@@ -65,8 +54,8 @@ my_bib = ReadBib("../vignettes/refs.bib", check = FALSE)
 ## Housekeeping
 
 - The venue + facilities
-- The agenda + further info can be found on the course website:
-- https://github.com/ITSLeeds/TDS/blob/master/courses/tds-oneday.md
+- The agenda + further info can be found on the pct package website: https://github.com/ITSLeeds/pct
+- And the PCT training vignette: [itsleeds.github.io/pct/articles/pct_training.html](https://itsleeds.github.io/pct/articles/pct_training.html)
 
 ```{r, echo=FALSE}
 knitr::include_graphics("https://raw.githubusercontent.com/ITSLeeds/TDS/master/courses/tds-oneday_files/figure-gfm/unnamed-chunk-2-1.png")
@@ -78,62 +67,23 @@ knitr::include_graphics("https://raw.githubusercontent.com/ITSLeeds/TDS/master/c
 
 By the end of the course, you will be able to:
 
-- Find, download and import a variety of transport datasets, including from OpenStreetMap and government data portals
-- Work with, analyse and model transport data with spatial, temporal and demographic attributes
-- Work with air polution data in R and compare with transport behaviours
+- Understand the data and code underlying the PCT
+- Download data from the PCT at various geographic levels
+- Use R as a tool for transport data analysis and cycle network planning
+
+--
+
+- Do new things with the PCT data and methods that will support the global transition away from fossil fuels `r emojifont::emoji("rocket")`
+
+---
+
+# Geographic levels in the PCT
+
 - Generate and analyse route networks for transport planning with reference to:
     - Origin-destination (OD) data
     - Geographic desire lines
     - Route allocation using different routing services
     - Route network generation and analysis
----
-
-## What is transport data science?
-
-- The application of data science to transport datasets and problems
-
---
-
-- Raising the question...
-
---
-
-- What is data science?
-
-<!-- You tell me! -->
-
---
-
-- A discipline "that allows you to turn raw data into understanding, insight, and knowledge" `r Citep(my_bib, "grolemund_r_2016", .opts = list(cite.style = "authoryear"))`
-
---
-
-In other words...
-
-- Statistics that is actually useful!
-
----
-
-## What is science?
-
-.pull-left[
-- Scientific knowledge is hypotheses that can be falsified
-- Science is the process of *generating falsifiable hypotheses* and *testing them*
-- In a reproducible way
-- Systematically
-
-![](https://media3.giphy.com/media/3ohhworAhxSEHT3zDa/200w.webp?cid=3640f6095c57e8d15767723367d0c596)
-]
-
---
-
-.pull-right[
-
-- Falsifiability is central to the scientific process `r Citep(my_bib, "popper_logic_1959", .opts = list(cite.style = "authoryear"))`
-- All of which requires software conducive to reproducibility
-
-![](https://duckduckgo.com/i/f2692e7b.jpg)
-]
 
 ---
 
