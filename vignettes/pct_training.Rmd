@@ -32,7 +32,7 @@ This vignette supports workshops on advanced usage and development of the Propen
 Beginner and intermediate PCT events focus on using the PCT via the web application hosted at [www.pct.bike](http://www.pct.bike/) and the data provided by the PCT in [QGIS](https://www.qgis.org/en/site/).
 
 The focus here is on analysing cycling potential in the open source statistical programming language R, in which the majority of the PCT was built.
-It will show how the code underlying the PCT works, how the underlying data can be accessed using R for reproducible analysis, and how the methods can be used to generate new scenarios of cycling uptake.
+It will show how the code underlying the PCT works, how the underlying data can be accessed for reproducible analysis, and how the methods can be used to generate new scenarios of cycling uptake.
 
 There will be 2 courses:
 
@@ -356,7 +356,7 @@ leaflet() %>%
 
 - R3: Regenerate the route using the function `line2route()`. What is the difference in the length between each route, and what other differences can you spot? **Note: this exercise requires an API Key from CycleStreets.net.**
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, eval=FALSE}
 r_cs = stplanr::line2route(l_top)
 leaflet() %>% 
   addTiles() %>% 
@@ -380,8 +380,8 @@ leaflet() %>%
   addPolylines(data = rnet_walk, weight = rnet_walk$foot / mean(rnet_walk$foot) * 5)
 ```
 
-```{r, echo = FALSE, eval = FALSE}
-# Demon PCT Analysis#
+```{r, echo=FALSE, eval=FALSE}
+# Demo PCT Analysis#
 # Make a commuting quiet route network for Isle of Wight
 # and combine it with the travle to school route network
 
