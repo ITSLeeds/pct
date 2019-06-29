@@ -91,7 +91,7 @@ To test your computer is ready to work with PCT data in R, try running the follo
 
 We are testing a new method for helping people set up their computers. Type this single line into the console and follow the instructions. 
 
-```{r, eval=FALSE}
+```{r testcode, eval = FALSE }
 source("https://raw.githubusercontent.com/ITSLeeds/TDS/master/code-r/setup.R") 
 ```
 
