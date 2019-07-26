@@ -1,9 +1,8 @@
-This version includes a small bug fix.
+This version includes a fix due to changes in sf.
 
 ## Test environments
-* local OS X install, R 3.6.0 
+* local Ubuntu install, R 3.6.1 
 * ubuntu 14.04 (on travis-ci)
-* win-builder (devel)
 * cyclecstreets dependency requires an API, so some tests will be skipped if not provided.
 
 ## R CMD check results

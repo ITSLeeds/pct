@@ -1,5 +1,7 @@
 # pct 0.2.3
 
+- Remove OD pairs with no matching IDs, see https://github.com/ITSLeeds/pct/issues/47
+
 # pct 0.2.2
 
 - Updated training materials
