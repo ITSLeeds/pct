@@ -182,15 +182,15 @@ within the <code>region</code>.</p></td>
 #&gt; <span class='message'>  objectid = col_double(),</span>
 #&gt; <span class='message'>  msoa11cd = col_character(),</span>
 #&gt; <span class='message'>  msoa11nm = col_character()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='message'>Downloading population weighted centroids</span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  X = col_double(),</span>
 #&gt; <span class='message'>  Y = col_double(),</span>
 #&gt; <span class='message'>  objectid = col_double(),</span>
 #&gt; <span class='message'>  msoa11cd = col_character(),</span>
 #&gt; <span class='message'>  msoa11nm = col_character()</span>
-#&gt; <span class='message'>)</span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>desire_lines</span>)</div><div class='output co'>#&gt; <span class='error'>Error in if (xsize * ysize * n &gt; prod(total_size)) {    ysize = total_size[2]/nrow    xsize = ysize/asp}: missing value where TRUE/FALSE needed</span></div><div class='input'><span class='no'>intra_zonal</span> <span class='kw'>=</span> <span class='no'>desire_lines</span>$<span class='no'>geo_code1</span> <span class='kw'>==</span> <span class='no'>desire_lines</span>$<span class='no'>geo_code2</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>desire_lines</span>[<span class='no'>intra_zonal</span>, ])</div><div class='output co'>#&gt; <span class='warning'>Warning: plotting the first 10 out of 18 attributes; use max.plot = 18 to plot all</span></div><div class='img'><img src='get_desire_lines-1.png' alt='' width='700' height='433' /></div></pre>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='message'>Not all flows origins have ID in centroids, removing 2527 OD pairs.</span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>desire_lines</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: plotting the first 10 out of 18 attributes; use max.plot = 18 to plot all</span></div><div class='img'><img src='get_desire_lines-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>intra_zonal</span> <span class='kw'>=</span> <span class='no'>desire_lines</span>$<span class='no'>geo_code1</span> <span class='kw'>==</span> <span class='no'>desire_lines</span>$<span class='no'>geo_code2</span>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>desire_lines</span>[<span class='no'>intra_zonal</span>, ])</div><div class='output co'>#&gt; <span class='warning'>Warning: plotting the first 10 out of 18 attributes; use max.plot = 18 to plot all</span></div><div class='img'><img src='get_desire_lines-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
