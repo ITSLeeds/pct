@@ -21,13 +21,26 @@ get_desire_lines = function(region = NULL, n = NULL, omit_intrazonal = FALSE) {
   # TODO: explore ways of returning 'intrazonal' flows
   od_all = get_od(region, omit_intrazonal = omit_intrazonal)
   # get UK zones with msoa11cd, msoa11nm and the geom for stplanr::od2line
+  message("Downloading population weighted centroids")
   zones_all = get_centroids_ew() # TODO: some warning?
   zones = zones_all[grepl(region, zones_all$msoa11nm, ignore.case = TRUE), ]
   od = od_all
   if(!is.null(n)) {
     od = order_and_subset(od_all, "all", n) # subset before processing
   }
-  # generate desirelines.
+  flow_origs_in_zones = od$geo_code1 %in% zones$msoa11cd
+  if(!all(flow_origs_in_zones)) {
+    n_rem = sum(!flow_origs_in_zones)
+    message("Not all flows origins have ID in centroids, removing ", n_rem, " OD pairs.")
+    od = od[flow_origs_in_zones, ]
+  }
+  flow_dests_in_zones = od$geo_code2 %in% zones$msoa11cd
+  if(!all(flow_dests_in_zones)) {
+    n_rem = sum(!flow_dests_in_zones)
+    message("Not all flows origins have ID in centroids, removing ", n_rem, " OD pairs.")
+    od = od[flow_dests_in_zones, ]
+  }
+  # generate desire lines
   region_desire_lines = stplanr::od2line(flow = od, zones)
   region_desire_lines
 }
