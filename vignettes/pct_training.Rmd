@@ -86,7 +86,18 @@ remotes::install_cran(pkgs)
 ## Test code
 
 To test your computer is ready to work with PCT data in R, try running the following commands.
-It should result in the map below showing the % of short trips in West Yorkshire made by active modes.
+
+### Option 1: New Method
+
+We are testing a new method for helping people set up their computers. Type this single line into the console and follow the instructions. 
+
+```{r testcode, eval = FALSE }
+source("https://raw.githubusercontent.com/ITSLeeds/TDS/master/code-r/setup.R") 
+```
+
+### Option 2: Old Method
+
+If the new method does not work or you would like to be more hands on. Recreate the code below. It should result in the map below showing the % of short trips in West Yorkshire made by active modes.
 
 
 ```{r setup, out.width="100%", message=FALSE}
