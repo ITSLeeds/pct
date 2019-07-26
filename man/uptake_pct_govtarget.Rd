@@ -48,6 +48,6 @@ pcycle = exp ([logit (pcycle)]) / (1 + (exp([logit(pcycle)])
 }
 \examples{
 l = routes_fast_leeds
-pcycle_scenario = uptake_pct_govtarget(l$length, l$cum_hill)
+pcycle_scenario = uptake_pct_govtarget(l$length, l$av_incline)
 plot(l$length, pcycle_scenario)
 }
