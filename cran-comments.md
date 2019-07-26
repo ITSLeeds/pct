@@ -1,5 +1,7 @@
 This version includes a fix due to changes in sf.
 
+Also contains minor fix in documentation.
+
 ## Test environments
 * local Ubuntu install, R 3.6.1 
 * ubuntu 14.04 (on travis-ci)
