@@ -13,3 +13,4 @@ data-raw/*
 ^docs$
 ^centroids-msoa.csv$
 ^inst/rmd/libs$
+^inst/pct_training_solutions\.html$
