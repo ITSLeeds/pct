@@ -32,7 +32,7 @@ These solutions assume you have worked through the exercises in the [`pct_traini
 ```{r}
 library(pct)
 library(dplyr)   # in the tidyverse
-library(leaflet) # installed alongside mapvew
+library(tmap) # installed alongside mapvew
 ```
 
 ## How the PCT works and what you can use it for
@@ -230,9 +230,8 @@ piggyback::pb_download_url()
 
 ```{r, echo=TRUE}
 r_top = sf::read_sf("https://github.com/ITSLeeds/pct/releases/download/0.0.1/r_top.geojson")
-leaflet() %>% 
-  addTiles() %>% 
-  addPolylines(data = r_top)
+tm_shape(r_top) +
+  tm_lines(lwd = 5)
 ```
 
 - R2: What are the problems associated with this route from a cycling perspective? Take a look at the help page opened by entering `?route_osrm` to identify the reason why the route is not particularly useful from a cycling perspective.
@@ -258,9 +257,8 @@ route_data = sf::st_sf(wight_lines_30, geometry = wight_routes_30$geometry)
 
 ```{r, echo=TRUE, message=FALSE}
 rnet_walk = overline2(x = route_data, "foot")
-leaflet() %>% 
-  addTiles() %>% 
-  addPolylines(data = rnet_walk, weight = rnet_walk$foot / mean(rnet_walk$foot) * 5)
+tm_shape(rnet_walk) +
+  tm_lines(lwd = "foot", scale = 9)
 ```
 
 ```{r, echo=TRUE, eval=FALSE}
@@ -319,16 +317,5 @@ mapview::mapview(rnet_both, at = c(50,100,200,500,1000))
 
 ```
 
-## Ideas for further work and a 'minihack'
-
-- Create a route network reflecting where you would invest if the priority was reducing car trips of less than 5 km
-- Design interventions to replace short car trips across London (or another region of your choice) using the PCT methods/data to support your decisions
-- Identify quiet routes and design a quiet route network for city/region of your choice, e.g. Westminter
-- Import alternative origin-destination datasets and use those as the basis for propensity to cycle analysis for trip purposes other than single stage commutes, encapsulated in the commut layer in the PCT
-- Any other layers/scenarios/hacks: welcome! Comments in this repo's [issue tracker](https://github.com/ITSLeeds/pct/issues) also welcome.
-
-<!-- - Identify priority routes to improve for bike share users by using OD data from TfL's bike share (if we get time to do this) -->
-
-<!-- Demonstrate routing with cyclestreets.net -->
-
 # References
+
