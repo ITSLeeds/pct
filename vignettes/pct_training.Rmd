@@ -373,9 +373,8 @@ piggyback::pb_download_url()
 
 ```{r, echo=FALSE}
 r_top = sf::read_sf("https://github.com/ITSLeeds/pct/releases/download/0.0.1/r_top.geojson")
-leaflet() %>% 
-  addTiles() %>% 
-  addPolylines(data = r_top)
+tm_shape(r_top) +
+  tm_lines(lwd = 5)
 ```
 
 - R2: What are the problems associated with this route from a cycling perspective? Take a look at the help page opened by entering `?route_osrm` to identify the reason why the route is not particularly useful from a cycling perspective.
@@ -401,9 +400,8 @@ route_data = sf::st_sf(wight_lines_30, geometry = wight_routes_30$geometry)
 
 ```{r, echo=FALSE, message=FALSE}
 rnet_walk = overline2(x = route_data, "foot")
-leaflet() %>% 
-  addTiles() %>% 
-  addPolylines(data = rnet_walk, weight = rnet_walk$foot / mean(rnet_walk$foot) * 5)
+tm_shape(rnet_walk) +
+  tm_lines(lwd = "foot", scale = 9)
 ```
 
 ```{r, echo=FALSE, eval=FALSE}
