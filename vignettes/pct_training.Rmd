@@ -37,7 +37,7 @@ refs_df = as.data.frame(refs)
 # View(refs_df)
 # citr::insert_citation(bib_file = "vignettes/refs_training.bib")
 RefManageR::WriteBib(refs, "vignettes/refs_training.bib")
-citr::tidy_bib_file(rmd_file = "vignettes/pct_training.Rmd", messy_bibliography = "vignettes/refs_training.bib")
+# citr::tidy_bib_file(rmd_file = "vignettes/pct_training.Rmd", messy_bibliography = "vignettes/refs_training.bib")
 ```
 
 # Introduction
