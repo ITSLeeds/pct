@@ -1,5 +1,15 @@
 ---
 title: "Propensity to Cycle Tool Advanced Workshop"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{pct_training}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteDepends{tmap} 
+bibliography: refs_training.bib
+---
+
+```{r, eval=FALSE, echo=FALSE}
 header-includes:
 - \usepackage{fancyhdr}
 - \pagestyle{fancy}
@@ -7,16 +17,6 @@ header-includes:
 - \fancyfoot[CO,CE]{For source code and support see github.com/ITSLeeds and github.com/npct}
 - \fancyfoot[LE,RO]{\thepage}
 output: pdf_document
-bibliography: refs_training.bib
----
-
-```{r, eval=FALSE, echo=FALSE}
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{pct_training}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
-  %\VignetteDepends{tmap} 
 ```
 
 
@@ -197,7 +197,8 @@ Break and presentation of results
 # u = "https://raw.githubusercontent.com/npct/pct-team/master/flow-model/flow-diag2.png"
 # f = "vignettes/flow-diag2.png"
 # download.file(u, f)
-knitr::include_graphics("flow-diag2.png")
+# knitr::include_graphics("flow-diag2.png")
+knitr::include_graphics("https://raw.githubusercontent.com/npct/pct-team/master/flow-model/flow-diag2.png")
 ```
 
 - In groups of 2, identify 3 real world questions/problems that you could use the PCT to help answer/solve
