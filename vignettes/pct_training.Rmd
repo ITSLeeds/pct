@@ -5,6 +5,7 @@ vignette: >
   %\VignetteIndexEntry{pct_training}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteDepends{tmap} 
 bibliography: refs_training.bib
 ---
 
