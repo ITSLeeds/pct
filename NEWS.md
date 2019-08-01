@@ -1,8 +1,6 @@
 # pct (development version)
 
-# pct 0.2.5
-
-# pct 0.2.4
+- Updated vignettes use `tmap` instead of leaflet for easy-to-type map making code
 
 # pct 0.2.3
 
