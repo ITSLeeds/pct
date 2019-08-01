@@ -1,13 +1,24 @@
 ---
-title: "Propensity to Cycle Tool Training course"
+title: "Propensity to Cycle Tool Advanced Workshop"
+header-includes:
+- \usepackage{fancyhdr}
+- \pagestyle{fancy}
+- \fancyhead[CO,CE]{Propensity to Cycle Tool Training Course}
+- \fancyfoot[CO,CE]{For source code and support see github.com/ITSLeeds and github.com/npct}
+- \fancyfoot[LE,RO]{\thepage}
+output: pdf_document
+bibliography: refs_training.bib
+---
+
+```{r, eval=FALSE, echo=FALSE}
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{pct_training}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
   %\VignetteDepends{tmap} 
-bibliography: refs_training.bib
----
+```
+
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
@@ -22,7 +33,9 @@ knitr::opts_chunk$set(
 refs = RefManageR::ReadZotero(group = "418217", .params = list(collection = "JFR868KJ", limit = 100))
 refs2 = RefManageR::ReadBib("vignettes/refs.bib")
 refs = c(refs, refs2)
-citr::insert_citation(bib_file = "vignettes/refs_training.bib")
+refs_df = as.data.frame(refs)
+# View(refs_df)
+# citr::insert_citation(bib_file = "vignettes/refs_training.bib")
 RefManageR::WriteBib(refs, "vignettes/refs_training.bib")
 citr::tidy_bib_file(rmd_file = "vignettes/pct_training.Rmd", messy_bibliography = "vignettes/refs_training.bib")
 ```
@@ -35,38 +48,38 @@ Beginner and intermediate PCT events focus on using the PCT via the web applicat
 The focus here is on analysing cycling potential in the open source statistical programming language R, in which the majority of the PCT was built.
 It will show how the code underlying the PCT works, how the underlying data can be accessed for reproducible analysis, and how the methods can be used to generate new scenarios of cycling uptake.
 
-There will be 2 courses:
+<!-- There will be 2 courses: -->
 
-- In London on **Friday 21st June** 
-- In Leeds on **Friday 2nd August (TBC)** 
+<!-- - In London on **Friday 21st June**  -->
+<!-- - In Leeds on **Friday 2nd August (TBC)**  -->
 
-# Prerequisites
+<!-- # Prerequisites -->
 
-This is an advanced training course with specific pre-requisites.
-Please only register if you:
+<!-- This is an advanced training course with specific pre-requisites. -->
+<!-- Please only register if you: -->
 
-- Have experience analysing geographic area and route data of the type used in the PCT
-- Have experience using software for geographic data, including working knowledge of the statistical programming language R
-- Can bring a laptop that has up-to-date versions of R, RStudio and the necessary R packages installed (see next section)
+<!-- - Have experience analysing geographic area and route data of the type used in the PCT -->
+<!-- - Have experience using software for geographic data, including working knowledge of the statistical programming language R -->
+<!-- - Can bring a laptop that has up-to-date versions of R, RStudio and the necessary R packages installed (see next section) -->
 
-In addition, if you want to do routing on your computer: 
+<!-- In addition, if you want to do routing on your computer:  -->
 
-- Register for a CycleStreets.net API key from: https://www.cyclestreets.net/api/
+<!-- - Register for a CycleStreets.net API key from: https://www.cyclestreets.net/api/ -->
 
-If you are new to R this course may not be appropriate for you.
-If you are an intermediate user, it may be worth brushing-up on your R skills, e.g. by taking a free online course such as that provided by [DataCamp](https://www.datacamp.com/courses/free-introduction-to-r) or by working through [Chapter 2 onwards of the open source book *Geocomputation with R*](https://geocompr.robinlovelace.net/spatial-class.html) (see reading list below for more transport-specific resources).
+<!-- If you are new to R this course may not be appropriate for you. -->
+<!-- If you are an intermediate user, it may be worth brushing-up on your R skills, e.g. by taking a free online course such as that provided by [DataCamp](https://www.datacamp.com/courses/free-introduction-to-r) or by working through [Chapter 2 onwards of the open source book *Geocomputation with R*](https://geocompr.robinlovelace.net/spatial-class.html) (see reading list below for more transport-specific resources). -->
 
-## Prior reading
+<!-- ## Prior reading -->
 
-In addition to computer hardware (a laptop) and software (an up-to-date R set-up and experience using R) pre-requisites, you should have read, or at least have working knowledge of the contents of, the following publications, all of which are freely available online:
+<!-- In addition to computer hardware (a laptop) and software (an up-to-date R set-up and experience using R) pre-requisites, you should have read, or at least have working knowledge of the contents of, the following publications, all of which are freely available online: -->
 
-- The original paper on the Propensity to Cycle Tool [@lovelace_propensity_2017]
-- The transport chapter ([12](https://geocompr.robinlovelace.net/transport.html)) in the open source book [*Geocomputation with R*](https://geocompr.robinlovelace.net/)  [@lovelace_geocomputation_2019]
-- The vignette that describes the pct R package, which can be found here: https://itsleeds.github.io/pct/articles/pct.html
+<!-- - The original paper on the Propensity to Cycle Tool [@lovelace_propensity_2017] -->
+<!-- - The transport chapter ([12](https://geocompr.robinlovelace.net/transport.html)) in the open source book [*Geocomputation with R*](https://geocompr.robinlovelace.net/)  [@lovelace_geocomputation_2019] -->
+<!-- - The vignette that describes the pct R package, which can be found here: https://itsleeds.github.io/pct/articles/pct.html -->
 
-## R packages
+## Prerequisites
 
-**To ensure your computer is ready for the course, please test that you can run the following lines of R code on your computer, resulting in the map shown below:**
+**To ensure your computer is ready for the course, you should be able to run the following lines of R code on your computer:**
 
 ```{r, eval=FALSE}
 install.packages("remotes")
@@ -84,24 +97,19 @@ remotes::install_cran(pkgs)
 # remotes::install_github("ITSLeeds/pct")
 ```
 
-## Test code
+To test your computer is ready to work with PCT data in R, try running the following command:
 
-To test your computer is ready to work with PCT data in R, try running the following commands.
-
-### Option 1: New Method
-
-We are testing a new method for helping people set up their computers. Type this single line into the console and follow the instructions. 
+ <!-- method for helping people set up their computers. Type this single line into the console and follow the instructions.  -->
 
 ```{r testcode, eval = FALSE }
 source("https://raw.githubusercontent.com/ITSLeeds/TDS/master/code-r/setup.R") 
 ```
 
-### Option 2: Old Method
+If the new method does not work or you would like to be more hands on, run the code below.
+It should result in the map below, showing the % of short trips in Isle of Wight made by active modes.
 
-If the new method does not work or you would like to be more hands on. Recreate the code below. It should result in the map below showing the % of short trips in West Yorkshire made by active modes.
 
-
-```{r setup, out.width="100%", message=FALSE}
+```{r setup, out.width="30%", message=FALSE}
 library(pct)
 library(dplyr)   # in the tidyverse
 library(tmap) # installed alongside mapview
@@ -141,7 +149,7 @@ leaflet(data = car_dependent) %>%
 
 We can also use the data to explore entrenched car dependence, as follows:
 
-```{r, out.width="100%"}
+```{r, out.width="30%"}
 # Create car dependent desire lines
 car_dependent = lines_all %>% 
   mutate(`Percent Drive` = (car_driver) / all * 100) %>% 
@@ -149,6 +157,8 @@ car_dependent = lines_all %>%
 tm_shape(car_dependent) +
   tm_lines("Percent Drive", palette = "-RdYlBu", lwd = "all", scale = 9)
 ```
+
+\newpage
 
 # Agenda
 
@@ -183,7 +193,12 @@ Break and presentation of results
 
 - Take a look at the image below from [@lovelace_propensity_2017]. Which parts of the process are of most use for your work?
 
-![](https://raw.githubusercontent.com/npct/pct-team/master/flow-model/flow-diag2.png)
+```{r, echo=FALSE, out.width="90%"}
+# u = "https://raw.githubusercontent.com/npct/pct-team/master/flow-model/flow-diag2.png"
+# f = "vignettes/flow-diag2.png"
+# download.file(u, f)
+knitr::include_graphics("flow-diag2.png")
+```
 
 - In groups of 2, identify 3 real world questions/problems that you could use the PCT to help answer/solve
 
@@ -405,10 +420,19 @@ tm_shape(rnet_walk) +
   tm_lines(lwd = "foot", scale = 9)
 ```
 
+- RN2: Download the travel to school route network and compare the results with the route network created for RN1.
+  - Which roads have greatest overlap between the two route networks?
+  - For more information on the travel to school layer, see @goodman_scenarios_2019. What other trip purposes would you like to see in tools for cycle planning?
+
+```{r, eval=FALSE, echo=FALSE}
+rnet_school = get_pct_rnet(region = "isle-of-wight", purpose = "school")
+plot(rnet_school)
+```
+
 ```{r, echo=FALSE, eval=FALSE}
 # Demo PCT Analysis#
 # Make a commuting quiet route network for Isle of Wight
-# and combine it with the travle to school route network
+# and combine it with the travel to school route network
 
 # Step 1: Load Library
 library(tidyverse)
@@ -447,11 +471,11 @@ rnet_commute = overline2(routes_commute,
 plot(rnet_commute["bicycle"])
 
 # Combine commuting and travel to schools
-rnet_school <- rnet_school %>%
+rnet_school = rnet_school %>%
   select(dutch_slc)
-rnet_commute <- rnet_commute %>%
+rnet_commute = rnet_commute %>%
   select(dutch_slc)
-rnet_commute$bicycle <- NULL
+rnet_commute$bicycle = NULL
 
 
 rnet_both = rbind(rnet_commute, rnet_school)
