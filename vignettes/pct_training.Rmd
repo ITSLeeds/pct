@@ -246,7 +246,7 @@ z_highest_cycling = z %>%
   top_n(n = 1, wt = bicycle)
 ```
 
-- G3: Use the `plot()` command to visualise where on the Ilse of Wight this 'high cycling' zone is (hint: you will need to use the `plot()` function twice, once to plot `z$geometry`, and again with the argument `add = TURE` and a `col` argument to add the layer on top of the base layer and give it a colour).
+- G3: Use the `plot()` command to visualise where on the Ilse of Wight this 'high cycling' zone is (hint: you will need to use the `plot()` function twice, once to plot `z$geometry`, and again with the argument `add = TRUE` and a `col` argument to add the layer on top of the base layer and give it a colour).
 The result should look something like something this:
 
 ```{r, echo=FALSE}
