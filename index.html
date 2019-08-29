@@ -223,7 +223,7 @@
 <p>The <code>stplanr</code> package can be used to convert the non-geographic OD data into geographic desire lines as follows:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(sf)</a>
 <a class="sourceLine" id="cb9-2" data-line-number="2"><span class="co">#&gt; Linking to GEOS 3.5.0, GDAL 2.2.2, PROJ 4.8.0</span></a>
-<a class="sourceLine" id="cb9-3" data-line-number="3">desire_lines =<span class="st"> </span>stplanr<span class="op">::</span><span class="kw"><a href="https://ropensci.github.io/stplanr/reference/od2line.html">od2line</a></span>(<span class="dt">flow =</span> od_leeds, <span class="dt">zones =</span> zones_leeds[<span class="dv">2</span>])</a>
+<a class="sourceLine" id="cb9-3" data-line-number="3">desire_lines =<span class="st"> </span>stplanr<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/stplanr/topics/od2line">od2line</a></span>(<span class="dt">flow =</span> od_leeds, <span class="dt">zones =</span> zones_leeds[<span class="dv">2</span>])</a>
 <a class="sourceLine" id="cb9-4" data-line-number="4"><span class="co">#&gt; Registered S3 method overwritten by 'R.oo':</span></a>
 <a class="sourceLine" id="cb9-5" data-line-number="5"><span class="co">#&gt;   method        from       </span></a>
 <a class="sourceLine" id="cb9-6" data-line-number="6"><span class="co">#&gt;   throw.default R.methodsS3</span></a>
@@ -236,7 +236,7 @@
 <a class="sourceLine" id="cb9-13" data-line-number="13"><span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(desire_lines[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">12</span>)])</a></code></pre></div>
 <p><img src="reference/figures/README-desire-1.png" width="100%"></p>
 <p>We can convert these straight lines into routes with a routing service, e.g.:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">routes_fast =<span class="st"> </span>stplanr<span class="op">::</span><span class="kw"><a href="https://ropensci.github.io/stplanr/reference/line2route.html">line2route</a></span>(desire_lines, <span class="dt">route_fun =</span> stplanr<span class="op">::</span>route_cyclestreet)</a>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">routes_fast =<span class="st"> </span>stplanr<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/stplanr/topics/line2route">line2route</a></span>(desire_lines, <span class="dt">route_fun =</span> stplanr<span class="op">::</span>route_cyclestreet)</a>
 <a class="sourceLine" id="cb10-2" data-line-number="2"><span class="co">#&gt; 10 % out of 10 distances calculated</span></a>
 <a class="sourceLine" id="cb10-3" data-line-number="3"><span class="co">#&gt; 20 % out of 10 distances calculated</span></a>
 <a class="sourceLine" id="cb10-4" data-line-number="4"><span class="co">#&gt; 30 % out of 10 distances calculated</span></a>
@@ -271,7 +271,7 @@
 <a class="sourceLine" id="cb14-4" data-line-number="4"><span class="co">#&gt; [1] 0.03963324</span></a></code></pre></div>
 <p>It’s gone from 4% to 11%, a realistic increase if cycling were enabled by good infrastructure and policies.</p>
 <p>Now: where to prioritise that infrastructure and those policies?</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">rnet =<span class="st"> </span>stplanr<span class="op">::</span><span class="kw"><a href="https://ropensci.github.io/stplanr/reference/overline2.html">overline2</a></span>(routes_vital, <span class="dt">attrib =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"bicycle"</span>, <span class="st">"bicycle_govtarget"</span>))</a>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">rnet =<span class="st"> </span>stplanr<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/stplanr/topics/overline2">overline2</a></span>(routes_vital, <span class="dt">attrib =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"bicycle"</span>, <span class="st">"bicycle_govtarget"</span>))</a>
 <a class="sourceLine" id="cb15-2" data-line-number="2">lwd =<span class="st"> </span>rnet<span class="op">$</span>bicycle_govtarget <span class="op">/</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/mean">mean</a></span>(rnet<span class="op">$</span>bicycle_govtarget)</a>
 <a class="sourceLine" id="cb15-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(rnet[<span class="st">"bicycle_govtarget"</span>], <span class="dt">lwd =</span> lwd)</a></code></pre></div>
 <p><img src="reference/figures/README-rnetgove-1.png" width="100%"></p>
@@ -325,6 +325,7 @@
 <li>Layik Hama <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0003-1912-4890" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID" height="16"></a> </li>
 </ul>
 </div>
+
 
       <div class="dev-status">
 <h2>Dev status</h2>
