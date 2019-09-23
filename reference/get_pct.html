@@ -185,8 +185,10 @@ for zones, centroids, desire lines, routes (fast or quiet) and route networks, r
 #&gt; [13] "car_driver"    "car_passenger" "motorbike"     "train_tube"   
 #&gt; [17] "bus"           "taxi_other"    "govtarget_slc" "govtarget_sic"</div><div class='input'><span class='no'>vars_to_plot</span> <span class='kw'>=</span> <span class='fl'>10</span>:<span class='fl'>13</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>rf</span>[<span class='no'>vars_to_plot</span>])</div><div class='img'><img src='get_pct-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>z</span> <span class='kw'>=</span> <span class='fu'>get_pct</span>(<span class='kw'>region</span> <span class='kw'>=</span> <span class='st'>"isle-of-wight"</span>, <span class='kw'>layer</span> <span class='kw'>=</span> <span class='st'>"z"</span>)
-<span class='co'># rf = get_pct(region = "west-yorkshire", layer = "rf")</span>
-<span class='co'># z_all = get_pct(layer = "z", national = TRUE)</span></div></pre>
+<span class='co'># \donttest{</span>
+<span class='no'>rf</span> <span class='kw'>=</span> <span class='fu'>get_pct</span>(<span class='kw'>region</span> <span class='kw'>=</span> <span class='st'>"west-yorkshire"</span>, <span class='kw'>layer</span> <span class='kw'>=</span> <span class='st'>"rf"</span>)
+<span class='no'>z_all</span> <span class='kw'>=</span> <span class='fu'>get_pct</span>(<span class='kw'>layer</span> <span class='kw'>=</span> <span class='st'>"z"</span>, <span class='kw'>national</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
