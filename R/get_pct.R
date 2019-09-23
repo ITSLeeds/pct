@@ -19,8 +19,10 @@
 #' vars_to_plot = 10:13
 #' plot(rf[vars_to_plot])
 #' z = get_pct(region = "isle-of-wight", layer = "z")
-#' # rf = get_pct(region = "west-yorkshire", layer = "rf")
-#' # z_all = get_pct(layer = "z", national = TRUE)
+#' \donttest{
+#' rf = get_pct(region = "west-yorkshire", layer = "rf")
+#' z_all = get_pct(layer = "z", national = TRUE)
+#' }
 get_pct = function(
   base_url = "https://github.com/npct/pct-outputs-regional-R/raw/master",
   purpose = "commute",
@@ -49,6 +51,9 @@ get_pct = function(
     if(geography == "msoa" && layer == "rnet") {
       message("No MSOA route network data available, downloading LSOA data")
       geography = "lsoa"
+    }
+    if(layer == "rnet") {
+      layer = "rnet_full"
     }
     u_folder = paste(base_url, purpose, geography, region, sep = "/")
     f = paste0(layer, extension)
@@ -176,16 +181,15 @@ get_pct_routes_quiet = function(
 #' @inheritParams get_pct
 #' @export
 #' @examples
-#' z =  get_pct_rnet("isle-of-wight")
-#' plot(z)
+#' rnet =  get_pct_rnet("isle-of-wight")
+#' plot(rnet)
 get_pct_rnet = function(
   region = NULL,
   purpose = "commute",
   geography = "msoa",
   extension = ".Rds"
 ) {
-  get_pct(base_url =
-            "https://github.com/npct/pct-outputs-regional-R/raw/master",
+  get_pct(base_url = "https://github.com/npct/pct-outputs-regional-R/raw/master",
           purpose, geography, region,
           layer = "rnet",
           extension = ".Rds")
