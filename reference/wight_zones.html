@@ -18,13 +18,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -51,6 +53,7 @@ pct package vignette." />
 <![endif]-->
 
 
+
   </head>
 
   <body>
@@ -75,7 +78,7 @@ pct package vignette." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -107,7 +110,7 @@ pct package vignette." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/ITSLeeds/pct">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -118,6 +121,7 @@ pct package vignette." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -137,7 +141,7 @@ pct package vignette." />
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/names'>names</a></span>(<span class='no'>wight_lines_30</span>)</div><div class='output co'>#&gt;  [1] "id"                     "geo_code1"              "geo_code2"             
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>wight_lines_30</span>)</div><div class='output co'>#&gt;  [1] "id"                     "geo_code1"              "geo_code2"             
 #&gt;  [4] "geo_name1"              "geo_name2"              "lad11cd1"              
 #&gt;  [7] "lad11cd2"               "lad_name1"              "lad_name2"             
 #&gt; [10] "all"                    "bicycle"                "foot"                  
@@ -162,7 +166,7 @@ pct package vignette." />
 #&gt; [67] "ebike_slco2"            "ebike_sico2"            "e_dist_km"             
 #&gt; [70] "rf_dist_km"             "rq_dist_km"             "dist_rf_e"             
 #&gt; [73] "dist_rq_rf"             "rf_avslope_perc"        "rq_avslope_perc"       
-#&gt; [76] "rf_time_min"            "rq_time_min"            "geometry"              </div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>wight_lines_30</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: plotting the first 9 out of 77 attributes; use max.plot = 77 to plot all</span></div><div class='img'><img src='wight_zones-1.png' alt='' width='700' height='433' /></div></pre>
+#&gt; [76] "rf_time_min"            "rq_time_min"            "geometry"              </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>wight_lines_30</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: plotting the first 9 out of 77 attributes; use max.plot = 77 to plot all</span></div><div class='img'><img src='wight_zones-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -173,19 +177,23 @@ pct package vignette." />
   </div>
 </div>
 
+
       <footer>
       <div class="copyright">
   <p>Developed by Robin Lovelace, Layik Hama.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 
