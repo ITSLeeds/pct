@@ -21,6 +21,6 @@ See \code{View(pct_regions_lookup)} for a full list of possible region names.}
 Wrapper around \code{[get_pct()]} that gets centroid data from the PCT.
 }
 \examples{
-z =  get_pct_rnet("isle-of-wight")
-plot(z)
+rnet =  get_pct_rnet("isle-of-wight")
+plot(rnet)
 }
