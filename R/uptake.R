@@ -49,7 +49,7 @@ uptake_pct_govtarget = function(
     stop("distance and gradient need to be numbers.")
   }
   # is it in m
-  if(mean(distance) > 1000) {
+  if(mean(distance, na.rm = TRUE) > 1000) {
     message("Distance assumed in m, switching to km")
     distance = distance / 1000
   }
@@ -100,7 +100,7 @@ uptake_pct_godutch = function(
     stop("distance and gradient need to be numbers.")
   }
   # is it in m
-  if(mean(distance) > 1000) {
+  if(mean(distance, na.rm = TRUE) > 1000) {
     message("Distance assumed in m, switching to km")
     distance = distance / 1000
   }
