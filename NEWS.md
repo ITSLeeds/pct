@@ -1,3 +1,8 @@
+# pct 0.2.7
+
+- Improved documentation for godutch uptake function
+- Uptake function now work when there are NAs in the distances (previously they generated errors)
+
 # pct 0.2.5
 
 - Fixed issue due to government data provider endpoint being down: https://github.com/ITSLeeds/pct/issues/51
