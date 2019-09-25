@@ -80,6 +80,10 @@ uptake_pct_govtarget = function(
 #'
 #' @inheritParams uptake_pct_govtarget
 #' @export
+#' @examples
+#' l = routes_fast_leeds
+#' pcycle_scenario = uptake_pct_godutch(l$length, l$av_incline)
+#' plot(l$length, pcycle_scenario)
 uptake_pct_godutch = function(
   distance,
   gradient,
