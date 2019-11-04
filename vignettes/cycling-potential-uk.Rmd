@@ -97,3 +97,14 @@ tm_shape(zones_mode_share) +
   tm_fill(scenarios_of_interest, palette = "RdYlBu") +
   tm_facets(nrow = 1, free.scales = FALSE)
 ```
+
+The summary mode shares can be estimated as follows:
+
+```{r}
+zones_region %>% 
+  st_drop_geometry() %>% 
+  group_by(lad_name) %>% 
+  select(c(scenarios_of_interest, "all")) %>% 
+  summarise_all(.funs = list(~ sum(.)/sum(all))) %>% 
+  knitr::kable()
+```
