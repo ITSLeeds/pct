@@ -1,0 +1,99 @@
+---
+title: "Cycling potential in UK cities"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Cycling potential in UK cities}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+What modal shift to cycling do you think we could achieve in UK cities in an ideal scenario?
+Answers to that question are vital to support high level ambition for active transport and wider sustainability policies in settlements worldwide.
+In UK cities such as Leeds (where the motivation for this article originated, via [Twitter](https://twitter.com/PaulChatterton9/status/1190925153322098690)) there is already a wealth of freely available data on cycling potential, based on the Propensity to Cycle Tool ([PCT](http://www.pct.bike/)) project, of which this package is a part.
+This article will briefly explain how to get cycling potential data for any city in England and Wales, based on a case study of Leeds.
+
+# Getting the region of interest
+
+The first stage in many projects involving geographic data is to define the region of interest.
+In our case we will use the boundary of the Leeds local authority as the basis of analysis.
+The PCT is based on 'PCT regions' that we can visualise as follows:
+
+
+```{r setup, message=FALSE, warning=FALSE}
+library(pct)
+library(sf)
+library(dplyr)
+library(tmap)
+tm_shape(pct_regions) +
+  tm_polygons() +
+  tm_text("region_name", size = 0.6)
+```
+
+We are interested in Leeds in the `west-yorkshire` area.
+Using the `pct` package we can get zone data from the PCT as follows (note: this would work by setting `region_of_interest` to any of the regions shown in the map above:
+
+```{r}
+region_of_interest = "west-yorkshire"
+zones_region = get_pct_zones(region = region_of_interest)
+# zones_region = get_pct_zones(region = region_of_interest, geography = "lsoa") # for smaller zones
+names(zones_region)
+tm_shape(zones_region) +
+  tm_fill("bicycle", palette = "RdYlBu") +
+  tm_shape(pct_regions) +
+  tm_borders() +
+  tm_text("region_name")
+```
+
+This shows the number of people who say they cycled to work in the 2011 Census.
+This may have changed slightly as cycling becomes more popular in some places, but is a good proxy for current cycling levels.
+But there are two big problems with this: the map is of West Yorkshire not Leeds, and it's showing current cycling rates, not future potential.
+
+# Getting cycling potential accross local authorities
+
+We can find out what local authorities there are in the zones as follows:
+
+```{r}
+unique(zones_region$lad_name)
+```
+
+We are intersted in the zones in Leeds, which we can get as follows:
+
+```{r}
+zones = zones_region %>% 
+  filter(lad_name == "Leeds")
+tm_shape(zones) +
+  tm_fill("bicycle", palette = "RdYlBu") 
+```
+
+Great, this represents the current level of cycling across the region of interest.
+What about cycling potential? Based on the modelling work in the PCT, we have pre-calculated this for a number of scenarios.
+Let's take a look at cycling to work under the Government Target (near market), Go Dutch and Ebikes scenarios:
+
+```{r}
+scenarios_of_interest = c("govnearmkt_slc", "dutch_slc", "ebike_slc")
+tm_shape(zones) +
+  tm_fill(scenarios_of_interest, palette = "RdYlBu", n = 9) +
+  tm_facets(nrow = 1, free.scales = FALSE)
+```
+
+That's great, but it doesn't answer the question of mode share.
+
+# Cycling mode share
+
+We can calculate this by dividing the number of people cycling to work by the total:
+
+```{r}
+zones_mode_share = zones %>% 
+  select(scenarios_of_interest) %>% 
+  mutate_at(scenarios_of_interest, .funs = list(~ ./zones$all))
+tm_shape(zones_mode_share) +
+  tm_fill(scenarios_of_interest, palette = "RdYlBu") +
+  tm_facets(nrow = 1, free.scales = FALSE)
+```

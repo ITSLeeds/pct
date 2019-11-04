@@ -67,7 +67,7 @@ It will show how the code underlying the PCT works, how the underlying data can 
 <!-- - Register for a CycleStreets.net API key from: https://www.cyclestreets.net/api/ -->
 
 <!-- If you are new to R this course may not be appropriate for you. -->
-<!-- If you are an intermediate user, it may be worth brushing-up on your R skills, e.g. by taking a free online course such as that provided by [DataCamp](https://www.datacamp.com/courses/free-introduction-to-r) or by working through [Chapter 2 onwards of the open source book *Geocomputation with R*](https://geocompr.robinlovelace.net/spatial-class.html) (see reading list below for more transport-specific resources). -->
+If you are an intermediate user, it may be worth brushing-up on your R skills, e.g. by taking a free online course such as that provided by [DataCamp](https://www.datacamp.com/courses/free-introduction-to-r) or by working through [Chapter 2 onwards of the open source book *Geocomputation with R*](https://geocompr.robinlovelace.net/spatial-class.html) (see reading list below for more transport-specific resources).
 
 <!-- ## Prior reading -->
 
