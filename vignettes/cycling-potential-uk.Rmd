@@ -105,6 +105,14 @@ zones_region %>%
   st_drop_geometry() %>% 
   group_by(lad_name) %>% 
   select(c(scenarios_of_interest, "all")) %>% 
-  summarise_all(.funs = list(~ sum(.)/sum(all))) %>% 
+  summarise_all(.funs = ~ round(sum(.)/sum(all)* 100)) %>% 
   knitr::kable()
 ```
+
+# Considerations
+
+The results above show that, in line with James Tate's assessment of cycling potential, around 25% of Leeds could cycle to work if we 'Go Dutch' and get electric bikes for the datasets under consideration.
+However, there are some wider considerations that are not captured in the numbers:
+
+- The PCT commute layer (don't forget the travel to schools layer!) only considers single stage journeys - if we were to include cycling to the station or bus stop potential it would be greater.
+- Work patterns are changing, and with new digital work practices more people could work from home or at least near to home.
