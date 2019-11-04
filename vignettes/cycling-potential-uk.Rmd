@@ -74,13 +74,14 @@ tm_shape(zones) +
 
 Great, this represents the current level of cycling across the region of interest.
 What about cycling potential? Based on the modelling work in the PCT, we have pre-calculated this for a number of scenarios.
-Let's take a look at cycling to work under the Government Target (near market), Go Dutch and Ebikes scenarios:
+Let's take a look at cycling to work under the Government Target (near market), Go Dutch and Ebikes scenarios for cycling to work:
 
 ```{r}
 scenarios_of_interest = c("govnearmkt_slc", "dutch_slc", "ebike_slc")
 tm_shape(zones) +
-  tm_fill(scenarios_of_interest, palette = "RdYlBu", n = 9, title = "% cycling") +
-  tm_facets(nrow = 1, free.scales = FALSE)
+  tm_fill(scenarios_of_interest, palette = "RdYlBu", n = 9, title = "N. cycling") +
+  tm_facets(nrow = 1, free.scales = FALSE) +
+  tm_layout(panel.labels = scenarios_of_interest)
 ```
 
 That's great, but it doesn't answer the question of mode share.
@@ -95,7 +96,8 @@ zones_mode_share = zones %>%
   mutate_at(scenarios_of_interest, .funs = list(~ ./zones$all * 100))
 tm_shape(zones_mode_share) +
   tm_fill(scenarios_of_interest, palette = "RdYlBu", title = "% cycling") +
-  tm_facets(nrow = 1, free.scales = FALSE)
+  tm_facets(nrow = 1, free.scales = FALSE) +
+  tm_layout(panel.labels = scenarios_of_interest)
 ```
 
 The summary mode shares can be estimated as follows, with results showing the % cycling currently (according to the 2011 census) and under scenarios of change:
@@ -109,6 +111,10 @@ zones_region %>%
   select(-all, `Local Authority / % Cycling in scenario:` = lad_name) %>% 
   knitr::kable()
 ```
+
+<!-- # Cycling routes -->
+
+<!-- We can get cycling routes for the area of interest as follows... -->
 
 # Considerations
 
