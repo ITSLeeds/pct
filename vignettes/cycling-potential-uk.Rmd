@@ -79,7 +79,7 @@ Let's take a look at cycling to work under the Government Target (near market), 
 ```{r}
 scenarios_of_interest = c("govnearmkt_slc", "dutch_slc", "ebike_slc")
 tm_shape(zones) +
-  tm_fill(scenarios_of_interest, palette = "RdYlBu", n = 9) +
+  tm_fill(scenarios_of_interest, palette = "RdYlBu", n = 9, title = "% cycling") +
   tm_facets(nrow = 1, free.scales = FALSE)
 ```
 
@@ -92,27 +92,40 @@ We can calculate this by dividing the number of people cycling to work by the to
 ```{r}
 zones_mode_share = zones %>% 
   select(scenarios_of_interest) %>% 
-  mutate_at(scenarios_of_interest, .funs = list(~ ./zones$all))
+  mutate_at(scenarios_of_interest, .funs = list(~ ./zones$all * 100))
 tm_shape(zones_mode_share) +
-  tm_fill(scenarios_of_interest, palette = "RdYlBu") +
+  tm_fill(scenarios_of_interest, palette = "RdYlBu", title = "% cycling") +
   tm_facets(nrow = 1, free.scales = FALSE)
 ```
 
-The summary mode shares can be estimated as follows:
+The summary mode shares can be estimated as follows, with results showing the % cycling currently (according to the 2011 census) and under scenarios of change:
 
 ```{r}
 zones_region %>% 
   st_drop_geometry() %>% 
   group_by(lad_name) %>% 
-  select(c(scenarios_of_interest, "all")) %>% 
+  select(`2011 census` = bicycle, c(scenarios_of_interest, "all")) %>% 
   summarise_all(.funs = ~ round(sum(.)/sum(all)* 100)) %>% 
+  select(-all, `Local Authority / % Cycling in scenario:` = lad_name) %>% 
   knitr::kable()
 ```
 
 # Considerations
 
-The results above show that, in line with James Tate's assessment of cycling potential, around 25% of Leeds could cycle to work if we 'Go Dutch' and get electric bikes for the datasets under consideration.
-However, there are some wider considerations that are not captured in the numbers:
+The results above show that, in line with James Tate's assessment of cycling potential, around 16% of Leeds could cycle to work if we 'Go Dutch' (25% if we Go Dutch and see high uptake of electric bikes) for the single mode journey to work data under consideration.
+However, there are some wider considerations that are not captured in the numbers (see the [PCT paper](https://www.jtlu.org/index.php/jtlu/article/view/862) for details and other considerations):
 
-- The PCT commute layer (don't forget the travel to schools layer!) only considers single stage journeys - if we were to include cycling to the station or bus stop potential it would be greater.
-- Work patterns are changing, and with new digital work practices more people could work from home or at least near to home.
+- The PCT commute layer (don't forget the travel to schools layer!) only considers single stage journeys - if we were to include cycling to the station or bus stop potential it would be greater than 16%, perhaps more like 30% if potential cycle/rail and cycle/bus trips are accounted for.
+- Work patterns are changing, and with new digital work practices or a shift towards local economies, more people could work from home or at least near to home.
+- The scenarios are snapshots of how cycling levels could change based current trip patterns, not predictions of what will happen. There are many other scenarios that could be developed, including intermediate scenarios between Go Dutch and the Government Target, and more ambitious scenarios, e.g. 'Go Utrecht', where cycling has reached around 60% of trips ([source](https://www.citylab.com/transportation/2019/07/bicycle-friendly-city-utrecht-streetfilms-bike-lanes/593320/)).
+
+Other considerations that are often mentioned are hills and people who are unable to cycle.
+In fact the PCT accounts for hills and, as the example of Bristol shows, hilly cities can see rapid increases in cycling.
+Regarding ability to cycle, it is a more inclusive mode than driving, with 8 to 80 year-olds being able to cycle, and many more people being able to afford a bike than a car (which, thanks to the expense of buying, running and insuring the vehicle, is largely the mode of choice of the wealthy).
+The PCT does not account for the fact that some trips to work are also 'caregiving' trips, but with electric cargo bikes and [multi-person cycles](https://en.wikipedia.org/wiki/Cycle_rickshaw) cycling-focused cities can, to a greater extent than car-dominated transport systems, deliver for all. 
+
+## Challenge
+
+To anyone interested in cycling in your city: try re-running the reproducible code above for your PCT region and local authority.
+Let us know on [social media](https://twitter.com/robinlovelace/status/1191378869728763904) and [GitHub](https://github.com/ITSLeeds/pct/issues) how you get on.
+Any comments/contributions to this analysis: [welcome.](https://github.com/ITSLeeds/pct/edit/master/vignettes/cycling-potential-uk.Rmd)
