@@ -196,6 +196,60 @@
 <a class="sourceLine" id="cb6-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/tmap/man/tm_polygons.html">tm_fill</a></span>(scenarios_of_interest, <span class="dt">palette =</span> <span class="st">"RdYlBu"</span>) <span class="op">+</span></a>
 <a class="sourceLine" id="cb6-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/tmap/man/tm_facets.html">tm_facets</a></span>(<span class="dt">nrow =</span> <span class="dv">1</span>, <span class="dt">free.scales =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <p><img src="cycling-potential-uk_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
+<p>The summary mode shares can be estimated as follows:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">zones_region <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/sf/man/st_geometry.html">st_drop_geometry</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(lad_name) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(scenarios_of_interest, <span class="st">"all"</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/summarise_all.html">summarise_all</a></span>(<span class="dt">.funs =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="op">~</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(.)<span class="op">/</span><span class="kw"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(all))) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="st">  </span>knitr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>()</a>
+<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="co">#&gt; Adding missing grouping variables: `lad_name`</span></a></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="left">lad_name</th>
+<th align="right">govnearmkt_slc</th>
+<th align="right">dutch_slc</th>
+<th align="right">ebike_slc</th>
+<th align="right">all</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Bradford</td>
+<td align="right">0.0216523</td>
+<td align="right">0.1284822</td>
+<td align="right">0.2180713</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Calderdale</td>
+<td align="right">0.0197420</td>
+<td align="right">0.0905104</td>
+<td align="right">0.1789076</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Kirklees</td>
+<td align="right">0.0212637</td>
+<td align="right">0.1098493</td>
+<td align="right">0.1966755</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Leeds</td>
+<td align="right">0.0365221</td>
+<td align="right">0.1604705</td>
+<td align="right">0.2449530</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Wakefield</td>
+<td align="right">0.0367428</td>
+<td align="right">0.1595997</td>
+<td align="right">0.2328130</td>
+<td align="right">1</td>
+</tr>
+</tbody>
+</table>
 </div>
   </div>
 
