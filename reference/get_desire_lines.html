@@ -97,6 +97,9 @@ can get the top n." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/cycling-potential-uk.html">Cycling potential in UK cities</a>
+    </li>
+    <li>
       <a href="../articles/pct-international.html">International application of the PCT methods</a>
     </li>
     <li>
@@ -196,9 +199,7 @@ within the <code>region</code>.</p></td>
 #&gt; <span class='message'>  BNGNORTH = col_double(),</span>
 #&gt; <span class='message'>  LONGITUDE = col_double(),</span>
 #&gt; <span class='message'>  LATITUDE = col_double()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='message'>Not all flows origins have ID in centroids, removing 2527 OD pairs.</span></div><div class='output co'>#&gt; <span class='message'>Registered S3 method overwritten by 'R.oo':</span>
-#&gt; <span class='message'>  method        from       </span>
-#&gt; <span class='message'>  throw.default R.methodsS3</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>desire_lines</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: plotting the first 10 out of 18 attributes; use max.plot = 18 to plot all</span></div><div class='img'><img src='get_desire_lines-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>intra_zonal</span> <span class='kw'>=</span> <span class='no'>desire_lines</span>$<span class='no'>geo_code1</span> <span class='kw'>==</span> <span class='no'>desire_lines</span>$<span class='no'>geo_code2</span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='message'>Not all flows origins have ID in centroids, removing 2527 OD pairs.</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>desire_lines</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: plotting the first 10 out of 18 attributes; use max.plot = 18 to plot all</span></div><div class='img'><img src='get_desire_lines-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>intra_zonal</span> <span class='kw'>=</span> <span class='no'>desire_lines</span>$<span class='no'>geo_code1</span> <span class='kw'>==</span> <span class='no'>desire_lines</span>$<span class='no'>geo_code2</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>desire_lines</span>[<span class='no'>intra_zonal</span>, ])</div><div class='output co'>#&gt; <span class='warning'>Warning: plotting the first 10 out of 18 attributes; use max.plot = 18 to plot all</span></div><div class='img'><img src='get_desire_lines-2.png' alt='' width='700' height='433' /></div><div class='input'># }
 </div></pre>
   </div>

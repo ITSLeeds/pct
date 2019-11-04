@@ -2,6 +2,7 @@ pandoc: '2.2'
 pkgdown: 1.4.1
 pkgdown_sha: ~
 articles:
+  cycling-potential-uk: cycling-potential-uk.html
   pct-international: pct-international.html
   pct: pct.html
   pct_training: pct_training.html
