@@ -116,9 +116,39 @@ zones_region %>%
 
 <!-- We can get cycling routes for the area of interest as follows... -->
 
+# Cycling potential nationwide
+
+To generalise the analysis outlined above, we can download national data from the PCT project as follows:
+
+```{r national-dl}
+zones_national = read_sf("https://github.com/npct/pct-outputs-national/raw/master/commute/msoa/z_all.geojson")
+```
+
+A summary of cycling potential nationwide can then be calculated as follows:
+
+```{r}
+national_commute_totals = zones_national %>% 
+  st_drop_geometry() %>% 
+  select(all, census_2011 = bicycle, govtarget_slc, dutch_slc) %>% 
+  summarise_all(.funs = ~sum(.))
+national_commute_percentages = national_commute_totals / national_commute_totals$all * 100
+```
+
+```{r, echo=FALSE}
+knitr::kable(bind_rows(national_commute_totals, national_commute_percentages), digits = 1,
+             caption = "Total counts and percentages of cycle commuters under different scenarios")
+```
+
+We can calculate the mode share of cycling under these same scenarios for any area (e.g. the boundary of Greater London) or for a list of named local authorities, as follows:
+
+```{r}
+# ...
+```
+
 # Considerations
 
-The results above show that, in line with James Tate's assessment of cycling potential, around 16% of Leeds could cycle to work if we 'Go Dutch' (25% if we Go Dutch and see high uptake of electric bikes) for the single mode journey to work data under consideration.
+The results above show that there is huge potential for cycling grow across England and Wales.
+Around 16% of commuters in Leeds could cycle to work if we 'Go Dutch' (25% if we Go Dutch and see high uptake of electric bikes) for the single mode journey to work data under consideration.
 However, there are some wider considerations that are not captured in the numbers (see the [PCT paper](https://www.jtlu.org/index.php/jtlu/article/view/862) for details and other considerations):
 
 - The PCT commute layer (don't forget the travel to schools layer!) only considers single stage journeys - if we were to include cycling to the station or bus stop potential it would be greater than 16%, perhaps more like 30% if potential cycle/rail and cycle/bus trips are accounted for.
