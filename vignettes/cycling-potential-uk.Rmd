@@ -142,8 +142,62 @@ knitr::kable(bind_rows(national_commute_totals, national_commute_percentages), d
 We can calculate the mode share of cycling under these same scenarios for any area (e.g. the boundary of Greater London) or for a list of named local authorities, as follows:
 
 ```{r}
-# ...
+r = read.csv(stringsAsFactors = FALSE, text = "area
+Greater London
+Greater Manchester
+Birmingham
+Leeds
+Glasgow
+Liverpool
+Newcastle
+Bristol
+Cardiff
+Belfast
+Southampton
+Sheffield
+")
+matching_las = pct_regions_lookup$lad16nm[pct_regions_lookup$lad16nm %in% r$area]
+matching_regions = c("london", "greater-manchester")
+pct_lookup = pct_regions_lookup %>%
+  rename(lad_name = lad16nm)
+zones_national = inner_join(zones_national, pct_lookup)
+zones_national = zones_national %>% 
+  mutate(area = case_when(
+    region_name == "london" ~ "Greater London",
+    region_name == "greater-manchester" ~ "Greater Manchester",
+    lad_name %in% matching_las ~ lad_name,
+    TRUE ~ "Other"
+    ))
+table(zones_national$area)
+zones_aggregated = zones_national %>% 
+  sf::st_drop_geometry() %>% 
+  group_by(area) %>% 
+  summarise(
+    Commuters = sum(all, na.rm = TRUE),
+    Bicycle_census = sum(bicycle),
+    Bicycle_govtarget = sum(govtarget_slc),
+    Bicycle_godutch = sum(dutch_slc)
+    )
+
+# plot(zones_aggregated["Commuters"], border = NA)
+zones_aggregated %>% 
+  inner_join(r, .) %>% 
+  knitr::kable(digits = 0)
 ```
+
+Next we can calculate the mode splits as follows:
+
+```{r}
+zones_aggregated_percents = zones_aggregated %>% 
+  mutate_at(vars(-Commuters, -area), funs(./Commuters * 100))
+names(zones_aggregated_percents)[3:5] = paste0(names(zones_aggregated_percents)[3:5], "_percent")
+zones_aggregated_percents %>% 
+  inner_join(r, .) %>% 
+  knitr::kable(digits = 1)
+```
+
+
+
 
 # Considerations
 
