@@ -62,7 +62,9 @@ get_pct = function(
   destfile = file.path(tempdir(), f)
   utils::download.file(url = u_file,
                        destfile = destfile, mode = "wb")
-  sf::st_as_sf(readRDS(destfile))
+  sf_object = sf::st_as_sf(readRDS(destfile))
+  suppressWarnings({sf::st_crs(sf_object) = 4326})
+  sf_object
 }
 #' Get zone results from the PCT
 #'
