@@ -1,3 +1,7 @@
+# pct 0.3.0
+
+- Always returns objects with EPSG code 4326, see https://github.com/ropensci/stats19/issues/135
+
 # pct 0.2.7
 
 - Improved documentation for godutch uptake function
