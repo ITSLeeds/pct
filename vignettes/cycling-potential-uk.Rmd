@@ -1,0 +1,221 @@
+---
+title: "Cycling potential in UK cities"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Cycling potential in UK cities}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+What modal shift to cycling do you think we could achieve in UK cities in an ideal scenario?
+Answers to that question are vital to support high level ambition for active transport and wider sustainability policies in settlements worldwide.
+In UK cities such as Leeds (where the motivation for this article originated, via [Twitter](https://twitter.com/PaulChatterton9/status/1190925153322098690)) there is already a wealth of freely available data on cycling potential, based on the Propensity to Cycle Tool ([PCT](http://www.pct.bike/)) project, of which this package is a part.
+This article will briefly explain how to get cycling potential data for any city in England and Wales, based on a case study of Leeds.
+
+# Getting the region of interest
+
+The first stage in many projects involving geographic data is to define the region of interest.
+In our case we will use the boundary of the Leeds local authority as the basis of analysis.
+The PCT is based on 'PCT regions' that we can visualise as follows:
+
+
+```{r setup, message=FALSE, warning=FALSE}
+library(pct)
+library(sf)
+library(dplyr)
+library(tmap)
+tm_shape(pct_regions) +
+  tm_polygons() +
+  tm_text("region_name", size = 0.6)
+```
+
+We are interested in Leeds in the `west-yorkshire` area.
+Using the `pct` package we can get zone data from the PCT as follows (note: this would work by setting `region_of_interest` to any of the regions shown in the map above:
+
+```{r}
+region_of_interest = "west-yorkshire"
+zones_region = get_pct_zones(region = region_of_interest)
+# zones_region = get_pct_zones(region = region_of_interest, geography = "lsoa") # for smaller zones
+names(zones_region)
+tm_shape(zones_region) +
+  tm_fill("bicycle", palette = "RdYlBu") +
+  tm_shape(pct_regions) +
+  tm_borders() +
+  tm_text("region_name")
+```
+
+This shows the number of people who say they cycled to work in the 2011 Census.
+This may have changed slightly as cycling becomes more popular in some places, but is a good proxy for current cycling levels.
+But there are two big problems with this: the map is of West Yorkshire not Leeds, and it's showing current cycling rates, not future potential.
+
+# Getting cycling potential accross local authorities
+
+We can find out what local authorities there are in the zones as follows:
+
+```{r}
+unique(zones_region$lad_name)
+```
+
+We are intersted in the zones in Leeds, which we can get as follows:
+
+```{r}
+zones = zones_region %>% 
+  filter(lad_name == "Leeds")
+tm_shape(zones) +
+  tm_fill("bicycle", palette = "RdYlBu") 
+```
+
+Great, this represents the current level of cycling across the region of interest.
+What about cycling potential? Based on the modelling work in the PCT, we have pre-calculated this for a number of scenarios.
+Let's take a look at cycling to work under the Government Target (near market), Go Dutch and Ebikes scenarios for cycling to work:
+
+```{r}
+scenarios_of_interest = c("govnearmkt_slc", "dutch_slc", "ebike_slc")
+tm_shape(zones) +
+  tm_fill(scenarios_of_interest, palette = "RdYlBu", n = 9, title = "N. cycling") +
+  tm_facets(nrow = 1, free.scales = FALSE) +
+  tm_layout(panel.labels = scenarios_of_interest)
+```
+
+That's great, but it doesn't answer the question of mode share.
+
+# Cycling mode share
+
+We can calculate this by dividing the number of people cycling to work by the total:
+
+```{r}
+zones_mode_share = zones %>% 
+  select(scenarios_of_interest) %>% 
+  mutate_at(scenarios_of_interest, .funs = list(~ ./zones$all * 100))
+tm_shape(zones_mode_share) +
+  tm_fill(scenarios_of_interest, palette = "RdYlBu", title = "% cycling") +
+  tm_facets(nrow = 1, free.scales = FALSE) +
+  tm_layout(panel.labels = scenarios_of_interest)
+```
+
+The summary mode shares can be estimated as follows, with results showing the % cycling currently (according to the 2011 census) and under scenarios of change:
+
+```{r}
+zones_region %>% 
+  st_drop_geometry() %>% 
+  group_by(lad_name) %>% 
+  select(`2011 census` = bicycle, c(scenarios_of_interest, "all")) %>% 
+  summarise_all(.funs = ~ round(sum(.)/sum(all)* 100)) %>% 
+  select(-all, `Local Authority / % Cycling in scenario:` = lad_name) %>% 
+  knitr::kable()
+```
+
+<!-- # Cycling routes -->
+
+<!-- We can get cycling routes for the area of interest as follows... -->
+
+# Cycling potential nationwide
+
+To generalise the analysis outlined above, we can download national data from the PCT project as follows:
+
+```{r national-dl}
+zones_national = read_sf("https://github.com/npct/pct-outputs-national/raw/master/commute/msoa/z_all.geojson")
+```
+
+A summary of cycling potential nationwide can then be calculated as follows:
+
+```{r}
+national_commute_totals = zones_national %>% 
+  st_drop_geometry() %>% 
+  select(all, census_2011 = bicycle, govtarget_slc, dutch_slc) %>% 
+  summarise_all(.funs = ~sum(.))
+national_commute_percentages = national_commute_totals / national_commute_totals$all * 100
+```
+
+```{r, echo=FALSE}
+knitr::kable(bind_rows(national_commute_totals, national_commute_percentages), digits = 1,
+             caption = "Total counts and percentages of cycle commuters under different scenarios")
+```
+
+We can calculate the mode share of cycling under these same scenarios for any area (e.g. the boundary of Greater London) or for a list of named local authorities, as follows:
+
+```{r}
+r = read.csv(stringsAsFactors = FALSE, text = "area
+Greater London
+Greater Manchester
+Birmingham
+Leeds
+Glasgow
+Liverpool
+Newcastle
+Bristol
+Cardiff
+Belfast
+Southampton
+Sheffield
+")
+matching_las = pct_regions_lookup$lad16nm[pct_regions_lookup$lad16nm %in% r$area]
+matching_regions = c("london", "greater-manchester")
+pct_lookup = pct_regions_lookup %>%
+  rename(lad_name = lad16nm)
+zones_national = inner_join(zones_national, pct_lookup)
+zones_national = zones_national %>% 
+  mutate(area = case_when(
+    region_name == "london" ~ "Greater London",
+    region_name == "greater-manchester" ~ "Greater Manchester",
+    lad_name %in% matching_las ~ lad_name,
+    TRUE ~ "Other"
+    ))
+table(zones_national$area)
+zones_aggregated = zones_national %>% 
+  sf::st_drop_geometry() %>% 
+  group_by(area) %>% 
+  summarise(
+    Commuters = sum(all, na.rm = TRUE),
+    Bicycle_census = sum(bicycle),
+    Bicycle_govtarget = sum(govtarget_slc),
+    Bicycle_godutch = sum(dutch_slc)
+    )
+
+# plot(zones_aggregated["Commuters"], border = NA)
+zones_aggregated %>% 
+  inner_join(r, .) %>% 
+  knitr::kable(digits = 0)
+```
+
+Next we can calculate the mode splits as follows:
+
+```{r}
+zones_aggregated_percents = zones_aggregated %>% 
+  mutate_at(vars(-Commuters, -area), funs(./Commuters * 100))
+names(zones_aggregated_percents)[3:5] = paste0(names(zones_aggregated_percents)[3:5], "_percent")
+zones_aggregated_percents %>% 
+  inner_join(r, .) %>% 
+  knitr::kable(digits = 1)
+```
+
+
+
+
+# Considerations
+
+The results above show that there is huge potential for cycling grow across England and Wales.
+Around 16% of commuters in Leeds could cycle to work if we 'Go Dutch' (25% if we Go Dutch and see high uptake of electric bikes) for the single mode journey to work data under consideration.
+However, there are some wider considerations that are not captured in the numbers (see the [PCT paper](https://www.jtlu.org/index.php/jtlu/article/view/862) for details and other considerations):
+
+- The PCT commute layer (don't forget the travel to schools layer!) only considers single stage journeys - if we were to include cycling to the station or bus stop potential it would be greater than 16%, perhaps more like 30% if potential cycle/rail and cycle/bus trips are accounted for.
+- Work patterns are changing, and with new digital work practices or a shift towards local economies, more people could work from home or at least near to home.
+- The scenarios are snapshots of how cycling levels could change based current trip patterns, not predictions of what will happen. There are many other scenarios that could be developed, including intermediate scenarios between Go Dutch and the Government Target, and more ambitious scenarios, e.g. 'Go Utrecht', where cycling has reached around 60% of trips ([source](https://www.citylab.com/transportation/2019/07/bicycle-friendly-city-utrecht-streetfilms-bike-lanes/593320/)).
+
+Other considerations that are often mentioned are hills and people who are unable to cycle.
+In fact the PCT accounts for hills and, as the example of Bristol shows, hilly cities can see rapid increases in cycling.
+Regarding ability to cycle, it is a more inclusive mode than driving, with 8 to 80 year-olds being able to cycle, and many more people being able to afford a bike than a car (which, thanks to the expense of buying, running and insuring the vehicle, is largely the mode of choice of the wealthy).
+The PCT does not account for the fact that some trips to work are also 'caregiving' trips, but with electric cargo bikes and [multi-person cycles](https://en.wikipedia.org/wiki/Cycle_rickshaw) cycling-focused cities can, to a greater extent than car-dominated transport systems, deliver for all. 
+
+## Challenge
+
+To anyone interested in cycling in your city: try re-running the reproducible code above for your PCT region and local authority.
+Let us know on [social media](https://twitter.com/robinlovelace/status/1191378869728763904) and [GitHub](https://github.com/ITSLeeds/pct/issues) how you get on.
+Any comments/contributions to this analysis: [welcome.](https://github.com/ITSLeeds/pct/edit/master/vignettes/cycling-potential-uk.Rmd)

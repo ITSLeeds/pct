@@ -30,3 +30,8 @@ uptake_pct_godutch(distance, gradient, alpha = -3.959, d1 = -0.5963,
 \description{
 See \code{\link[=uptake_pct_govtarget]{uptake_pct_govtarget()}}.
 }
+\examples{
+l = routes_fast_leeds
+pcycle_scenario = uptake_pct_godutch(l$length, l$av_incline)
+plot(l$length, pcycle_scenario)
+}

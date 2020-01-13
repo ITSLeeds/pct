@@ -1,0 +1,301 @@
+
+---
+title: "Propensity to Cycle Tool Training course"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{pct_training}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+bibliography: ../vignettes/refs_training.bib
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  out.width = "50%"
+)
+```
+
+```{r, eval=FALSE, echo=FALSE}
+# get citations
+refs = RefManageR::ReadZotero(group = "418217", .params = list(collection = "JFR868KJ", limit = 100))
+refs2 = RefManageR::ReadBib("vignettes/refs.bib")
+refs = c(refs, refs2)
+citr::insert_citation(bib_file = "vignettes/refs_training.bib")
+RefManageR::WriteBib(refs, "vignettes/refs_training.bib")
+citr::tidy_bib_file(rmd_file = "vignettes/pct_training.Rmd", messy_bibliography = "vignettes/refs_training.bib")
+```
+
+These solutions assume you have worked through the exercises in the [`pct_training` vignette](https://itsleeds.github.io/pct/articles/pct_training.html) and have loaded the necessary packages.
+
+```{r, results='hide', eval=FALSE}
+library(pct)
+library(dplyr)   # in the tidyverse
+library(tmap) # installed alongside mapvew
+```
+
+
+## Getting and viewing PCT data
+
+- G1: Using the PCT's online interface, hosted at [www.pct.bike/m/?r=isle-of-wight](http://www.pct.bike/m/?r=isle-of-wight), identify the MSOA **zone** that has the highest number of people who cycle to work.
+
+Answer: E02003582	Isle of Wight 002
+
+- G2: Using data downloaded with the command `get_pct_zones()`, identify the zone that has highest level of cycling with the function `top_n()` and save the result as an object called `z_highest_cycling` (hint: you may want to start by 'cleaning' the data you have downloaded to include only a few key columns with the function `select()`, as follows):
+
+```{r, eval=FALSE}
+library(pct)
+library(dplyr) # suggestion: use library(tidyverse)
+z_original = get_pct_zones("isle-of-wight")
+z = z_original %>% 
+  select(geo_code, geo_name, all, bicycle, car_driver)
+```
+
+```{r, echo=TRUE, , eval=FALSE}
+# the solution:
+z_highest_cycling = z %>% 
+  top_n(n = 1, wt = bicycle)
+```
+
+Answer: E02003582	Isle of Wight 002, check by viewing the data frame or using `print()`
+
+- G3: Use the `plot()` command to visualise where on the Ilse of Wight this 'high cycling' zone is (hint: you will need to use the `plot()` function twice, once to plot `z$geometry`, and again with the argument `add = TURE` and a `col` argument to add the layer on top of the base layer and give it a colour).
+The result should look something like something this:
+
+```{r, echo=TRUE, eval=FALSE}
+plot(z$geometry)
+plot(z_highest_cycling$geometry, col = "red", add = TRUE)
+```
+
+- G4: Using the online interface, identify the top 5 MSOA to MSOA **desire lines** that have the highest number of people who cycle to work.
+
+Answer: 
+
+E02003588	E02003591	654
+
+E02003588	E02003589	615	
+
+E02003582	E02003588	567
+
+E02003581	E02003588	485
+
+E02003585	E02003588	406
+
+
+- G5: Using the function `get_pct_lines()`, identify the top 5 MSOA to MSOA **desire lines** that have the highest number of people who cycle to work (hint: you might want to start with the code shown below).
+    - Bonus: also find the 5 desire lines with the highest number of people driving to work. Plot them and find the straight line distance of these lines with the function `st_distance()`.
+    
+```{r get routes, eval=FALSE}
+# Aim: get top 5 cycle routes
+l_original_msoa = get_pct_lines("isle-of-wight")
+l_msoa = l_original_msoa %>% 
+  select(geo_code1, geo_code2, all, bicycle, car_driver, rf_avslope_perc, rf_dist_km)
+```
+
+```{r, echo=TRUE, warning=FALSE, fig.show='hold', fig.cap="Top 5 MSOA to MSOA desire lines with highest number of people cycling (left) and driving (right) in the Isle of Wight.", eval = FALSE}
+
+l = l_msoa
+l_top_cycling = l %>% 
+  top_n(n = 5, wt = bicycle)
+plot(z$geometry)
+plot(l_top_cycling, add = TRUE, lwd = 5, col = "green")
+
+# top 5 driving routes
+l_top_driving = l %>% 
+  top_n(n = 5, wt = car_driver)
+plot(z$geometry)
+plot(l_top_driving, add = TRUE, lwd = 5, col = "red")
+
+```
+
+- G6 (Bonus):  Repeat the exercise but for LSOA to LSOA desire lines (by setting the argument `geography = "lsoa"`, remember to change the names of the objects you create). The results should look something like this:
+
+```{r, echo=TRUE, warning=FALSE, fig.show='hold', fig.cap="Top 5 LSOA-LSOA desire lines with highest number of people cycling (left) and driving (right) in the Isle of Wight.", eval=FALSE}
+# at the lsoa level
+l_original_lsoa = get_pct_lines("isle-of-wight", geography = "lsoa")
+l = l_original_lsoa %>% 
+  select(geo_code1, geo_code2, all, bicycle, car_driver)
+l_top_cycling = l %>% 
+  top_n(n = 5, wt = bicycle)
+plot(z$geometry)
+plot(l_top_cycling, add = TRUE, lwd = 5, col = "green")
+
+# top 5 driving routes
+l_top_driving = l %>% 
+  top_n(n = 5, wt = car_driver)
+plot(z$geometry)
+plot(l_top_driving, add = TRUE, lwd = 5, col = "red")
+```
+
+- G7: Why are the results different? What are the advantages and disadvantages of using smaller zones, as represented by the LSOA data above?
+
+Answer: LSOAs are samller than MSOAs, so provide more spatial detail. This can be useful. However MSOAs often give a better overview. For example MSOA anlaysis will highlight commuter travel to a single to a city centre. LSOA travel is often more chaotic with many origins and desinations.
+
+As LSOAs are smaller they are more susetible to bias from outlieres, conisder how many people need to change behavoir for a 1% mode shift for and LSOA and MSOA. 
+
+- G8 (bonus): do the same analysis but with the top **300** routes cycled and driven. Hint: set the line width with `lwd = l_top_cycling$bicycle / mean(l_top_cycling$bicycle)` to portray the relative importance of each route.
+
+```{r, echo=TRUE, warning=FALSE, fig.show='hold', fig.cap="Top 300 LSOA-LSOA desire lines with highest number of people cycling (left) and driving (right) in the Isle of Wight.", eval=FALSE}
+# at the lsoa level
+l_top_cycling = l %>% 
+  top_n(n = 300, wt = bicycle)
+plot(z$geometry)
+plot(l_top_cycling, add = TRUE, lwd = l_top_cycling$bicycle / mean(l_top_cycling$bicycle), col = "green")
+
+# top 5 driving routes
+l_top_driving = l %>% 
+  top_n(n = 300, wt = car_driver)
+plot(z$geometry)
+plot(l_top_driving, add = TRUE, lwd = l_top_driving$car_driver / mean(l_top_driving$car_driver), col = "red")
+```
+
+## Modifying PCT data to identify routes/roads of interest
+
+- M1: Building on the example above, add a new column called `pcycle` to the object `l_msoa` that contains the % who cycle to work (hint: you might want to start this by typing `l_msoa$pcycle = ...`) and plot the results (shown in left hand panel in plot below).
+
+```{r p2, eval=FALSE}
+l_msoa$pcycle = l_msoa$bicycle / l_msoa$all * 100
+plot(l_msoa["pcycle"], lwd = l_msoa$all / mean(l_msoa$all), breaks = c(0, 5, 10, 20, 50))
+```
+
+- M2 (bonus): identify road segments with the highest estimated number of people cycling currently, and under the Go Dutch scenario (hint: you can download the route network with `get_pct_rnet("isle-of-wight")`)
+
+```{r eval=FALSE, echo=TRUE}
+rnet = get_pct_rnet("isle-of-wight")
+```
+
+## Scenarios of change
+
+- S1: Generate a 'Go Dutch' scenario for the Isle of Wight using the function `uptake_pct_godutch()` (hint: the following code chunk will create a 'Government Target' scenario):
+
+```{r, eval=FALSE}
+l_msoa$euclidean_distance = as.numeric(sf::st_length(l_msoa))
+l_msoa$pcycle_govtarget = uptake_pct_govtarget(
+  distance = l_msoa$rf_dist_km,
+  gradient = l_msoa$rf_avslope_perc
+  ) * 100 + l_msoa$pcycle
+```
+
+```{r change, echo=TRUE, eval=FALSE}
+l_msoa$pcycle_dutch = uptake_pct_godutch(
+  distance = l_msoa$rf_dist_km,
+  gradient = l_msoa$rf_avslope_perc
+  ) * 100 + l_msoa$pcycle
+```
+
+```{r dutch_pcycle, echo=TRUE, warning=FALSE, fig.show='hold', fig.cap="Percent cycling currently (left) and under a 'Go Dutch' scenario (right) in the Isle of Wight.", eval=FALSE}
+plot(l_msoa["pcycle"], lwd = l_msoa$all / mean(l_msoa$all), breaks = c(0, 5, 10, 20, 50))
+plot(l_msoa["pcycle_dutch"], lwd = l_msoa$all / mean(l_msoa$all), breaks = c(0, 5, 10, 20, 50))
+```
+
+- S2: Think of alternative scenarios that would be useful for your work
+- S3 (bonus): look inside the function [`pct_uptake_godutch()`](https://github.com/ITSLeeds/pct/blob/master/R/uptake.R#L36) - how could it be modified?
+
+## Routing
+
+- R1: Using the function `route_osrm()` find the route associated with the most cycled desire line in the Isle of Wight. The result should look similar to that displayed in the map below (hint: you may want to start your answer with the following lines of code - **warning: the function may need to run a few times before it works**):
+
+```{r, eval=FALSE}
+library(stplanr)
+l_top = l_msoa %>% 
+  top_n(n = 1, wt = bicycle)
+```
+
+```{r, eval=FALSE, echo=TRUE}
+r_top = stplanr::route_osrm(l_top)
+sf::write_sf(sf::st_as_sf(r_top), "r_top.geojson")
+piggyback::pb_upload("r_top.geojson")
+piggyback::pb_download_url()
+```
+
+```{r, echo=TRUE, eval=FALSE}
+r_top = sf::read_sf("https://github.com/ITSLeeds/pct/releases/download/0.0.1/r_top.geojson")
+tm_shape(r_top) +
+  tm_lines(lwd = 5)
+```
+
+- R2: What are the problems associated with this route from a cycling perspective? Take a look at the help page opened by entering `?route_osrm` to identify the reason why the route is not particularly useful from a cycling perspective.
+
+- R3: Regenerate the route using the function `line2route()`. What is the difference in the length between each route, and what other differences can you spot? **Note: this exercise requires an API Key from CycleStreets.net.**
+
+```{r, echo=TRUE, eval=FALSE}
+r_cs = stplanr::line2route(l_top)
+leaflet() %>% 
+  addTiles() %>% 
+  addPolylines(data = r_cs)
+```
+
+- R4 (bonus): what features of a routing service would be most useful for your work and why? 
+
+## Route networks
+
+- RN1: Generate a 'route network' showing number of people walking in the top 30 routes in the Isle of Wight, allocated to the transport network (hint: use the `overline2()` function and begin the script as follows, the results should look similar to the results below):
+
+```{r, eval=FALSE}
+route_data = sf::st_sf(wight_lines_30, geometry = wight_routes_30$geometry)
+```
+
+```{r, echo=TRUE, message=FALSE, eval=FALSE}
+rnet_walk = overline2(x = route_data, "foot")
+tm_shape(rnet_walk) +
+  tm_lines(lwd = "foot", scale = 9)
+```
+
+```{r, echo=TRUE, eval=FALSE}
+# Demo PCT Analysis#
+# Make a commuting quiet route network for Isle of Wight
+# and combine it with the travle to school route network
+
+# Step 1: Load Library
+library(tidyverse)
+library(sf)
+library(pct)
+library(stplanr)
+
+# Step 2: Get Data
+routes_commute = get_pct_routes_quiet(region = "isle-of-wight",
+                              purpose = "commute",
+                              geography = "lsoa")
+
+lines_commute = get_pct_lines(region = "isle-of-wight",
+                              purpose = "commute",
+                              geography = "lsoa")
+
+rnet_school = get_pct_rnet(region = "isle-of-wight",
+                           purpose = "school",
+                           geography = "lsoa")
+
+# Step 3: Prepare Data
+lines_commute = lines_commute %>%
+  st_drop_geometry() %>%
+  select(id, bicycle, dutch_slc)
+
+routes_commute = routes_commute %>%
+  select(id)
+
+# Join Cycling Levels to Routes
+routes_commute = left_join(routes_commute, lines_commute)
+plot(routes_commute["bicycle"])
+
+# Make a commuting Rnet
+rnet_commute = overline2(routes_commute, 
+                         attrib = c("bicycle","dutch_slc"))
+plot(rnet_commute["bicycle"])
+
+# Combine commuting and travel to schools
+rnet_school <- rnet_school %>%
+  select(dutch_slc)
+rnet_commute <- rnet_commute %>%
+  select(dutch_slc)
+rnet_commute$bicycle <- NULL
+
+
+rnet_both = rbind(rnet_commute, rnet_school)
+rnet_both = overline2(rnet_both, 
+                         attrib = c("dutch_slc"))
+mapview::mapview(rnet_both, at = c(50,100,200,500,1000))
+
+```
+
+

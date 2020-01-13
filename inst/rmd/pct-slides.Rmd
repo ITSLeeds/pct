@@ -2,7 +2,7 @@
 title: "The Propensity to Cycle Tool"
 subtitle: '`r emojifont::emoji("bike")`<br/>Advanced Training Workshop'
 author: "Robin Lovelace and Malcolm Morgan, University of Leeds"
-date: 'London, `r Sys.Date()`<br/><img class="img-footer" alt="" src="http://www.pct.bike/www/static/01_logos/pct-logo.png">'
+date: 'ITS Leeds, 2019-08-02<br/><img class="img-footer" alt="" src="http://www.pct.bike/www/static/01_logos/pct-logo.png"><br/><img class="img-footer" alt="" src="http://www.stephanehess.me.uk/images/picture3.png">'
 output:
   xaringan::moon_reader:
     # css: ["default", "its.css"]
@@ -11,10 +11,19 @@ output:
     nature:
       highlightStyle: github
       highlightLines: true
-# bibliography: ../vignettes/ref.bib
+# bibliography:
+#  - ../vignettes/ref.bib
+#  - ../vignettes/ref_training.bib
 ---
 
 ```{r setup, include=FALSE}
+# get citations
+refs = RefManageR::ReadZotero(group = "418217", .params = list(collection = "JFR868KJ", limit = 100))
+refs_df = as.data.frame(refs)
+View(refs_df)
+# citr::insert_citation(bib_file = "vignettes/refs_training.bib")
+RefManageR::WriteBib(refs, "refs.bib")
+# citr::tidy_bib_file(rmd_file = "vignettes/pct_training.Rmd", messy_bibliography = "vignettes/refs_training.bib")
 options(htmltools.dir.version = FALSE)
 knitr::opts_chunk$set(message = FALSE)
 library(RefManageR)
@@ -25,7 +34,7 @@ BibOptions(check.entries = FALSE,
            first.inits = FALSE,
            hyperlink = FALSE, 
            dashed = FALSE)
-my_bib = ReadBib("../vignettes/refs.bib", check = FALSE)
+my_bib = refs
 library(leaflet)
 ```
 
@@ -85,7 +94,7 @@ Break and presentation of results
 - And the PCT training vignette: [itsleeds.github.io/pct/articles/pct_training.html](https://itsleeds.github.io/pct/articles/pct_training.html)
 
 ```{r, echo=FALSE}
-l = stplanr::geo_code("35 Marylebone Road")
+l = stplanr::geo_code("Institute for Transport Studies, University of Leeds")
 leaflet() %>% 
   addProviderTiles(provider = providers$OpenStreetMap.BlackAndWhite) %>%
   addTiles(urlTemplate = "https://tile.waymarkedtrails.org/cycling/{z}/{x}/{y}.png") %>% 
@@ -141,52 +150,13 @@ What will transport software look like? What will their capabilities be? And who
 
 - See https://github.com/ITSLeeds/TDS/blob/master/catalogue.md
 
-- Paper on the **stplanr** paper for transport planning (available [online](https://cran.r-project.org/web/packages/stplanr/vignettes/stplanr-paper.html)) `r Citep(my_bib, "lovelace_stplanr_2017", .opts = list(cite.style = "authoryear"))`
-- Introductory and advanced content on geographic data in R, especially the [transport chapter](http://geocompr.robinlovelace.net/transport.html) (available free [online](http://geocompr.robinlovelace.net/)) `r Citep(my_bib, "lovelace_geocomputation_2018", .opts = list(cite.style = "authoryear"))` 
+- Paper on the **stplanr** paper for transport planning (available [online](https://cran.r-project.org/web/packages/stplanr/vignettes/stplanr-paper.html)) `r Citep(my_bib, "lovelace_stplanr:_2018", .opts = list(cite.style = "authoryear"))`
+- Introductory and advanced content on geographic data in R, especially the [transport chapter](http://geocompr.robinlovelace.net/transport.html) (available free [online](http://geocompr.robinlovelace.net/)) `r Citep(my_bib, "lovelace_geocomputation_2019", .opts = list(cite.style = "authoryear"))` 
 - Paper on analysing OSM data in Python `r Citep(my_bib, "boeing_osmnx_2017", .opts = list(cite.style = "authoryear"))` (available [online](https://arxiv.org/pdf/1611.01890)) 
 
 ```{r geocompr-cover, echo=FALSE, out.width="20%"}
 knitr::include_graphics("https://geocompr.robinlovelace.net/images/cover.png")
 ```
-
----
-
-
-## Data science and the tidyverse
-
-- Inspired by Introduction to data science with R (available free [online](http://r4ds.had.co.nz/)) `r Citep(my_bib, "grolemund_r_2016", .opts = list(cite.style = "authoryear"))`
-
-
-```{r tds-cover, echo=FALSE, out.width="30%"}
-knitr::include_graphics("https://d33wubrfki0l68.cloudfront.net/b88ef926a004b0fce72b2526b0b5c4413666a4cb/24a30/cover.png")
-```
-
----
-
-## Current transport software
-
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
-u = "https://github.com/ITSLeeds/TDS/raw/master/transport-software.csv"
-tms = readr::read_csv(u)[1:5]
-tms = dplyr::arrange(tms, dplyr::desc(Citations))
-knitr::kable(tms, booktabs = TRUE, caption = "Sample of transport modelling software in use by practitioners. Note: citation counts based on searches for company/developer name, the product name and 'transport'. Data source: Google Scholar searches, October 2018.", format = "html")
-```
-
----
-
-# Online communities
-
-- [gis.stackexchange.com](https://gis.stackexchange.com/questions) has 21,314 questions 
-
-- [r-sig-geo](http://r-sig-geo.2731867.n2.nabble.com/) has 1000s of posts
-
-- RStudio's Discourse community has 65,000+ posts already!
-
---
-
-- No transport equivalent (e.g. earthscience.stackexchange.com is in beta)
-
-- Potential for a Discourse forum or similar: transport is not (just) GIS
 
 ---
 
@@ -279,7 +249,7 @@ plot(desire_lines)
 library(tmap)
 tmap_mode("view")
 tm_shape(desire_lines) +
-  tm_lines("all") +
+  tm_lines("all", scale = 9) +
   tm_basemap(server = leaflet::providers$OpenStreetMap)
 ```
 
@@ -332,9 +302,7 @@ All interactive programming/analysis with command line interface involves freque
 
 # Exercises
 
-- Take a look at the image below from [@lovelace_propensity_2017]. Which parts of the process are of most use for your work?
 
-- In groups of 2, identify 3 real world questions/problems that you could use the PCT to help answer/solve
 
 - If you're happy with R, work through G1 to G8 in the [exercises](https://itsleeds.github.io/pct/articles/pct_training.html#exercises), starting:
     - G1: Using the PCT's online interface, hosted at [www.pct.bike/m/?r=isle-of-wight](http://www.pct.bike/m/?r=isle-of-wight), identify the MSOA **zone** that has the highest number of people who cycle to work.
@@ -345,13 +313,91 @@ All interactive programming/analysis with command line interface involves freque
 
 ---
 
-![](https://raw.githubusercontent.com/npct/pct-team/master/flow-model/flow-diag2.png)
+# The PCT 'mini hack'
 
-<!-- --- -->
+--
 
-<!-- # References -->
+Overall aim: learn how you can extend the PCT analysis in a reproducible way
+
+--
+
+Ideas:
+
+- Create a route network reflecting where you would invest if the priority was reducing car trips of less than 5 km
+
+--
+
+- Design interventions to replace short car trips across West Yorkshire (or another region of your choice) using the PCT methods/data to support your decisions
+
+--
+
+- Identify quiet routes and design a quiet route network for city/region of your choice, e.g. Leeds
+
+--
+
+- Import alternative origin-destination datasets and use those as the basis for propensity to cycle analysis for trip purposes other than single stage commutes, encapsulated in the commut layer in the PCT
+- Any other layers/scenarios/hacks: welcome! Comments in this repo's [issue tracker](https://github.com/ITSLeeds/pct/issues) also welcome.
+
+
+
+---
+
+# References
 
 ```{r, 'refs', results="asis", echo=FALSE}
-# PrintBibliography(my_bib)
+PrintBibliography(my_bib)
 # RefManageR::WriteBib(my_bib, "refs-geostat.bib")
 ```
+
+---
+
+# Other topics
+
+---
+
+## Transport software - which do you use?
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+u = "https://github.com/ITSLeeds/TDS/raw/master/transport-software.csv"
+tms = readr::read_csv(u)[1:5]
+tms = dplyr::arrange(tms, dplyr::desc(Citations))
+knitr::kable(tms, booktabs = TRUE, caption = "Sample of transport modelling software in use by practitioners. Note: citation counts based on searches for company/developer name, the product name and 'transport'. Data source: Google Scholar searches, October 2018.", format = "html")
+```
+
+---
+
+
+## Data science and the tidyverse
+
+- Inspired by Introduction to data science with R (available free [online](http://r4ds.had.co.nz/)) `r Citep(my_bib, "grolemund_r_2016", .opts = list(cite.style = "authoryear"))`
+
+
+```{r tds-cover, echo=FALSE, out.width="30%"}
+knitr::include_graphics("https://d33wubrfki0l68.cloudfront.net/b88ef926a004b0fce72b2526b0b5c4413666a4cb/24a30/cover.png")
+```
+
+---
+
+# Getting support
+
+--
+
+With open source software, the world is your support network!
+
+--
+
+- Recent example: https://stackoverflow.com/questions/57235601/
+
+--
+
+- [gis.stackexchange.com](https://gis.stackexchange.com/questions) has 21,314 questions 
+
+- [r-sig-geo](http://r-sig-geo.2731867.n2.nabble.com/) has 1000s of posts
+
+- RStudio's Discourse community has 65,000+ posts already!
+
+--
+
+- No transport equivalent (e.g. earthscience.stackexchange.com is in beta)
+
+- Potential for a Discourse forum or similar: transport is not (just) GIS

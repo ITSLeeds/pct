@@ -97,7 +97,7 @@ Let's take a look at the results, compared with the current levels of cycling, a
 ```{r}
 cor(x = desire_lines$pcycle, y = desire_lines$godutch_pcycle)
 plot(x = desire_lines$pcycle, y = desire_lines$godutch_pcycle)
-plot(x = desire_lines$distance, y = desire_lines$godutch_pcycle)
+plot(x = desire_lines$distance, y = desire_lines$godutch_pcycle, ylim = c(0, 1))
 ```
 
 As expected, there is a positive (albeit small) positive correlation between current and potential levels of cycling.
@@ -123,7 +123,7 @@ This involves routing.
 
 There are many ways to do calculate a path on the street network.
 The main options are local routing, where the calculation is done based on data stored locally (on your computer) and routing services, where the data is done remotely ('in the cloud').
-Let's use a remote routing service to convert the straight lines generated in the previous section into routes that could realistically be taken by people cycling (the next line does not run by default because it requires an API key saved as an environment variable, see the [documentation](https://ropensci.github.io/stplanr/reference/route_cyclestreet.html#details) for details).
+Let's use a remote routing service to convert the straight lines generated in the previous section into routes that could realistically be taken by people cycling (the next line does not run by default because it requires an API key saved as an environment variable, see the [documentation of `route_cyclestreets()` for details](https://docs.ropensci.org/stplanr/reference/index.html#section-routing) for details).
 
 ```{r, eval=FALSE}
 santiago_routes_cs = stplanr::line2route(desire_lines)
@@ -182,3 +182,9 @@ Clearly to do this in a production environment we would use a larger dataset, bu
 We would refine the method in multiple ways.
 The next basic step, however, would be to convert the straight desire lines into routes, to calculate more accurate distance and hilliness levels for each OD pair.
 Then we would be able to create a route network to help prioritise cycling across the city.
+
+
+```{r, eval=FALSE}
+route_segments_1_5 = route(l = desire_lines[1:5, ], route_fun = cyclestreets::journey)
+mapview::mapview(route_segments_1_5)
+```

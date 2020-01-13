@@ -1,3 +1,24 @@
+# pct 0.3.0
+
+- Always returns objects with EPSG code 4326, see https://github.com/ropensci/stats19/issues/135
+
+# pct 0.2.7
+
+- Improved documentation for godutch uptake function
+- Uptake function now work when there are NAs in the distances (previously they generated errors)
+
+# pct 0.2.5
+
+- Fixed issue due to government data provider endpoint being down: https://github.com/ITSLeeds/pct/issues/51
+
+# pct 0.2.4
+
+- Updated vignettes use `tmap` instead of leaflet for easy-to-type map making code
+
+# pct 0.2.3
+
+- Remove OD pairs with no matching IDs, see https://github.com/ITSLeeds/pct/issues/47
+
 # pct 0.2.2
 
 - Updated training materials

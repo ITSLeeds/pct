@@ -36,6 +36,8 @@ names(rf)[1:20]
 vars_to_plot = 10:13
 plot(rf[vars_to_plot])
 z = get_pct(region = "isle-of-wight", layer = "z")
-# rf = get_pct(region = "west-yorkshire", layer = "rf")
-# z_all = get_pct(layer = "z", national = TRUE)
+\donttest{
+rf = get_pct(region = "west-yorkshire", layer = "rf")
+z_all = get_pct(layer = "z", national = TRUE)
+}
 }
