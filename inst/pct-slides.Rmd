@@ -332,7 +332,9 @@ All interactive programming/analysis with command line interface involves freque
 
 # Exercises
 
+- Take a look at the image below from [@lovelace_propensity_2017]. Which parts of the process are of most use for your work?
 
+- In groups of 2, identify 3 real world questions/problems that you could use the PCT to help answer/solve
 
 - If you're happy with R, work through G1 to G8 in the [exercises](https://itsleeds.github.io/pct/articles/pct_training.html#exercises), starting:
     - G1: Using the PCT's online interface, hosted at [www.pct.bike/m/?r=isle-of-wight](http://www.pct.bike/m/?r=isle-of-wight), identify the MSOA **zone** that has the highest number of people who cycle to work.
@@ -343,9 +345,13 @@ All interactive programming/analysis with command line interface involves freque
 
 ---
 
-# References
+![](https://raw.githubusercontent.com/npct/pct-team/master/flow-model/flow-diag2.png)
+
+<!-- --- -->
+
+<!-- # References -->
 
 ```{r, 'refs', results="asis", echo=FALSE}
-PrintBibliography(my_bib)
+# PrintBibliography(my_bib)
 # RefManageR::WriteBib(my_bib, "refs-geostat.bib")
 ```
