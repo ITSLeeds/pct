@@ -5,8 +5,25 @@ library(osmdata)
 library(stplanr)
 library(pct)
 
+
+# with osmdata
 lvp_osm = opq("leeds") %>%
   add_osm_feature("name", "")
+lvp_sf = osmdata_sf(lvp_osm)
+
+# with geofabric
+devtools::install_github("itsleeds/geofabric")
+library(geofabric)
+View(geofabric_zones)
+wy_osm = get_geofabric("west yorkshire")
+wy_osm = get_geofabric("west yorkshire", layer = "multipolygons")
+f = geofabric::gf_filename(name = "West Yorkshire")
+query = "select * from multipolygons where name = 'Leeds Valley Park'"
+lvp = sf::read_sf(f, query = query)
+plot(lvp[1, ])
+lvp = lvp[1, ]
+sf::write_sf(lvp, "lvp.geojson")
+piggyback::pb_upload("lvp.geojson")
 
 # get od data
 od = pct::get_od()
@@ -106,3 +123,100 @@ rnet_lvp_go_dutch = overline2(routes_lvp, attrib = "go_dutch")
 tm_shape(rnet_lvp_go_dutch) +
   # tm_basemap(server = leaflet::providers$Thunderforest.OpenCycleMap) +
   tm_lines(lwd = "go_dutch", scale = 9)
+
+
+# get postcode locations --------------------------------------------------
+
+remotes::install_github("ropensci/PostcodesioR")
+
+pcodes = readxl::read_excel("Copy of LVP 2019 Travel Survey_Postcodes only.xlsx")
+names(pcodes)[1] = "code"
+stplanr::geo_code(pcodes[[1]][181]) # test - fail
+stplanr::geo_code("ls10 3xe")
+tmaptools::geocode_OSM("ls10 3xe")
+PostcodesioR::postcode_lookup("ls10 3xe")
+PostcodesioR::bulk_postcode_lookup(postcodes = list(pcodes$code[100:109]))
+
+library(PostcodesioR)
+pc_list <- list(
+  postcodes = c("PR3 0SG", "M45 6GN", "EX165BL")) # spaces are ignored
+bulk_postcode_lookup(pc_list)
+
+summary(nchar(pcodes$code))
+pcodes_complete = pcodes %>%
+  filter(str_detect(code, " ")) %>%
+  filter(nchar(code) > 6) %>%
+  filter(nchar(code) < 9) %>%
+  mutate(code = gsub(pattern = " ", replacement = "", x = code))
+
+pcodes_list = list(postcodes = pcodes_complete$code[100:109])
+bulk_postcode_lookup(postcodes = pcodes_list) # works!
+
+
+pcodes_list = list(postcodes = pcodes$code[100:109])
+bulk_postcode_lookup(postcodes = pcodes_list) # works!
+
+pcodes_list = list(postcodes = pcodes$code[1:100])
+pcode_result_1_100 = bulk_postcode_lookup(postcodes = pcodes_list) # works!
+
+library(purrr)
+
+bulk_list <- lapply(pcode_result_1_100, "[[", 2)
+
+bulk_df <-
+  map_dfr(bulk_list,
+          `[`,
+          c("postcode", "longitude", "latitude"))
+
+post_code_points = sf::st_as_sf(bulk_df, coords = c("longitude", "latitude"), crs = 4326)
+mapview::mapview(post_code_points)
+
+pcodes_list = list(postcodes = pcodes$code[101:200])
+pcode_result_100 = bulk_postcode_lookup(postcodes = pcodes_list) # works!
+pcodes_list = list(postcodes = pcodes$code[201:300])
+pcode_result_200 = bulk_postcode_lookup(postcodes = pcodes_list) # works!
+pcodes_list = list(postcodes = pcodes$code[301:400])
+pcode_result_300 = bulk_postcode_lookup(postcodes = pcodes_list) # works!
+pcodes_list = list(postcodes = pcodes$code[401:500])
+pcode_result_400 = bulk_postcode_lookup(postcodes = pcodes_list) # works!
+pcodes_list = list(postcodes = pcodes$code[501:600])
+pcode_result_500 = bulk_postcode_lookup(postcodes = pcodes_list) # works!
+pcodes_list = list(postcodes = pcodes$code[601:700])
+pcode_result_600 = bulk_postcode_lookup(postcodes = pcodes_list) # works!
+pcodes_list = list(postcodes = pcodes$code[701:nrow(pcodes)])
+pcode_result_700 = bulk_postcode_lookup(postcodes = pcodes_list) # works!
+
+pcodes_list_all = c(
+  pcode_result_1_100,
+  pcode_result_100,
+  pcode_result_200,
+  pcode_result_300,
+  pcode_result_400,
+  pcode_result_500,
+  pcode_result_600,
+  pcode_result_700
+  )
+
+bulk_list <- lapply(pcodes_list_all, "[[", 2)
+
+bulk_df <-
+  map_dfr(bulk_list,
+          `[`,
+          c("postcode", "longitude", "latitude"))
+
+head(bulk_df)
+post_code_points = sf::st_as_sf(bulk_df, coords = c("longitude", "latitude"), crs = 4326)
+mapview::mapview(post_code_points)
+saveRDS(post_code_points, "post_code_points.Rds")
+
+lvp_centroid = sf::st_centroid(lvp)
+od_postcode = sf::st_drop_geometry(post_code_points)
+od_postcode$dest = lvp$osm_id
+od_postcode$all = 1
+summary(od_postcode$postcode %in% post_code_points$postcode)
+summary(od_postcode$dest %in% lvp_centroid$osm_id)
+
+# this fails: issue with stplanr?
+desire_lines_lvp = stplanr::od2line(flow = od_postcode, post_code_points, lvp_centroid)
+
+
