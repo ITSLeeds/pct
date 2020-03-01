@@ -1,3 +1,8 @@
+# pct 0.4.0
+
+- Read `.geojson` files directly rather than downloading old `.Rds` files that were generating error messages - see https://github.com/ITSLeeds/pct/issues/57
+- Do not test time-consuming tests on CRAN as per #58
+
 # pct 0.3.0
 
 - Always returns objects with EPSG code 4326, see https://github.com/ropensci/stats19/issues/135
