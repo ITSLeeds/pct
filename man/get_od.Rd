@@ -4,8 +4,7 @@
 \alias{get_od}
 \title{Get origin destination data from the 2011 Census}
 \usage{
-get_od(region = NULL, n = NULL, type = "within",
-  omit_intrazonal = FALSE)
+get_od(region = NULL, n = NULL, type = "within", omit_intrazonal = FALSE)
 }
 \arguments{
 \item{region}{The PCT region or local authority to download data from (e.g. \code{west-yorkshire} or \code{Leeds}).

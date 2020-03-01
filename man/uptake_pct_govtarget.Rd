@@ -4,9 +4,17 @@
 \alias{uptake_pct_govtarget}
 \title{Calculate cycling uptake for UK 'Government Target' scenario}
 \usage{
-uptake_pct_govtarget(distance, gradient, alpha = -3.959, d1 = -0.5963,
-  d2 = 1.866, d3 = 0.00805, h1 = -0.271, i1 = 0.009394,
-  i2 = -0.05135)
+uptake_pct_govtarget(
+  distance,
+  gradient,
+  alpha = -3.959,
+  d1 = -0.5963,
+  d2 = 1.866,
+  d3 = 0.00805,
+  h1 = -0.271,
+  i1 = 0.009394,
+  i2 = -0.05135
+)
 }
 \arguments{
 \item{distance}{Vector distance numeric values of routes.}

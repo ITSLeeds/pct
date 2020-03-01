@@ -4,10 +4,15 @@
 \alias{get_pct}
 \title{Generic function to get regional data from the PCT}
 \usage{
-
-  get_pct(base_url = "https://github.com/npct/pct-outputs-regional-R/raw/master",
-  purpose = "commute", geography = "msoa", region = NULL,
-  layer = NULL, extension = ".Rds", national = FALSE)
+get_pct(
+  base_url = "https://github.com/npct/pct-outputs-regional-notR/raw/master",
+  purpose = "commute",
+  geography = "msoa",
+  region = NULL,
+  layer = NULL,
+  extension = ".geojson",
+  national = FALSE
+)
 }
 \arguments{
 \item{base_url}{Where the data is stored.}
@@ -22,7 +27,7 @@ See \code{View(pct_regions_lookup)} for a full list of possible region names.}
 \item{layer}{The PCT layer of interest, \code{z}, \code{c}, \code{l}, \code{rf}, \code{rq} or \code{rnet}
 for zones, centroids, desire lines, routes (fast or quiet) and route networks, respectively}
 
-\item{extension}{The type of file to download (typically \code{.Rds})}
+\item{extension}{The type of file to download (only \code{.geojson} supported at present)}
 
 \item{national}{Download nationwide data? \code{FALSE} by default}
 }

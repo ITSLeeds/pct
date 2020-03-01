@@ -4,9 +4,17 @@
 \alias{uptake_pct_godutch}
 \title{Calculate cycling uptake for UK 'Go Dutch' scenario}
 \usage{
-uptake_pct_godutch(distance, gradient, alpha = -3.959, d1 = -0.5963,
-  d2 = 1.832, d3 = 0.007956, h1 = -0.2872, i1 = 0.01784,
-  i2 = -0.0977)
+uptake_pct_godutch(
+  distance,
+  gradient,
+  alpha = -3.959,
+  d1 = -0.5963,
+  d2 = 1.832,
+  d3 = 0.007956,
+  h1 = -0.2872,
+  i1 = 0.01784,
+  i2 = -0.0977
+)
 }
 \arguments{
 \item{distance}{Vector distance numeric values of routes.}

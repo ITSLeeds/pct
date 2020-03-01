@@ -4,8 +4,12 @@
 \alias{get_pct_zones}
 \title{Get zone results from the PCT}
 \usage{
-get_pct_zones(region = NULL, purpose = "commute", geography = "msoa",
-  extension = ".Rds")
+get_pct_zones(
+  region = NULL,
+  purpose = "commute",
+  geography = "msoa",
+  extension = ".geojson"
+)
 }
 \arguments{
 \item{region}{The PCT region or local authority to download data from (e.g. \code{west-yorkshire} or \code{Leeds}).
@@ -15,10 +19,10 @@ See \code{View(pct_regions_lookup)} for a full list of possible region names.}
 
 \item{geography}{Geographic resolution of outputs (\code{msoa} or \code{lsoa})}
 
-\item{extension}{The type of file to download (typically \code{.Rds})}
+\item{extension}{The type of file to download (only \code{.geojson} supported at present)}
 }
 \description{
-Wrapper around \code{[get_pct()]} that gets zone data from the PCT.
+Wrapper around \verb{[get_pct()]} that gets zone data from the PCT.
 }
 \examples{
 z = get_pct_zones("isle-of-wight")
