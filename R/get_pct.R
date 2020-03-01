@@ -59,10 +59,7 @@ get_pct = function(
     f = paste0(layer, extension)
     u_file = paste(u_folder, f, sep = "/")
   }
-  destfile = file.path(tempdir(), f)
-  utils::download.file(url = u_file,
-                       destfile = destfile, mode = "wb")
-  sf_object = sf::st_as_sf(readRDS(destfile))
+  sf_object = sf::st_as_sf(readRDS(url(u_file)))
   suppressWarnings({sf::st_crs(sf_object) = 4326})
   sf_object
 }
