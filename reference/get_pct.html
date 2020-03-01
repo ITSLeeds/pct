@@ -140,9 +140,15 @@ project and returns objects in the modern sf class." />
 project and returns objects in the modern <code>sf</code> class.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_pct</span>(<span class='kw'>base_url</span> <span class='kw'>=</span> <span class='st'>"https://github.com/npct/pct-outputs-regional-R/raw/master"</span>,
-  <span class='kw'>purpose</span> <span class='kw'>=</span> <span class='st'>"commute"</span>, <span class='kw'>geography</span> <span class='kw'>=</span> <span class='st'>"msoa"</span>, <span class='kw'>region</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>layer</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>extension</span> <span class='kw'>=</span> <span class='st'>".Rds"</span>, <span class='kw'>national</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>get_pct</span>(
+  <span class='kw'>base_url</span> <span class='kw'>=</span> <span class='st'>"https://github.com/npct/pct-outputs-regional-notR/raw/master"</span>,
+  <span class='kw'>purpose</span> <span class='kw'>=</span> <span class='st'>"commute"</span>,
+  <span class='kw'>geography</span> <span class='kw'>=</span> <span class='st'>"msoa"</span>,
+  <span class='kw'>region</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>layer</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>extension</span> <span class='kw'>=</span> <span class='st'>".geojson"</span>,
+  <span class='kw'>national</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -171,7 +177,7 @@ for zones, centroids, desire lines, routes (fast or quiet) and route networks, r
     </tr>
     <tr>
       <th>extension</th>
-      <td><p>The type of file to download (typically <code>.Rds</code>)</p></td>
+      <td><p>The type of file to download (only <code>.geojson</code> supported at present)</p></td>
     </tr>
     <tr>
       <th>national</th>

@@ -138,8 +138,12 @@
     <p>Wrapper around <code>[get_pct()]</code> that gets rf data from the PCT.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_pct_routes_fast</span>(<span class='kw'>region</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>purpose</span> <span class='kw'>=</span> <span class='st'>"commute"</span>,
-  <span class='kw'>geography</span> <span class='kw'>=</span> <span class='st'>"msoa"</span>, <span class='kw'>extension</span> <span class='kw'>=</span> <span class='st'>".Rds"</span>)</pre>
+    <pre class="usage"><span class='fu'>get_pct_routes_fast</span>(
+  <span class='kw'>region</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>purpose</span> <span class='kw'>=</span> <span class='st'>"commute"</span>,
+  <span class='kw'>geography</span> <span class='kw'>=</span> <span class='st'>"msoa"</span>,
+  <span class='kw'>extension</span> <span class='kw'>=</span> <span class='st'>".geojson"</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -159,7 +163,7 @@ See <code><a href='https://rdrr.io/r/utils/View.html'>View(pct_regions_lookup)</
     </tr>
     <tr>
       <th>extension</th>
-      <td><p>The type of file to download (typically <code>.Rds</code>)</p></td>
+      <td><p>The type of file to download (only <code>.geojson</code> supported at present)</p></td>
     </tr>
     </table>
 
