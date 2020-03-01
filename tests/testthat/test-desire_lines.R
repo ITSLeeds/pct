@@ -3,6 +3,7 @@ context("test-desire_lines")
 
 test_that("get_desire_lines works", {
   skip_heavy()
+  skip_on_cran()
   if(.Platform$OS.type == "windows") {
     skip("stplanr might need a env var. Skipping.")
   }
