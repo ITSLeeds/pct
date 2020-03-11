@@ -53,3 +53,10 @@ m = lm(logit_pcycle ~ distance, hilliness, data = l_grouped)
 ggplot(l_grouped) +
   geom_point(aes(distance, pcycle)) +
   geom_point(aes(distance, boot::inv.logit(m$fitted.values)), col = "grey")
+
+
+# cid data ----------------------------------------------------------------
+
+library(CycleInfraLnd)
+points = get_cid_points(type = "traffic_calming")
+
