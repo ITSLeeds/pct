@@ -272,8 +272,8 @@ l = l_msoa
 l_top_cycling = l %>% 
   top_n(n = 5, wt = bicycle)
 plot(z$geometry)
-plot(l_top_cycling, add = TRUE, lwd = 5, col = "green")
-
+plot(l_top_cycling[1], add = TRUE, lwd = 5, col = "green")
+ 
 # top 5 driving routes
 l_top_driving = l %>% 
   top_n(n = 5, wt = car_driver)
