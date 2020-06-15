@@ -1,7 +1,8 @@
-This version addresses issues with tests on Solaris, stops warning versions due to conversion between sp and sf objects and does not download files to HD for the get_pct_* functions, which I think were in breach of CRAN policy on Internet access.
+Minor change to fix errors on CRAN tests caused by changes to sf in 2020.
+
 
 ## Test environments
-* local Ubuntu install, R 3.6.2
+* local Ubuntu install, R 3.6.3
 * ubuntu 14.04 (on travis-ci)
 * cyclecstreets dependency requires an API, so some tests will be skipped if not provided.
 
