@@ -13,7 +13,11 @@ knitr::opts_chunk$set(
 )
 ```
 
-[![](http://www.r-pkg.org/badges/version/pct)](http://www.r-pkg.org/pkg/pct)[![Coverage status](https://codecov.io/gh/ITSLeeds/pct/branch/master/graph/badge.svg)](https://codecov.io/github/ITSLeeds/pct?branch=master) [![Travis build status](https://travis-ci.org/ITSLeeds/pct.svg?branch=master)](https://travis-ci.org/ITSLeeds/pct)
+[![](http://www.r-pkg.org/badges/version/pct)](http://www.r-pkg.org/pkg/pct)
+[![R build status](https://github.com/itsleeds/pct/workflows/R-CMD-check/badge.svg)](https://github.com/itsleeds/pct/actions)
+
+<!-- [![Coverage status](https://codecov.io/gh/ITSLeeds/pct/branch/master/graph/badge.svg)](https://codecov.io/github/ITSLeeds/pct?branch=master) -->
+<!-- [![Travis build status](https://travis-ci.org/ITSLeeds/pct.svg?branch=master)](https://travis-ci.org/ITSLeeds/pct) -->
 
 # pct
 

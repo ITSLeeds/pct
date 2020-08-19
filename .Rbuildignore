@@ -14,3 +14,4 @@ data-raw/*
 ^centroids-msoa.csv$
 ^inst/rmd/libs$
 ^inst/pct_training_solutions\.html$
+^\.github$
