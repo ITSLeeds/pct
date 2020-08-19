@@ -63,7 +63,7 @@ We can find out what local authorities there are in the zones as follows:
 unique(zones_region$lad_name)
 ```
 
-We are intersted in the zones in Leeds, which we can get as follows:
+We are interested in the zones in Leeds, which we can get as follows:
 
 ```{r}
 zones = zones_region %>% 

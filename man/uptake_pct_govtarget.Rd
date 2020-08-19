@@ -2,6 +2,8 @@
 % Please edit documentation in R/uptake.R
 \name{uptake_pct_govtarget}
 \alias{uptake_pct_govtarget}
+\alias{uptake_pct_govtarget_2020}
+\alias{uptake_pct_godutch_2020}
 \title{Calculate cycling uptake for UK 'Government Target' scenario}
 \usage{
 uptake_pct_govtarget(
@@ -14,6 +16,31 @@ uptake_pct_govtarget(
   h1 = -0.271,
   i1 = 0.009394,
   i2 = -0.05135
+)
+
+uptake_pct_govtarget_2020(
+  distance,
+  gradient,
+  alpha = -4.018,
+  d1 = -0.6369,
+  d2 = 1.988,
+  d3 = 0.008775,
+  h1 = -0.2555,
+  h2 = -0.78,
+  i1 = 0.02006,
+  i2 = -0.1234
+)
+
+uptake_pct_godutch_2020(
+  distance,
+  gradient,
+  alpha = -3.959,
+  d1 = -0.5963,
+  d2 = 1.832,
+  d3 = 0.007956,
+  h1 = -0.2872,
+  i1 = 0.01784,
+  i2 = -0.0977
 )
 }
 \arguments{
@@ -34,6 +61,8 @@ uptake_pct_govtarget(
 \item{i1}{document!}
 
 \item{i2}{document!}
+
+\item{h2}{Hilliness term 2}
 }
 \description{
 Uptake model that takes distance and hilliness and returns
@@ -53,9 +82,34 @@ which states that:
 
 pcycle = exp ([logit (pcycle)]) / (1 + (exp([logit(pcycle)])
 }
+
+\code{uptake_pct_govtarget_2020()} and
+\code{uptake_pct_godutch_2020()}
+approximate the uptake models used in the updated 2020 release of
+the PCT results.
 }
 \examples{
 l = routes_fast_leeds
 pcycle_scenario = uptake_pct_govtarget(l$length, l$av_incline)
-plot(l$length, pcycle_scenario)
+pcycle_scenario_2020 = uptake_pct_govtarget_2020(l$length, l$av_incline)
+plot(l$length, pcycle_scenario, ylim = c(0, 0.2))
+points(l$length, pcycle_scenario_2020, col = "blue")
+
+# compare with published PCT data:
+l_pct_2020 = get_pct_lines(region = "isle-of-wight")
+# test for another region:
+# l_pct_2020 = get_pct_lines(region = "west-yorkshire")
+l_pct_2020$rf_avslope_perc
+l_pct_2020$rf_dist_km
+govtarget_slc = uptake_pct_govtarget(
+  distance = l_pct_2020$rf_dist_km,
+  gradient = l_pct_2020$rf_avslope_perc
+) * l_pct_2020$all + l_pct_2020$bicycle
+govtarget_slc_2020 = uptake_pct_govtarget_2020(
+  distance = l_pct_2020$rf_dist_km,
+  gradient = l_pct_2020$rf_avslope_perc
+) * l_pct_2020$all + l_pct_2020$bicycle
+mean(l_pct_2020$govtarget_slc)
+mean(govtarget_slc)
+mean(govtarget_slc_2020)
 }
