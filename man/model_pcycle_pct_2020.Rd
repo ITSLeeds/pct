@@ -32,10 +32,14 @@ m1 = model_pcycle_pct_2020(
 m2 = model_pcycle_pct_2020(
   pcycle_dutch, distance = l$rf_dist_km,
   gradient = l$rf_avslope_perc - 0.78,
-  weights = l$all
+  weights = l$all)
+)
+m3 = model_pcycle_pct_2020(
+  pcycle_dutch, distance = l$rf_dist_km,
+  gradient = l$rf_avslope_perc - 0.78,
+  weights = rep(1, nrow(l))
 )
 m1
-m2$coef
 plot(l$rf_dist_km, pcycle, cex = l$all / 100, ylim = c(0, 0.5))
 points(l$rf_dist_km, m1$fitted.values, col = "red")
 points(l$rf_dist_km, m2$fitted.values, col = "blue")
@@ -53,5 +57,9 @@ pct_coefficients_2020 = c(
   i1 = 0.02006,
   i2 = -0.1234
 )
+pct_coefficients_2020
+m2$coef
 plot(pct_coefficients_2020, m2$coeff)
+cor(pct_coefficients_2020, m2$coeff)^2
+cor(pct_coefficients_2020, m3$coeff)^2 # 0.99 - only 1\% out
 }
