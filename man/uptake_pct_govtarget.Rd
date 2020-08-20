@@ -100,8 +100,8 @@ points(l$length, pcycle_scenario_2020, col = "blue")
 l_pct_2020 = get_pct_lines(region = "isle-of-wight")
 # test for another region:
 # l_pct_2020 = get_pct_lines(region = "west-yorkshire")
-l_pct_2020$rf_avslope_perc
-l_pct_2020$rf_dist_km
+l_pct_2020$rf_avslope_perc[1:5]
+l_pct_2020$rf_dist_km[1:5]
 govtarget_slc = uptake_pct_govtarget(
   distance = l_pct_2020$rf_dist_km,
   gradient = l_pct_2020$rf_avslope_perc
