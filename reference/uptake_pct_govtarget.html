@@ -10,23 +10,27 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -41,7 +45,6 @@ a percentage of people likely to cycle along a desire line.
 Source: appendix of pct paper, hosted at:
 www.jtlu.org
 which states that:" />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -59,7 +62,7 @@ which states that:" />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -73,7 +76,7 @@ which states that:" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pct</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
       </span>
     </div>
 
@@ -115,7 +118,7 @@ which states that:" />
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/ITSLeeds/pct">
+  <a href="https://github.com/ITSLeeds/pct/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -156,6 +159,31 @@ which states that:</p>
   <span class='kw'>h1</span> <span class='kw'>=</span> -<span class='fl'>0.271</span>,
   <span class='kw'>i1</span> <span class='kw'>=</span> <span class='fl'>0.009394</span>,
   <span class='kw'>i2</span> <span class='kw'>=</span> -<span class='fl'>0.05135</span>
+)
+
+<span class='fu'>uptake_pct_govtarget_2020</span>(
+  <span class='no'>distance</span>,
+  <span class='no'>gradient</span>,
+  <span class='kw'>alpha</span> <span class='kw'>=</span> -<span class='fl'>4.018</span>,
+  <span class='kw'>d1</span> <span class='kw'>=</span> -<span class='fl'>0.6369</span>,
+  <span class='kw'>d2</span> <span class='kw'>=</span> <span class='fl'>1.988</span>,
+  <span class='kw'>d3</span> <span class='kw'>=</span> <span class='fl'>0.008775</span>,
+  <span class='kw'>h1</span> <span class='kw'>=</span> -<span class='fl'>0.2555</span>,
+  <span class='kw'>h2</span> <span class='kw'>=</span> -<span class='fl'>0.78</span>,
+  <span class='kw'>i1</span> <span class='kw'>=</span> <span class='fl'>0.02006</span>,
+  <span class='kw'>i2</span> <span class='kw'>=</span> -<span class='fl'>0.1234</span>
+)
+
+<span class='fu'>uptake_pct_godutch_2020</span>(
+  <span class='no'>distance</span>,
+  <span class='no'>gradient</span>,
+  <span class='kw'>alpha</span> <span class='kw'>=</span> -<span class='fl'>3.959</span>,
+  <span class='kw'>d1</span> <span class='kw'>=</span> -<span class='fl'>0.5963</span>,
+  <span class='kw'>d2</span> <span class='kw'>=</span> <span class='fl'>1.832</span>,
+  <span class='kw'>d3</span> <span class='kw'>=</span> <span class='fl'>0.007956</span>,
+  <span class='kw'>h1</span> <span class='kw'>=</span> -<span class='fl'>0.2872</span>,
+  <span class='kw'>i1</span> <span class='kw'>=</span> <span class='fl'>0.01784</span>,
+  <span class='kw'>i2</span> <span class='kw'>=</span> -<span class='fl'>0.0977</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -197,6 +225,10 @@ which states that:</p>
       <th>i2</th>
       <td><p>document!</p></td>
     </tr>
+    <tr>
+      <th>h2</th>
+      <td><p>Hilliness term 2</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
@@ -213,19 +245,53 @@ which states that:</p>
 pcycle = exp ([logit (pcycle)]) / (1 + (exp([logit(pcycle)])
 </pre>
 
+<p><code>uptake_pct_govtarget_2020()</code> and
+<code>uptake_pct_godutch_2020()</code>
+approximate the uptake models used in the updated 2020 release of
+the PCT results.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>l</span> <span class='kw'>=</span> <span class='no'>routes_fast_leeds</span>
-<span class='no'>pcycle_scenario</span> <span class='kw'>=</span> <span class='fu'>uptake_pct_govtarget</span>(<span class='no'>l</span>$<span class='no'>length</span>, <span class='no'>l</span>$<span class='no'>av_incline</span>)</div><div class='output co'>#&gt; <span class='message'>Distance assumed in m, switching to km</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>l</span>$<span class='no'>length</span>, <span class='no'>pcycle_scenario</span>)</div><div class='img'><img src='uptake_pct_govtarget-1.png' alt='' width='700' height='433' /></div></pre>
+<span class='no'>pcycle_scenario</span> <span class='kw'>=</span> <span class='fu'>uptake_pct_govtarget</span>(<span class='no'>l</span>$<span class='no'>length</span>, <span class='no'>l</span>$<span class='no'>av_incline</span>)</div><div class='output co'>#&gt; <span class='message'>Distance assumed in m, switching to km</span></div><div class='input'><span class='no'>pcycle_scenario_2020</span> <span class='kw'>=</span> <span class='fu'>uptake_pct_govtarget_2020</span>(<span class='no'>l</span>$<span class='no'>length</span>, <span class='no'>l</span>$<span class='no'>av_incline</span>)</div><div class='output co'>#&gt; <span class='message'>Distance assumed in m, switching to km</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>l</span>$<span class='no'>length</span>, <span class='no'>pcycle_scenario</span>, <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.2</span>))</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/points.html'>points</a></span>(<span class='no'>l</span>$<span class='no'>length</span>, <span class='no'>pcycle_scenario_2020</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"blue"</span>)</div><div class='img'><img src='uptake_pct_govtarget-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># compare with published PCT data:</span>
+<span class='no'>l_pct_2020</span> <span class='kw'>=</span> <span class='fu'><a href='get_pct_lines.html'>get_pct_lines</a></span>(<span class='kw'>region</span> <span class='kw'>=</span> <span class='st'>"isle-of-wight"</span>)
+<span class='co'># test for another region:</span>
+<span class='co'># l_pct_2020 = get_pct_lines(region = "west-yorkshire")</span>
+<span class='no'>l_pct_2020</span>$<span class='no'>rf_avslope_perc</span></div><div class='output co'>#&gt;   [1] 0.33 0.34 0.35 0.63 0.63 0.47 1.45 0.37 0.63 1.43 0.38 0.65 0.67 0.51 1.26
+#&gt;  [16] 1.49 3.63 3.61 2.72 2.26 2.64 2.81 1.83 1.79 1.56 2.82 2.57 2.54 2.11 3.53
+#&gt;  [31] 2.88 2.48 2.81 2.97 2.19 2.29 1.91 2.84 2.73 2.69 2.27 3.60 3.35 3.55 3.72
+#&gt;  [46] 1.85 2.09 3.51 1.83 2.42 2.43 2.39 2.35 2.15 3.78 2.36 3.82 3.25 3.25 3.55
+#&gt;  [61] 3.04 3.11 2.66 2.64 2.57 2.79 3.40 3.87 4.15 2.86 2.94 3.60 2.60 2.89 3.05
+#&gt;  [76] 3.47 2.94 2.80 3.49 3.94 3.28 3.27 3.75 3.05 3.12 2.41 2.45 2.39 3.00 3.37
+#&gt;  [91] 3.85 3.44 3.63 3.23 3.23 2.62 2.60 2.53 2.81 3.42 3.29 3.47 1.96 2.70 2.89
+#&gt; [106] 2.97 2.92 2.80 2.34 3.10 3.50 2.10 2.69 2.88 3.08 3.03 2.91 2.25 2.81 3.59
+#&gt; [121] 2.53 2.54 2.47 3.34 2.79 3.19 2.07 2.57 2.84 2.61 3.10 2.52 1.01 2.80 3.06
+#&gt; [136] 2.53 2.31 2.62 2.96 1.96 2.67 3.13 3.27 3.80 4.35</div><div class='input'><span class='no'>l_pct_2020</span>$<span class='no'>rf_dist_km</span></div><div class='output co'>#&gt;   [1] 15.00 12.40 11.50 15.40 12.80 12.50 18.60 11.70 14.60 19.80 11.20 14.00
+#&gt;  [13] 12.50 12.20 19.60 18.30  1.10  1.94 18.00 13.00 17.10 18.30  7.48  7.26
+#&gt;  [25]  7.89 12.90 18.80 18.80 17.40  3.06 17.70 12.70 16.80 18.00  7.16  6.81
+#&gt;  [37]  7.71 11.90 18.50 18.50 17.10 11.10  6.14 10.20 11.40  6.75  8.13 18.90
+#&gt;  [49]  8.49 14.70 16.90 16.90 18.80 17.60  5.09  1.82  1.07 10.70 12.10  7.57
+#&gt;  [61] 12.50 18.70  9.15 12.20 12.90 19.50 18.40  4.39  5.59  5.93  7.32 13.10
+#&gt;  [73]  7.68 13.90 12.00 13.30 14.50 15.40 17.70  1.98 10.10 11.50  8.54 11.80
+#&gt;  [85] 18.00  9.12 12.20 12.80 18.60 17.90 12.30 12.60  6.97 13.00 19.20  7.95
+#&gt;  [97] 11.00 11.70 19.40 18.40  1.85 17.10  2.35 19.50  8.55 11.60 11.60 13.50
+#&gt; [109] 10.90 16.00 18.70  1.62 18.30  7.33 13.30 13.30 15.10 11.70 17.10 18.50
+#&gt; [121]  8.30 11.30 12.00 19.20 17.60  6.65 14.10 13.00 14.90 10.20 15.60 11.00
+#&gt; [133] 11.50 19.20 16.20  3.12  3.81 13.00 11.50  2.04 10.40  8.83  9.84  7.93
+#&gt; [145]  7.38</div><div class='input'><span class='no'>govtarget_slc</span> <span class='kw'>=</span> <span class='fu'>uptake_pct_govtarget</span>(
+  <span class='kw'>distance</span> <span class='kw'>=</span> <span class='no'>l_pct_2020</span>$<span class='no'>rf_dist_km</span>,
+  <span class='kw'>gradient</span> <span class='kw'>=</span> <span class='no'>l_pct_2020</span>$<span class='no'>rf_avslope_perc</span>
+) * <span class='no'>l_pct_2020</span>$<span class='no'>all</span> + <span class='no'>l_pct_2020</span>$<span class='no'>bicycle</span>
+<span class='no'>govtarget_slc_2020</span> <span class='kw'>=</span> <span class='fu'>uptake_pct_govtarget_2020</span>(
+  <span class='kw'>distance</span> <span class='kw'>=</span> <span class='no'>l_pct_2020</span>$<span class='no'>rf_dist_km</span>,
+  <span class='kw'>gradient</span> <span class='kw'>=</span> <span class='no'>l_pct_2020</span>$<span class='no'>rf_avslope_perc</span>
+) * <span class='no'>l_pct_2020</span>$<span class='no'>all</span> + <span class='no'>l_pct_2020</span>$<span class='no'>bicycle</span>
+<span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>l_pct_2020</span>$<span class='no'>govtarget_slc</span>)</div><div class='output co'>#&gt; [1] 12.32634</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>govtarget_slc</span>)</div><div class='output co'>#&gt; [1] 11.76153</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>govtarget_slc_2020</span>)</div><div class='output co'>#&gt; [1] 12.29505</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -236,7 +302,7 @@ pcycle = exp ([logit (pcycle)]) / (1 + (exp([logit(pcycle)])
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>
