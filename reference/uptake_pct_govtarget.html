@@ -177,13 +177,14 @@ which states that:</p>
 <span class='fu'>uptake_pct_godutch_2020</span>(
   <span class='no'>distance</span>,
   <span class='no'>gradient</span>,
-  <span class='kw'>alpha</span> <span class='kw'>=</span> -<span class='fl'>3.959</span>,
-  <span class='kw'>d1</span> <span class='kw'>=</span> -<span class='fl'>0.5963</span>,
-  <span class='kw'>d2</span> <span class='kw'>=</span> <span class='fl'>1.832</span>,
-  <span class='kw'>d3</span> <span class='kw'>=</span> <span class='fl'>0.007956</span>,
-  <span class='kw'>h1</span> <span class='kw'>=</span> -<span class='fl'>0.2872</span>,
-  <span class='kw'>i1</span> <span class='kw'>=</span> <span class='fl'>0.01784</span>,
-  <span class='kw'>i2</span> <span class='kw'>=</span> -<span class='fl'>0.0977</span>
+  <span class='kw'>alpha</span> <span class='kw'>=</span> -<span class='fl'>4.018</span> + <span class='fl'>2.55</span>,
+  <span class='kw'>d1</span> <span class='kw'>=</span> -<span class='fl'>0.6369</span> - <span class='fl'>0.08036</span>,
+  <span class='kw'>d2</span> <span class='kw'>=</span> <span class='fl'>1.988</span>,
+  <span class='kw'>d3</span> <span class='kw'>=</span> <span class='fl'>0.008775</span>,
+  <span class='kw'>h1</span> <span class='kw'>=</span> -<span class='fl'>0.2555</span>,
+  <span class='kw'>h2</span> <span class='kw'>=</span> -<span class='fl'>0.78</span>,
+  <span class='kw'>i1</span> <span class='kw'>=</span> <span class='fl'>0.02006</span>,
+  <span class='kw'>i2</span> <span class='kw'>=</span> -<span class='fl'>0.1234</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -219,11 +220,11 @@ which states that:</p>
     </tr>
     <tr>
       <th>i1</th>
-      <td><p>document!</p></td>
+      <td><p>Distance-hilliness interaction term 1</p></td>
     </tr>
     <tr>
       <th>i2</th>
-      <td><p>document!</p></td>
+      <td><p>Distance-hilliness interaction term 2</p></td>
     </tr>
     <tr>
       <th>h2</th>
@@ -286,7 +287,15 @@ the PCT results.</p>
   <span class='kw'>distance</span> <span class='kw'>=</span> <span class='no'>l_pct_2020</span>$<span class='no'>rf_dist_km</span>,
   <span class='kw'>gradient</span> <span class='kw'>=</span> <span class='no'>l_pct_2020</span>$<span class='no'>rf_avslope_perc</span>
 ) * <span class='no'>l_pct_2020</span>$<span class='no'>all</span> + <span class='no'>l_pct_2020</span>$<span class='no'>bicycle</span>
-<span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>l_pct_2020</span>$<span class='no'>govtarget_slc</span>)</div><div class='output co'>#&gt; [1] 12.32634</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>govtarget_slc</span>)</div><div class='output co'>#&gt; [1] 11.76153</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>govtarget_slc_2020</span>)</div><div class='output co'>#&gt; [1] 12.29505</div></pre>
+<span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>l_pct_2020</span>$<span class='no'>govtarget_slc</span>)</div><div class='output co'>#&gt; [1] 12.32634</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>govtarget_slc</span>)</div><div class='output co'>#&gt; [1] 11.76153</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>govtarget_slc_2020</span>)</div><div class='output co'>#&gt; [1] 12.29505</div><div class='input'><span class='no'>godutch_slc</span> <span class='kw'>=</span> <span class='fu'><a href='uptake_pct_godutch.html'>uptake_pct_godutch</a></span>(
+  <span class='kw'>distance</span> <span class='kw'>=</span> <span class='no'>l_pct_2020</span>$<span class='no'>rf_dist_km</span>,
+  <span class='kw'>gradient</span> <span class='kw'>=</span> <span class='no'>l_pct_2020</span>$<span class='no'>rf_avslope_perc</span>
+) * <span class='no'>l_pct_2020</span>$<span class='no'>all</span> + <span class='no'>l_pct_2020</span>$<span class='no'>bicycle</span>
+<span class='no'>godutch_slc_2020</span> <span class='kw'>=</span> <span class='fu'>uptake_pct_godutch_2020</span>(
+  <span class='kw'>distance</span> <span class='kw'>=</span> <span class='no'>l_pct_2020</span>$<span class='no'>rf_dist_km</span>,
+  <span class='kw'>gradient</span> <span class='kw'>=</span> <span class='no'>l_pct_2020</span>$<span class='no'>rf_avslope_perc</span>
+) * <span class='no'>l_pct_2020</span>$<span class='no'>all</span> + <span class='no'>l_pct_2020</span>$<span class='no'>bicycle</span>
+<span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>l_pct_2020</span>$<span class='no'>dutch_slc</span>)</div><div class='output co'>#&gt; [1] 33.944</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>godutch_slc</span>)</div><div class='output co'>#&gt; [1] 30.5002</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>godutch_slc_2020</span>)</div><div class='output co'>#&gt; [1] 39.34329</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
