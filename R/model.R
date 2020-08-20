@@ -1,5 +1,6 @@
 #' Model cycling levels as a function of explanatory variables
 #'
+#' @param pcycle The proportion of trips by bike, e.g. 0.1, meaning 10%
 #' @param weights The weights used in the model, typically the total number of people per OD pair
 #'
 #' @inheritParams uptake_pct_govtarget
