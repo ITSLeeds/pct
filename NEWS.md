@@ -1,5 +1,7 @@
 # pct 0.4.2
 
+- New #' `uptake_pct_govtarget_2020()` and `uptake_pct_godutch_2020()` functions approximate the uptake models used in the updated 2020 release of the PCT results.
+
 # pct 0.4.1
 
 - Update vignette for recent version of `sf` (#64)
