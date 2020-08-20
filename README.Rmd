@@ -13,10 +13,14 @@ knitr::opts_chunk$set(
 )
 ```
 
-[![](http://www.r-pkg.org/badges/version/pct)](http://www.r-pkg.org/pkg/pct)
+<!-- badges: start -->
 [![R build status](https://github.com/itsleeds/pct/workflows/R-CMD-check/badge.svg)](https://github.com/itsleeds/pct/actions)
+[![](http://www.r-pkg.org/badges/version/pct)](http://www.r-pkg.org/pkg/pct)
+[![Coverage status](https://codecov.io/gh/ITSLeeds/pct/branch/master/graph/badge.svg)](https://codecov.io/github/ITSLeeds/pct?branch=master)
+<!-- badges: end -->
 
-<!-- [![Coverage status](https://codecov.io/gh/ITSLeeds/pct/branch/master/graph/badge.svg)](https://codecov.io/github/ITSLeeds/pct?branch=master) -->
+<!-- [![R build status](https://github.com/itsleeds/pct/workflows/R-CMD-check/badge.svg)](https://github.com/itsleeds/pct/actions) -->
+
 <!-- [![Travis build status](https://travis-ci.org/ITSLeeds/pct.svg?branch=master)](https://travis-ci.org/ITSLeeds/pct) -->
 
 # pct
@@ -34,6 +38,7 @@ It was developed primarily for educational purposes (including for upcoming PCT 
 In summary, if you want to know how PCT works, be able to reproduce some of its results, and build scenarios of cycling uptake to inform transport policies enabling cycling in cities worldwide, this package is for you!
 
 ## Installation
+
 ```{r, eval=FALSE}
 # from CRAN
 install.packages("pct")
@@ -45,20 +50,27 @@ You can install the development version of the package as follows:
 remotes::install_github("ITSLeeds/pct")
 ```
 
-
-<!-- You can install the released version of pct from [CRAN](https://CRAN.R-project.org) with: -->
-
-<!-- ``` r -->
-<!-- install.packages("pct") -->
-<!-- ``` -->
-
 Load the package as follows:
 
 ```{r}
 library(pct)
 ```
 
-### Get PCT data
+## Documentation
+
+Probably the best place to get further information on the PCT is from the package's website at https://itsleeds.github.io/pct/
+
+There you will find the following vignettes:
+
+- An introduction to the PCT and associated R package: https://itsleeds.github.io/pct/articles/pct.html
+- A [vignette](https://itsleeds.github.io/pct/articles/cycling-potential-uk.html) explaining how the package estimates cycling uptake in UK cities
+- A [vignette](https://itsleeds.github.io/pct/articles/pct-international.html) demonstrating the international applicability of the PCT method, with help from this and other R packages
+- A [training vignette](https://itsleeds.github.io/pct/articles/pct_training.html) for getting started with the PCT
+
+You will also find there documentation for each of the functions at [itsleeds.github.io/pct/reference/](https://itsleeds.github.io/pct/reference/index.html).
+Below we describe some of the basics.
+
+## Get PCT data
 
 From feedback, we hear that the use of the data is critical in decision making. Therefore, one area where the package could be useful is making the data "easily" available to be processed.
 
@@ -158,50 +170,63 @@ plot(desire_lines[c(1:3, 12)])
 We can convert these straight lines into routes with a routing service, e.g.:
 
 ```{r}
-routes_fast = stplanr::line2route(desire_lines, route_fun = stplanr::route_cyclestreet)
+segments_fast = stplanr::route(l = desire_lines, route_fun = cyclestreets::journey)
 ```
 
-We got useful information from this routing operation.
-We will add the desire line data onto vital data from the routes (from a cycling uptake perspective, distance and hilliness of routes):
+We got useful information from this routing operation, we will convert the route segments into complete routes with `dplyr`:
 
-```{r routes_vital}
-routes_vital = sf::st_sf(
-  cbind(
-  sf::st_drop_geometry(desire_lines[c(1:3, 12)]),
-  sf::st_drop_geometry(routes_fast[c("length", "av_incline")]),
-  geometry = routes_fast$geometry
-  ))
-plot(routes_vital)
+```{r}
+library(dplyr)
+routes_fast = segments_fast %>% 
+  group_by(area_of_residence, area_of_workplace) %>% 
+  summarise(
+    all = unique(all),
+    bicycle = unique(bicycle),
+    length = sum(distances),
+    av_incline = diff(range(elevations)) / sum(distances) * 100
+  ) 
+```
+
+The results at the route level are as follows:
+
+```{r routes_fast}
+plot(routes_fast)
 ```
 
 Now we estimate cycling uptake:
 
 ```{r}
-routes_vital$uptake = uptake_pct_govtarget(distance = routes_vital$length, gradient = routes_vital$av_incline)
-routes_vital$bicycle_govtarget = routes_vital$bicycle +
-  round(routes_vital$uptake * routes_vital$all)
+routes_fast$uptake = uptake_pct_govtarget(distance = routes_fast$length, gradient = routes_fast$av_incline)
+routes_fast$bicycle_govtarget = routes_fast$bicycle +
+  round(routes_fast$uptake * routes_fast$all)
 ```
 
 Let's see how many people started cycling:
 
 ```{r}
-sum(routes_vital$bicycle_govtarget) - sum(routes_vital$bicycle)
+sum(routes_fast$bicycle_govtarget) - sum(routes_fast$bicycle)
 ```
 
 Nearly 1000 more people cycling to work, just in 10 desire is not bad!
 What % cycling is this, for those routes?
 
 ```{r}
-sum(routes_vital$bicycle_govtarget) / sum(routes_vital$all)
-sum(routes_vital$bicycle) / sum(routes_vital$all)
+sum(routes_fast$bicycle_govtarget) / sum(routes_fast$all)
+sum(routes_fast$bicycle) / sum(routes_fast$all)
 ```
 
 It's gone from 4% to 11%, a realistic increase if cycling were enabled by good infrastructure and policies.
 
 Now: where to prioritise that infrastructure and those policies?
 
+```{r, eval=FALSE, echo=FALSE}
+summary(sf::st_geometry_type(routes_fast))
+```
+
+
 ```{r rnetgove, message=FALSE}
-rnet = stplanr::overline2(routes_vital, attrib = c("bicycle", "bicycle_govtarget"))
+routes_fast_linestrings = sf::st_cast(routes_fast, "LINESTRING")
+rnet = stplanr::overline(routes_fast_linestrings, attrib = c("bicycle", "bicycle_govtarget"))
 lwd = rnet$bicycle_govtarget / mean(rnet$bicycle_govtarget)
 plot(rnet["bicycle_govtarget"], lwd = lwd)
 ```

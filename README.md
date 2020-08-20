@@ -1,18 +1,49 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-[![](http://www.r-pkg.org/badges/version/pct)](http://www.r-pkg.org/pkg/pct)[![Coverage status](https://codecov.io/gh/ITSLeeds/pct/branch/master/graph/badge.svg)](https://codecov.io/github/ITSLeeds/pct?branch=master) [![Travis build status](https://travis-ci.org/ITSLeeds/pct.svg?branch=master)](https://travis-ci.org/ITSLeeds/pct)
 
-pct
-===
+<!-- badges: start -->
 
-The goal of pct is to increase the accessibility and reproducibility of the data produced by the Propensity to Cycle Tool (PCT), a research project and web application hosted at [www.pct.bike](https://www.pct.bike/). For an overview of the data provided by the PCT, clicking on the previous link and trying it out is a great place to start. An academic [paper](https://www.jtlu.org/index.php/jtlu/article/view/862) on the PCT provides detail on the motivations for and methods underlying the project.
+[![R build
+status](https://github.com/itsleeds/pct/workflows/R-CMD-check/badge.svg)](https://github.com/itsleeds/pct/actions)
+[![](http://www.r-pkg.org/badges/version/pct)](http://www.r-pkg.org/pkg/pct)
+[![Coverage
+status](https://codecov.io/gh/ITSLeeds/pct/branch/master/graph/badge.svg)](https://codecov.io/github/ITSLeeds/pct?branch=master)
+<!-- badges: end -->
 
-A major motivation behind the project was making transport evidence more accessible, encouraging evidence-based transport policies. The code base underlying the PCT is publicly available (see [github.com/npct](https://github.com/npct/)). However, the code hosted there is not easy to run or reproduce, which is where this package comes in: it provides quick access to the data underlying the PCT and enables some of the key results to be reproduced quickly. It was developed primarily for educational purposes (including for upcoming PCT training courses) but it may be useful for people to build on the the methods, for example to create a scenario of cycling uptake in their town/city/region.
+<!-- [![R build status](https://github.com/itsleeds/pct/workflows/R-CMD-check/badge.svg)](https://github.com/itsleeds/pct/actions) -->
 
-In summary, if you want to know how PCT works, be able to reproduce some of its results, and build scenarios of cycling uptake to inform transport policies enabling cycling in cities worldwide, this package is for you!
+<!-- [![Travis build status](https://travis-ci.org/ITSLeeds/pct.svg?branch=master)](https://travis-ci.org/ITSLeeds/pct) -->
 
-Installation
-------------
+# pct
+
+The goal of pct is to increase the accessibility and reproducibility of
+the data produced by the Propensity to Cycle Tool (PCT), a research
+project and web application hosted at
+[www.pct.bike](https://www.pct.bike/). For an overview of the data
+provided by the PCT, clicking on the previous link and trying it out is
+a great place to start. An academic
+[paper](https://www.jtlu.org/index.php/jtlu/article/view/862) on the PCT
+provides detail on the motivations for and methods underlying the
+project.
+
+A major motivation behind the project was making transport evidence more
+accessible, encouraging evidence-based transport policies. The code base
+underlying the PCT is publicly available (see
+[github.com/npct](https://github.com/npct/)). However, the code hosted
+there is not easy to run or reproduce, which is where this package comes
+in: it provides quick access to the data underlying the PCT and enables
+some of the key results to be reproduced quickly. It was developed
+primarily for educational purposes (including for upcoming PCT training
+courses) but it may be useful for people to build on the the methods,
+for example to create a scenario of cycling uptake in their
+town/city/region.
+
+In summary, if you want to know how PCT works, be able to reproduce some
+of its results, and build scenarios of cycling uptake to inform
+transport policies enabling cycling in cities worldwide, this package is
+for you\!
+
+## Installation
 
 ``` r
 # from CRAN
@@ -25,44 +56,66 @@ You can install the development version of the package as follows:
 remotes::install_github("ITSLeeds/pct")
 ```
 
-<!-- You can install the released version of pct from [CRAN](https://CRAN.R-project.org) with: -->
-<!-- ``` r -->
-<!-- install.packages("pct") -->
-<!-- ``` -->
 Load the package as follows:
 
 ``` r
 library(pct)
 ```
 
-### Get PCT data
+## Documentation
 
-From feedback, we hear that the use of the data is critical in decision making. Therefore, one area where the package could be useful is making the data "easily" available to be processed.
+Probably the best place to get further information on the PCT is from
+the package’s website at <https://itsleeds.github.io/pct/>
 
--   `get_pct`: the basic function to obtain data available [here](https://itsleeds.github.io/pct/reference/get_pct.html).
+There you will find the following vignettes:
+
+  - An introduction to the PCT and associated R package:
+    <https://itsleeds.github.io/pct/articles/pct.html>
+  - A
+    [vignette](https://itsleeds.github.io/pct/articles/cycling-potential-uk.html)
+    explaining how the package estimates cycling uptake in UK cities
+  - A
+    [vignette](https://itsleeds.github.io/pct/articles/pct-international.html)
+    demonstrating the international applicability of the PCT method,
+    with help from this and other R packages
+  - A [training
+    vignette](https://itsleeds.github.io/pct/articles/pct_training.html)
+    for getting started with the PCT
+
+You will also find there documentation for each of the functions at
+[itsleeds.github.io/pct/reference/](https://itsleeds.github.io/pct/reference/index.html).
+Below we describe some of the basics.
+
+## Get PCT data
+
+From feedback, we hear that the use of the data is critical in decision
+making. Therefore, one area where the package could be useful is making
+the data “easily” available to be processed.
+
+  - `get_pct`: the basic function to obtain data available
+    [here](https://itsleeds.github.io/pct/reference/get_pct.html).
 
 The rest of these should be self explanatory.
 
--   `get_pct_centroids`
--   `get_pct_lines`
--   `get_pct_rnet`
--   `get_pct_routes_fast`
--   `get_pct_routes_quiet`
--   `get_pct_zones`
--   `uptake_pct_godutch`
--   `uptake_pct_govtarget`
+  - `get_pct_centroids`
+  - `get_pct_lines`
+  - `get_pct_rnet`
+  - `get_pct_routes_fast`
+  - `get_pct_routes_quiet`
+  - `get_pct_zones`
+  - `uptake_pct_godutch`
+  - `uptake_pct_govtarget`
 
 For example, to get the centroids in West Yorkshire:
 
 ``` r
 centroids = get_pct_centroids(region = "west-yorkshire")
-#> Loading required package: sp
 plot(centroids[, "geo_name"])
 ```
 
 <img src="man/figures/README-centroids-1.png" width="100%" />
 
-Likewise to download the desire lines for "west-yorkshire":
+Likewise to download the desire lines for “west-yorkshire”:
 
 ``` r
 lines = get_pct_lines(region = "west-yorkshire")
@@ -77,10 +130,23 @@ plot(lines[1:10,], lwd = 4)
 # mapview::mapview(lines[1:3000, c("geo_name1")])
 ```
 
-Estimate cycling uptake
------------------------
+## Estimate cycling uptake
 
-An important part of the PCT is its ability to create model scenarios of cycling uptake. Key to the PCT uptake model is 'distance decay', meaning that short trips are more likely to be cycled than long trips. The functions `uptake_pct_govtarget()` and `uptake_pct_godutch()` implement uptake models used in the PCT, which use distance and hilliness per desire line as inputs and output the proportion of people who could be expected to cycle if that scenario were realised. The scenarios of cycling uptake produced by these functions are not predictions of what *will* happen, but illustrative snapshots of what *could* happen if overall propensity to cycle reached a certain level. The uptake levels produced by Go Dutch and Government Target scenarios (which represent increases in cycling, not final levels) are illustrated in the graph below (other scenarios could be produced, see the [source code](https://itsleeds.github.io/pct/reference/uptake_pct_govtarget.html) see how these models work):
+An important part of the PCT is its ability to create model scenarios of
+cycling uptake. Key to the PCT uptake model is ‘distance decay’, meaning
+that short trips are more likely to be cycled than long trips. The
+functions `uptake_pct_govtarget()` and `uptake_pct_godutch()` implement
+uptake models used in the PCT, which use distance and hilliness per
+desire line as inputs and output the proportion of people who could be
+expected to cycle if that scenario were realised. The scenarios of
+cycling uptake produced by these functions are not predictions of what
+*will* happen, but illustrative snapshots of what *could* happen if
+overall propensity to cycle reached a certain level. The uptake levels
+produced by Go Dutch and Government Target scenarios (which represent
+increases in cycling, not final levels) are illustrated in the graph
+below (other scenarios could be produced, see the [source
+code](https://itsleeds.github.io/pct/reference/uptake_pct_govtarget.html)
+see how these models work):
 
 ``` r
 distances = 1:20
@@ -114,14 +180,19 @@ ggplot(uptake_df) +
 
 <img src="man/figures/README-decay-1.png" width="100%" />
 
-The proportion of trips made by cycling along each origin-destination (OD) pair therefore depends on the trip distance and hilliness. The main input dataset into the PCT is OD data and, to convert each OD pair into a geographic desire line, geographic zone or centroids. Typical input data is provided in packaged datasets `od_leeds` and `zones_leeds`:
+The proportion of trips made by cycling along each origin-destination
+(OD) pair therefore depends on the trip distance and hilliness. The main
+input dataset into the PCT is OD data and, to convert each OD pair into
+a geographic desire line, geographic zone or centroids. Typical input
+data is provided in packaged datasets `od_leeds` and `zones_leeds`:
 
-Reproduce PCT for Leeds
------------------------
+## Reproduce PCT for Leeds
 
-This example shows how scenarios of cycling uptake, and how 'distance decay' works (short trips are more likely to be cycled than long trips).
+This example shows how scenarios of cycling uptake, and how ‘distance
+decay’ works (short trips are more likely to be cycled than long trips).
 
-The input data looks like this (origin-destination data and geographic zone data):
+The input data looks like this (origin-destination data and geographic
+zone data):
 
 ``` r
 class(od_leeds)
@@ -147,8 +218,7 @@ zones_leeds[1:3, ]
 #> geometry type:  MULTIPOLYGON
 #> dimension:      XY
 #> bbox:           xmin: -1.727245 ymin: 53.90046 xmax: -1.294313 ymax: 53.94589
-#> epsg (SRID):    4326
-#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
+#> geographic CRS: WGS 84
 #>      objectid  msoa11cd  msoa11nm msoa11nmw st_areasha st_lengths
 #> 2270     2270 E02002330 Leeds 001 Leeds 001    3460674  10002.983
 #> 2271     2271 E02002331 Leeds 002 Leeds 002   21870986  26417.665
@@ -159,91 +229,104 @@ zones_leeds[1:3, ]
 #> 2272 MULTIPOLYGON (((-1.682211 5...
 ```
 
-The `stplanr` package can be used to convert the non-geographic OD data into geographic desire lines as follows:
+The `stplanr` package can be used to convert the non-geographic OD data
+into geographic desire lines as follows:
 
 ``` r
 library(sf)
-#> Linking to GEOS 3.5.1, GDAL 2.1.2, PROJ 4.9.3
+#> Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 6.3.1
 desire_lines = stplanr::od2line(flow = od_leeds, zones = zones_leeds[2])
 #> Creating centroids representing desire line start and end points.
-#> Warning in st_centroid.sf(zones): st_centroid assumes attributes are
-#> constant over geometries of x
-#> Warning in st_centroid.sfc(st_geometry(x), of_largest_polygon =
-#> of_largest_polygon): st_centroid does not give correct centroids for
-#> longitude/latitude data
 plot(desire_lines[c(1:3, 12)])
 ```
 
 <img src="man/figures/README-desire-1.png" width="100%" />
 
-We can convert these straight lines into routes with a routing service, e.g.:
+We can convert these straight lines into routes with a routing service,
+e.g.:
 
 ``` r
-routes_fast = stplanr::line2route(desire_lines, route_fun = stplanr::route_cyclestreet)
-#> 10 % out of 10 distances calculated
-#> 20 % out of 10 distances calculated
-#> 30 % out of 10 distances calculated
-#> 40 % out of 10 distances calculated
-#> 50 % out of 10 distances calculated
-#> 60 % out of 10 distances calculated
-#> 70 % out of 10 distances calculated
-#> 80 % out of 10 distances calculated
-#> 90 % out of 10 distances calculated
-#> 100 % out of 10 distances calculated
+segments_fast = stplanr::route(l = desire_lines, route_fun = cyclestreets::journey)
+#> Most common output is sf
 ```
 
-We got useful information from this routing operation. We will add the desire line data onto vital data from the routes (from a cycling uptake perspective, distance and hilliness of routes):
+We got useful information from this routing operation, we will convert
+the route segments into complete routes with `dplyr`:
 
 ``` r
-routes_vital = sf::st_sf(
-  cbind(
-  sf::st_drop_geometry(desire_lines[c(1:3, 12)]),
-  sf::st_drop_geometry(routes_fast[c("length", "av_incline")]),
-  geometry = routes_fast$geometry
-  ))
-plot(routes_vital)
+library(dplyr)
+#> 
+#> Attaching package: 'dplyr'
+#> The following objects are masked from 'package:stats':
+#> 
+#>     filter, lag
+#> The following objects are masked from 'package:base':
+#> 
+#>     intersect, setdiff, setequal, union
+routes_fast = segments_fast %>% 
+  group_by(area_of_residence, area_of_workplace) %>% 
+  summarise(
+    all = unique(all),
+    bicycle = unique(bicycle),
+    length = sum(distances),
+    av_incline = diff(range(elevations)) / sum(distances) * 100
+  ) 
+#> `summarise()` regrouping output by 'area_of_residence' (override with `.groups` argument)
 ```
 
-<img src="man/figures/README-routes_vital-1.png" width="100%" />
+The results at the route level are as follows:
+
+``` r
+plot(routes_fast)
+```
+
+<img src="man/figures/README-routes_fast-1.png" width="100%" />
 
 Now we estimate cycling uptake:
 
 ``` r
-routes_vital$uptake = uptake_pct_govtarget(distance = routes_vital$length, gradient = routes_vital$av_incline)
+routes_fast$uptake = uptake_pct_govtarget(distance = routes_fast$length, gradient = routes_fast$av_incline)
 #> Distance assumed in m, switching to km
-routes_vital$bicycle_govtarget = routes_vital$bicycle +
-  round(routes_vital$uptake * routes_vital$all)
+routes_fast$bicycle_govtarget = routes_fast$bicycle +
+  round(routes_fast$uptake * routes_fast$all)
 ```
 
-Let's see how many people started cycling:
+Let’s see how many people started cycling:
 
 ``` r
-sum(routes_vital$bicycle_govtarget) - sum(routes_vital$bicycle)
-#> [1] 767
+sum(routes_fast$bicycle_govtarget) - sum(routes_fast$bicycle)
+#> [1] 547
 ```
 
-Nearly 1000 more people cycling to work, just in 10 desire is not bad! What % cycling is this, for those routes?
+Nearly 1000 more people cycling to work, just in 10 desire is not bad\!
+What % cycling is this, for those routes?
 
 ``` r
-sum(routes_vital$bicycle_govtarget) / sum(routes_vital$all)
-#> [1] 0.1152519
-sum(routes_vital$bicycle) / sum(routes_vital$all)
+sum(routes_fast$bicycle_govtarget) / sum(routes_fast$all)
+#> [1] 0.09356206
+sum(routes_fast$bicycle) / sum(routes_fast$all)
 #> [1] 0.03963324
 ```
 
-It's gone from 4% to 11%, a realistic increase if cycling were enabled by good infrastructure and policies.
+It’s gone from 4% to 11%, a realistic increase if cycling were enabled
+by good infrastructure and policies.
 
 Now: where to prioritise that infrastructure and those policies?
 
 ``` r
-rnet = stplanr::overline2(routes_vital, attrib = c("bicycle", "bicycle_govtarget"))
+routes_fast_linestrings = sf::st_cast(routes_fast, "LINESTRING")
+#> Warning in st_cast.sf(routes_fast, "LINESTRING"): repeating attributes for all
+#> sub-geometries for which they may not be constant
+rnet = stplanr::overline(routes_fast_linestrings, attrib = c("bicycle", "bicycle_govtarget"))
 lwd = rnet$bicycle_govtarget / mean(rnet$bicycle_govtarget)
 plot(rnet["bicycle_govtarget"], lwd = lwd)
 ```
 
 <img src="man/figures/README-rnetgove-1.png" width="100%" />
 
-We can view the results in an interactive map and share with policy makers, stakeholders, and the public! E.g. (see interactive map [here](http://rpubs.com/RobinLovelace/474074)):
+We can view the results in an interactive map and share with policy
+makers, stakeholders, and the public\! E.g. (see interactive map
+[here](http://rpubs.com/RobinLovelace/474074)):
 
 ``` r
 mapview::mapview(rnet, zcol = "bicycle_govtarget", lwd = lwd * 2)
@@ -251,16 +334,16 @@ mapview::mapview(rnet, zcol = "bicycle_govtarget", lwd = lwd * 2)
 
 ![](https://raw.githubusercontent.com/ITSLeeds/pct/master/pct-leeds-demo.png)
 
-Current limitations
--------------------
+## Current limitations
 
--   This package currently does not estimate cycling uptake associated with intrazonal flows and people with no fixed job data
--   This package currently does not estimate health benefits
+  - This package currently does not estimate cycling uptake associated
+    with intrazonal flows and people with no fixed job data
+  - This package currently does not estimate health benefits
 
-Next steps and further resources (work in progress)
----------------------------------------------------
+## Next steps and further resources (work in progress)
 
--   Add additional scenarios of cycling uptake from different places (e.g. goCambridge)
--   Add additional distance decay functions
--   Make it easy to use data from other cities around the world
--   Show how to create raster tiles of cycling uptake
+  - Add additional scenarios of cycling uptake from different places
+    (e.g. goCambridge)
+  - Add additional distance decay functions
+  - Make it easy to use data from other cities around the world
+  - Show how to create raster tiles of cycling uptake
