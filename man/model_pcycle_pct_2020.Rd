@@ -28,11 +28,12 @@ m1 = model_pcycle_pct_2020(
   pcycle,
   distance = l$rf_dist_km,
   gradient = l$rf_avslope_perc - 0.78,
-  weights = l$all)
+  weights = l$all
+  )
 m2 = model_pcycle_pct_2020(
   pcycle_dutch, distance = l$rf_dist_km,
   gradient = l$rf_avslope_perc - 0.78,
-  weights = l$all)
+  weights = l$all
 )
 m3 = model_pcycle_pct_2020(
   pcycle_dutch, distance = l$rf_dist_km,
