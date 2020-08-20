@@ -1,3 +1,5 @@
+# pct 0.4.2
+
 # pct 0.4.1
 
 - Update vignette for recent version of `sf` (#64)
