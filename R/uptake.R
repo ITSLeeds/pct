@@ -59,7 +59,17 @@
 #' mean(l_pct_2020$govtarget_slc)
 #' mean(govtarget_slc)
 #' mean(govtarget_slc_2020)
-
+#' godutch_slc = uptake_pct_godutch(
+#'   distance = l_pct_2020$rf_dist_km,
+#'   gradient = l_pct_2020$rf_avslope_perc
+#' ) * l_pct_2020$all + l_pct_2020$bicycle
+#' godutch_slc_2020 = uptake_pct_godutch_2020(
+#'   distance = l_pct_2020$rf_dist_km,
+#'   gradient = l_pct_2020$rf_avslope_perc
+#' ) * l_pct_2020$all + l_pct_2020$bicycle
+#' mean(l_pct_2020$dutch_slc)
+#' mean(godutch_slc)
+#' mean(godutch_slc_2020)
 uptake_pct_govtarget = function(
   distance,
   gradient,
@@ -187,17 +197,18 @@ uptake_pct_govtarget_2020 = function(
 }
 
 #' @rdname uptake_pct_govtarget
-#' @inheritParams uptake_pct_govtarget_2020
+#' @export
 uptake_pct_godutch_2020 = function(
   distance,
   gradient,
-  alpha = -3.959,
-  d1 = -0.5963,
-  d2 = 1.832,
-  d3 = 0.007956,
-  h1 = -0.2872,
-  i1 = 0.01784,
-  i2 = -0.09770
+  alpha = -4.018 + 2.550,
+  d1 = -0.6369 -0.08036,
+  d2 = 1.988,
+  d3 = 0.008775,
+  h1 = -0.2555,
+  h2 = -0.78,
+  i1 = 0.02006,
+  i2 = -0.1234
 ) {
   if(!exists(c("distance", "gradient")) |
      !is.numeric(c(distance, gradient))) {
@@ -208,13 +219,18 @@ uptake_pct_godutch_2020 = function(
     message("Distance assumed in m, switching to km")
     distance = distance / 1000
   }
-  pcycle_scenario = alpha + (d1 * distance) +
-    (d2 * sqrt(distance) ) + (d3 * distance^2) +
-    (h1 * gradient) +
-    (i1 * distance * gradient) +
-    (i2 * sqrt(distance) * gradient)
-  # looks like this
-  pcycle_scenario = pcycle_scenario + 2.499 -0.07384 * distance
+  # Uptake formula from manual:
+  # logit_pcycle = -4.018  +  (-0.6369  *  distance)  +  (1.988  *  distancesqrt) +
+  # (0.008775  * distancesq) + (-0.2555 * gradient) + (0.02006 * distance*gradient) +
+  # (-0.1234 * distancesqrt*gradient) + (2.550 * dutch) +  (-0.08036* dutch * distance) +
+  # (0.05509* ebike * distance) + (-0.0002950* ebike * distancesq) + (0.1812* ebike * gradient)
+  gradient = gradient + h2
+  pcycle_scenario = alpha +
+    (d1 * distance) +    # d1
+    (d2 * sqrt(distance)) +  # d2
+    (d3 * distance^2) + # d3
+    (h1 * gradient) +    # h1
+    (i1 * distance * gradient) +  # i1
+    (i2 * sqrt(distance) * gradient) # i2
   boot::inv.logit(pcycle_scenario)
 }
-

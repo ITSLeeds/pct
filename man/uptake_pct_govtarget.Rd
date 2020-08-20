@@ -34,13 +34,14 @@ uptake_pct_govtarget_2020(
 uptake_pct_godutch_2020(
   distance,
   gradient,
-  alpha = -3.959,
-  d1 = -0.5963,
-  d2 = 1.832,
-  d3 = 0.007956,
-  h1 = -0.2872,
-  i1 = 0.01784,
-  i2 = -0.0977
+  alpha = -4.018 + 2.55,
+  d1 = -0.6369 - 0.08036,
+  d2 = 1.988,
+  d3 = 0.008775,
+  h1 = -0.2555,
+  h2 = -0.78,
+  i1 = 0.02006,
+  i2 = -0.1234
 )
 }
 \arguments{
@@ -58,9 +59,9 @@ uptake_pct_godutch_2020(
 
 \item{h1}{Hilliness term 1}
 
-\item{i1}{document!}
+\item{i1}{Distance-hilliness interaction term 1}
 
-\item{i2}{document!}
+\item{i2}{Distance-hilliness interaction term 2}
 
 \item{h2}{Hilliness term 2}
 }
@@ -112,4 +113,15 @@ govtarget_slc_2020 = uptake_pct_govtarget_2020(
 mean(l_pct_2020$govtarget_slc)
 mean(govtarget_slc)
 mean(govtarget_slc_2020)
+godutch_slc = uptake_pct_godutch(
+  distance = l_pct_2020$rf_dist_km,
+  gradient = l_pct_2020$rf_avslope_perc
+) * l_pct_2020$all + l_pct_2020$bicycle
+godutch_slc_2020 = uptake_pct_godutch_2020(
+  distance = l_pct_2020$rf_dist_km,
+  gradient = l_pct_2020$rf_avslope_perc
+) * l_pct_2020$all + l_pct_2020$bicycle
+mean(l_pct_2020$dutch_slc)
+mean(godutch_slc)
+mean(godutch_slc_2020)
 }

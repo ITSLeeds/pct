@@ -31,9 +31,9 @@ uptake_pct_godutch(
 
 \item{h1}{Hilliness term 1}
 
-\item{i1}{document!}
+\item{i1}{Distance-hilliness interaction term 1}
 
-\item{i2}{document!}
+\item{i2}{Distance-hilliness interaction term 2}
 }
 \description{
 See \code{\link[=uptake_pct_govtarget]{uptake_pct_govtarget()}}.
