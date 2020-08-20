@@ -22,10 +22,16 @@ Model cycling levels as a function of explanatory variables
 l = get_pct_lines(region = "avon")
 pcycle = l$bicycle / l$all
 pcycle_dutch = l$dutch_slc / l$all
-m1 = model_pcycle_pct_2020(pcycle, distance = l$rf_dist_km, gradient = l$rf_avslope_perc - 0.78,
+m1 = model_pcycle_pct_2020(
+  pcycle,
+  distance = l$rf_dist_km,
+  gradient = l$rf_avslope_perc - 0.78,
   weights = l$all)
-m2 = model_pcycle_pct_2020(pcycle_dutch, distance = l$rf_dist_km, gradient = l$rf_avslope_perc - 0.78,
-  weights = l$all)
+m2 = model_pcycle_pct_2020(
+  pcycle_dutch, distance = l$rf_dist_km,
+  gradient = l$rf_avslope_perc - 0.78,
+  weights = l$all
+)
 m1
 m2$coef
 plot(l$rf_dist_km, pcycle, cex = l$all / 100, ylim = c(0, 0.5))
