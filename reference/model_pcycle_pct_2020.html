@@ -167,10 +167,16 @@
 <span class='no'>l</span> <span class='kw'>=</span> <span class='fu'><a href='get_pct_lines.html'>get_pct_lines</a></span>(<span class='kw'>region</span> <span class='kw'>=</span> <span class='st'>"avon"</span>)
 <span class='no'>pcycle</span> <span class='kw'>=</span> <span class='no'>l</span>$<span class='no'>bicycle</span> / <span class='no'>l</span>$<span class='no'>all</span>
 <span class='no'>pcycle_dutch</span> <span class='kw'>=</span> <span class='no'>l</span>$<span class='no'>dutch_slc</span> / <span class='no'>l</span>$<span class='no'>all</span>
-<span class='no'>m1</span> <span class='kw'>=</span> <span class='fu'>model_pcycle_pct_2020</span>(<span class='no'>pcycle</span>, <span class='kw'>distance</span> <span class='kw'>=</span> <span class='no'>l</span>$<span class='no'>rf_dist_km</span>, <span class='kw'>gradient</span> <span class='kw'>=</span> <span class='no'>l</span>$<span class='no'>rf_avslope_perc</span> - <span class='fl'>0.78</span>,
+<span class='no'>m1</span> <span class='kw'>=</span> <span class='fu'>model_pcycle_pct_2020</span>(
+  <span class='no'>pcycle</span>,
+  <span class='kw'>distance</span> <span class='kw'>=</span> <span class='no'>l</span>$<span class='no'>rf_dist_km</span>,
+  <span class='kw'>gradient</span> <span class='kw'>=</span> <span class='no'>l</span>$<span class='no'>rf_avslope_perc</span> - <span class='fl'>0.78</span>,
   <span class='kw'>weights</span> <span class='kw'>=</span> <span class='no'>l</span>$<span class='no'>all</span>)
-<span class='no'>m2</span> <span class='kw'>=</span> <span class='fu'>model_pcycle_pct_2020</span>(<span class='no'>pcycle_dutch</span>, <span class='kw'>distance</span> <span class='kw'>=</span> <span class='no'>l</span>$<span class='no'>rf_dist_km</span>, <span class='kw'>gradient</span> <span class='kw'>=</span> <span class='no'>l</span>$<span class='no'>rf_avslope_perc</span> - <span class='fl'>0.78</span>,
-  <span class='kw'>weights</span> <span class='kw'>=</span> <span class='no'>l</span>$<span class='no'>all</span>)
+<span class='no'>m2</span> <span class='kw'>=</span> <span class='fu'>model_pcycle_pct_2020</span>(
+  <span class='no'>pcycle_dutch</span>, <span class='kw'>distance</span> <span class='kw'>=</span> <span class='no'>l</span>$<span class='no'>rf_dist_km</span>,
+  <span class='kw'>gradient</span> <span class='kw'>=</span> <span class='no'>l</span>$<span class='no'>rf_avslope_perc</span> - <span class='fl'>0.78</span>,
+  <span class='kw'>weights</span> <span class='kw'>=</span> <span class='no'>l</span>$<span class='no'>all</span>
+)
 <span class='no'>m1</span></div><div class='output co'>#&gt; 
 #&gt; Call:  stats::glm(formula = pcycle ~ distance + sqrt(distance) + I(distance^2) + 
 #&gt;     gradient + distance * gradient + sqrt(distance) * gradient, 
