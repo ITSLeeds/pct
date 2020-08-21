@@ -36,6 +36,17 @@
 #'
 #' @export
 #' @examples
+#' distance = 15
+#' gradient = 2
+#' logit_pcycle = -3.959 +   # alpha
+#'   (-0.5963 * distance) +    # d1
+#'   (1.866 * sqrt(distance)) +  # d2
+#'   (0.008050 * distance^2) + # d3
+#'   (-0.2710 * gradient) +    # h1
+#'   (0.009394 * distance * gradient) +  # i1
+#'   (-0.05135 * sqrt(distance) * gradient) # i2
+#' boot::inv.logit(logit_pcycle)
+#' uptake_pct_govtarget(15, 2)
 #' l = routes_fast_leeds
 #' pcycle_scenario = uptake_pct_govtarget(l$length, l$av_incline)
 #' pcycle_scenario_2020 = uptake_pct_govtarget_2020(l$length, l$av_incline)
