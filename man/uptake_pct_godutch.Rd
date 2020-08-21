@@ -7,13 +7,13 @@
 uptake_pct_godutch(
   distance,
   gradient,
-  alpha = -3.959,
-  d1 = -0.5963,
-  d2 = 1.832,
-  d3 = 0.007956,
-  h1 = -0.2872,
-  i1 = 0.01784,
-  i2 = -0.0977
+  alpha = -3.959 + 2.523,
+  d1 = -0.5963 - 0.07626,
+  d2 = 1.866,
+  d3 = 0.00805,
+  h1 = -0.271,
+  i1 = 0.009394,
+  i2 = -0.05135
 )
 }
 \arguments{
@@ -39,6 +39,28 @@ uptake_pct_godutch(
 See \code{\link[=uptake_pct_govtarget]{uptake_pct_govtarget()}}.
 }
 \examples{
+# https://www.jtlu.org/index.php/jtlu/article/downloadSuppFile/862/360)
+# Equation 1B:
+distance = 15
+gradient = 2
+logit = -3.959 + 2.523 +
+  ((-0.5963 - 0.07626) * distance) +
+  (1.866 * sqrt(distance)) +
+  (0.008050 * distance^2) +
+  (-0.2710 * gradient) +
+  (0.009394 * distance*gradient) +
+  (-0.05135 * sqrt(distance) *gradient)
+logit
+# Result: -3.144098
+
+pcycle = exp(logit) / (1 + exp(logit))
+# Result: 0.04132445
+boot::inv.logit(logit)
+uptake_pct_godutch(distance, gradient, alpha = -3.959 + 2.523, d1 = -0.5963 - 0.07626,
+ d2 = 1.866, d3 = 0.008050, h1 = -0.2710, i1 = 0.009394, i2 = -0.05135
+)
+# these are the default values
+uptake_pct_godutch(distance, gradient)
 l = routes_fast_leeds
 pcycle_scenario = uptake_pct_godutch(l$length, l$av_incline)
 plot(l$length, pcycle_scenario)
