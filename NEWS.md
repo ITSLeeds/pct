@@ -2,6 +2,7 @@
 
 - New `uptake_pct_govtarget_2020()` and `uptake_pct_godutch_2020()` functions approximate the uptake models used in the updated 2020 release of the PCT results
 - New `model_pcycle_pct_2020()` function to estimate cycling levels as a function of distance and hilliness, using the uptake function in the 2020 release of the PCT.
+- Fix parameters in `uptake_pct_godutch()` (#65)
 
 # pct 0.4.1
 

@@ -113,6 +113,10 @@ uptake_pct_govtarget = function(
 
 #' Calculate cycling uptake for UK 'Go Dutch' scenario
 #'
+#' This function implements the uptake model described in the original
+#' Propensity to Cycle Tool paper (Lovelace et al. 2017):
+#' https://doi.org/10.5198/jtlu.2016.862
+#'
 #' See [uptake_pct_govtarget()].
 #'
 #' @inheritParams uptake_pct_govtarget
