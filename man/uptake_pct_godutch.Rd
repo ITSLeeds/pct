@@ -36,6 +36,11 @@ uptake_pct_godutch(
 \item{i2}{Distance-hilliness interaction term 2}
 }
 \description{
+This function implements the uptake model described in the original
+Propensity to Cycle Tool paper (Lovelace et al. 2017):
+https://doi.org/10.5198/jtlu.2016.862
+}
+\details{
 See \code{\link[=uptake_pct_govtarget]{uptake_pct_govtarget()}}.
 }
 \examples{
