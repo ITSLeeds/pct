@@ -149,11 +149,11 @@ godutch_slc_package = pcycle_package_godutch * l$all
 plot(l$govtarget_slc, govtarget_slc_package)
 plot(l$dutch_slc, godutch_slc_package)
 
-cor(l$govtarget_slc, govtarget_slc_package + l$bicycle)^2
+cor(l$govtarget_slc, govtarget_slc_package)^2
 cor(l$dutch_slc, godutch_slc_package)^2
 
+cor(l$govtarget_sic, govtarget_slc_package)^2
 cor(l$dutch_slc, godutch_slc_package + l$bicycle)^2
-cor(l$govtarget_slc, govtarget_slc_package)^2
 
 mean(l$govtarget_slc)
 mean(govtarget_slc_package)

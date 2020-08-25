@@ -5,7 +5,7 @@
 #'
 #' @param base_url Where the data is stored.
 #' @param purpose Trip purpose (typically `school` or `commute`)
-#' @param geography Geographic resolution of outputs (`msoa` or `lsoa`)
+#' @param geography Geographic resolution of outputs, `msoa` or `lsoa` (the default)
 #' @param region The PCT region or local authority to download data from (e.g. `west-yorkshire` or `Leeds`).
 #' See `View(pct_regions_lookup)` for a full list of possible region names.
 #' @param layer The PCT layer of interest, `z`, `c`, `l`, `rf`, `rq` or `rnet`
@@ -26,7 +26,7 @@
 get_pct = function(
   base_url = "https://github.com/npct/pct-outputs-regional-notR/raw/master",
   purpose = "commute",
-  geography = "msoa",
+  geography = "lsoa",
   region = NULL,
   layer = NULL,
   extension = ".geojson",
@@ -74,7 +74,7 @@ get_pct = function(
 get_pct_zones = function(
   region = NULL,
   purpose = "commute",
-  geography = "msoa",
+  geography = "lsoa",
   extension = ".geojson"
 ) {
   get_pct(base_url = "https://github.com/npct/pct-outputs-regional-notR/raw/master",
@@ -95,7 +95,7 @@ get_pct_zones = function(
 get_pct_centroids = function(
   region = NULL,
   purpose = "commute",
-  geography = "msoa",
+  geography = "lsoa",
   extension = ".geojson"
 ) {
   get_pct(base_url =
@@ -117,7 +117,7 @@ get_pct_centroids = function(
 get_pct_lines = function(
   region = NULL,
   purpose = "commute",
-  geography = "msoa",
+  geography = "lsoa",
   extension = ".geojson"
 ) {
   get_pct(base_url =
@@ -139,7 +139,7 @@ get_pct_lines = function(
 get_pct_routes_fast = function(
   region = NULL,
   purpose = "commute",
-  geography = "msoa",
+  geography = "lsoa",
   extension = ".geojson"
 ) {
   get_pct(base_url =
@@ -161,7 +161,7 @@ get_pct_routes_fast = function(
 get_pct_routes_quiet = function(
   region = NULL,
   purpose = "commute",
-  geography = "msoa",
+  geography = "lsoa",
   extension = ".geojson"
 ) {
   get_pct(base_url =
@@ -183,7 +183,7 @@ get_pct_routes_quiet = function(
 get_pct_rnet = function(
   region = NULL,
   purpose = "commute",
-  geography = "msoa",
+  geography = "lsoa",
   extension = ".geojson"
 ) {
   get_pct(base_url = "https://github.com/npct/pct-outputs-regional-notR/raw/master",
