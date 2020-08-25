@@ -7,7 +7,7 @@
 get_pct_centroids(
   region = NULL,
   purpose = "commute",
-  geography = "msoa",
+  geography = "lsoa",
   extension = ".geojson"
 )
 }
@@ -17,7 +17,7 @@ See \code{View(pct_regions_lookup)} for a full list of possible region names.}
 
 \item{purpose}{Trip purpose (typically \code{school} or \code{commute})}
 
-\item{geography}{Geographic resolution of outputs (\code{msoa} or \code{lsoa})}
+\item{geography}{Geographic resolution of outputs, \code{msoa} or \code{lsoa} (the default)}
 
 \item{extension}{The type of file to download (only \code{.geojson} supported at present)}
 }
