@@ -197,7 +197,7 @@
 <a href="#getting-cycling-potential-accross-local-authorities" class="anchor"></a>Getting cycling potential accross local authorities</h1>
 <p>We can find out what local authorities there are in the zones as follows:</p>
 <div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span>(<span class="no">zones_region</span>$<span class="no">lad_name</span>)
-<span class="co">#&gt; [1] "Bradford"   "Calderdale" "Kirklees"   "Leeds"      "Wakefield"</span></pre></body></html></div>
+<span class="co">#&gt; [1] "Kirklees"   "Leeds"      "Bradford"   "Wakefield"  "Calderdale"</span></pre></body></html></div>
 <p>We are interested in the zones in Leeds, which we can get as follows:</p>
 <div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">zones</span> <span class="kw">=</span> <span class="no">zones_region</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(<span class="no">lad_name</span> <span class="kw">==</span> <span class="st">"Leeds"</span>)
