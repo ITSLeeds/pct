@@ -184,11 +184,7 @@
 <span class="co">#&gt; [125] "dutch_sico2"             "ebike_sicarkm"          </span>
 <span class="co">#&gt; [127] "ebike_sico2"             "perc_rf_dist_u10km"     </span>
 <span class="co">#&gt; [129] "avslope_perc_u10km"      "geometry"</span>
-<span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html">tm_shape</a></span>(<span class="no">zones_region</span>) +
-  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_polygons.html">tm_fill</a></span>(<span class="st">"bicycle"</span>, <span class="kw">palette</span> <span class="kw">=</span> <span class="st">"RdYlBu"</span>) +
-  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html">tm_shape</a></span>(<span class="no">pct_regions</span>) +
-  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_polygons.html">tm_borders</a></span>() +
-  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_text.html">tm_text</a></span>(<span class="st">"region_name"</span>)</pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/pkg/sf/man/plot.html">plot</a></span>(<span class="no">zones_region</span>[<span class="st">"bicycle"</span>])</pre></body></html></div>
 <p><img src="cycling-potential-uk_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
 <p>This shows the number of people who say they cycled to work in the 2011 Census. This may have changed slightly as cycling becomes more popular in some places, but is a good proxy for current cycling levels. But there are two big problems with this: the map is of West Yorkshire not Leeds, and it’s showing current cycling rates, not future potential.</p>
 </div>
@@ -203,14 +199,14 @@
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(<span class="no">lad_name</span> <span class="kw">==</span> <span class="st">"Leeds"</span>)
 <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html">tm_shape</a></span>(<span class="no">zones</span>) +
   <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_polygons.html">tm_fill</a></span>(<span class="st">"bicycle"</span>, <span class="kw">palette</span> <span class="kw">=</span> <span class="st">"RdYlBu"</span>)</pre></body></html></div>
-<p><img src="cycling-potential-uk_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
+<p><img src="cycling-potential-uk_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
 <p>Great, this represents the current level of cycling across the region of interest. What about cycling potential? Based on the modelling work in the PCT, we have pre-calculated this for a number of scenarios. Let’s take a look at cycling to work under the Government Target (near market), Go Dutch and Ebikes scenarios for cycling to work:</p>
 <div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">scenarios_of_interest</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"govnearmkt_slc"</span>, <span class="st">"dutch_slc"</span>, <span class="st">"ebike_slc"</span>)
 <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html">tm_shape</a></span>(<span class="no">zones</span>) +
   <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_polygons.html">tm_fill</a></span>(<span class="no">scenarios_of_interest</span>, <span class="kw">palette</span> <span class="kw">=</span> <span class="st">"RdYlBu"</span>, <span class="kw">n</span> <span class="kw">=</span> <span class="fl">9</span>, <span class="kw">title</span> <span class="kw">=</span> <span class="st">"N. cycling"</span>) +
   <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_facets.html">tm_facets</a></span>(<span class="kw">nrow</span> <span class="kw">=</span> <span class="fl">1</span>, <span class="kw">free.scales</span> <span class="kw">=</span> <span class="fl">FALSE</span>) +
   <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_layout.html">tm_layout</a></span>(<span class="kw">panel.labels</span> <span class="kw">=</span> <span class="no">scenarios_of_interest</span>)</pre></body></html></div>
-<p><img src="cycling-potential-uk_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
+<p><img src="cycling-potential-uk_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
 <p>That’s great, but it doesn’t answer the question of mode share.</p>
 </div>
 <div id="cycling-mode-share" class="section level1">
@@ -228,7 +224,7 @@
   <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_polygons.html">tm_fill</a></span>(<span class="no">scenarios_of_interest</span>, <span class="kw">palette</span> <span class="kw">=</span> <span class="st">"RdYlBu"</span>, <span class="kw">title</span> <span class="kw">=</span> <span class="st">"% cycling"</span>) +
   <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_facets.html">tm_facets</a></span>(<span class="kw">nrow</span> <span class="kw">=</span> <span class="fl">1</span>, <span class="kw">free.scales</span> <span class="kw">=</span> <span class="fl">FALSE</span>) +
   <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_layout.html">tm_layout</a></span>(<span class="kw">panel.labels</span> <span class="kw">=</span> <span class="no">scenarios_of_interest</span>)</pre></body></html></div>
-<p><img src="cycling-potential-uk_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
+<p><img src="cycling-potential-uk_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
 <p>The summary mode shares can be estimated as follows, with results showing the % cycling currently (according to the 2011 census) and under scenarios of change:</p>
 <div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">zones_region</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/sf/man/st_geometry.html">st_drop_geometry</a></span>() <span class="kw">%&gt;%</span>
