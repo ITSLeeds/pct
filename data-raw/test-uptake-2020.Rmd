@@ -144,7 +144,7 @@ pcycle_package_govtarget = uptake_pct_govtarget(l$rf_dist_km, l$rf_avslope_perc)
 pcycle_package_godutch = uptake_pct_godutch_2020(l$rf_dist_km, l$rf_avslope_perc)
 
 govtarget_slc_package = pcycle_package_govtarget * l$all + l$bicycle
-godutch_slc_package = pcycle_package_godutch * l$all
+godutch_slc_package = pcycle_package_godutch * l$all 
 
 plot(l$govtarget_slc, govtarget_slc_package)
 plot(l$dutch_slc, godutch_slc_package)

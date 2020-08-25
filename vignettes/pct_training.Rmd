@@ -43,7 +43,7 @@ RefManageR::WriteBib(refs, "vignettes/refs_training.bib")
 # Introduction
 
 This vignette supports workshops on advanced usage and development of the Propensity to Cycle Tool (PCT).
-Beginner and intermediate PCT events focus on using the PCT via the web application hosted at [www.pct.bike](http://www.pct.bike/) and the data provided by the PCT in [QGIS](https://www.qgis.org/en/site/).
+Beginner and intermediate PCT events focus on using the PCT via the web application hosted at [www.pct.bike](https://www.pct.bike/) and the data provided by the PCT in [QGIS](https://www.qgis.org/en/site/).
 
 The focus here is on analysing cycling potential in the open source statistical programming language R, in which the majority of the PCT was built.
 It will show how the code underlying the PCT works, how the underlying data can be accessed for reproducible analysis, and how the methods can be used to generate new scenarios of cycling uptake.
@@ -227,7 +227,7 @@ Which types of data are most appropriate to tackle each of the questions/problem
 
 ## Getting and viewing PCT data
 
-- G1: Using the PCT's online interface, hosted at [www.pct.bike/m/?r=isle-of-wight](http://www.pct.bike/m/?r=isle-of-wight), identify the MSOA **zone** that has the highest number of people who cycle to work.
+- G1: Using the PCT's online interface, hosted at [www.pct.bike/m/?r=isle-of-wight](https://www.pct.bike/m/?r=isle-of-wight), identify the MSOA **zone** that has the highest number of people who cycle to work.
 
 - G2: Using data downloaded with the command `get_pct_zones()`, identify the zone that has highest level of cycling with the function `top_n()` and save the result as an object called `z_highest_cycling` (hint: you may want to start by 'cleaning' the data you have downloaded to include only a few key columns with the function `select()`, as follows):
 

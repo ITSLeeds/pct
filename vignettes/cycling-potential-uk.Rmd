@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 What modal shift to cycling do you think we could achieve in UK cities in an ideal scenario?
 Answers to that question are vital to support high level ambition for active transport and wider sustainability policies in settlements worldwide.
-In UK cities such as Leeds (where the motivation for this article originated, via [Twitter](https://twitter.com/PaulChatterton9/status/1190925153322098690)) there is already a wealth of freely available data on cycling potential, based on the Propensity to Cycle Tool ([PCT](http://www.pct.bike/)) project, of which this package is a part.
+In UK cities such as Leeds (where the motivation for this article originated, via [Twitter](https://twitter.com/PaulChatterton9/status/1190925153322098690)) there is already a wealth of freely available data on cycling potential, based on the Propensity to Cycle Tool ([PCT](https://www.pct.bike/)) project, of which this package is a part.
 This article will briefly explain how to get cycling potential data for any city in England and Wales, based on a case study of Leeds.
 
 # Getting the region of interest
@@ -238,7 +238,7 @@ However, there are some wider considerations that are not captured in the number
 
 - The PCT commute layer (don't forget the travel to schools layer!) only considers single stage journeys - if we were to include cycling to the station or bus stop potential it would be greater than 16%, perhaps more like 30% if potential cycle/rail and cycle/bus trips are accounted for.
 - Work patterns are changing, and with new digital work practices or a shift towards local economies, more people could work from home or at least near to home.
-- The scenarios are snapshots of how cycling levels could change based current trip patterns, not predictions of what will happen. There are many other scenarios that could be developed, including intermediate scenarios between Go Dutch and the Government Target, and more ambitious scenarios, e.g. 'Go Utrecht', where cycling has reached around 60% of trips ([source](https://www.citylab.com/transportation/2019/07/bicycle-friendly-city-utrecht-streetfilms-bike-lanes/593320/)).
+- The scenarios are snapshots of how cycling levels could change based current trip patterns, not predictions of what will happen. There are many other scenarios that could be developed, including intermediate scenarios between Go Dutch and the Government Target, and more ambitious scenarios, e.g. 'Go Utrecht', where cycling has reached around 60% of trips ([source](https://www.bloomberg.com/news/articles/2019-07-05/how-the-dutch-made-utrecht-a-bicycle-first-city)).
 
 Other considerations that are often mentioned are hills and people who are unable to cycle.
 In fact the PCT accounts for hills and, as the example of Bristol shows, hilly cities can see rapid increases in cycling.

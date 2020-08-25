@@ -35,12 +35,12 @@ knitr::opts_chunk$set(
 ## Introduction
 
 The goal of the `pct` package is to increase the accessibility and reproducibility of the outputs from the Propensity to Cycle Tool (PCT), a research project and web application hosted at [www.pct.bike](https://www.pct.bike/).
-The tool is one of just ~300 [central government websites](https://www.gov.uk/performance/central-government-websites) exempt from the requirement to transition to the .gov.uk domain name, and is a recommended source of evidence in the preparation of Local Walking and Cycling plans (LCWIPs), as outlined in [technical guidance](https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/607016/cycling-walking-infrastructure-technical-guidance.pdf) [@department_for_transport_local_2017], supporting the Cycling and Walking Infrastructure Strategy ([CWIS](https://www.gov.uk/government/publications/cycling-and-walking-investment-strategy)), an amendment of the [Infrastructure Act](http://www.legislation.gov.uk/ukpga/2015/7/contents/enacted) 2015.
+The tool is one of just ~300 [central government websites](https://www.gov.uk/performance/central-government-websites) exempt from the requirement to transition to the .gov.uk domain name, and is a recommended source of evidence in the preparation of Local Walking and Cycling plans (LCWIPs), as outlined in [technical guidance](https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/607016/cycling-walking-infrastructure-technical-guidance.pdf) [@department_for_transport_local_2017], supporting the Cycling and Walking Infrastructure Strategy ([CWIS](https://www.gov.uk/government/publications/cycling-and-walking-investment-strategy)), an amendment of the [Infrastructure Act](https://www.legislation.gov.uk/ukpga/2015/7/contents/enacted) 2015.
 For an overview of the data provided by the PCT, clicking on the previous link and trying it out is a great place to start.
 An academic [paper](https://www.jtlu.org/index.php/jtlu/article/view/862) on the PCT provides detail on the motivations and methods underlying the project [@lovelace_propensity_2017].
 
 Since work on the package began in 2015, for example during the ODI Leeds Hack my Route [hackathon](https://datamillnorth.org/community/blog/hack-my-route-live-blog/) (see [an early prototype of the tool here](https://twitter.com/robinlovelace/status/611979463803432960)), the features and demand for the PCT have evolved substantially.
-In early 2019, for example, the [School travel layer](https://blog.pct.bike/2019/03/18/propensity-to-cycle-to-school-layer-deployed/) was added to the main PCT site to provide evidence nationwide on the potential benefits of scenarios of cycling uptake, and where [safe routes to school](http://guide.saferoutesinfo.org/steps/index.cfm) should be prioritised [@goodman_scenarios_2019].
+In early 2019, for example, the [School travel layer](https://blog.pct.bike/2019/03/18/propensity-to-cycle-to-school-layer-deployed/) was added to the main PCT site to provide evidence nationwide on the potential benefits of scenarios of cycling uptake, and where [safe routes to school](https://guide.saferoutesinfo.org/steps/index.cfm) should be prioritised [@goodman_scenarios_2019].
 In fact, a major aim of the PCT was to enable people to extend the tool [@lovelace_propensity_2017]:
 
 > We envision stakeholders in local government modifying scenarios for their own purposes, and that academics in relevant fields may add new features and develop new use cases
@@ -175,7 +175,7 @@ leaflet(data = wight_lines_30) %>%
 ```
 
 There was a reason for selecting the top 30 lines:
-it mirrors the view of the desire lines available from the PCT web application for the island, available at [www.pct.bike/m/?r=isle-of-wight](http://www.pct.bike/m/?r=isle-of-wight) (note that Straight Lines is selected from the Cycling Flows dropdown menu in the image below, and by default shows the top 30 flows by number of bicycle trips).
+it mirrors the view of the desire lines available from the PCT web application for the island, available at [www.pct.bike/m/?r=isle-of-wight](https://www.pct.bike/m/?r=isle-of-wight) (note that Straight Lines is selected from the Cycling Flows dropdown menu in the image below, and by default shows the top 30 flows by number of bicycle trips).
 
 ```{r isle-pct-bike, echo=FALSE, out.width="100%"}
 # i = magick::image_read("vignettes/isle-pct-bike.png")

@@ -8,7 +8,7 @@ get_centroids_ew()
 }
 \description{
 Downloads and processes data on where people live in England and Wales.
-See \href{http://geoportal.statistics.gov.uk/datasets/b0a6d8a3dc5d4718b3fd62c548d60f81_0}{geoportal.statistics.gov.uk}.
+See \href{https://geoportal.statistics.gov.uk/datasets/b0a6d8a3dc5d4718b3fd62c548d60f81_0}{geoportal.statistics.gov.uk}.
 }
 \examples{
 pwc = get_centroids_ew()

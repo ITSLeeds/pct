@@ -38,7 +38,7 @@ library(tmap) # installed alongside mapvew
 
 ## Getting and viewing PCT data
 
-- G1: Using the PCT's online interface, hosted at [www.pct.bike/m/?r=isle-of-wight](http://www.pct.bike/m/?r=isle-of-wight), identify the MSOA **zone** that has the highest number of people who cycle to work.
+- G1: Using the PCT's online interface, hosted at [www.pct.bike/m/?r=isle-of-wight](https://www.pct.bike/m/?r=isle-of-wight), identify the MSOA **zone** that has the highest number of people who cycle to work.
 
 Answer: E02003582	Isle of Wight 002
 

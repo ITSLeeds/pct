@@ -2,7 +2,7 @@
 title: "The Propensity to Cycle Tool"
 subtitle: '`r emojifont::emoji("bike")`<br/>Advanced Training Workshop'
 author: "Robin Lovelace and Malcolm Morgan, University of Leeds"
-date: 'ITS Leeds, 2019-08-02<br/><img class="img-footer" alt="" src="http://www.pct.bike/www/static/01_logos/pct-logo.png"><br/><img class="img-footer" alt="" src="http://www.stephanehess.me.uk/images/picture3.png">'
+date: 'ITS Leeds, 2019-08-02<br/><img class="img-footer" alt="" src="https://www.pct.bike/www/static/01_logos/pct-logo.png"><br/><img class="img-footer" alt="" src="https://www.stephanehess.me.uk/images/picture3.png">'
 output:
   xaringan::moon_reader:
     # css: ["default", "its.css"]
@@ -151,7 +151,7 @@ What will transport software look like? What will their capabilities be? And who
 - See https://github.com/ITSLeeds/TDS/blob/master/catalogue.md
 
 - Paper on the **stplanr** paper for transport planning (available [online](https://cran.r-project.org/web/packages/stplanr/vignettes/stplanr-paper.html)) `r Citep(my_bib, "lovelace_stplanr:_2018", .opts = list(cite.style = "authoryear"))`
-- Introductory and advanced content on geographic data in R, especially the [transport chapter](http://geocompr.robinlovelace.net/transport.html) (available free [online](http://geocompr.robinlovelace.net/)) `r Citep(my_bib, "lovelace_geocomputation_2019", .opts = list(cite.style = "authoryear"))` 
+- Introductory and advanced content on geographic data in R, especially the [transport chapter](https://geocompr.robinlovelace.net/transport.html) (available free [online](https://geocompr.robinlovelace.net/)) `r Citep(my_bib, "lovelace_geocomputation_2019", .opts = list(cite.style = "authoryear"))` 
 - Paper on analysing OSM data in Python `r Citep(my_bib, "boeing_osmnx_2017", .opts = list(cite.style = "authoryear"))` (available [online](https://arxiv.org/pdf/1611.01890)) 
 
 ```{r geocompr-cover, echo=FALSE, out.width="20%"}
@@ -305,7 +305,7 @@ All interactive programming/analysis with command line interface involves freque
 
 
 - If you're happy with R, work through G1 to G8 in the [exercises](https://itsleeds.github.io/pct/articles/pct_training.html#exercises), starting:
-    - G1: Using the PCT's online interface, hosted at [www.pct.bike/m/?r=isle-of-wight](http://www.pct.bike/m/?r=isle-of-wight), identify the MSOA **zone** that has the highest number of people who cycle to work.
+    - G1: Using the PCT's online interface, hosted at [www.pct.bike/m/?r=isle-of-wight](https://www.pct.bike/m/?r=isle-of-wight), identify the MSOA **zone** that has the highest number of people who cycle to work.
 
 - If you're just getting started with RStudio: Work through Section 1 of https://git.io/tds2dayex
 
@@ -369,7 +369,7 @@ knitr::kable(tms, booktabs = TRUE, caption = "Sample of transport modelling soft
 
 ## Data science and the tidyverse
 
-- Inspired by Introduction to data science with R (available free [online](http://r4ds.had.co.nz/)) `r Citep(my_bib, "grolemund_r_2016", .opts = list(cite.style = "authoryear"))`
+- Inspired by Introduction to data science with R (available free [online](https://r4ds.had.co.nz/)) `r Citep(my_bib, "grolemund_r_2016", .opts = list(cite.style = "authoryear"))`
 
 
 ```{r tds-cover, echo=FALSE, out.width="30%"}
@@ -392,7 +392,7 @@ With open source software, the world is your support network!
 
 - [gis.stackexchange.com](https://gis.stackexchange.com/questions) has 21,314 questions 
 
-- [r-sig-geo](http://r-sig-geo.2731867.n2.nabble.com/) has 1000s of posts
+- [r-sig-geo](https://r-sig-geo.2731867.n2.nabble.com/) has 1000s of posts
 
 - RStudio's Discourse community has 65,000+ posts already!
 

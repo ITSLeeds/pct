@@ -1,7 +1,7 @@
 #' Download MSOA centroids for England and Wales
 #'
 #' Downloads and processes data on where people live in England and Wales.
-#' See [geoportal.statistics.gov.uk](http://geoportal.statistics.gov.uk/datasets/b0a6d8a3dc5d4718b3fd62c548d60f81_0).
+#' See [geoportal.statistics.gov.uk](https://geoportal.statistics.gov.uk/datasets/b0a6d8a3dc5d4718b3fd62c548d60f81_0).
 #'
 #' @export
 #' @examples

@@ -5,7 +5,7 @@
 
 [![R build
 status](https://github.com/itsleeds/pct/workflows/R-CMD-check/badge.svg)](https://github.com/itsleeds/pct/actions)
-[![](http://www.r-pkg.org/badges/version/pct)](http://www.r-pkg.org/pkg/pct)
+[![](https://www.r-pkg.org/badges/version/pct)](https://www.r-pkg.org/pkg/pct)
 [![Coverage
 status](https://codecov.io/gh/ITSLeeds/pct/branch/master/graph/badge.svg)](https://codecov.io/github/ITSLeeds/pct?branch=master)
 <!-- badges: end -->
@@ -326,7 +326,7 @@ plot(rnet["bicycle_govtarget"], lwd = lwd)
 
 We can view the results in an interactive map and share with policy
 makers, stakeholders, and the public\! E.g. (see interactive map
-[here](http://rpubs.com/RobinLovelace/474074)):
+[here](https://rpubs.com/RobinLovelace/474074)):
 
 ``` r
 mapview::mapview(rnet, zcol = "bicycle_govtarget", lwd = lwd * 2)
