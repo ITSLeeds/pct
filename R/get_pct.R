@@ -14,12 +14,12 @@
 #' @param national Download nationwide data? `FALSE` by default
 #' @export
 #' @examples
+#' \donttest{
 #' rf = get_pct(region = "isle-of-wight", layer = "rf")
 #' names(rf)[1:20]
 #' vars_to_plot = 10:13
 #' plot(rf[vars_to_plot])
 #' z = get_pct(region = "isle-of-wight", layer = "z")
-#' \donttest{
 #' rf = get_pct(region = "west-yorkshire", layer = "rf")
 #' z_all = get_pct(layer = "z", national = TRUE)
 #' }
@@ -69,8 +69,11 @@ get_pct = function(
 #' @inheritParams get_pct
 #' @export
 #' @examples
+#' \donttest{
+#' # don't test to reduce build times
 #' z = get_pct_zones("isle-of-wight")
 #' plot(z)
+#' }
 get_pct_zones = function(
   region = NULL,
   purpose = "commute",
@@ -90,8 +93,11 @@ get_pct_zones = function(
 #' @inheritParams get_pct
 #' @export
 #' @examples
-#' z = get_pct_centroids("isle-of-wight")
-#' plot(z)
+#' \donttest{
+#' # don't test to reduce build times
+#' c = get_pct_centroids("isle-of-wight")
+#' plot(c)
+#' }
 get_pct_centroids = function(
   region = NULL,
   purpose = "commute",
@@ -112,8 +118,11 @@ get_pct_centroids = function(
 #' @inheritParams get_pct
 #' @export
 #' @examples
-#' z =  get_pct_lines("isle-of-wight")
-#' plot(z)
+#' \donttest{
+#' # don't test to reduce build times
+#' l =  get_pct_lines("isle-of-wight")
+#' plot(l)
+#' }
 get_pct_lines = function(
   region = NULL,
   purpose = "commute",
@@ -134,8 +143,11 @@ get_pct_lines = function(
 #' @inheritParams get_pct
 #' @export
 #' @examples
-#' z = get_pct_routes_fast("isle-of-wight")
-#' plot(z)
+#' \donttest{
+#' # don't test to reduce build times
+#' rf = get_pct_routes_fast("isle-of-wight")
+#' plot(rf)
+#' }
 get_pct_routes_fast = function(
   region = NULL,
   purpose = "commute",
@@ -156,8 +168,11 @@ get_pct_routes_fast = function(
 #' @inheritParams get_pct
 #' @export
 #' @examples
-#' z =  get_pct_routes_quiet("isle-of-wight")
-#' plot(z)
+#' \donttest{
+#' # don't test to reduce build times
+#' rq =  get_pct_routes_quiet("isle-of-wight")
+#' plot(rq)
+#' }
 get_pct_routes_quiet = function(
   region = NULL,
   purpose = "commute",
@@ -178,8 +193,11 @@ get_pct_routes_quiet = function(
 #' @inheritParams get_pct
 #' @export
 #' @examples
+#' \donttest{
+#' # don't test to reduce build times
 #' rnet =  get_pct_rnet("isle-of-wight")
 #' plot(rnet)
+#' }
 get_pct_rnet = function(
   region = NULL,
   purpose = "commute",

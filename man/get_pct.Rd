@@ -36,12 +36,12 @@ This function gets data generated for the Propensity to Cycle Tool
 project and returns objects in the modern \code{sf} class.
 }
 \examples{
+\donttest{
 rf = get_pct(region = "isle-of-wight", layer = "rf")
 names(rf)[1:20]
 vars_to_plot = 10:13
 plot(rf[vars_to_plot])
 z = get_pct(region = "isle-of-wight", layer = "z")
-\donttest{
 rf = get_pct(region = "west-yorkshire", layer = "rf")
 z_all = get_pct(layer = "z", national = TRUE)
 }

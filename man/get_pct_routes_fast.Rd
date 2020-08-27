@@ -25,6 +25,9 @@ See \code{View(pct_regions_lookup)} for a full list of possible region names.}
 Wrapper around \verb{[get_pct()]} that gets rf data from the PCT.
 }
 \examples{
-z = get_pct_routes_fast("isle-of-wight")
-plot(z)
+\donttest{
+# don't test to reduce build times
+rf = get_pct_routes_fast("isle-of-wight")
+plot(rf)
+}
 }
