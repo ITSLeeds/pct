@@ -172,8 +172,11 @@ See <code><a href='https://rdrr.io/r/utils/View.html'>View(pct_regions_lookup)</
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>z</span> <span class='kw'>=</span> <span class='fu'>get_pct_centroids</span>(<span class='st'>"isle-of-wight"</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>z</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: plotting the first 10 out of 127 attributes; use max.plot = 127 to plot all</span></div><div class='img'><img src='get_pct_centroids-1.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
+<span class='co'># don't test to reduce build times</span>
+<span class='no'>c</span> <span class='kw'>=</span> <span class='fu'>get_pct_centroids</span>(<span class='st'>"isle-of-wight"</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>c</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: plotting the first 10 out of 127 attributes; use max.plot = 127 to plot all</span></div><div class='img'><img src='get_pct_centroids-1.png' alt='' width='700' height='433' /></div><div class='input'># }
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
