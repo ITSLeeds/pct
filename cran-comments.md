@@ -1,5 +1,7 @@
 Minor update adding new functions for 2020
 
+Updated submission with fixed URLs and faster tests (using donttest)
+
 ## Test environments
 * local Ubuntu 20.04 install, R 4.0.2
 * Ubuntu (other versions and various R releases), GH Actions
