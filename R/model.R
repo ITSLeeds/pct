@@ -8,7 +8,7 @@
 #' @examples
 #' # l = get_pct_lines(region = "isle-of-wight")
 #' # l = get_pct_lines(region = "cambridgeshire")
-#' l = get_pct_lines(region = "avon")
+#' l = wight_lines_pct
 #' pcycle = l$bicycle / l$all
 #' pcycle_dutch = l$dutch_slc / l$all
 #' m1 = model_pcycle_pct_2020(
@@ -49,9 +49,9 @@
 #' m2$coef
 #' plot(pct_coefficients_2020, m2$coeff)
 #' cor(pct_coefficients_2020, m2$coeff)^2
-#' cor(pct_coefficients_2020, m3$coeff)^2 # 0.99 - only 1% out
+#' cor(pct_coefficients_2020, m3$coeff)^2 # explains 95%+ variability in params
 model_pcycle_pct_2020 = function(pcycle, distance, gradient, weights) {
-  pcycle[pcycle == 0] = 0.001 # 1 in a 1000 is lowerst level of cycling allowed
+  pcycle[pcycle == 0] = 0.001 # 1/1000 is lowest level for logit link
   stats::glm(formula = pcycle ~
         distance + sqrt(distance) + I(distance^2) + gradient + distance*gradient + sqrt(distance) * gradient,
       family = "quasibinomial", weights = weights)
