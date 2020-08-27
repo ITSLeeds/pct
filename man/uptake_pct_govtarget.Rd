@@ -69,7 +69,7 @@ uptake_pct_godutch_2020(
 Uptake model that takes distance and hilliness and returns
 a percentage of people likely to cycle along a desire line.
 Source: appendix of pct paper, hosted at:
-\href{https://www.jtlu.org/index.php/jtlu/article/downloadSuppFile/862/360}{www.jtlu.org}
+\href{https://www.jtlu.org/index.php/jtlu/article/download/862/1381/4359}{www.jtlu.org}
 which states that:
 }
 \details{

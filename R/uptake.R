@@ -3,7 +3,7 @@
 #' Uptake model that takes distance and hilliness and returns
 #' a percentage of people likely to cycle along a desire line.
 #' Source: appendix of pct paper, hosted at:
-#' [www.jtlu.org](https://www.jtlu.org/index.php/jtlu/article/downloadSuppFile/862/360)
+#' [www.jtlu.org](https://www.jtlu.org/index.php/jtlu/article/download/862/1381/4359)
 #' which states that:
 #'
 #' ```
@@ -133,7 +133,7 @@ uptake_pct_govtarget = function(
 #' @inheritParams uptake_pct_govtarget
 #' @export
 #' @examples
-#' # https://www.jtlu.org/index.php/jtlu/article/downloadSuppFile/862/360)
+#' # https://www.jtlu.org/index.php/jtlu/article/download/862/1381/4359
 #' # Equation 1B:
 #' distance = 15
 #' gradient = 2

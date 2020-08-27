@@ -44,7 +44,7 @@ https://doi.org/10.5198/jtlu.2016.862
 See \code{\link[=uptake_pct_govtarget]{uptake_pct_govtarget()}}.
 }
 \examples{
-# https://www.jtlu.org/index.php/jtlu/article/downloadSuppFile/862/360)
+# https://www.jtlu.org/index.php/jtlu/article/download/862/1381/4359
 # Equation 1B:
 distance = 15
 gradient = 2
