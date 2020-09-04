@@ -287,18 +287,21 @@ and others listed on the Wicid website.</p>
 #&gt; <span class='message'>  Bicycle = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
 #&gt; <span class='message'>  `On foot` = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
 #&gt; <span class='message'>  `Other method of travel to work` = </span><span style='color: #00BB00;'>col_double()</span><span></span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
-#&gt; <span class='message'>cols(</span>
-#&gt; <span class='message'>  MSOA11CD = </span><span style='color: #BB0000;'>col_character()</span><span>,</span>
-#&gt; <span class='message'>  MSOA11NM = </span><span style='color: #BB0000;'>col_character()</span><span>,</span>
-#&gt; <span class='message'>  BNGEAST = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  BNGNORTH = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  LONGITUDE = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  LATITUDE = </span><span style='color: #00BB00;'>col_double()</span><span></span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Unknown or uninitialised column: `geo_code1`.</span></div><div class='output co'>#&gt; <span class='error'>Error: Assigned data `zones_all$msoa11nm[match(od_all$geo_code1, zones_all$msoa11cd)]` must be compatible with existing data.</span>
-#&gt; <span class='error'></span><span style='color: #BB0000;'>✖</span><span> Existing data has 110162 rows.</span>
-#&gt; <span class='error'></span><span style='color: #BB0000;'>✖</span><span> Assigned data has 0 rows.</span>
-#&gt; <span class='error'></span><span style='color: #0000BB;'>ℹ</span><span> Only vectors of size 1 are recycled.</span></div><div class='input'># }
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 110,162 x 14</span><span>
+#&gt;    NA    geo_code2   all from_home light_rail train   bus  taxi motorbike
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> 95AA  95AA       </span><span style='text-decoration: underline;'>9</span><span>465         0          0    12   243   421        58
+#&gt; </span><span style='color: #555555;'> 2</span><span> 95AA  95BB        107         0          0     0     1     2         0
+#&gt; </span><span style='color: #555555;'> 3</span><span> 95AA  95CC         42         0          0     0     1     0         0
+#&gt; </span><span style='color: #555555;'> 4</span><span> 95AA  95DD       </span><span style='text-decoration: underline;'>1</span><span>485         0          0    11    84    13         8
+#&gt; </span><span style='color: #555555;'> 5</span><span> 95AA  95EE         35         0          0     0     1     0         0
+#&gt; </span><span style='color: #555555;'> 6</span><span> 95AA  95FF         18         0          0     0     0     0         0
+#&gt; </span><span style='color: #555555;'> 7</span><span> 95AA  95GG       </span><span style='text-decoration: underline;'>4</span><span>538         0          0   165   434    14        23
+#&gt; </span><span style='color: #555555;'> 8</span><span> 95AA  95HH        139         0          0     1     1     0         0
+#&gt; </span><span style='color: #555555;'> 9</span><span> 95AA  95II        282         0          0     2    15     0         0
+#&gt; </span><span style='color: #555555;'>10</span><span> 95AA  95JJ        108         0          0    15     2     0         0
+#&gt; </span><span style='color: #555555;'># … with 110,152 more rows, and 5 more variables: car_driver </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   car_passenger </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, bicycle </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, foot </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, other </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span></div><div class='input'># }
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
