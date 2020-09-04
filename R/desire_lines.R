@@ -121,6 +121,10 @@ get_od = function(region = NULL,
   # format columns
   names(od_all) = rename_od_variables(names(od_all))
 
+  if(!filename == "wu03ew_v2") {
+    return(od_all)
+  }
+
   # get centroids to provide zone name lookup
   zones_all = get_centroids_ew() # TODO: some warning?
   od_all$geo_name1 = zones_all$msoa11nm[match(od_all$geo_code1, zones_all$msoa11cd)]
