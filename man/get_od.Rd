@@ -4,7 +4,15 @@
 \alias{get_od}
 \title{Get origin destination data from the 2011 Census}
 \usage{
-get_od(region = NULL, n = NULL, type = "within", omit_intrazonal = FALSE)
+get_od(
+  region = NULL,
+  n = NULL,
+  type = "within",
+  omit_intrazonal = FALSE,
+  base_url = paste0("https://s3-eu-west-1.amazonaws.com/",
+    "statistics.digitalresources.jisc.ac.uk", "/dkan/files/FLOW/"),
+  filename = "wu03ew_v2"
+)
 }
 \arguments{
 \item{region}{The PCT region or local authority to download data from (e.g. \code{west-yorkshire} or \code{Leeds}).
@@ -18,6 +26,11 @@ the od dataset should be subset in relation to the \code{region}.}
 
 \item{omit_intrazonal}{should intrazonal OD pairs be omited from result?
 \code{FALSE} by default.}
+
+\item{base_url}{the base url where the OD dataset is stored}
+
+\item{filename}{the name of the file to download, if not the default MSOA level
+data.}
 }
 \description{
 This function downloads a .csv file representing movement
@@ -26,8 +39,14 @@ By default it returns national data, but
 \code{region} can be set to subset the output to a specific
 local authority or region.
 }
+\details{
+OD datasets available include \href{https://www.statistics.digitalresources.jisc.ac.uk/dataset/wu03uk-2011-sms-merged-lala-location-usual-residence-and-place-work-method-travel-work-6}{wu03uk_v3}
+and others listed on the Wicid website.
+}
 \examples{
 \donttest{
 get_od("wight", n = 3)
+get_od()
+get_od(filename = "wu03uk_v3")
 }
 }

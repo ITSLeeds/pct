@@ -52,21 +52,33 @@ get_desire_lines = function(region = NULL, n = NULL, omit_intrazonal = FALSE) {
 #' `region` can be set to subset the output to a specific
 #' local authority or region.
 #'
+#' OD datasets available include [wu03uk_v3](https://www.statistics.digitalresources.jisc.ac.uk/dataset/wu03uk-2011-sms-merged-lala-location-usual-residence-and-place-work-method-travel-work-6)
+#' and others listed on the Wicid website.
+#'
 #' @param n top n number of destinations with most trips in the 2011 census
 #' within the `region`.
 #' @param type the type of subsetting: one of `from`, `to` or `within`, specifying how
 #' the od dataset should be subset in relation to the `region`.
+#' @param base_url the base url where the OD dataset is stored
+#' @param filename the name of the file to download, if not the default MSOA level
+#' data.
 #' @param omit_intrazonal should intrazonal OD pairs be omited from result?
 #' `FALSE` by default.
 #' @inheritParams get_pct
 #' @export
 #' @examples \donttest{
 #' get_od("wight", n = 3)
+#' get_od()
+#' get_od(filename = "wu03uk_v3")
 #' }
 get_od = function(region = NULL,
                   n = NULL,
                   type = "within",
-                  omit_intrazonal = FALSE) {
+                  omit_intrazonal = FALSE,
+                  base_url = paste0("https://s3-eu-west-1.amazonaws.com/",
+                                    "statistics.digitalresources.jisc.ac.uk",
+                                    "/dkan/files/FLOW/"),
+                  filename = "wu03ew_v2") {
 
   if(length(region) > 1L) {
     stop("region must be of length 0 or 1")
@@ -98,13 +110,12 @@ get_od = function(region = NULL,
   }
 
   # get the census file to read the trip counts
-  census_file = file.path(tempdir(), "wu03ew_v2.csv")
+  zip_file = file.path(tempdir(), paste0(filename, ".zip"))
+  census_file = file.path(tempdir(), paste0(filename, ".csv"))
+  file_url = paste0(base_url, filename, "/", filename, ".zip")
   if(!exists(census_file)) {
-    utils::download.file(paste0("https://s3-eu-west-1.amazonaws.com/",
-                                "statistics.digitalresources.jisc.ac.uk",
-                                "/dkan/files/FLOW/wu03ew_v2/wu03ew_v2.zip"),
-                  file.path(tempdir(), "wu03ew_v2.zip"))
-    utils::unzip(file.path(tempdir(), "wu03ew_v2.zip"), exdir = tempdir())
+    utils::download.file(file_url, zip_file)
+    utils::unzip(zip_file, exdir = tempdir())
   }
   od_all = readr::read_csv(census_file)
   # format columns
