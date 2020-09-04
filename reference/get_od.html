@@ -76,7 +76,7 @@ local authority or region." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pct</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0.9000</span>
       </span>
     </div>
 
@@ -149,7 +149,15 @@ By default it returns national data, but
 local authority or region.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_od</span>(<span class='kw'>region</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"within"</span>, <span class='kw'>omit_intrazonal</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>get_od</span>(
+  <span class='kw'>region</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"within"</span>,
+  <span class='kw'>omit_intrazonal</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>base_url</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='st'>"https://s3-eu-west-1.amazonaws.com/"</span>,
+    <span class='st'>"statistics.digitalresources.jisc.ac.uk"</span>, <span class='st'>"/dkan/files/FLOW/"</span>),
+  <span class='kw'>filename</span> <span class='kw'>=</span> <span class='st'>"wu03ew_v2"</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -174,8 +182,21 @@ the od dataset should be subset in relation to the <code>region</code>.</p></td>
       <td><p>should intrazonal OD pairs be omited from result?
 <code>FALSE</code> by default.</p></td>
     </tr>
+    <tr>
+      <th>base_url</th>
+      <td><p>the base url where the OD dataset is stored</p></td>
+    </tr>
+    <tr>
+      <th>filename</th>
+      <td><p>the name of the file to download, if not the default MSOA level
+data.</p></td>
+    </tr>
     </table>
 
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>OD datasets available include <a href='https://www.statistics.digitalresources.jisc.ac.uk/dataset/wu03uk-2011-sms-merged-lala-location-usual-residence-and-place-work-method-travel-work-6'>wu03uk_v3</a>
+and others listed on the Wicid website.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
@@ -211,7 +232,73 @@ the od dataset should be subset in relation to the <code>region</code>.</p></td>
 #&gt; </span><span style='color: #555555;'>3</span><span> E02003591 E02003589   852         0          0     1     6     0        11
 #&gt; </span><span style='color: #555555;'># … with 9 more variables: car_driver </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, car_passenger </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
 #&gt; </span><span style='color: #555555;'>#   bicycle </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, foot </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, other </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, geo_name1 </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, geo_name2 </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   la_1 </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, la_2 </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span></div><div class='input'># }
+#&gt; </span><span style='color: #555555;'>#   la_1 </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, la_2 </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span></div><div class='input'><span class='fu'>get_od</span>()</div><div class='output co'>#&gt; <span class='message'>No region provided. Returning national OD data.</span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+#&gt; <span class='message'>cols(</span>
+#&gt; <span class='message'>  `Area of residence` = </span><span style='color: #BB0000;'>col_character()</span><span>,</span>
+#&gt; <span class='message'>  `Area of workplace` = </span><span style='color: #BB0000;'>col_character()</span><span>,</span>
+#&gt; <span class='message'>  `All categories: Method of travel to work` = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  `Work mainly at or from home` = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  `Underground, metro, light rail, tram` = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  Train = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  `Bus, minibus or coach` = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  Taxi = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  `Motorcycle, scooter or moped` = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  `Driving a car or van` = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  `Passenger in a car or van` = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  Bicycle = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  `On foot` = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  `Other method of travel to work` = </span><span style='color: #00BB00;'>col_double()</span><span></span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+#&gt; <span class='message'>cols(</span>
+#&gt; <span class='message'>  MSOA11CD = </span><span style='color: #BB0000;'>col_character()</span><span>,</span>
+#&gt; <span class='message'>  MSOA11NM = </span><span style='color: #BB0000;'>col_character()</span><span>,</span>
+#&gt; <span class='message'>  BNGEAST = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  BNGNORTH = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  LONGITUDE = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  LATITUDE = </span><span style='color: #00BB00;'>col_double()</span><span></span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 2,402,201 x 18</span><span>
+#&gt;    geo_code1 geo_code2   all from_home light_rail train   bus  taxi motorbike
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> E02000001 E02000001  </span><span style='text-decoration: underline;'>1</span><span>506         0         73    41    32     9         1
+#&gt; </span><span style='color: #555555;'> 2</span><span> E02000001 E02000014     2         0          2     0     0     0         0
+#&gt; </span><span style='color: #555555;'> 3</span><span> E02000001 E02000016     3         0          1     0     2     0         0
+#&gt; </span><span style='color: #555555;'> 4</span><span> E02000001 E02000025     1         0          0     1     0     0         0
+#&gt; </span><span style='color: #555555;'> 5</span><span> E02000001 E02000028     1         0          0     0     0     0         0
+#&gt; </span><span style='color: #555555;'> 6</span><span> E02000001 E02000051     1         0          1     0     0     0         0
+#&gt; </span><span style='color: #555555;'> 7</span><span> E02000001 E02000053     2         0          2     0     0     0         0
+#&gt; </span><span style='color: #555555;'> 8</span><span> E02000001 E02000057     1         0          1     0     0     0         0
+#&gt; </span><span style='color: #555555;'> 9</span><span> E02000001 E02000058     1         0          0     0     0     0         0
+#&gt; </span><span style='color: #555555;'>10</span><span> E02000001 E02000059     1         0          0     0     0     1         0
+#&gt; </span><span style='color: #555555;'># … with 2,402,191 more rows, and 9 more variables: car_driver </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   car_passenger </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, bicycle </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, foot </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, other </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   geo_name1 </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, geo_name2 </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, la_1 </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, la_2 </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span></div><div class='input'><span class='fu'>get_od</span>(<span class='kw'>filename</span> <span class='kw'>=</span> <span class='st'>"wu03uk_v3"</span>)</div><div class='output co'>#&gt; <span class='message'>No region provided. Returning national OD data.</span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+#&gt; <span class='message'>cols(</span>
+#&gt; <span class='message'>  `Area of usual residence` = </span><span style='color: #BB0000;'>col_character()</span><span>,</span>
+#&gt; <span class='message'>  `Area of workplace` = </span><span style='color: #BB0000;'>col_character()</span><span>,</span>
+#&gt; <span class='message'>  `All categories: Method of travel to work` = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  `Work mainly at or from home` = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  `Underground, metro, light rail, tram` = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  Train = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  `Bus, minibus or coach` = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  Taxi = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  `Motorcycle, scooter or moped` = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  `Driving a car or van` = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  `Passenger in a car or van` = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  Bicycle = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  `On foot` = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  `Other method of travel to work` = </span><span style='color: #00BB00;'>col_double()</span><span></span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+#&gt; <span class='message'>cols(</span>
+#&gt; <span class='message'>  MSOA11CD = </span><span style='color: #BB0000;'>col_character()</span><span>,</span>
+#&gt; <span class='message'>  MSOA11NM = </span><span style='color: #BB0000;'>col_character()</span><span>,</span>
+#&gt; <span class='message'>  BNGEAST = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  BNGNORTH = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  LONGITUDE = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  LATITUDE = </span><span style='color: #00BB00;'>col_double()</span><span></span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Unknown or uninitialised column: `geo_code1`.</span></div><div class='output co'>#&gt; <span class='error'>Error: Assigned data `zones_all$msoa11nm[match(od_all$geo_code1, zones_all$msoa11cd)]` must be compatible with existing data.</span>
+#&gt; <span class='error'></span><span style='color: #BB0000;'>✖</span><span> Existing data has 110162 rows.</span>
+#&gt; <span class='error'></span><span style='color: #BB0000;'>✖</span><span> Assigned data has 0 rows.</span>
+#&gt; <span class='error'></span><span style='color: #0000BB;'>ℹ</span><span> Only vectors of size 1 are recycled.</span></div><div class='input'># }
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
