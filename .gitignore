@@ -10,3 +10,8 @@ docs/
 inst/libs/
 inst/pct-slides.html
 inst/pct_training_solutions.html
+inst/rmd/.gitignore
+inst/rmd/libs/
+inst/rmd/pct-slides_files/
+inst/rmd/refs.bib
+refs.bib
