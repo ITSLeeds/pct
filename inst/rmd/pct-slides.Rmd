@@ -16,11 +16,11 @@ output:
 #  - ../vignettes/ref_training.bib
 ---
 
-```{r setup, include=FALSE}
+```{r setup, include=FALSE, eval=FALSE}
 # get citations
 refs = RefManageR::ReadZotero(group = "418217", .params = list(collection = "JFR868KJ", limit = 100))
 refs_df = as.data.frame(refs)
-View(refs_df)
+# View(refs_df)
 # citr::insert_citation(bib_file = "vignettes/refs_training.bib")
 RefManageR::WriteBib(refs, "refs.bib")
 # citr::tidy_bib_file(rmd_file = "vignettes/pct_training.Rmd", messy_bibliography = "vignettes/refs_training.bib")
@@ -35,8 +35,15 @@ BibOptions(check.entries = FALSE,
            hyperlink = FALSE, 
            dashed = FALSE)
 my_bib = refs
-library(leaflet)
 ```
+
+```{r, include=FALSE}
+library(RefManageR)
+my_bib = RefManageR::ReadBib("refs.bib")
+```
+
+
+
 
 # Agenda
 
@@ -94,6 +101,7 @@ Break and presentation of results
 - And the PCT training vignette: [itsleeds.github.io/pct/articles/pct_training.html](https://itsleeds.github.io/pct/articles/pct_training.html)
 
 ```{r, echo=FALSE}
+library(leaflet)
 l = stplanr::geo_code("Institute for Transport Studies, University of Leeds")
 leaflet() %>% 
   addProviderTiles(provider = providers$OpenStreetMap.BlackAndWhite) %>%
@@ -220,8 +228,9 @@ desire_lines_all = pct::get_pct_lines(region = "isle-of-wight") %>%
 - Interested only in major lines
 
 ```{r}
+library(sf)
 desire_lines = desire_lines_all %>% 
-  filter(all > 500) %>% 
+  filter(all > 50) %>% 
   select(geo_code1, geo_code2, all, bicycle, foot, car_driver, rf_dist_km)
 plot(desire_lines)
 ```
