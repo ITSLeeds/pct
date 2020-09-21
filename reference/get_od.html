@@ -150,13 +150,13 @@ local authority or region.</p>
     </div>
 
     <pre class="usage"><span class='fu'>get_od</span>(
-  <span class='kw'>region</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"within"</span>,
-  <span class='kw'>omit_intrazonal</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>base_url</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='st'>"https://s3-eu-west-1.amazonaws.com/"</span>,
+  region = <span class='kw'>NULL</span>,
+  n = <span class='kw'>NULL</span>,
+  type = <span class='st'>"within"</span>,
+  omit_intrazonal = <span class='fl'>FALSE</span>,
+  base_url = <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='st'>"https://s3-eu-west-1.amazonaws.com/"</span>,
     <span class='st'>"statistics.digitalresources.jisc.ac.uk"</span>, <span class='st'>"/dkan/files/FLOW/"</span>),
-  <span class='kw'>filename</span> <span class='kw'>=</span> <span class='st'>"wu03ew_v2"</span>
+  filename = <span class='st'>"wu03ew_v2"</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -200,7 +200,8 @@ and others listed on the Wicid website.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
-<span class='fu'>get_od</span>(<span class='st'>"wight"</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+<span class='fu'>get_od</span>(<span class='st'>"wight"</span>, n = <span class='fl'>3</span>)
+</div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  `Area of residence` = <span style='color: #BB0000;'>col_character()</span><span>,</span>
 #&gt; <span class='message'>  `Area of workplace` = </span><span style='color: #BB0000;'>col_character()</span><span>,</span>
@@ -232,7 +233,8 @@ and others listed on the Wicid website.</p>
 #&gt; </span><span style='color: #555555;'>3</span><span> E02003591 E02003589   852         0          0     1     6     0        11
 #&gt; </span><span style='color: #555555;'># … with 9 more variables: car_driver </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, car_passenger </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
 #&gt; </span><span style='color: #555555;'>#   bicycle </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, foot </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, other </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, geo_name1 </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, geo_name2 </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   la_1 </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, la_2 </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span></div><div class='input'><span class='fu'>get_od</span>()</div><div class='output co'>#&gt; <span class='message'>No region provided. Returning national OD data.</span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+#&gt; </span><span style='color: #555555;'>#   la_1 </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, la_2 </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span></div><div class='input'><span class='fu'>get_od</span>()
+</div><div class='output co'>#&gt; <span class='message'>No region provided. Returning national OD data.</span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  `Area of residence` = </span><span style='color: #BB0000;'>col_character()</span><span>,</span>
 #&gt; <span class='message'>  `Area of workplace` = </span><span style='color: #BB0000;'>col_character()</span><span>,</span>
@@ -271,7 +273,8 @@ and others listed on the Wicid website.</p>
 #&gt; </span><span style='color: #555555;'>10</span><span> E02000001 E02000059     1         0          0     0     0     1         0
 #&gt; </span><span style='color: #555555;'># … with 2,402,191 more rows, and 9 more variables: car_driver </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
 #&gt; </span><span style='color: #555555;'>#   car_passenger </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, bicycle </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, foot </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, other </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   geo_name1 </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, geo_name2 </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, la_1 </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, la_2 </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span></div><div class='input'><span class='fu'>get_od</span>(<span class='kw'>filename</span> <span class='kw'>=</span> <span class='st'>"wu03uk_v3"</span>)</div><div class='output co'>#&gt; <span class='message'>No region provided. Returning national OD data.</span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+#&gt; </span><span style='color: #555555;'>#   geo_name1 </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, geo_name2 </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, la_1 </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, la_2 </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span></div><div class='input'><span class='fu'>get_od</span>(filename = <span class='st'>"wu03uk_v3"</span>)
+</div><div class='output co'>#&gt; <span class='message'>No region provided. Returning national OD data.</span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  `Area of usual residence` = </span><span style='color: #BB0000;'>col_character()</span><span>,</span>
 #&gt; <span class='message'>  `Area of workplace` = </span><span style='color: #BB0000;'>col_character()</span><span>,</span>
@@ -301,7 +304,7 @@ and others listed on the Wicid website.</p>
 #&gt; </span><span style='color: #555555;'> 9</span><span> 95AA  95II        282         0          0     2    15     0         0
 #&gt; </span><span style='color: #555555;'>10</span><span> 95AA  95JJ        108         0          0    15     2     0         0
 #&gt; </span><span style='color: #555555;'># … with 110,152 more rows, and 5 more variables: car_driver </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   car_passenger </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, bicycle </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, foot </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, other </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span></div><div class='input'># }
+#&gt; </span><span style='color: #555555;'>#   car_passenger </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, bicycle </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, foot </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, other </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span></div><div class='input'><span class='co'># }</span>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -318,7 +321,7 @@ and others listed on the Wicid website.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -144,13 +144,13 @@ project and returns objects in the modern <code>sf</code> class.</p>
     </div>
 
     <pre class="usage"><span class='fu'>get_pct</span>(
-  <span class='kw'>base_url</span> <span class='kw'>=</span> <span class='st'>"https://github.com/npct/pct-outputs-regional-notR/raw/master"</span>,
-  <span class='kw'>purpose</span> <span class='kw'>=</span> <span class='st'>"commute"</span>,
-  <span class='kw'>geography</span> <span class='kw'>=</span> <span class='st'>"lsoa"</span>,
-  <span class='kw'>region</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>layer</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>extension</span> <span class='kw'>=</span> <span class='st'>".geojson"</span>,
-  <span class='kw'>national</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+  base_url = <span class='st'>"https://github.com/npct/pct-outputs-regional-notR/raw/master"</span>,
+  purpose = <span class='st'>"commute"</span>,
+  geography = <span class='st'>"lsoa"</span>,
+  region = <span class='kw'>NULL</span>,
+  layer = <span class='kw'>NULL</span>,
+  extension = <span class='st'>".geojson"</span>,
+  national = <span class='fl'>FALSE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -191,15 +191,18 @@ for zones, centroids, desire lines, routes (fast or quiet) and route networks, r
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
-<span class='no'>rf</span> <span class='kw'>=</span> <span class='fu'>get_pct</span>(<span class='kw'>region</span> <span class='kw'>=</span> <span class='st'>"isle-of-wight"</span>, <span class='kw'>layer</span> <span class='kw'>=</span> <span class='st'>"rf"</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>rf</span>)[<span class='fl'>1</span>:<span class='fl'>20</span>]</div><div class='output co'>#&gt;  [1] "id"            "geo_code1"     "geo_code2"     "geo_name1"    
+<span class='kw'>rf</span> <span class='op'>=</span> <span class='fu'>get_pct</span>(region = <span class='st'>"isle-of-wight"</span>, layer = <span class='st'>"rf"</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='kw'>rf</span>)[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>20</span>]
+</div><div class='output co'>#&gt;  [1] "id"            "geo_code1"     "geo_code2"     "geo_name1"    
 #&gt;  [5] "geo_name2"     "lad11cd1"      "lad11cd2"      "lad_name1"    
 #&gt;  [9] "lad_name2"     "all"           "bicycle"       "foot"         
 #&gt; [13] "car_driver"    "car_passenger" "motorbike"     "train_tube"   
-#&gt; [17] "bus"           "taxi_other"    "govtarget_slc" "govtarget_sic"</div><div class='input'><span class='no'>vars_to_plot</span> <span class='kw'>=</span> <span class='fl'>10</span>:<span class='fl'>13</span>
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>rf</span>[<span class='no'>vars_to_plot</span>])</div><div class='img'><img src='get_pct-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>z</span> <span class='kw'>=</span> <span class='fu'>get_pct</span>(<span class='kw'>region</span> <span class='kw'>=</span> <span class='st'>"isle-of-wight"</span>, <span class='kw'>layer</span> <span class='kw'>=</span> <span class='st'>"z"</span>)
-<span class='no'>rf</span> <span class='kw'>=</span> <span class='fu'>get_pct</span>(<span class='kw'>region</span> <span class='kw'>=</span> <span class='st'>"west-yorkshire"</span>, <span class='kw'>layer</span> <span class='kw'>=</span> <span class='st'>"rf"</span>)
-<span class='no'>z_all</span> <span class='kw'>=</span> <span class='fu'>get_pct</span>(<span class='kw'>layer</span> <span class='kw'>=</span> <span class='st'>"z"</span>, <span class='kw'>national</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: GDAL Message 1: +init=epsg:XXXX syntax is deprecated. It might return a CRS with a non-EPSG compliant axis order.</span></div><div class='input'># }
+#&gt; [17] "bus"           "taxi_other"    "govtarget_slc" "govtarget_sic"</div><div class='input'><span class='kw'>vars_to_plot</span> <span class='op'>=</span> <span class='fl'>10</span><span class='op'>:</span><span class='fl'>13</span>
+<span class='fu'><a href='https://rdrr.io/pkg/sf/man/plot.html'>plot</a></span>(<span class='kw'>rf</span>[<span class='kw'>vars_to_plot</span>])
+</div><div class='img'><img src='get_pct-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>z</span> <span class='op'>=</span> <span class='fu'>get_pct</span>(region = <span class='st'>"isle-of-wight"</span>, layer = <span class='st'>"z"</span>)
+<span class='kw'>rf</span> <span class='op'>=</span> <span class='fu'>get_pct</span>(region = <span class='st'>"west-yorkshire"</span>, layer = <span class='st'>"rf"</span>)
+<span class='kw'>z_all</span> <span class='op'>=</span> <span class='fu'>get_pct</span>(layer = <span class='st'>"z"</span>, national = <span class='fl'>TRUE</span>)
+</div><div class='output co'>#&gt; <span class='warning'>Warning: GDAL Message 1: +init=epsg:XXXX syntax is deprecated. It might return a CRS with a non-EPSG compliant axis order.</span></div><div class='input'><span class='co'># }</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -216,7 +219,7 @@ for zones, centroids, desire lines, routes (fast or quiet) and route networks, r
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
