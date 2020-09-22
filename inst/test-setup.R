@@ -60,7 +60,7 @@ tm_shape(rnet_potential) +
   tm_lines(lwd = "Potential", scale = 9, col = "Potential", palette = "viridis", breaks = b)
 
 # Uncomment this line to get the mean cycling potential of route segments in Bristol
-# mean(rnet_potential$Potential)
+# round(mean(rnet_potential$Potential))
 
 # generate output report
 # knitr::spin(hair = "code/reproducible-example.R")
