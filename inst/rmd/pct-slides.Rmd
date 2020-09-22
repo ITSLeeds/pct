@@ -1,8 +1,8 @@
 ---
 title: "The Propensity to Cycle Tool"
 subtitle: '`r emojifont::emoji("bike")`<br/>Advanced Training Workshop'
-author: "Robin Lovelace and Malcolm Morgan, University of Leeds"
-date: 'ITS Leeds, 2019-08-02<br/><img class="img-footer" alt="" src="https://www.pct.bike/www/static/01_logos/pct-logo.png"><br/><img class="img-footer" alt="" src="https://www.stephanehess.me.uk/images/picture3.png">'
+author: "Robin Lovelace and Joey Talbot, ITS, University of Leeds"
+date: 'Public Health + Sustainable Transport Summit 2020<br/><img class="img-footer" alt="" src="https://www.pct.bike/www/static/01_logos/pct-logo.png"><br/><img class="img-footer" alt="" src="https://www.stephanehess.me.uk/images/picture3.png">'
 output:
   xaringan::moon_reader:
     # css: ["default", "its.css"]
@@ -42,31 +42,70 @@ library(RefManageR)
 my_bib = RefManageR::ReadBib("refs.bib")
 ```
 
+# Summary
+
+Title: Propensity to Cycle Tool Advanced Training Workshop
+
+Presenters: Dr Robin Lovelace and Dr Joey Talbot (University of Leeds)
+
+This workshop will provide an overview of the PCT for advanced users, including:
+
+- transport planners with experience of evidence-based prioritisation
+- researchers with experience of using origin-destination, route and route network level data
+- programmers, developers and others wanting to extend PCT methods for the public benefit
+
+The workshop will be broken into three main parts:
+
+- A 45 min talk plus demo of the tool and time for questions (which will be recorded for future use)
+- A 45 minute tutorial in which I will demonstrate how the PCT works and how to extend analysis provided at www.pct.bike using R (requires R and RStudio to be installed and experience using command line computing tools)
+- A 1 hour session where participants will use data from the PCT to tackle real-world problems in their local area
+
+The Hopin platform will be used, enabling break-out sessions.
+
+---
+
+# Description: 
+
+In this workshop you will take a deep dive into the Propensity to Cycle Tool (PCT).
+Beginner and intermediate PCT events focus on using the PCT via the web application hosted at www.pct.bike and the data provided by the PCT in QGIS but the focus here is on analysing cycling potential in the open source statistical programming language R. The majority of the PCT was built on R, which is a powerful object-orientated programming language with a focus on statistical modelling, visualisation and geographic analysis. The workshop will show how the code underlying the PCT works, how the underlying data can be accessed for reproducible analysis, and how the methods can be used to generate new scenarios of cycling uptake.
+
+If you are inexperienced with R you should prepare by taking a free online course such as that provided by DataCamp or by working through Chapter 2 onwards of the open source book Geocomputation with R (see reading list below for more transport-specific resources) before signing-up.
+
+---
+
+# Agenda and sign-up
+
+- 14:00 - 14:45 Talk on the PCT and questions
+  - 14:45 - 15:00 Virtual networking and break
+- 15:00 - 15:45 Propensity to Cycle Tool worked tutorial in R
+  - 15:45 - 16:00 Networking, questions and break
+- 16:00 - 17:00 Application of methods to study areas
+
+To sign-up, please work through the code shown here: 
 
 
+<!-- 215.1371 -->
 
-# Agenda
+<!-- - 09:30 - 10:00: Arrival and set-up -->
+<!-- - 10:00 - 11:00: Data and methods underlying the PCT -->
+<!-- - 11:00 - 12:30: Getting and analysing PCT data -->
+<!--     - Comparing PCT results with existing road infrastructure -->
+<!--         - Getting data from the CyIPT -->
+<!--         - Identfying 'weak links' -->
+<!--         - Identify gaps in the network -->
 
-- 09:30 - 10:00: Arrival and set-up
-- 10:00 - 11:00: Data and methods underlying the PCT
-- 11:00 - 12:30: Getting and analysing PCT data
-    - Comparing PCT results with existing road infrastructure
-        - Getting data from the CyIPT
-        - Identfying 'weak links'
-        - Identify gaps in the network
+<!-- Lunch break -->
 
-Lunch break
+<!-- - 13:30 - 15:30: Extending the PCT: minihack -->
+<!--     - Alternative scenarios of cycling uptake -->
+<!--         - A 'replace short car trips' scenario -->
+<!--     - New input data -->
+<!--         - Travel to stations -->
+<!--     - Other extensions of the PCT -->
 
-- 13:30 - 15:30: Extending the PCT: minihack
-    - Alternative scenarios of cycling uptake
-        - A 'replace short car trips' scenario
-    - New input data
-        - Travel to stations
-    - Other extensions of the PCT
+<!-- Break and presentation of results -->
 
-Break and presentation of results
-
-- 16:00 - 16:30: Policy implementation
+<!-- - 16:00 - 16:30: Policy implementation -->
 
 ---
 
