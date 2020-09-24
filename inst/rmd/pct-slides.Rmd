@@ -94,7 +94,6 @@ round(mean(rnet_potential$Potential))
 Save that 3 digit number, it will allow access to the workshop.
 If you have any issues with your computer set-up, please ask a question here (you will need to sign-up for a GitHub account if you have not already done so): https://github.com/ITSLeeds/pct/issues/67 
 
-
 <!-- 215.1371 -->
 
 <!-- - 09:30 - 10:00: Arrival and set-up -->
@@ -125,18 +124,21 @@ If you have any issues with your computer set-up, please ask a question here (yo
 ### Robin Lovelace
 
 - Geographer by Training
-- University Academic Fellow in Transport and Big Data, Institute for Transport Studies, University of Leeds
+- Associate Professor in Transport Data Science, Institute for Transport Studies, University of Leeds
 - Lead Developer of the Propensity to Cycle Tool
 - R developer and teacher, author of open source books *Efficient R Programming* and *Gecomputation with R*
 
 --
 
-### Malcolm Morgan
+### Joey Talbot
+
+- Experienced data scientist
+- Policy and planning knowledge through role in Transport for New Homes
+
+### Rosa Felix
 
 - Civil Engineer by training
-- Moved into transport via the Propensity to Cycle Tool Project
-- Interest in machine learning and routing
-- Focus on multi-modal routing and energy use (UKERC)
+- Working on cycling potential and infrastructure prioritisation
 
 --
 
@@ -144,18 +146,33 @@ If you have any issues with your computer set-up, please ask a question here (yo
 
 ---
 
-## Housekeeping
+## Overview of workshop
 
-- The venue + facilities
-- The agenda + further info can be found on the pct package website: https://github.com/ITSLeeds/pct
-- And the PCT training vignette: [itsleeds.github.io/pct/articles/pct_training.html](https://itsleeds.github.io/pct/articles/pct_training.html)
+<!-- - The venue + facilities -->
+- Seminar: how the Propensity to Cycle Tool works (45 min)
 
-```{r, echo=FALSE}
+--
+   
+   ☕☕☕ 15 minute break  ☕☕☕
+
+--
+
+- Workshop part 1: getting started with transport data in R (45 min)
+
+   ☕☕☕ 15 minute break  ☕☕☕
+
+--
+
+- Workshop part 2: using PCT data for local transport planning (1 hr)
+
+  🍻🍻🍻 
+
+
+```{r, echo=FALSE, eval=FALSE}
 library(leaflet)
 l = stplanr::geo_code("Institute for Transport Studies, University of Leeds")
 leaflet() %>% 
   addProviderTiles(provider = providers$OpenStreetMap.BlackAndWhite) %>%
-  addTiles(urlTemplate = "https://tile.waymarkedtrails.org/cycling/{z}/{x}/{y}.png") %>% 
   addMarkers(lng = l[1], lat = l[2])
 ```
 
@@ -163,58 +180,15 @@ leaflet() %>%
 
 ## Learning outcomes
 
-By the end of the course, you will be able to:
 
 - Understand the data and code underlying the PCT
 - Download data from the PCT at various geographic levels
-- Use R as a tool for transport data analysis and cycle network planning
+- Use R as a tool for data analysis to support evidence-based planning
 
 --
 
-- Do new things with the PCT data and methods that will support the global transition away from fossil fuels `r emojifont::emoji("rocket")`
-
----
-
-# Geographic levels in the PCT
-
-- Generate and analyse route networks for transport planning with reference to:
-    - Origin-destination (OD) data
-    - Geographic desire lines
-    - Route allocation using different routing services
-    - Route network generation and analysis
-
----
-
-## Transport planning software
-
-Transport modelling software products are a vital component of modern transport planning *and* research.
-
-- They generate the evidence base on which strategic investments are made and, furthermore,
-- provide a powerful mechanism for researching alternative futures.
-
---
-
-It would not be an overstatement to say that software determines the range of futures that are visible to policymakers. This makes status of transport modelling software and how it may evolve in the future important questions.
-
-What will transport software look like? What will their capabilities be? And who will control? Answers to each of these questions will affect the future of transport systems. 
-
---
-
-- Premise: transport planning/modelling software used in practice ~~will become~~ is becoming increasingly data-driven, modular and open. 
-
----
-
-## A geographic perspective
-
-- See https://github.com/ITSLeeds/TDS/blob/master/catalogue.md
-
-- Paper on the **stplanr** paper for transport planning (available [online](https://cran.r-project.org/web/packages/stplanr/vignettes/stplanr-paper.html)) `r Citep(my_bib, "lovelace_stplanr:_2018", .opts = list(cite.style = "authoryear"))`
-- Introductory and advanced content on geographic data in R, especially the [transport chapter](https://geocompr.robinlovelace.net/transport.html) (available free [online](https://geocompr.robinlovelace.net/)) `r Citep(my_bib, "lovelace_geocomputation_2019", .opts = list(cite.style = "authoryear"))` 
-- Paper on analysing OSM data in Python `r Citep(my_bib, "boeing_osmnx_2017", .opts = list(cite.style = "authoryear"))` (available [online](https://arxiv.org/pdf/1611.01890)) 
-
-```{r geocompr-cover, echo=FALSE, out.width="20%"}
-knitr::include_graphics("https://geocompr.robinlovelace.net/images/cover.png")
-```
+It's about free and open source software for a sustainable future `r emojifont::emoji("rocket")`
+![](https://media.giphy.com/media/fnvxO81StvLdhd0Tlu/giphy.gif)
 
 ---
 
@@ -222,18 +196,17 @@ background-image: url(https://media.giphy.com/media/YlQQYUIEAZ76o/giphy.gif)
 background-size: cover
 class: center, middle
 
-
-# Overview of the PCT
+# How the PCT works
 
 ---
 
 ## The first prototype of the PCT
 
-- Developed at a Hackathon at ODI Leeds in February 2015
+- 1st prototype: Hackathon at ODI Leeds in February 2015
 
-- Involved identifying key routes and mapping them
+- We identifying key routes and mapped them
 
-- For detailed description, see the first PCT paper (Lovelace et al. 2017)
+- For early description of aims, see Lovelace et al. (2017)
 
 ```{r, echo=FALSE}
 knitr::include_graphics("https://raw.githubusercontent.com/npct/pct-team/master/figures/early.png")
@@ -241,14 +214,138 @@ knitr::include_graphics("https://raw.githubusercontent.com/npct/pct-team/master/
 
 ---
 
-## Key stages of PCT
+# The PCT in 2020
 
-- It's all reproducible, enabling modifications, e.g.:
+- Now the go-to tool for strategic cycle network planning in England and Wales, used by most local authorities with cycling plans ([source](https://npct.github.io/pct-shiny/regions_www/www/static/03d_other_reports/2019-use-of-pct-report.pdf)).
+
+.pull-left[
+
+## Geographic levels in the PCT
+
+
+- Generate and analyse route networks for transport planning with reference to:
+    - Zones
+    - Origin-destination (OD) data
+    - Geographic desire lines
+    - Route allocation using different routing services
+    - Route network generation and analysis
+]
+
+.pull-right[
+
+![](https://user-images.githubusercontent.com/1825120/94201205-9758c600-feb3-11ea-8383-a01966457562.png)
+See these levels at [www.pct.bike](https://www.pct.bike)
+
+]
+
+---
+
+## Let's look at zones
+
+![](https://user-images.githubusercontent.com/1825120/94204655-89a63f00-feb9-11ea-8b6d-89910008e830.png)
+```{r, eval=FALSE, echo=FALSE}
+qtm(od_data_zones_min)
+```
+
+---
+
+## OD data
+
+```{r, echo=FALSE, message=FALSE}
+library(tmap)
+library(od)
+tmap_mode("plot")
+od_test = od::od_data_df
+od_test$id = 1:nrow(od_test)
+od_test$perc_cycle = round(od_test$bicycle / od_test$all, 3) * 100
+knitr::kable(od_test, caption = "Origin-destination data. Open MSOA-MSOA commute data from the 2011 census, accessed using the R package pct.")
+```
+
+---
+
+## Desire lines
+
+```{r, echo=FALSE, message=FALSE}
+l = od_to_sf(od_test, od_data_centroids)
+l = dplyr::select(l, id, foot, bicycle, car_driver, perc_cycle)
+p = od_data_centroids
+p = p[l, ]
+tm_shape(l) +
+  tm_lines("perc_cycle", palette = "viridis", lwd = "car_driver", legend.lwd.show = FALSE, scale = 9, alpha = 0.5) +
+  tm_text("id") +
+  tm_shape(p) +
+  tm_text("geo_code")
+```
+
+---
+
+## Routes
+
+```{r, echo=FALSE, eval=FALSE}
+library(cyclestreets)
+r = stplanr::route(l = l, route_fun = journey)
+saveRDS(r, "routes_od_data_df_df.Rds")
+piggyback::pb_upload("routes_od_data_df_df.Rds")
+file.remove("routes_od_data_df_df.Rds")
+```
+
+
+```{r, eval=FALSE, echo=FALSE}
+tm_shape(r) +
+  tm_lines("perc_cycle", palette = "viridis", lwd = "car_driver", legend.lwd.show = FALSE, scale = 9, alpha = 0.5) +
+  tm_shape(p) +
+  tm_text("geo_code")
+```
+
+![](https://user-images.githubusercontent.com/1825120/94204162-a8f09c80-feb8-11ea-9b88-cce88001ff01.png)
+---
+
+### Route networks
+
+```{r, message=FALSE}
+rnet = stplanr::overline(r, "bicycle")
+plot(rnet, lwd = rnet$bicycle / 10)
+```
+
+---
+
+#### Cycling uptake
+
+![](https://itsleeds.github.io/pct/reference/uptake_pct_govtarget-1.png)
+
+--
+
+Dose/response modelling: about cycling in response to distance, hilliness and other factors. Source: [pct R package website](https://itsleeds.github.io/pct/reference/uptake_pct_govtarget.html)
+
+
+---
+
+background-image: url(https://media.giphy.com/media/YlQQYUIEAZ76o/giphy.gif)
+
+
+# Coding
+
+```{r, eval=FALSE}
+od_test$perc_cycle = round(od_test$bicycle / od_test$all) * 100
+l = od_to_sf(od_test, od_data_centroids)
+r = stplanr::route(l = l, route_fun = journey)
+rnet = overline(r, "bicycle")
+```
+
+--
+
+![](https://media.giphy.com/media/3oKIPnAiaMCws8nOsE/giphy.gif)
+
+---
+
+## Key stages of PCT approach
+
+- Reproducible, open, scripted, enabling modifications, e.g.:
 - Find short routes in which more people drive than cycle
 
 --
 
-- Stage 1: get data from web
+- Stage 1: get data
 
 ```{r, eval=FALSE, echo=FALSE}
 # Aim: get top 1000 lines in repo
@@ -269,7 +366,6 @@ library(sf)
 desire_lines_all = pct::get_pct_lines(region = "isle-of-wight") %>% 
   top_n(n = 1000, wt = all)
 ```
-
 
 ---
 
@@ -300,7 +396,6 @@ plot(desire_lines)
 .pull-right[
 ]
 ```
-
 
 <!-- - Interactively: -->
 
@@ -333,71 +428,67 @@ routes = stplanr::line2route(car_dependent_routes)
 car_dependent_routes$geometry = routes$geometry
 ```
 
---
+<!-- -- -->
 
-- Any questions?
+<!-- - Any questions? -->
 
---
+<!-- -- -->
 
-- Everyone happy with RStudio?
+<!-- - Everyone happy with RStudio? -->
 
----
+<!-- --- -->
 
-# Supporting reference materials
+<!-- # Supporting reference materials -->
 
-All interactive programming/analysis with command line interface involves frequent reference to documentation, and data science is no exception. Places to look for help (in roughly descending order):
+<!-- All interactive programming/analysis with command line interface involves frequent reference to documentation, and data science is no exception. Places to look for help (in roughly descending order): -->
 
---
+<!-- -- -->
 
-- Your colleague
-- R's internal help (e.g. with `?functonname` or `vignettes(package = "packagename)`)
-- Online documentation, e.g. for the pct package: https://itsleeds.github.io/pct/ 
-- *Transport and Geographic Data Science with R*: An introduction to R aimed at transport planners: https://git.io/tds2dayex
+<!-- - Your colleague -->
+<!-- - R's internal help (e.g. with `?functonname` or `vignettes(package = "packagename)`) -->
+<!-- - Online documentation, e.g. for the pct package: https://itsleeds.github.io/pct/  -->
+<!-- - *Transport and Geographic Data Science with R*: An introduction to R aimed at transport planners: https://git.io/tds2dayex -->
 
-- The transport chapter ([12](https://geocompr.robinlovelace.net/transport.html)) in the open source book [*Geocomputation with R*](https://geocompr.robinlovelace.net/)
-- R for Data Science
+<!-- - The transport chapter ([12](https://geocompr.robinlovelace.net/transport.html)) in the open source book [*Geocomputation with R*](https://geocompr.robinlovelace.net/) -->
+<!-- - R for Data Science -->
 
----
+<!-- --- -->
 
-# Exercises
+<!-- # Exercises -->
 
+<!-- - If you're happy with R, work through G1 to G8 in the [exercises](https://itsleeds.github.io/pct/articles/pct_training.html#exercises), starting: -->
+<!--     - G1: Using the PCT's online interface, hosted at [www.pct.bike/m/?r=isle-of-wight](https://www.pct.bike/m/?r=isle-of-wight), identify the MSOA **zone** that has the highest number of people who cycle to work. -->
 
+<!-- - If you're just getting started with RStudio: Work through Section 1 of https://git.io/tds2dayex -->
 
-- If you're happy with R, work through G1 to G8 in the [exercises](https://itsleeds.github.io/pct/articles/pct_training.html#exercises), starting:
-    - G1: Using the PCT's online interface, hosted at [www.pct.bike/m/?r=isle-of-wight](https://www.pct.bike/m/?r=isle-of-wight), identify the MSOA **zone** that has the highest number of people who cycle to work.
+<!-- - Getting up to speed with data manipulation in the tidyverse: Work through and reproduce the code in Section [5.2](https://r4ds.had.co.nz/transform.html#filter-rows-with-filter) of R for Data Science. -->
 
-- If you're just getting started with RStudio: Work through Section 1 of https://git.io/tds2dayex
+<!-- --- -->
 
-- Getting up to speed with data manipulation in the tidyverse: Work through and reproduce the code in Section [5.2](https://r4ds.had.co.nz/transform.html#filter-rows-with-filter) of R for Data Science.
+<!-- # The PCT hackathon -->
 
----
+<!-- -- -->
 
-# The PCT 'mini hack'
+<!-- Overall aim: generate ideas related to and extending the PCT -->
 
---
+<!-- -- -->
 
-Overall aim: learn how you can extend the PCT analysis in a reproducible way
+<!-- Ideas: -->
 
---
+<!-- - Create a route network reflecting where you would invest if the priority was reducing car trips of less than 5 km -->
 
-Ideas:
+<!-- -- -->
 
-- Create a route network reflecting where you would invest if the priority was reducing car trips of less than 5 km
+<!-- - Design interventions to replace short car trips across West Yorkshire (or another region of your choice) using the PCT methods/data to support your decisions -->
 
---
+<!-- -- -->
 
-- Design interventions to replace short car trips across West Yorkshire (or another region of your choice) using the PCT methods/data to support your decisions
+<!-- - Identify quiet routes and design a quiet route network for city/region of your choice, e.g. Leeds -->
 
---
+<!-- -- -->
 
-- Identify quiet routes and design a quiet route network for city/region of your choice, e.g. Leeds
-
---
-
-- Import alternative origin-destination datasets and use those as the basis for propensity to cycle analysis for trip purposes other than single stage commutes, encapsulated in the commut layer in the PCT
-- Any other layers/scenarios/hacks: welcome! Comments in this repo's [issue tracker](https://github.com/ITSLeeds/pct/issues) also welcome.
-
-
+<!-- - Import alternative origin-destination datasets and use those as the basis for propensity to cycle analysis for trip purposes other than single stage commutes, encapsulated in the commut layer in the PCT -->
+<!-- - Any other layers/scenarios/hacks: welcome! Comments in this repo's [issue tracker](https://github.com/ITSLeeds/pct/issues) also welcome. -->
 
 ---
 
@@ -425,7 +516,6 @@ knitr::kable(tms, booktabs = TRUE, caption = "Sample of transport modelling soft
 
 ---
 
-
 ## Data science and the tidyverse
 
 - Inspired by Introduction to data science with R (available free [online](https://r4ds.had.co.nz/)) `r Citep(my_bib, "grolemund_r_2016", .opts = list(cite.style = "authoryear"))`
@@ -434,6 +524,16 @@ knitr::kable(tms, booktabs = TRUE, caption = "Sample of transport modelling soft
 ```{r tds-cover, echo=FALSE, out.width="30%"}
 knitr::include_graphics("https://d33wubrfki0l68.cloudfront.net/b88ef926a004b0fce72b2526b0b5c4413666a4cb/24a30/cover.png")
 ```
+
+---
+
+## A geographic perspective
+
+- See https://github.com/ITSLeeds/TDS/blob/master/catalogue.md
+
+- Paper on the **stplanr** paper for transport planning (available [online](https://cran.r-project.org/web/packages/stplanr/vignettes/stplanr-paper.html)) `r Citep(my_bib, "lovelace_stplanr:_2018", .opts = list(cite.style = "authoryear"))`
+- Introductory and advanced content on geographic data in R, especially the [transport chapter](https://geocompr.robinlovelace.net/transport.html) (available free [online](https://geocompr.robinlovelace.net/)) `r Citep(my_bib, "lovelace_geocomputation_2019", .opts = list(cite.style = "authoryear"))` 
+- Paper on analysing OSM data in Python `r Citep(my_bib, "boeing_osmnx_2017", .opts = list(cite.style = "authoryear"))` (available [online](https://arxiv.org/pdf/1611.01890)) 
 
 ---
 
@@ -460,3 +560,30 @@ With open source software, the world is your support network!
 - No transport equivalent (e.g. earthscience.stackexchange.com is in beta)
 
 - Potential for a Discourse forum or similar: transport is not (just) GIS
+
+<!-- --- -->
+
+<!-- ## Transport planning software -->
+
+<!-- Transport modelling software products are a vital component of modern transport planning *and* research. -->
+
+<!-- - They generate the evidence base on which strategic investments are made and, furthermore, -->
+<!-- - provide a powerful mechanism for researching alternative futures. -->
+
+<!-- -- -->
+
+<!-- It would not be an overstatement to say that software determines the range of futures that are visible to policymakers. This makes status of transport modelling software and how it may evolve in the future important questions. -->
+
+<!-- What will transport software look like? What will their capabilities be? And who will control? Answers to each of these questions will affect the future of transport systems.  -->
+
+<!-- -- -->
+
+<!-- - Premise: transport planning/modelling software used in practice ~~will become~~ is becoming increasingly data-driven, modular and open.  -->
+
+
+
+<!-- --- -->
+
+<!-- ```{r geocompr-cover, echo=FALSE, out.width="20%"} -->
+<!-- knitr::include_graphics("https://geocompr.robinlovelace.net/images/cover.png") -->
+<!-- ``` -->
