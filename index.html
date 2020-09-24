@@ -251,14 +251,14 @@
 <div class="sourceCode" id="cb9"><pre class="downlit">
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://r-spatial.github.io/sf">sf</a></span>)
 <span class="co">#&gt; Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 6.3.1</span>
-<span class="kw">desire_lines</span> <span class="op">=</span> <span class="kw">stplanr</span>::<span class="fu"><a href="https://rdrr.io/pkg/stplanr/man/od2line.html">od2line</a></span>(flow = <span class="kw">od_leeds</span>, zones = <span class="kw">zones_leeds</span>[<span class="fl">2</span>])
+<span class="kw">desire_lines</span> <span class="op">=</span> <span class="kw">stplanr</span>::<span class="fu"><a href="https://docs.ropensci.org/stplanr/reference/od2line.html">od2line</a></span>(flow = <span class="kw">od_leeds</span>, zones = <span class="kw">zones_leeds</span>[<span class="fl">2</span>])
 <span class="co">#&gt; Creating centroids representing desire line start and end points.</span>
 <span class="fu"><a href="https://rdrr.io/pkg/sf/man/plot.html">plot</a></span>(<span class="kw">desire_lines</span>[<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">12</span>)])
 </pre></div>
 <p><img src="reference/figures/README-desire-1.png" width="100%"></p>
 <p>We can convert these straight lines into routes with a routing service, e.g.:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit">
-<span class="kw">segments_fast</span> <span class="op">=</span> <span class="kw">stplanr</span>::<span class="fu"><a href="https://rdrr.io/pkg/stplanr/man/route.html">route</a></span>(l = <span class="kw">desire_lines</span>, route_fun = <span class="kw">cyclestreets</span>::<span class="kw">journey</span>)
+<span class="kw">segments_fast</span> <span class="op">=</span> <span class="kw">stplanr</span>::<span class="fu"><a href="https://docs.ropensci.org/stplanr/reference/route.html">route</a></span>(l = <span class="kw">desire_lines</span>, route_fun = <span class="kw">cyclestreets</span>::<span class="kw">journey</span>)
 <span class="co">#&gt; Most common output is sf</span>
 </pre></div>
 <p>We got useful information from this routing operation, we will convert the route segments into complete routes with <code>dplyr</code>:</p>
@@ -312,7 +312,7 @@
 <span class="kw">routes_fast_linestrings</span> <span class="op">=</span> <span class="kw">sf</span>::<span class="fu"><a href="https://rdrr.io/pkg/sf/man/st_cast.html">st_cast</a></span>(<span class="kw">routes_fast</span>, <span class="st">"LINESTRING"</span>)
 <span class="co">#&gt; Warning in st_cast.sf(routes_fast, "LINESTRING"): repeating attributes for all</span>
 <span class="co">#&gt; sub-geometries for which they may not be constant</span>
-<span class="kw">rnet</span> <span class="op">=</span> <span class="kw">stplanr</span>::<span class="fu"><a href="https://rdrr.io/pkg/stplanr/man/overline.html">overline</a></span>(<span class="kw">routes_fast_linestrings</span>, attrib = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"bicycle"</span>, <span class="st">"bicycle_govtarget"</span>))
+<span class="kw">rnet</span> <span class="op">=</span> <span class="kw">stplanr</span>::<span class="fu"><a href="https://docs.ropensci.org/stplanr/reference/overline.html">overline</a></span>(<span class="kw">routes_fast_linestrings</span>, attrib = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"bicycle"</span>, <span class="st">"bicycle_govtarget"</span>))
 <span class="kw">lwd</span> <span class="op">=</span> <span class="kw">rnet</span><span class="op">$</span><span class="kw">bicycle_govtarget</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="kw">rnet</span><span class="op">$</span><span class="kw">bicycle_govtarget</span>)
 <span class="fu"><a href="https://rdrr.io/pkg/sf/man/plot.html">plot</a></span>(<span class="kw">rnet</span>[<span class="st">"bicycle_govtarget"</span>], lwd = <span class="kw">lwd</span>)
 </pre></div>
