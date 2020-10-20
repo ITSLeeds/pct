@@ -107,21 +107,20 @@
 <a href="#getting-the-region-of-interest" class="anchor"></a>Getting the region of interest</h1>
 <p>The first stage in many projects involving geographic data is to define the region of interest. In our case we will use the boundary of the Leeds local authority as the basis of analysis. The PCT is based on ‘PCT regions’ that we can visualise as follows:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://itsleeds.github.io/pct">pct</a></span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://r-spatial.github.io/sf">sf</a></span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://dplyr.tidyverse.org">dplyr</a></span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/mtennekes/tmap">tmap</a></span>)
-<span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html">tm_shape</a></span>(<span class="kw">pct_regions</span>) <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_polygons.html">tm_polygons</a></span>() <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_text.html">tm_text</a></span>(<span class="st">"region_name"</span>, size = <span class="fl">0.6</span>)
-</pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://itsleeds.github.io/pct/">pct</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mtennekes/tmap">tmap</a></span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">pct_regions</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_polygons.html">tm_polygons</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_text.html">tm_text</a></span><span class="op">(</span><span class="st">"region_name"</span>, size <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span></pre></div>
 <p><img src="cycling-potential-uk_files/figure-html/setup-1.png" width="700"></p>
 <p>We are interested in Leeds in the <code>west-yorkshire</code> area. Using the <code>pct</code> package we can get zone data from the PCT as follows (note: this would work by setting <code>region_of_interest</code> to any of the regions shown in the map above:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="kw">region_of_interest</span> <span class="op">=</span> <span class="st">"west-yorkshire"</span>
-<span class="kw">zones_region</span> <span class="op">=</span> <span class="fu"><a href="../reference/get_pct_zones.html">get_pct_zones</a></span>(region = <span class="kw">region_of_interest</span>)
+<span class="va">region_of_interest</span> <span class="op">=</span> <span class="st">"west-yorkshire"</span>
+<span class="va">zones_region</span> <span class="op">=</span> <span class="fu"><a href="../reference/get_pct_zones.html">get_pct_zones</a></span><span class="op">(</span>region <span class="op">=</span> <span class="va">region_of_interest</span><span class="op">)</span>
 <span class="co"># zones_region = get_pct_zones(region = region_of_interest, geography = "lsoa") # for smaller zones</span>
-<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="kw">zones_region</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">zones_region</span><span class="op">)</span>
 <span class="co">#&gt;   [1] "geo_code"                "geo_name"               </span>
 <span class="co">#&gt;   [3] "lad11cd"                 "lad_name"               </span>
 <span class="co">#&gt;   [5] "all"                     "bicycle"                </span>
@@ -187,8 +186,7 @@
 <span class="co">#&gt; [125] "dutch_sico2"             "ebike_sicarkm"          </span>
 <span class="co">#&gt; [127] "ebike_sico2"             "perc_rf_dist_u10km"     </span>
 <span class="co">#&gt; [129] "avslope_perc_u10km"      "geometry"</span>
-<span class="fu"><a href="https://rdrr.io/pkg/sf/man/plot.html">plot</a></span>(<span class="kw">zones_region</span>[<span class="st">"bicycle"</span>])
-</pre></div>
+<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">zones_region</span><span class="op">[</span><span class="st">"bicycle"</span><span class="op">]</span><span class="op">)</span></pre></div>
 <p><img src="cycling-potential-uk_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
 <p>This shows the number of people who say they cycled to work in the 2011 Census. This may have changed slightly as cycling becomes more popular in some places, but is a good proxy for current cycling levels. But there are two big problems with this: the map is of West Yorkshire not Leeds, and it’s showing current cycling rates, not future potential.</p>
 </div>
@@ -197,25 +195,22 @@
 <a href="#getting-cycling-potential-accross-local-authorities" class="anchor"></a>Getting cycling potential accross local authorities</h1>
 <p>We can find out what local authorities there are in the zones as follows:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span>(<span class="kw">zones_region</span><span class="op">$</span><span class="kw">lad_name</span>)
-<span class="co">#&gt; [1] "Kirklees"   "Leeds"      "Bradford"   "Wakefield"  "Calderdale"</span>
-</pre></div>
+<span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">zones_region</span><span class="op">$</span><span class="va">lad_name</span><span class="op">)</span>
+<span class="co">#&gt; [1] "Kirklees"   "Leeds"      "Bradford"   "Wakefield"  "Calderdale"</span></pre></div>
 <p>We are interested in the zones in Leeds, which we can get as follows:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="kw">zones</span> <span class="op">=</span> <span class="kw">zones_region</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(<span class="kw">lad_name</span> <span class="op">==</span> <span class="st">"Leeds"</span>)
-<span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html">tm_shape</a></span>(<span class="kw">zones</span>) <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_polygons.html">tm_fill</a></span>(<span class="st">"bicycle"</span>, palette = <span class="st">"RdYlBu"</span>) 
-</pre></div>
+<span class="va">zones</span> <span class="op">=</span> <span class="va">zones_region</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">lad_name</span> <span class="op">==</span> <span class="st">"Leeds"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">zones</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_polygons.html">tm_fill</a></span><span class="op">(</span><span class="st">"bicycle"</span>, palette <span class="op">=</span> <span class="st">"RdYlBu"</span><span class="op">)</span> </pre></div>
 <p><img src="cycling-potential-uk_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
 <p>Great, this represents the current level of cycling across the region of interest. What about cycling potential? Based on the modelling work in the PCT, we have pre-calculated this for a number of scenarios. Let’s take a look at cycling to work under the Government Target (near market), Go Dutch and Ebikes scenarios for cycling to work:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="kw">scenarios_of_interest</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"govnearmkt_slc"</span>, <span class="st">"dutch_slc"</span>, <span class="st">"ebike_slc"</span>)
-<span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html">tm_shape</a></span>(<span class="kw">zones</span>) <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_polygons.html">tm_fill</a></span>(<span class="kw">scenarios_of_interest</span>, palette = <span class="st">"RdYlBu"</span>, n = <span class="fl">9</span>, title = <span class="st">"N. cycling"</span>) <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_facets.html">tm_facets</a></span>(nrow = <span class="fl">1</span>, free.scales = <span class="fl">FALSE</span>) <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_layout.html">tm_layout</a></span>(panel.labels = <span class="kw">scenarios_of_interest</span>)
-</pre></div>
+<span class="va">scenarios_of_interest</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"govnearmkt_slc"</span>, <span class="st">"dutch_slc"</span>, <span class="st">"ebike_slc"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">zones</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_polygons.html">tm_fill</a></span><span class="op">(</span><span class="va">scenarios_of_interest</span>, palette <span class="op">=</span> <span class="st">"RdYlBu"</span>, n <span class="op">=</span> <span class="fl">9</span>, title <span class="op">=</span> <span class="st">"N. cycling"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_facets.html">tm_facets</a></span><span class="op">(</span>nrow <span class="op">=</span> <span class="fl">1</span>, free.scales <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_layout.html">tm_layout</a></span><span class="op">(</span>panel.labels <span class="op">=</span> <span class="va">scenarios_of_interest</span><span class="op">)</span></pre></div>
 <p><img src="cycling-potential-uk_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
 <p>That’s great, but it doesn’t answer the question of mode share.</p>
 </div>
@@ -224,30 +219,28 @@
 <a href="#cycling-mode-share" class="anchor"></a>Cycling mode share</h1>
 <p>We can calculate this by dividing the number of people cycling to work by the total:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="kw">zones_mode_share</span> <span class="op">=</span> <span class="kw">zones</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="kw">scenarios_of_interest</span>) <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate_all.html">mutate_at</a></span>(<span class="kw">scenarios_of_interest</span>, .funs = <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="op">~</span> <span class="kw">.</span><span class="op">/</span><span class="kw">zones</span><span class="op">$</span><span class="kw">all</span> <span class="op">*</span> <span class="fl">100</span>))
+<span class="va">zones_mode_share</span> <span class="op">=</span> <span class="va">zones</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">scenarios_of_interest</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate_all.html">mutate_at</a></span><span class="op">(</span><span class="va">scenarios_of_interest</span>, .funs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="op">~</span> <span class="va">.</span><span class="op">/</span><span class="va">zones</span><span class="op">$</span><span class="va">all</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; Note: Using an external vector in selections is ambiguous.</span>
 <span class="co">#&gt; ℹ Use `all_of(scenarios_of_interest)` instead of `scenarios_of_interest` to silence this message.</span>
 <span class="co">#&gt; ℹ See &lt;https://tidyselect.r-lib.org/reference/faq-external-vector.html&gt;.</span>
 <span class="co">#&gt; This message is displayed once per session.</span>
-<span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html">tm_shape</a></span>(<span class="kw">zones_mode_share</span>) <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_polygons.html">tm_fill</a></span>(<span class="kw">scenarios_of_interest</span>, palette = <span class="st">"RdYlBu"</span>, title = <span class="st">"% cycling"</span>) <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_facets.html">tm_facets</a></span>(nrow = <span class="fl">1</span>, free.scales = <span class="fl">FALSE</span>) <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_layout.html">tm_layout</a></span>(panel.labels = <span class="kw">scenarios_of_interest</span>)
-</pre></div>
+<span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">zones_mode_share</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_polygons.html">tm_fill</a></span><span class="op">(</span><span class="va">scenarios_of_interest</span>, palette <span class="op">=</span> <span class="st">"RdYlBu"</span>, title <span class="op">=</span> <span class="st">"% cycling"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_facets.html">tm_facets</a></span><span class="op">(</span>nrow <span class="op">=</span> <span class="fl">1</span>, free.scales <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_layout.html">tm_layout</a></span><span class="op">(</span>panel.labels <span class="op">=</span> <span class="va">scenarios_of_interest</span><span class="op">)</span></pre></div>
 <p><img src="cycling-potential-uk_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
 <p>The summary mode shares can be estimated as follows, with results showing the % cycling currently (according to the 2011 census) and under scenarios of change:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="kw">zones_region</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/pkg/sf/man/st_geometry.html">st_drop_geometry</a></span>() <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="kw">lad_name</span>) <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(`2011 census` = <span class="kw">bicycle</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">scenarios_of_interest</span>, <span class="st">"all"</span>)) <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise_all.html">summarise_all</a></span>(.funs = <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="kw">.</span>)<span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="kw">all</span>)<span class="op">*</span> <span class="fl">100</span>)) <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="op">-</span><span class="kw">all</span>, `Local Authority / % Cycling in scenario:` = <span class="kw">lad_name</span>) <span class="op">%&gt;%</span> 
-  <span class="kw">knitr</span>::<span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>()
-<span class="co">#&gt; Adding missing grouping variables: `lad_name`</span>
-</pre></div>
+<span class="va">zones_region</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html">st_drop_geometry</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">lad_name</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span>`2011 census` <span class="op">=</span> <span class="va">bicycle</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">scenarios_of_interest</span>, <span class="st">"all"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise_all.html">summarise_all</a></span><span class="op">(</span>.funs <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">all</span><span class="op">)</span><span class="op">*</span> <span class="fl">100</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">all</span>, `Local Authority / % Cycling in scenario:` <span class="op">=</span> <span class="va">lad_name</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span>
+<span class="co">#&gt; Adding missing grouping variables: `lad_name`</span></pre></div>
 <table class="table">
 <colgroup>
 <col width="46%">
@@ -308,16 +301,14 @@
 <a href="#cycling-potential-nationwide" class="anchor"></a>Cycling potential nationwide</h1>
 <p>To generalise the analysis outlined above, we can download national data from the PCT project as follows:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit">
-<span class="kw">zones_national</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/sf/man/st_read.html">read_sf</a></span>(<span class="st">"https://github.com/npct/pct-outputs-national/raw/master/commute/msoa/z_all.geojson"</span>)
-</pre></div>
+<span class="va">zones_national</span> <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">read_sf</a></span><span class="op">(</span><span class="st">"https://github.com/npct/pct-outputs-national/raw/master/commute/msoa/z_all.geojson"</span><span class="op">)</span></pre></div>
 <p>A summary of cycling potential nationwide can then be calculated as follows:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit">
-<span class="kw">national_commute_totals</span> <span class="op">=</span> <span class="kw">zones_national</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/pkg/sf/man/st_geometry.html">st_drop_geometry</a></span>() <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="kw">all</span>, census_2011 = <span class="kw">bicycle</span>, <span class="kw">govtarget_slc</span>, <span class="kw">dutch_slc</span>) <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise_all.html">summarise_all</a></span>(.funs = <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="kw">.</span>))
-<span class="kw">national_commute_percentages</span> <span class="op">=</span> <span class="kw">national_commute_totals</span> <span class="op">/</span> <span class="kw">national_commute_totals</span><span class="op">$</span><span class="kw">all</span> <span class="op">*</span> <span class="fl">100</span>
-</pre></div>
+<span class="va">national_commute_totals</span> <span class="op">=</span> <span class="va">zones_national</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html">st_drop_geometry</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">all</span>, census_2011 <span class="op">=</span> <span class="va">bicycle</span>, <span class="va">govtarget_slc</span>, <span class="va">dutch_slc</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise_all.html">summarise_all</a></span><span class="op">(</span>.funs <span class="op">=</span> <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span><span class="op">)</span>
+<span class="va">national_commute_percentages</span> <span class="op">=</span> <span class="va">national_commute_totals</span> <span class="op">/</span> <span class="va">national_commute_totals</span><span class="op">$</span><span class="va">all</span> <span class="op">*</span> <span class="fl">100</span></pre></div>
 <table class="table">
 <caption>Total counts and percentages of cycle commuters under different scenarios</caption>
 <thead><tr class="header">
@@ -343,7 +334,7 @@
 </table>
 <p>We can calculate the mode share of cycling under these same scenarios for any area (e.g. the boundary of Greater London) or for a list of named local authorities, as follows:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit">
-<span class="kw">r</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span>(stringsAsFactors = <span class="fl">FALSE</span>, text = <span class="st">"area
+<span class="va">r</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span>stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span>, text <span class="op">=</span> <span class="st">"area
 Greater London
 Greater Manchester
 Birmingham
@@ -356,21 +347,21 @@ Cardiff
 Belfast
 Southampton
 Sheffield
-"</span>)
-<span class="kw">matching_las</span> <span class="op">=</span> <span class="kw">pct_regions_lookup</span><span class="op">$</span><span class="kw">lad16nm</span>[<span class="kw">pct_regions_lookup</span><span class="op">$</span><span class="kw">lad16nm</span> <span class="op">%in%</span> <span class="kw">r</span><span class="op">$</span><span class="kw">area</span>]
-<span class="kw">matching_regions</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"london"</span>, <span class="st">"greater-manchester"</span>)
-<span class="kw">pct_lookup</span> <span class="op">=</span> <span class="kw">pct_regions_lookup</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span>(lad_name = <span class="kw">lad16nm</span>)
-<span class="kw">zones_national</span> <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span>(<span class="kw">zones_national</span>, <span class="kw">pct_lookup</span>)
+"</span><span class="op">)</span>
+<span class="va">matching_las</span> <span class="op">=</span> <span class="va">pct_regions_lookup</span><span class="op">$</span><span class="va">lad16nm</span><span class="op">[</span><span class="va">pct_regions_lookup</span><span class="op">$</span><span class="va">lad16nm</span> <span class="op">%in%</span> <span class="va">r</span><span class="op">$</span><span class="va">area</span><span class="op">]</span>
+<span class="va">matching_regions</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"london"</span>, <span class="st">"greater-manchester"</span><span class="op">)</span>
+<span class="va">pct_lookup</span> <span class="op">=</span> <span class="va">pct_regions_lookup</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>lad_name <span class="op">=</span> <span class="va">lad16nm</span><span class="op">)</span>
+<span class="va">zones_national</span> <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span><span class="va">zones_national</span>, <span class="va">pct_lookup</span><span class="op">)</span>
 <span class="co">#&gt; Joining, by = "lad_name"</span>
-<span class="kw">zones_national</span> <span class="op">=</span> <span class="kw">zones_national</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(area = <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span>(
-    <span class="kw">region_name</span> <span class="op">==</span> <span class="st">"london"</span> <span class="op">~</span> <span class="st">"Greater London"</span>,
-    <span class="kw">region_name</span> <span class="op">==</span> <span class="st">"greater-manchester"</span> <span class="op">~</span> <span class="st">"Greater Manchester"</span>,
-    <span class="kw">lad_name</span> <span class="op">%in%</span> <span class="kw">matching_las</span> <span class="op">~</span> <span class="kw">lad_name</span>,
-    <span class="fl">TRUE</span> <span class="op">~</span> <span class="st">"Other"</span>
-    ))
-<span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span>(<span class="kw">zones_national</span><span class="op">$</span><span class="kw">area</span>)
+<span class="va">zones_national</span> <span class="op">=</span> <span class="va">zones_national</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>area <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span>
+    <span class="va">region_name</span> <span class="op">==</span> <span class="st">"london"</span> <span class="op">~</span> <span class="st">"Greater London"</span>,
+    <span class="va">region_name</span> <span class="op">==</span> <span class="st">"greater-manchester"</span> <span class="op">~</span> <span class="st">"Greater Manchester"</span>,
+    <span class="va">lad_name</span> <span class="op">%in%</span> <span class="va">matching_las</span> <span class="op">~</span> <span class="va">lad_name</span>,
+    <span class="cn">TRUE</span> <span class="op">~</span> <span class="st">"Other"</span>
+    <span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">zones_national</span><span class="op">$</span><span class="va">area</span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;         Birmingham            Cardiff     Greater London Greater Manchester </span>
 <span class="co">#&gt;                132                 48                983                346 </span>
@@ -378,23 +369,22 @@ Sheffield
 <span class="co">#&gt;                107                 61               5297                 70 </span>
 <span class="co">#&gt;        Southampton </span>
 <span class="co">#&gt;                 32</span>
-<span class="kw">zones_aggregated</span> <span class="op">=</span> <span class="kw">zones_national</span> <span class="op">%&gt;%</span> 
-  <span class="kw">sf</span>::<span class="fu"><a href="https://rdrr.io/pkg/sf/man/st_geometry.html">st_drop_geometry</a></span>() <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="kw">area</span>) <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/pkg/sf/man/tidyverse.html">summarise</a></span>(
-    Commuters = <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="kw">all</span>, na.rm = <span class="fl">TRUE</span>),
-    Bicycle_census = <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="kw">bicycle</span>),
-    Bicycle_govtarget = <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="kw">govtarget_slc</span>),
-    Bicycle_godutch = <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="kw">dutch_slc</span>)
-    )
+<span class="va">zones_aggregated</span> <span class="op">=</span> <span class="va">zones_national</span> <span class="op">%&gt;%</span> 
+  <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html">st_drop_geometry</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">area</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/tidyverse.html">summarise</a></span><span class="op">(</span>
+    Commuters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">all</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
+    Bicycle_census <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">bicycle</span><span class="op">)</span>,
+    Bicycle_govtarget <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">govtarget_slc</span><span class="op">)</span>,
+    Bicycle_godutch <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">dutch_slc</span><span class="op">)</span>
+    <span class="op">)</span>
 <span class="co">#&gt; `summarise()` ungrouping output (override with `.groups` argument)</span>
 
 <span class="co"># plot(zones_aggregated["Commuters"], border = NA)</span>
-<span class="kw">zones_aggregated</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span>(<span class="kw">r</span>, <span class="kw">.</span>) <span class="op">%&gt;%</span> 
-  <span class="kw">knitr</span>::<span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(digits = <span class="fl">0</span>)
-<span class="co">#&gt; Joining, by = "area"</span>
-</pre></div>
+<span class="va">zones_aggregated</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span><span class="va">r</span>, <span class="va">.</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>
+<span class="co">#&gt; Joining, by = "area"</span></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="left">area</th>
@@ -464,8 +454,8 @@ Sheffield
 </table>
 <p>Next we can calculate the mode splits as follows:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit">
-<span class="kw">zones_aggregated_percents</span> <span class="op">=</span> <span class="kw">zones_aggregated</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate_all.html">mutate_at</a></span>(<span class="fu"><a href="https://dplyr.tidyverse.org/reference/vars.html">vars</a></span>(<span class="op">-</span><span class="kw">Commuters</span>, <span class="op">-</span><span class="kw">area</span>), <span class="fu"><a href="https://dplyr.tidyverse.org/reference/funs.html">funs</a></span>(<span class="kw">.</span><span class="op">/</span><span class="kw">Commuters</span> <span class="op">*</span> <span class="fl">100</span>))
+<span class="va">zones_aggregated_percents</span> <span class="op">=</span> <span class="va">zones_aggregated</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate_all.html">mutate_at</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/vars.html">vars</a></span><span class="op">(</span><span class="op">-</span><span class="va">Commuters</span>, <span class="op">-</span><span class="va">area</span><span class="op">)</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/funs.html">funs</a></span><span class="op">(</span><span class="va">.</span><span class="op">/</span><span class="va">Commuters</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; Warning: `funs()` is deprecated as of dplyr 0.8.0.</span>
 <span class="co">#&gt; Please use a list of either functions or lambdas: </span>
 <span class="co">#&gt; </span>
@@ -479,12 +469,11 @@ Sheffield
 <span class="co">#&gt;   list(~ mean(., trim = .2), ~ median(., na.rm = TRUE))</span>
 <span class="co">#&gt; This warning is displayed once every 8 hours.</span>
 <span class="co">#&gt; Call `lifecycle::last_warnings()` to see where this warning was generated.</span>
-<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="kw">zones_aggregated_percents</span>)[<span class="fl">3</span><span class="op">:</span><span class="fl">5</span>] <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="kw">zones_aggregated_percents</span>)[<span class="fl">3</span><span class="op">:</span><span class="fl">5</span>], <span class="st">"_percent"</span>)
-<span class="kw">zones_aggregated_percents</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span>(<span class="kw">r</span>, <span class="kw">.</span>) <span class="op">%&gt;%</span> 
-  <span class="kw">knitr</span>::<span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(digits = <span class="fl">1</span>)
-<span class="co">#&gt; Joining, by = "area"</span>
-</pre></div>
+<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">zones_aggregated_percents</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">zones_aggregated_percents</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>, <span class="st">"_percent"</span><span class="op">)</span>
+<span class="va">zones_aggregated_percents</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span><span class="va">r</span>, <span class="va">.</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
+<span class="co">#&gt; Joining, by = "area"</span></pre></div>
 <table class="table">
 <colgroup>
 <col width="18%">

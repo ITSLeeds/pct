@@ -110,16 +110,13 @@
 <a href="#installation" class="anchor"></a>Installation</h2>
 <div class="sourceCode" id="cb1"><pre class="downlit">
 <span class="co"># from CRAN</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"pct"</span>)
-</pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"pct"</span><span class="op">)</span></pre></div>
 <p>You can install the development version of the package as follows:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="kw">remotes</span>::<span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"ITSLeeds/pct"</span>)
-</pre></div>
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"ITSLeeds/pct"</span><span class="op">)</span></pre></div>
 <p>Load the package as follows:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://itsleeds.github.io/pct">pct</a></span>)
-</pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://itsleeds.github.io/pct/">pct</a></span><span class="op">)</span></pre></div>
 </div>
 <div id="documentation" class="section level2">
 <h2 class="hasAnchor">
@@ -156,55 +153,51 @@
 </ul>
 <p>For example, to get the centroids in West Yorkshire:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="kw">centroids</span> <span class="op">=</span> <span class="fu"><a href="reference/get_pct_centroids.html">get_pct_centroids</a></span>(region = <span class="st">"west-yorkshire"</span>)
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span>(<span class="kw">centroids</span>[, <span class="st">"geo_name"</span>])
-</pre></div>
+<span class="va">centroids</span> <span class="op">=</span> <span class="fu"><a href="reference/get_pct_centroids.html">get_pct_centroids</a></span><span class="op">(</span>region <span class="op">=</span> <span class="st">"west-yorkshire"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">centroids</span><span class="op">[</span>, <span class="st">"geo_name"</span><span class="op">]</span><span class="op">)</span></pre></div>
 <p><img src="reference/figures/README-centroids-1.png" width="100%"></p>
 <p>Likewise to download the desire lines for “west-yorkshire”:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="kw">lines</span> <span class="op">=</span> <span class="fu"><a href="reference/get_pct_lines.html">get_pct_lines</a></span>(region = <span class="st">"west-yorkshire"</span>)
-<span class="kw">lines</span> <span class="op">=</span> <span class="kw">lines</span>[<span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span>(<span class="kw">lines</span><span class="op">$</span><span class="kw">all</span>, decreasing = <span class="fl">TRUE</span>), <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"all"</span>)]
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span>(<span class="kw">lines</span>[<span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,], lwd = <span class="fl">4</span>)
-</pre></div>
+<span class="va">lines</span> <span class="op">=</span> <span class="fu"><a href="reference/get_pct_lines.html">get_pct_lines</a></span><span class="op">(</span>region <span class="op">=</span> <span class="st">"west-yorkshire"</span><span class="op">)</span>
+<span class="va">lines</span> <span class="op">=</span> <span class="va">lines</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span><span class="op">(</span><span class="va">lines</span><span class="op">$</span><span class="va">all</span>, decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"all"</span><span class="op">)</span><span class="op">]</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">lines</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="op">]</span>, lwd <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></pre></div>
 <p><img src="reference/figures/README-get_pct_lines-1.png" width="100%"></p>
 <div class="sourceCode" id="cb6"><pre class="downlit">
 <span class="co"># view the lines on a map</span>
-<span class="co"># mapview::mapview(lines[1:3000, c("geo_name1")])</span>
-</pre></div>
+<span class="co"># mapview::mapview(lines[1:3000, c("geo_name1")])</span></pre></div>
 </div>
 <div id="estimate-cycling-uptake" class="section level2">
 <h2 class="hasAnchor">
 <a href="#estimate-cycling-uptake" class="anchor"></a>Estimate cycling uptake</h2>
 <p>An important part of the PCT is its ability to create model scenarios of cycling uptake. Key to the PCT uptake model is ‘distance decay’, meaning that short trips are more likely to be cycled than long trips. The functions <code><a href="reference/uptake_pct_govtarget.html">uptake_pct_govtarget()</a></code> and <code><a href="reference/uptake_pct_godutch.html">uptake_pct_godutch()</a></code> implement uptake models used in the PCT, which use distance and hilliness per desire line as inputs and output the proportion of people who could be expected to cycle if that scenario were realised. The scenarios of cycling uptake produced by these functions are not predictions of what <em>will</em> happen, but illustrative snapshots of what <em>could</em> happen if overall propensity to cycle reached a certain level. The uptake levels produced by Go Dutch and Government Target scenarios (which represent increases in cycling, not final levels) are illustrated in the graph below (other scenarios could be produced, see the <a href="https://itsleeds.github.io/pct/reference/uptake_pct_govtarget.html">source code</a> see how these models work):</p>
 <div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="kw">distances</span> <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">20</span>
-<span class="kw">hilliness</span> <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">5</span>
-<span class="kw">uptake_df</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(
-  distances = <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="kw">distances</span>, <span class="fl">6</span>),
-  hilliness = <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="kw">hilliness</span>, each = <span class="fl">20</span>)
-)
-<span class="kw">p_govtarget</span> <span class="op">=</span> <span class="fu"><a href="reference/uptake_pct_govtarget.html">uptake_pct_govtarget</a></span>(
-    distance = <span class="kw">uptake_df</span><span class="op">$</span><span class="kw">distances</span>,
-    gradient = <span class="kw">uptake_df</span><span class="op">$</span><span class="kw">hilliness</span>
-    )
-<span class="kw">p_godutch</span> <span class="op">=</span> <span class="fu"><a href="reference/uptake_pct_godutch.html">uptake_pct_godutch</a></span>(
-    distance = <span class="kw">uptake_df</span><span class="op">$</span><span class="kw">distances</span>,
-    gradient = <span class="kw">uptake_df</span><span class="op">$</span><span class="kw">hilliness</span>
-    )
-<span class="kw">uptake_df</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(
-  <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span>(<span class="kw">uptake_df</span>, scenario = <span class="st">"govtarget"</span>, pcycle = <span class="kw">p_govtarget</span>),
-  <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span>(<span class="kw">uptake_df</span>, scenario = <span class="st">"godutch"</span>, pcycle = <span class="kw">p_godutch</span>)
-)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="http://ggplot2.tidyverse.org">ggplot2</a></span>)
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="kw">uptake_df</span>) <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span>(<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(
-    <span class="kw">distances</span>,
-    <span class="kw">pcycle</span>,
-    linetype = <span class="kw">scenario</span>,
-    colour = <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(<span class="kw">hilliness</span>)
-  )) <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_hue.html">scale_color_discrete</a></span>(<span class="st">"Gradient (%)"</span>)
-</pre></div>
+<span class="va">distances</span> <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">20</span>
+<span class="va">hilliness</span> <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">5</span>
+<span class="va">uptake_df</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
+  distances <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="va">distances</span>, <span class="fl">6</span><span class="op">)</span>,
+  hilliness <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="va">hilliness</span>, each <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>
+<span class="op">)</span>
+<span class="va">p_govtarget</span> <span class="op">=</span> <span class="fu"><a href="reference/uptake_pct_govtarget.html">uptake_pct_govtarget</a></span><span class="op">(</span>
+    distance <span class="op">=</span> <span class="va">uptake_df</span><span class="op">$</span><span class="va">distances</span>,
+    gradient <span class="op">=</span> <span class="va">uptake_df</span><span class="op">$</span><span class="va">hilliness</span>
+    <span class="op">)</span>
+<span class="va">p_godutch</span> <span class="op">=</span> <span class="fu"><a href="reference/uptake_pct_godutch.html">uptake_pct_godutch</a></span><span class="op">(</span>
+    distance <span class="op">=</span> <span class="va">uptake_df</span><span class="op">$</span><span class="va">distances</span>,
+    gradient <span class="op">=</span> <span class="va">uptake_df</span><span class="op">$</span><span class="va">hilliness</span>
+    <span class="op">)</span>
+<span class="va">uptake_df</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">uptake_df</span>, scenario <span class="op">=</span> <span class="st">"govtarget"</span>, pcycle <span class="op">=</span> <span class="va">p_govtarget</span><span class="op">)</span>,
+  <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">uptake_df</span>, scenario <span class="op">=</span> <span class="st">"godutch"</span>, pcycle <span class="op">=</span> <span class="va">p_godutch</span><span class="op">)</span>
+<span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">uptake_df</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>
+    <span class="va">distances</span>,
+    <span class="va">pcycle</span>,
+    linetype <span class="op">=</span> <span class="va">scenario</span>,
+    colour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">hilliness</span><span class="op">)</span>
+  <span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_hue.html">scale_color_discrete</a></span><span class="op">(</span><span class="st">"Gradient (%)"</span><span class="op">)</span></pre></div>
 <p><img src="reference/figures/README-decay-1.png" width="100%"></p>
 <p>The proportion of trips made by cycling along each origin-destination (OD) pair therefore depends on the trip distance and hilliness. The main input dataset into the PCT is OD data and, to convert each OD pair into a geographic desire line, geographic zone or centroids. Typical input data is provided in packaged datasets <code>od_leeds</code> and <code>zones_leeds</code>:</p>
 </div>
@@ -214,9 +207,9 @@
 <p>This example shows how scenarios of cycling uptake, and how ‘distance decay’ works (short trips are more likely to be cycled than long trips).</p>
 <p>The input data looks like this (origin-destination data and geographic zone data):</p>
 <div class="sourceCode" id="cb8"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="kw">od_leeds</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">od_leeds</span><span class="op">)</span>
 <span class="co">#&gt; [1] "tbl_df"     "tbl"        "data.frame"</span>
-<span class="kw">od_leeds</span>[<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">12</span>)]
+<span class="va">od_leeds</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">12</span><span class="op">)</span><span class="op">]</span>
 <span class="co">#&gt; # A tibble: 10 x 4</span>
 <span class="co">#&gt;    area_of_residence area_of_workplace   all bicycle</span>
 <span class="co">#&gt;    &lt;chr&gt;             &lt;chr&gt;             &lt;dbl&gt;   &lt;dbl&gt;</span>
@@ -230,9 +223,9 @@
 <span class="co">#&gt;  8 E02006852         E02006875          1221      99</span>
 <span class="co">#&gt;  9 E02006861         E02006875          1177      56</span>
 <span class="co">#&gt; 10 E02006876         E02006875          1035      10</span>
-<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="kw">zones_leeds</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">zones_leeds</span><span class="op">)</span>
 <span class="co">#&gt; [1] "sf"         "data.frame"</span>
-<span class="kw">zones_leeds</span>[<span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, ]
+<span class="va">zones_leeds</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="op">]</span>
 <span class="co">#&gt; Simple feature collection with 3 features and 6 fields</span>
 <span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
 <span class="co">#&gt; dimension:      XY</span>
@@ -245,25 +238,22 @@
 <span class="co">#&gt;                            geometry</span>
 <span class="co">#&gt; 2270 MULTIPOLYGON (((-1.392046 5...</span>
 <span class="co">#&gt; 2271 MULTIPOLYGON (((-1.340405 5...</span>
-<span class="co">#&gt; 2272 MULTIPOLYGON (((-1.682211 5...</span>
-</pre></div>
+<span class="co">#&gt; 2272 MULTIPOLYGON (((-1.682211 5...</span></pre></div>
 <p>The <code>stplanr</code> package can be used to convert the non-geographic OD data into geographic desire lines as follows:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://r-spatial.github.io/sf">sf</a></span>)
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span>
 <span class="co">#&gt; Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 6.3.1</span>
-<span class="kw">desire_lines</span> <span class="op">=</span> <span class="kw">stplanr</span>::<span class="fu"><a href="https://docs.ropensci.org/stplanr/reference/od2line.html">od2line</a></span>(flow = <span class="kw">od_leeds</span>, zones = <span class="kw">zones_leeds</span>[<span class="fl">2</span>])
+<span class="va">desire_lines</span> <span class="op">=</span> <span class="fu">stplanr</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/stplanr/reference/od2line.html">od2line</a></span><span class="op">(</span>flow <span class="op">=</span> <span class="va">od_leeds</span>, zones <span class="op">=</span> <span class="va">zones_leeds</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>
 <span class="co">#&gt; Creating centroids representing desire line start and end points.</span>
-<span class="fu"><a href="https://rdrr.io/pkg/sf/man/plot.html">plot</a></span>(<span class="kw">desire_lines</span>[<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">12</span>)])
-</pre></div>
+<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">desire_lines</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">12</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></pre></div>
 <p><img src="reference/figures/README-desire-1.png" width="100%"></p>
 <p>We can convert these straight lines into routes with a routing service, e.g.:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit">
-<span class="kw">segments_fast</span> <span class="op">=</span> <span class="kw">stplanr</span>::<span class="fu"><a href="https://docs.ropensci.org/stplanr/reference/route.html">route</a></span>(l = <span class="kw">desire_lines</span>, route_fun = <span class="kw">cyclestreets</span>::<span class="kw">journey</span>)
-<span class="co">#&gt; Most common output is sf</span>
-</pre></div>
+<span class="va">segments_fast</span> <span class="op">=</span> <span class="fu">stplanr</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/stplanr/reference/route.html">route</a></span><span class="op">(</span>l <span class="op">=</span> <span class="va">desire_lines</span>, route_fun <span class="op">=</span> <span class="fu">cyclestreets</span><span class="fu">::</span><span class="va">journey</span><span class="op">)</span>
+<span class="co">#&gt; Most common output is sf</span></pre></div>
 <p>We got useful information from this routing operation, we will convert the route segments into complete routes with <code>dplyr</code>:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://dplyr.tidyverse.org">dplyr</a></span>)
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Attaching package: 'dplyr'</span>
 <span class="co">#&gt; The following objects are masked from 'package:stats':</span>
@@ -272,55 +262,48 @@
 <span class="co">#&gt; The following objects are masked from 'package:base':</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;     intersect, setdiff, setequal, union</span>
-<span class="kw">routes_fast</span> <span class="op">=</span> <span class="kw">segments_fast</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="kw">area_of_residence</span>, <span class="kw">area_of_workplace</span>) <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(
-    all = <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span>(<span class="kw">all</span>),
-    bicycle = <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span>(<span class="kw">bicycle</span>),
-    length = <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="kw">distances</span>),
-    av_incline = <span class="fu"><a href="https://rdrr.io/r/base/diff.html">diff</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/range.html">range</a></span>(<span class="kw">elevations</span>)) <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="kw">distances</span>) <span class="op">*</span> <span class="fl">100</span>
-  ) 
-<span class="co">#&gt; `summarise()` regrouping output by 'area_of_residence' (override with `.groups` argument)</span>
-</pre></div>
+<span class="va">routes_fast</span> <span class="op">=</span> <span class="va">segments_fast</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">area_of_residence</span>, <span class="va">area_of_workplace</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>
+    all <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">all</span><span class="op">)</span>,
+    bicycle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">bicycle</span><span class="op">)</span>,
+    length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">distances</span><span class="op">)</span>,
+    av_incline <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/diff.html">diff</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/range.html">range</a></span><span class="op">(</span><span class="va">elevations</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">distances</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span>
+  <span class="op">)</span> 
+<span class="co">#&gt; `summarise()` regrouping output by 'area_of_residence' (override with `.groups` argument)</span></pre></div>
 <p>The results at the route level are as follows:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/pkg/sf/man/plot.html">plot</a></span>(<span class="kw">routes_fast</span>)
-</pre></div>
+<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">routes_fast</span><span class="op">)</span></pre></div>
 <p><img src="reference/figures/README-routes_fast-1.png" width="100%"></p>
 <p>Now we estimate cycling uptake:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit">
-<span class="kw">routes_fast</span><span class="op">$</span><span class="kw">uptake</span> <span class="op">=</span> <span class="fu"><a href="reference/uptake_pct_govtarget.html">uptake_pct_govtarget</a></span>(distance = <span class="kw">routes_fast</span><span class="op">$</span><span class="kw">length</span>, gradient = <span class="kw">routes_fast</span><span class="op">$</span><span class="kw">av_incline</span>)
+<span class="va">routes_fast</span><span class="op">$</span><span class="va">uptake</span> <span class="op">=</span> <span class="fu"><a href="reference/uptake_pct_govtarget.html">uptake_pct_govtarget</a></span><span class="op">(</span>distance <span class="op">=</span> <span class="va">routes_fast</span><span class="op">$</span><span class="va">length</span>, gradient <span class="op">=</span> <span class="va">routes_fast</span><span class="op">$</span><span class="va">av_incline</span><span class="op">)</span>
 <span class="co">#&gt; Distance assumed in m, switching to km</span>
-<span class="kw">routes_fast</span><span class="op">$</span><span class="kw">bicycle_govtarget</span> <span class="op">=</span> <span class="kw">routes_fast</span><span class="op">$</span><span class="kw">bicycle</span> <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="kw">routes_fast</span><span class="op">$</span><span class="kw">uptake</span> <span class="op">*</span> <span class="kw">routes_fast</span><span class="op">$</span><span class="kw">all</span>)
-</pre></div>
+<span class="va">routes_fast</span><span class="op">$</span><span class="va">bicycle_govtarget</span> <span class="op">=</span> <span class="va">routes_fast</span><span class="op">$</span><span class="va">bicycle</span> <span class="op">+</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">routes_fast</span><span class="op">$</span><span class="va">uptake</span> <span class="op">*</span> <span class="va">routes_fast</span><span class="op">$</span><span class="va">all</span><span class="op">)</span></pre></div>
 <p>Let’s see how many people started cycling:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="kw">routes_fast</span><span class="op">$</span><span class="kw">bicycle_govtarget</span>) <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="kw">routes_fast</span><span class="op">$</span><span class="kw">bicycle</span>)
-<span class="co">#&gt; [1] 547</span>
-</pre></div>
+<span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">routes_fast</span><span class="op">$</span><span class="va">bicycle_govtarget</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">routes_fast</span><span class="op">$</span><span class="va">bicycle</span><span class="op">)</span>
+<span class="co">#&gt; [1] 547</span></pre></div>
 <p>Nearly 1000 more people cycling to work, just in 10 desire is not bad! What % cycling is this, for those routes?</p>
 <div class="sourceCode" id="cb15"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="kw">routes_fast</span><span class="op">$</span><span class="kw">bicycle_govtarget</span>) <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="kw">routes_fast</span><span class="op">$</span><span class="kw">all</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">routes_fast</span><span class="op">$</span><span class="va">bicycle_govtarget</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">routes_fast</span><span class="op">$</span><span class="va">all</span><span class="op">)</span>
 <span class="co">#&gt; [1] 0.09356206</span>
-<span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="kw">routes_fast</span><span class="op">$</span><span class="kw">bicycle</span>) <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="kw">routes_fast</span><span class="op">$</span><span class="kw">all</span>)
-<span class="co">#&gt; [1] 0.03963324</span>
-</pre></div>
+<span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">routes_fast</span><span class="op">$</span><span class="va">bicycle</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">routes_fast</span><span class="op">$</span><span class="va">all</span><span class="op">)</span>
+<span class="co">#&gt; [1] 0.03963324</span></pre></div>
 <p>It’s gone from 4% to 11%, a realistic increase if cycling were enabled by good infrastructure and policies.</p>
 <p>Now: where to prioritise that infrastructure and those policies?</p>
 <div class="sourceCode" id="cb16"><pre class="downlit">
-<span class="kw">routes_fast_linestrings</span> <span class="op">=</span> <span class="kw">sf</span>::<span class="fu"><a href="https://rdrr.io/pkg/sf/man/st_cast.html">st_cast</a></span>(<span class="kw">routes_fast</span>, <span class="st">"LINESTRING"</span>)
+<span class="va">routes_fast_linestrings</span> <span class="op">=</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_cast.html">st_cast</a></span><span class="op">(</span><span class="va">routes_fast</span>, <span class="st">"LINESTRING"</span><span class="op">)</span>
 <span class="co">#&gt; Warning in st_cast.sf(routes_fast, "LINESTRING"): repeating attributes for all</span>
 <span class="co">#&gt; sub-geometries for which they may not be constant</span>
-<span class="kw">rnet</span> <span class="op">=</span> <span class="kw">stplanr</span>::<span class="fu"><a href="https://docs.ropensci.org/stplanr/reference/overline.html">overline</a></span>(<span class="kw">routes_fast_linestrings</span>, attrib = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"bicycle"</span>, <span class="st">"bicycle_govtarget"</span>))
-<span class="kw">lwd</span> <span class="op">=</span> <span class="kw">rnet</span><span class="op">$</span><span class="kw">bicycle_govtarget</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="kw">rnet</span><span class="op">$</span><span class="kw">bicycle_govtarget</span>)
-<span class="fu"><a href="https://rdrr.io/pkg/sf/man/plot.html">plot</a></span>(<span class="kw">rnet</span>[<span class="st">"bicycle_govtarget"</span>], lwd = <span class="kw">lwd</span>)
-</pre></div>
+<span class="va">rnet</span> <span class="op">=</span> <span class="fu">stplanr</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/stplanr/reference/overline.html">overline</a></span><span class="op">(</span><span class="va">routes_fast_linestrings</span>, attrib <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"bicycle"</span>, <span class="st">"bicycle_govtarget"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">lwd</span> <span class="op">=</span> <span class="va">rnet</span><span class="op">$</span><span class="va">bicycle_govtarget</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">rnet</span><span class="op">$</span><span class="va">bicycle_govtarget</span><span class="op">)</span>
+<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">rnet</span><span class="op">[</span><span class="st">"bicycle_govtarget"</span><span class="op">]</span>, lwd <span class="op">=</span> <span class="va">lwd</span><span class="op">)</span></pre></div>
 <p><img src="reference/figures/README-rnetgove-1.png" width="100%"></p>
 <p>We can view the results in an interactive map and share with policy makers, stakeholders, and the public! E.g. (see interactive map <a href="https://rpubs.com/RobinLovelace/474074">here</a>):</p>
 <div class="sourceCode" id="cb17"><pre class="downlit">
-<span class="kw">mapview</span>::<span class="fu">mapview</span>(<span class="kw">rnet</span>, zcol = <span class="st">"bicycle_govtarget"</span>, lwd = <span class="kw">lwd</span> <span class="op">*</span> <span class="fl">2</span>)
-</pre></div>
+<span class="fu">mapview</span><span class="fu">::</span><span class="fu">mapview</span><span class="op">(</span><span class="va">rnet</span>, zcol <span class="op">=</span> <span class="st">"bicycle_govtarget"</span>, lwd <span class="op">=</span> <span class="va">lwd</span> <span class="op">*</span> <span class="fl">2</span><span class="op">)</span></pre></div>
 <p><img src="https://raw.githubusercontent.com/ITSLeeds/pct/master/pct-leeds-demo.png"></p>
 </div>
 <div id="current-limitations" class="section level2">
