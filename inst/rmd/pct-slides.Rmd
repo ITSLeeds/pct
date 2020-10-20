@@ -17,7 +17,7 @@ output:
 #  - ../vignettes/ref_training.bib
 ---
 
-```{r setup, include=FALSE, eval=FALSE}
+```{r setup, include=FALSE, eval=TRUE}
 # get citations
 refs = RefManageR::ReadZotero(group = "418217", .params = list(collection = "JFR868KJ", limit = 100))
 refs_df = as.data.frame(refs)
