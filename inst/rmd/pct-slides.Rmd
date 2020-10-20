@@ -1,6 +1,7 @@
 ---
 title: "The Propensity to Cycle Tool"
-subtitle: '`r emojifont::emoji("bike")`<br/>Advanced Training Workshop'
+subtitle: '`r emojifont::emoji("bike")`<br/>For England and Wales'
+# subtitle: '`r emojifont::emoji("bike")`<br/>Advanced Training Workshop'
 author: "Robin Lovelace and Joey Talbot, ITS, University of Leeds"
 date: 'Public Health + Sustainable Transport Summit 2020<br/><img class="img-footer" alt="" src="https://www.pct.bike/www/static/01_logos/pct-logo.png"><br/><img class="img-footer" alt="" src="https://www.stephanehess.me.uk/images/picture3.png">'
 output:
@@ -42,84 +43,193 @@ library(RefManageR)
 my_bib = RefManageR::ReadBib("refs.bib")
 ```
 
-# Summary
 
-Title: Propensity to Cycle Tool Advanced Training Workshop
+background-image: url(https://media.giphy.com/media/YlQQYUIEAZ76o/giphy.gif)
+background-size: cover
+class: center, middle
 
-Presenters: Dr Robin Lovelace and Dr Joey Talbot (University of Leeds)
-
-This workshop will provide an overview of the PCT for advanced users, including:
-
-- transport planners with experience of evidence-based prioritisation
-- researchers with experience of using origin-destination, route and route network level data
-- programmers, developers and others wanting to extend PCT methods for the public benefit
-
-The workshop will be broken into three main parts:
-
-- A 45 min talk plus demo of the tool and time for questions (which will be recorded for future use)
-- A 45 minute tutorial in which I will demonstrate how the PCT works and how to extend analysis provided at www.pct.bike using R (requires R and RStudio to be installed and experience using command line computing tools)
-- A 1 hour session where participants will use data from the PCT to tackle real-world problems in their local area
-
-The Hopin platform will be used, enabling break-out sessions.
+# How the PCT works
 
 ---
 
-# Description: 
+## The first prototype of the PCT
 
-In this workshop you will take a deep dive into the Propensity to Cycle Tool (PCT).
-Beginner and intermediate PCT events focus on using the PCT via the web application hosted at www.pct.bike and the data provided by the PCT in QGIS but the focus here is on analysing cycling potential in the open source statistical programming language R. The majority of the PCT was built on R, which is a powerful object-orientated programming language with a focus on statistical modelling, visualisation and geographic analysis. The workshop will show how the code underlying the PCT works, how the underlying data can be accessed for reproducible analysis, and how the methods can be used to generate new scenarios of cycling uptake.
+- 1st prototype: Hackathon at ODI Leeds in February 2015
 
-If you are inexperienced with R you should prepare by taking a free online course such as that provided by DataCamp or by working through Chapter 2 onwards of the open source book Geocomputation with R (see reading list below for more transport-specific resources) before signing-up.
+- We identifying key routes and mapped them
 
----
+- For description of aims, see Lovelace et al. (2017)
 
-# Agenda and sign-up
-
-- 14:00 - 14:45 Talk on the PCT and questions
-  - 14:45 - 15:00 Virtual networking and break
-- 15:00 - 15:45 Propensity to Cycle Tool worked tutorial in R
-  - 15:45 - 16:00 Networking, questions and break
-- 16:00 - 17:00 Application of methods to study areas
-
-To sign-up, please ensure that you have the right set-up.
-See [here](https://docs.ropensci.org/stats19/articles/stats19-training-setup.html) for a guide on installing R and RStudio for transport data research.
-To get the access code for the tutorial, you will need to first work through the code shown here:
-https://github.com/ITSLeeds/pct/blob/master/inst/test-setup.R
-After you have run the code, running the following line should give you a number that will give you the access code for the course:
-
-```r
-round(mean(rnet_potential$Potential))
+```{r, echo=FALSE}
+knitr::include_graphics("https://raw.githubusercontent.com/npct/pct-team/master/figures/early.png")
 ```
 
-Save that 3 digit number, it will allow access to the workshop.
-If you have any issues with your computer set-up, please ask a question here (you will need to sign-up for a GitHub account if you have not already done so): https://github.com/ITSLeeds/pct/issues/67 
+---
 
-<!-- 215.1371 -->
+## The PCT in 2020
 
-<!-- - 09:30 - 10:00: Arrival and set-up -->
-<!-- - 10:00 - 11:00: Data and methods underlying the PCT -->
-<!-- - 11:00 - 12:30: Getting and analysing PCT data -->
-<!--     - Comparing PCT results with existing road infrastructure -->
-<!--         - Getting data from the CyIPT -->
-<!--         - Identfying 'weak links' -->
-<!--         - Identify gaps in the network -->
+- Now the go-to tool for strategic cycle network planning in England and Wales, used by most local authorities with cycling plans ([source](https://npct.github.io/pct-shiny/regions_www/www/static/03d_other_reports/2019-use-of-pct-report.pdf)).
 
-<!-- Lunch break -->
+.pull-left[
 
-<!-- - 13:30 - 15:30: Extending the PCT: minihack -->
-<!--     - Alternative scenarios of cycling uptake -->
-<!--         - A 'replace short car trips' scenario -->
-<!--     - New input data -->
-<!--         - Travel to stations -->
-<!--     - Other extensions of the PCT -->
+## Geographic levels in the PCT
 
-<!-- Break and presentation of results -->
 
-<!-- - 16:00 - 16:30: Policy implementation -->
+- Generate and analyse route networks for transport planning with reference to:
+    - Zones
+    - Origin-destination (OD) data
+    - Geographic desire lines
+    - Route allocation using different routing services
+    - Route network generation and analysis
+]
+
+.pull-right[
+
+![](https://user-images.githubusercontent.com/1825120/94201205-9758c600-feb3-11ea-8383-a01966457562.png)
+See these levels at [www.pct.bike](https://www.pct.bike)
+
+]
 
 ---
 
-# The PCT Advanced Workshop Team
+## Let's look at zones
+
+![](https://user-images.githubusercontent.com/1825120/94204655-89a63f00-feb9-11ea-8b6d-89910008e830.png)
+```{r, eval=FALSE, echo=FALSE}
+qtm(od_data_zones_min)
+```
+
+---
+
+## MSOA vs LSOA zones (MSOA zones ~4 times bigger)
+
+```{r, echo=FALSE}
+knitr::include_graphics("https://user-images.githubusercontent.com/1825120/96573136-a1f55800-12c5-11eb-8921-c9938cd9e929.gif")
+```
+
+
+---
+
+## OD data
+
+```{r, echo=FALSE, message=FALSE}
+library(tmap)
+library(od)
+tmap_mode("plot")
+od_test = od::od_data_df
+od_test$id = 1:nrow(od_test)
+od_test$perc_cycle = round(od_test$bicycle / od_test$all, 3) * 100
+knitr::kable(od_test, caption = "Origin-destination data. Open MSOA-MSOA commute data from the 2011 census, accessed using the R package pct.")
+```
+
+---
+
+## Desire lines
+
+```{r, echo=FALSE, message=FALSE}
+l = od_to_sf(od_test, od_data_centroids)
+l = dplyr::select(l, id, foot, bicycle, car_driver, perc_cycle)
+p = od_data_centroids
+p = p[l, ]
+tm_shape(l) +
+  tm_lines("perc_cycle", palette = "viridis", lwd = "car_driver", legend.lwd.show = FALSE, scale = 9, alpha = 0.5) +
+  tm_text("id") +
+  tm_shape(p) +
+  tm_text("geo_code")
+```
+
+---
+
+## Routes
+
+```{r, echo=FALSE, eval=FALSE}
+library(cyclestreets)
+r = stplanr::route(l = l, route_fun = journey)
+saveRDS(r, "routes_od_data_df_df.Rds")
+piggyback::pb_upload("routes_od_data_df_df.Rds")
+piggyback::pb_download_url("routes_od_data_df_df.Rds")
+file.remove("routes_od_data_df_df.Rds")
+```
+
+
+```{r, eval=FALSE, echo=FALSE}
+tm_shape(r) +
+  tm_lines("perc_cycle", palette = "viridis", lwd = "car_driver", legend.lwd.show = FALSE, scale = 9, alpha = 0.5) +
+  tm_shape(p) +
+  tm_text("geo_code")
+```
+
+![](https://user-images.githubusercontent.com/1825120/94204162-a8f09c80-feb8-11ea-9b88-cce88001ff01.png)
+---
+
+### Route networks
+
+```{r, echo=FALSE}
+u = "https://github.com/ITSLeeds/pct/releases/download/0.5.0/routes_od_data_df_df.Rds"
+f = basename(u)
+if(!file.exists(f)){
+  download.file(u, f)
+}
+r = readRDS(f)
+```
+
+
+```{r, message=FALSE}
+rnet = stplanr::overline(r, "bicycle")
+plot(rnet, lwd = rnet$bicycle / 10)
+```
+
+---
+
+### Cycling uptake
+
+![](https://itsleeds.github.io/pct/reference/uptake_pct_govtarget-1.png)
+
+--
+
+Dose/response modelling: about cycling in response to distance, hilliness and other factors. Source: [pct R package website](https://itsleeds.github.io/pct/reference/uptake_pct_govtarget.html)
+
+---
+
+background-image: url(https://user-images.githubusercontent.com/1825120/72727608-443fae00-3b83-11ea-9dc1-90c50efac927.png)
+
+# Live demo of the PCT
+
+## See https://www.pct.bike/
+
+
+---
+
+background-image: url(https://media.giphy.com/media/YlQQYUIEAZ76o/giphy.gif)
+
+---
+
+# Uses of the PCT
+
+- Visioning
+- Planning strategic cycle networks
+- Identifying corridors with high latent demand
+
+--
+
+- Pop-up cycleway planning
+- LTN planning?
+
+---
+
+## The Rapid tool
+
+- Live demo
+
+---
+
+---
+
+# The PCT Advanced Workshop
+
+---
+
+## The team
 
 ### Robin Lovelace
 
@@ -189,139 +299,6 @@ leaflet() %>%
 
 It's about free and open source software for a sustainable future `r emojifont::emoji("rocket")`
 ![](https://media.giphy.com/media/fnvxO81StvLdhd0Tlu/giphy.gif)
-
----
-
-background-image: url(https://media.giphy.com/media/YlQQYUIEAZ76o/giphy.gif)
-background-size: cover
-class: center, middle
-
-# How the PCT works
-
----
-
-## The first prototype of the PCT
-
-- 1st prototype: Hackathon at ODI Leeds in February 2015
-
-- We identifying key routes and mapped them
-
-- For early description of aims, see Lovelace et al. (2017)
-
-```{r, echo=FALSE}
-knitr::include_graphics("https://raw.githubusercontent.com/npct/pct-team/master/figures/early.png")
-```
-
----
-
-# The PCT in 2020
-
-- Now the go-to tool for strategic cycle network planning in England and Wales, used by most local authorities with cycling plans ([source](https://npct.github.io/pct-shiny/regions_www/www/static/03d_other_reports/2019-use-of-pct-report.pdf)).
-
-.pull-left[
-
-## Geographic levels in the PCT
-
-
-- Generate and analyse route networks for transport planning with reference to:
-    - Zones
-    - Origin-destination (OD) data
-    - Geographic desire lines
-    - Route allocation using different routing services
-    - Route network generation and analysis
-]
-
-.pull-right[
-
-![](https://user-images.githubusercontent.com/1825120/94201205-9758c600-feb3-11ea-8383-a01966457562.png)
-See these levels at [www.pct.bike](https://www.pct.bike)
-
-]
-
----
-
-## Let's look at zones
-
-![](https://user-images.githubusercontent.com/1825120/94204655-89a63f00-feb9-11ea-8b6d-89910008e830.png)
-```{r, eval=FALSE, echo=FALSE}
-qtm(od_data_zones_min)
-```
-
----
-
-## OD data
-
-```{r, echo=FALSE, message=FALSE}
-library(tmap)
-library(od)
-tmap_mode("plot")
-od_test = od::od_data_df
-od_test$id = 1:nrow(od_test)
-od_test$perc_cycle = round(od_test$bicycle / od_test$all, 3) * 100
-knitr::kable(od_test, caption = "Origin-destination data. Open MSOA-MSOA commute data from the 2011 census, accessed using the R package pct.")
-```
-
----
-
-## Desire lines
-
-```{r, echo=FALSE, message=FALSE}
-l = od_to_sf(od_test, od_data_centroids)
-l = dplyr::select(l, id, foot, bicycle, car_driver, perc_cycle)
-p = od_data_centroids
-p = p[l, ]
-tm_shape(l) +
-  tm_lines("perc_cycle", palette = "viridis", lwd = "car_driver", legend.lwd.show = FALSE, scale = 9, alpha = 0.5) +
-  tm_text("id") +
-  tm_shape(p) +
-  tm_text("geo_code")
-```
-
----
-
-## Routes
-
-```{r, echo=FALSE, eval=FALSE}
-library(cyclestreets)
-r = stplanr::route(l = l, route_fun = journey)
-saveRDS(r, "routes_od_data_df_df.Rds")
-piggyback::pb_upload("routes_od_data_df_df.Rds")
-file.remove("routes_od_data_df_df.Rds")
-```
-
-
-```{r, eval=FALSE, echo=FALSE}
-tm_shape(r) +
-  tm_lines("perc_cycle", palette = "viridis", lwd = "car_driver", legend.lwd.show = FALSE, scale = 9, alpha = 0.5) +
-  tm_shape(p) +
-  tm_text("geo_code")
-```
-
-![](https://user-images.githubusercontent.com/1825120/94204162-a8f09c80-feb8-11ea-9b88-cce88001ff01.png)
----
-
-### Route networks
-
-```{r, message=FALSE}
-rnet = stplanr::overline(r, "bicycle")
-plot(rnet, lwd = rnet$bicycle / 10)
-```
-
----
-
-#### Cycling uptake
-
-![](https://itsleeds.github.io/pct/reference/uptake_pct_govtarget-1.png)
-
---
-
-Dose/response modelling: about cycling in response to distance, hilliness and other factors. Source: [pct R package website](https://itsleeds.github.io/pct/reference/uptake_pct_govtarget.html)
-
-
----
-
-background-image: url(https://media.giphy.com/media/YlQQYUIEAZ76o/giphy.gif)
-
 
 # Coding
 
@@ -490,14 +467,7 @@ car_dependent_routes$geometry = routes$geometry
 <!-- - Import alternative origin-destination datasets and use those as the basis for propensity to cycle analysis for trip purposes other than single stage commutes, encapsulated in the commut layer in the PCT -->
 <!-- - Any other layers/scenarios/hacks: welcome! Comments in this repo's [issue tracker](https://github.com/ITSLeeds/pct/issues) also welcome. -->
 
----
 
-# References
-
-```{r, 'refs', results="asis", echo=FALSE}
-PrintBibliography(my_bib)
-# RefManageR::WriteBib(my_bib, "refs-geostat.bib")
-```
 
 ---
 
@@ -560,6 +530,92 @@ With open source software, the world is your support network!
 - No transport equivalent (e.g. earthscience.stackexchange.com is in beta)
 
 - Potential for a Discourse forum or similar: transport is not (just) GIS
+
+
+# Summary
+
+Title: Propensity to Cycle Tool Advanced Training Workshop
+
+Presenters: Dr Robin Lovelace and Dr Joey Talbot (University of Leeds)
+
+This workshop will provide an overview of the PCT for advanced users, including:
+
+- transport planners with experience of evidence-based prioritisation
+- researchers with experience of using origin-destination, route and route network level data
+- programmers, developers and others wanting to extend PCT methods for the public benefit
+
+The workshop will be broken into three main parts:
+
+- A 45 min talk plus demo of the tool and time for questions (which will be recorded for future use)
+- A 45 minute tutorial in which I will demonstrate how the PCT works and how to extend analysis provided at www.pct.bike using R (requires R and RStudio to be installed and experience using command line computing tools)
+- A 1 hour session where participants will use data from the PCT to tackle real-world problems in their local area
+
+The Hopin platform will be used, enabling break-out sessions.
+
+---
+
+# Description: 
+
+In this workshop you will take a deep dive into the Propensity to Cycle Tool (PCT).
+Beginner and intermediate PCT events focus on using the PCT via the web application hosted at www.pct.bike and the data provided by the PCT in QGIS but the focus here is on analysing cycling potential in the open source statistical programming language R. The majority of the PCT was built on R, which is a powerful object-orientated programming language with a focus on statistical modelling, visualisation and geographic analysis. The workshop will show how the code underlying the PCT works, how the underlying data can be accessed for reproducible analysis, and how the methods can be used to generate new scenarios of cycling uptake.
+
+If you are inexperienced with R you should prepare by taking a free online course such as that provided by DataCamp or by working through Chapter 2 onwards of the open source book Geocomputation with R (see reading list below for more transport-specific resources) before signing-up.
+
+---
+
+# Agenda and sign-up
+
+- 14:00 - 14:45 Talk on the PCT and questions
+  - 14:45 - 15:00 Virtual networking and break
+- 15:00 - 15:45 Propensity to Cycle Tool worked tutorial in R
+  - 15:45 - 16:00 Networking, questions and break
+- 16:00 - 17:00 Application of methods to study areas
+
+To sign-up, please ensure that you have the right set-up.
+See [here](https://docs.ropensci.org/stats19/articles/stats19-training-setup.html) for a guide on installing R and RStudio for transport data research.
+To get the access code for the tutorial, you will need to first work through the code shown here:
+https://github.com/ITSLeeds/pct/blob/master/inst/test-setup.R
+After you have run the code, running the following line should give you a number that will give you the access code for the course:
+
+```r
+round(mean(rnet_potential$Potential))
+```
+
+Save that 3 digit number, it will allow access to the workshop.
+If you have any issues with your computer set-up, please ask a question here (you will need to sign-up for a GitHub account if you have not already done so): https://github.com/ITSLeeds/pct/issues/67 
+
+<!-- 215.1371 -->
+
+<!-- - 09:30 - 10:00: Arrival and set-up -->
+<!-- - 10:00 - 11:00: Data and methods underlying the PCT -->
+<!-- - 11:00 - 12:30: Getting and analysing PCT data -->
+<!--     - Comparing PCT results with existing road infrastructure -->
+<!--         - Getting data from the CyIPT -->
+<!--         - Identfying 'weak links' -->
+<!--         - Identify gaps in the network -->
+
+<!-- Lunch break -->
+
+<!-- - 13:30 - 15:30: Extending the PCT: minihack -->
+<!--     - Alternative scenarios of cycling uptake -->
+<!--         - A 'replace short car trips' scenario -->
+<!--     - New input data -->
+<!--         - Travel to stations -->
+<!--     - Other extensions of the PCT -->
+
+<!-- Break and presentation of results -->
+
+<!-- - 16:00 - 16:30: Policy implementation -->
+
+
+---
+
+# References
+
+```{r, 'refs', results="asis", echo=FALSE}
+PrintBibliography(my_bib)
+# RefManageR::WriteBib(my_bib, "refs-geostat.bib")
+```
 
 <!-- --- -->
 
