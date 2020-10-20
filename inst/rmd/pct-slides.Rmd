@@ -274,6 +274,18 @@ Uses that were not initially planned
 
 ---
 
+## Estimating health benefits of cycling uptake with the PCT
+
+- The PCT uses a modified version of the HEAT methodology to calculate health benefits of scenarios of change
+- Based on the DfT's TAG methodology
+- The scenarios are **what if** scenarios not forecasts 
+- See the PCT manual for further information: [pct.bike/manual.html](https://npct.github.io/pct-shiny/regions_www/www/static/03a_manual/pct-bike-eng-user-manual-c1.pdf)
+- See the DfT's [AMAT tool](https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/888754/amat-user-guidance.pdf) also
+
+![](https://user-images.githubusercontent.com/1825120/96588892-15a25f80-12dc-11eb-990b-1fc3c66e71c9.png)
+
+---
+
 ## From evidence to network plans
 
 Plans from Leeds City Council responding to national [guidance](https://www.gov.uk/government/publications/reallocating-road-space-in-response-to-covid-19-statutory-guidance-for-local-authorities) and [funding](https://www.gov.uk/government/news/2-billion-package-to-create-new-era-for-cycling-and-walking) for 'pop-up' cycleways (image credit: [Leeds City Council](https://news.leeds.gov.uk/news/leeds-city-council-announces-emergency-walking-and-cycling-plans-in-response-to-covid-19)):
