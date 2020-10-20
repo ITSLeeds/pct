@@ -17,7 +17,7 @@ output:
 #  - ../vignettes/ref_training.bib
 ---
 
-```{r setup, include=FALSE, eval=TRUE}
+```{r setup, include=FALSE, eval=FALSE}
 # get citations
 refs = RefManageR::ReadZotero(group = "418217", .params = list(collection = "JFR868KJ", limit = 100))
 refs_df = as.data.frame(refs)
@@ -43,6 +43,18 @@ library(RefManageR)
 my_bib = RefManageR::ReadBib("refs.bib")
 ```
 
+```{r, eval=FALSE, echo=FALSE, engine='bash'}
+# publish results online
+cp -Rv inst/rmd/pct-slides* ~/saferactive/site/static/slides/
+cp -Rv inst/rmd/libs ~/saferactive/site/static/slides/
+cd ~/saferactive/site
+git add -A
+git status
+git commit -am 'Update slides'
+git push
+cd -
+```
+
 
 background-image: url(https://media.giphy.com/media/YlQQYUIEAZ76o/giphy.gif)
 background-size: cover
@@ -63,6 +75,17 @@ class: center, middle
 ```{r, echo=FALSE}
 knitr::include_graphics("https://raw.githubusercontent.com/npct/pct-team/master/figures/early.png")
 ```
+
+---
+
+<!-- ## Launched in 2017 -->
+
+- Launched in 2017 with the Cycling and Walking Investment Strategy ([CWIS](https://www.gov.uk/government/publications/cycling-and-walking-investment-strategy))
+
+![](https://raw.githubusercontent.com/npct/pct-team/master/figures/front-page-leeds-pct-demo.png)
+
+Photo: demo of the PCT to Secretary of State for Transport ([March 2017](https://environment.leeds.ac.uk/transport/news/article/187/research-showcased-to-secretary-of-state))
+
 
 ---
 
@@ -101,12 +124,23 @@ qtm(od_data_zones_min)
 
 ---
 
-## MSOA vs LSOA zones (MSOA zones ~4 times bigger)
+## MSOA vs LSOA zones (MSOA zones ~5 times bigger)
 
-```{r, echo=FALSE}
-knitr::include_graphics("https://user-images.githubusercontent.com/1825120/96573136-a1f55800-12c5-11eb-8921-c9938cd9e929.gif")
+```{r, echo=FALSE, out.width="50%", fig.show='hold'}
+# not the best example
+# knitr::include_graphics("https://user-images.githubusercontent.com/1825120/96573136-a1f55800-12c5-11eb-8921-c9938cd9e929.gif")
+knitr::include_graphics(c(
+  "https://user-images.githubusercontent.com/1825120/96583573-d3c1eb00-12d4-11eb-88b8-ca78087b63f7.png",
+  "https://user-images.githubusercontent.com/1825120/96583629-eb00d880-12d4-11eb-9211-d015e2991267.png"
+))
+# 32844 / 6791	
 ```
 
+- MSOA areas have a population of 5-15k
+- LSOAs have a population of 1-3k
+- Route network data in PCT data based on LSOA data
+- MSOAs can be useful for identifying key desire lines
+- See [ons.gov.uk](https://www.ons.gov.uk/methodology/geography/ukgeographies/censusgeography) for details
 
 ---
 
@@ -191,16 +225,12 @@ Dose/response modelling: about cycling in response to distance, hilliness and ot
 
 ---
 
-background-image: url(https://user-images.githubusercontent.com/1825120/72727608-443fae00-3b83-11ea-9dc1-90c50efac927.png)
+background-image: url(https://user-images.githubusercontent.com/1825120/96583573-d3c1eb00-12d4-11eb-88b8-ca78087b63f7.png)
 
-# Live demo of the PCT
+# Live demo of the PCT for Bristol
 
 ## See https://www.pct.bike/
 
-
----
-
-background-image: url(https://media.giphy.com/media/YlQQYUIEAZ76o/giphy.gif)
 
 ---
 
@@ -234,9 +264,28 @@ Uses that were not initially planned
 
 ]
 
+--
+
+#### For further info, see the training materials at [itsleeds.github.io](https://itsleeds.github.io/pct/articles/pct_training.html)
+
+#### Many use cases on the PCT website: [pct.bike/manual.html](https://www.pct.bike/manual.html)
+
+- Case studies of over a dozen areas, including Greater Manchester and Herefordshire in the manual
+
 ---
 
-## The Rapid tool
+## From evidence to network plans
+
+Plans from Leeds City Council responding to national [guidance](https://www.gov.uk/government/publications/reallocating-road-space-in-response-to-covid-19-statutory-guidance-for-local-authorities) and [funding](https://www.gov.uk/government/news/2-billion-package-to-create-new-era-for-cycling-and-walking) for 'pop-up' cycleways (image credit: [Leeds City Council](https://news.leeds.gov.uk/news/leeds-city-council-announces-emergency-walking-and-cycling-plans-in-response-to-covid-19)):
+
+
+![](https://pbs.twimg.com/media/EZ_-A0dXgAAlBzt?format=png&name=900x900)
+
+---
+
+background-image: url(https://raw.githubusercontent.com/cyipt/popupCycleways/master/figures/results-top-leeds.png)
+
+## The Rapid tool - see [cyipt.bike/rapid](https://www.cyipt.bike/rapid/)
 
 - Live demo by Joey Talbot
 
@@ -244,7 +293,7 @@ Uses that were not initially planned
 
 # The PCT Advanced Workshop
 
-## 12th November
+## 12th November, 2pm, online
 
 ## Sign-up: watch this space... (BaseCamp, Landor)
 
@@ -321,7 +370,13 @@ leaflet() %>%
 It's about free and open source software for a sustainable future `r emojifont::emoji("rocket")`
 ![](https://media.giphy.com/media/fnvxO81StvLdhd0Tlu/giphy.gif)
 
+---
+
+background-image: url(https://media.giphy.com/media/YlQQYUIEAZ76o/giphy.gif)
+
 # Coding
+
+Ideal:
 
 ```{r, eval=FALSE}
 od_test$perc_cycle = round(od_test$bicycle / od_test$all) * 100
@@ -333,6 +388,8 @@ rnet = overline(r, "bicycle")
 --
 
 ![](https://media.giphy.com/media/3oKIPnAiaMCws8nOsE/giphy.gif)
+
+Reality
 
 ---
 
