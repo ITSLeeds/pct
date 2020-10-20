@@ -204,28 +204,49 @@ background-image: url(https://media.giphy.com/media/YlQQYUIEAZ76o/giphy.gif)
 
 ---
 
+
+.pull-left[
+
 # Uses of the PCT
 
 - Visioning
 - Planning strategic cycle networks
 - Identifying corridors with high latent demand
 
---
+Uses that were not initially planned
 
 - Pop-up cycleway planning
 - LTN planning?
+
+]
+
+--
+
+.pull-right[
+
+## What it cannot do
+
+- Junction design
+- *Exact* route plan (PCT results are based on 'fastest route')
+- Public-transport integration 
+- Other trip purposes beyond single stage journeys cycling to work and school
+- Planning for future developments 
+
+]
 
 ---
 
 ## The Rapid tool
 
-- Live demo
-
----
+- Live demo by Joey Talbot
 
 ---
 
 # The PCT Advanced Workshop
+
+## 12th November
+
+## Sign-up: watch this space... (BaseCamp, Landor)
 
 ---
 
