@@ -185,6 +185,26 @@ which states that:</p>
   h2 <span class='op'>=</span> <span class='op'>-</span><span class='fl'>0.78</span>,
   i1 <span class='op'>=</span> <span class='fl'>0.02006</span>,
   i2 <span class='op'>=</span> <span class='op'>-</span><span class='fl'>0.1234</span>
+<span class='op'>)</span>
+
+<span class='fu'>uptake_pct_govtarget_school2</span><span class='op'>(</span>
+  <span class='va'>distance</span>,
+  <span class='va'>gradient</span>,
+  alpha <span class='op'>=</span> <span class='op'>-</span><span class='fl'>7.178</span>,
+  d1 <span class='op'>=</span> <span class='op'>-</span><span class='fl'>1.87</span>,
+  d2 <span class='op'>=</span> <span class='fl'>5.961</span>,
+  h1 <span class='op'>=</span> <span class='op'>-</span><span class='fl'>0.529</span>,
+  h2 <span class='op'>=</span> <span class='op'>-</span><span class='fl'>0.63</span>
+<span class='op'>)</span>
+
+<span class='fu'>uptake_pct_godutch_school2</span><span class='op'>(</span>
+  <span class='va'>distance</span>,
+  <span class='va'>gradient</span>,
+  alpha <span class='op'>=</span> <span class='op'>-</span><span class='fl'>7.178</span> <span class='op'>+</span> <span class='fl'>3.574</span>,
+  d1 <span class='op'>=</span> <span class='op'>-</span><span class='fl'>1.87</span> <span class='op'>+</span> <span class='fl'>0.3438</span>,
+  d2 <span class='op'>=</span> <span class='fl'>5.961</span>,
+  h1 <span class='op'>=</span> <span class='op'>-</span><span class='fl'>0.529</span>,
+  h2 <span class='op'>=</span> <span class='op'>-</span><span class='fl'>0.63</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -297,7 +317,17 @@ the PCT results.</p>
 <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>l_pct_2020</span><span class='op'>$</span><span class='va'>dutch_slc</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] 3.574052</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>godutch_slc</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] 3.828446</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>godutch_slc_2020</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 4.191658</div></pre>
+</div><div class='output co'>#&gt; [1] 4.191658</div><div class='input'><span class='co'># Take an origin destination (OD) pair between an LSOA centroid and a secondary school. In this OD pair, 30 secondary</span>
+<span class='co'># school children travel, of whom 3 currently cycle. The fastest route distance is 3.51 km and the gradient is 1.11%. The</span>
+<span class='co'># gradient as centred on Dutch hilliness levels is 1.11 – 0.63 = 0.48%.</span>
+<span class='co'># The observed number of cyclists is 2. ... Modelled baseline= 30 * .0558 = 1.8.</span>
+<span class='fu'>uptake_pct_govtarget_school2</span><span class='op'>(</span><span class='fl'>3.51</span>, <span class='fl'>1.11</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 0.05584607</div><div class='input'><span class='co'># Take an origin destination (OD) pair between an LSOA centroid and a secondary school. In this OD pair, 30 secondary</span>
+<span class='co'># school children travel, of whom 3 currently cycle. The fastest route distance is 3.51 km and the gradient is 1.11%. The</span>
+<span class='co'># gradient as centred on Dutch hilliness levels is 1.11 – 0.63 = 0.48%.</span>
+<span class='co'># The observed number of cyclists is 2. ... Modelled baseline= 30 * .0558 = 1.8.</span>
+<span class='fu'>uptake_pct_govtarget_school2</span><span class='op'>(</span><span class='fl'>3.51</span>, <span class='fl'>1.11</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 0.05584607</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
