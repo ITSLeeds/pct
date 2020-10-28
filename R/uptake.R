@@ -269,3 +269,106 @@ uptake_pct_godutch_2020 = function(
     (i2 * sqrt(distance) * gradient) # i2
   boot::inv.logit(pcycle_scenario)
 }
+
+#' @rdname uptake_pct_govtarget
+#' @export
+#' @examples
+#' # Take an origin destination (OD) pair between an LSOA centroid and a secondary school. In this OD pair, 30 secondary
+#' # school children travel, of whom 3 currently cycle. The fastest route distance is 3.51 km and the gradient is 1.11%. The
+#' # gradient as centred on Dutch hilliness levels is 1.11 – 0.63 = 0.48%.
+#' # The observed number of cyclists is 2. ... Modelled baseline= 30 * .0558 = 1.8.
+#' uptake_pct_govtarget_school2(3.51, 1.11)
+uptake_pct_govtarget_school2 = function(
+  distance,
+  gradient,
+  alpha = -7.178,
+  d1 = -1.870,
+  d2 = 5.961,
+  # d3 = -0.2401,
+  h1 = -0.5290,
+  h2 = -0.63
+  # i1 = 0.02006,
+  # i2 = -0.1234
+) {
+  # Uptake formula from Goodman et al. (2019)
+  # http://www.sciencedirect.com/science/article/pii/S2214140518301257
+  #
+  # Equation 1.1 (primary school children):
+  #   logit (pcycle) = −4.813 + (0.9743 * distance) + (−0.2401 * distancesq) + (−0.4245 * centred_gradient)
+  # pcycle = exp ([logit (pcycle)])/(1 + (exp([logit(pcycle)]))).
+  # Equation 2.1 (secondary school children):
+  #   logit (pcycle) = −7.178 + (−1.870 * distance) + (5.961 * distance sqrt) + (−0.5290 * centred_gradient)
+  # pcycle = exp ([logit (pcycle)])/(1 + (exp([logit(pcycle)])))
+  if(!exists(c("distance", "gradient")) |
+     !is.numeric(c(distance, gradient))) {
+    stop("distance and gradient need to be numbers.")
+  }
+  # is it in m
+  if(mean(distance, na.rm = TRUE) > 1000) {
+    message("Distance assumed in m, switching to km")
+    distance = distance / 1000
+  }
+  gradient = gradient + h2
+  pcycle_scenario = alpha +
+    (d1 * distance) +    # d1
+    (d2 * sqrt(distance)) +  # d2
+    # (d3 * distance^2) + # d3
+    (h1 * gradient)
+  # +    # h1
+    # (i1 * distance * gradient) +  # i1
+    # (i2 * sqrt(distance) * gradient) # i2
+  boot::inv.logit(pcycle_scenario)
+}
+
+#' @rdname uptake_pct_govtarget
+#' @export
+#' @examples
+#' # pcycle = exp ([logit (pcycle)])/(1 + (exp([logit(pcycle)]))).
+#' # pcycle = exp(1.953)/(1 + exp(1.953)) = .8758, or 87.58%.
+#' uptake_pct_godutch_school2(3.51, 1.11)
+uptake_pct_godutch_school2 = function(
+  distance,
+  gradient,
+  alpha = -7.178 + 3.574,
+  d1 = -1.870 + 0.3438,
+  d2 = 5.961,
+  # d3 = -0.2401,
+  h1 = -0.5290,
+  h2 = -0.63
+  # i1 = 0.02006,
+  # i2 = -0.1234
+) {
+  # Uptake formula from Goodman et al. (2019)
+  # http://www.sciencedirect.com/science/article/pii/S2214140518301257
+  #
+  # Equation 2.2 (secondary school children):
+  #   logit(pcycle) = Equation 1.2 + Dutch parameters.
+  # logit (pcycle) = −7.178 + (−1.870 * distance) + (5.961 * distancesqrt) + (−0.5290 * centred_gradient)+(3.574) +
+  #   (0.3438 * distance).
+  # pcycle = exp ([logit (pcycle)])/(1 + (exp([logit(pcycle)]))).
+  #
+
+  # logit (pcycle)= -4.018 +  (-0.6369 *  distance)  +
+  #   (1.988  * distancesqrt)  +  (0.008775* distancesq) +
+  #   (-0.2555* gradient) + (0.02006* distance*gradient) +
+  #   (-0.1234* distancesqrt*gradient)
+  if(!exists(c("distance", "gradient")) |
+     !is.numeric(c(distance, gradient))) {
+    stop("distance and gradient need to be numbers.")
+  }
+  # is it in m
+  if(mean(distance, na.rm = TRUE) > 1000) {
+    message("Distance assumed in m, switching to km")
+    distance = distance / 1000
+  }
+  gradient = gradient + h2
+  pcycle_scenario = alpha +
+    (d1 * distance) +    # d1
+    (d2 * sqrt(distance)) +  # d2
+    # (d3 * distance^2) + # d3
+    (h1 * gradient)
+  # +    # h1
+  # (i1 * distance * gradient) +  # i1
+  # (i2 * sqrt(distance) * gradient) # i2
+  boot::inv.logit(pcycle_scenario)
+}
