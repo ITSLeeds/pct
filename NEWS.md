@@ -1,4 +1,4 @@
-# pct (development version)
+# pct 0.6.0
 
 - Enables download of other OD datasets with `get_od()` (#66)
 
