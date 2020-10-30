@@ -273,8 +273,10 @@ uptake_pct_godutch_2020 = function(
 #' @rdname uptake_pct_govtarget
 #' @export
 #' @examples
-#' # Take an origin destination (OD) pair between an LSOA centroid and a secondary school. In this OD pair, 30 secondary
-#' # school children travel, of whom 3 currently cycle. The fastest route distance is 3.51 km and the gradient is 1.11%. The
+#' # Take an origin destination (OD) pair between an LSOA centroid and a
+#' # secondary school. In this OD pair, 30 secondary school children travel, of
+#' # whom 3 currently cycle. The fastest route distance is 3.51 km and the
+#' # gradient is 1.11%. The
 #' # gradient as centred on Dutch hilliness levels is 1.11 – 0.63 = 0.48%.
 #' # The observed number of cyclists is 2. ... Modelled baseline= 30 * .0558 = 1.8.
 #' uptake_pct_govtarget_school2(3.51, 1.11)
