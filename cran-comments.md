@@ -1,6 +1,10 @@
-Minor update adding new functions for 2020
+Updated submission with fixed URLs
 
-Updated submission with fixed URLs and faster tests (using donttest)
+I'm not sure what was causing this url to fail, seems fine to me: 
+
+https://www.statistics.digitalresources.jisc.ac.uk/dataset/wu03uk-2011-sms-merged-lala-location-usual-residence-and-place-work-method-travel-work-3
+
+I've changed it to this, hope that fixes it: https://www.statistics.digitalresources.jisc.ac.uk/
 
 ## Test environments
 * local Ubuntu 20.04 install, R 4.0.2
