@@ -40,7 +40,7 @@ By default it returns national data, but
 local authority or region.
 }
 \details{
-OD datasets available include \href{https://www.statistics.digitalresources.jisc.ac.uk/dataset/wu03uk-2011-sms-merged-lala-location-usual-residence-and-place-work-method-travel-work-6}{wu03uk_v3}
+OD datasets available include \href{https://www.statistics.digitalresources.jisc.ac.uk/}{wu03uk_v3}
 and others listed on the Wicid website.
 }
 \examples{

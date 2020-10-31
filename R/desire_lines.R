@@ -52,7 +52,7 @@ get_desire_lines = function(region = NULL, n = NULL, omit_intrazonal = FALSE) {
 #' `region` can be set to subset the output to a specific
 #' local authority or region.
 #'
-#' OD datasets available include [wu03uk_v3](https://www.statistics.digitalresources.jisc.ac.uk/dataset/wu03uk-2011-sms-merged-lala-location-usual-residence-and-place-work-method-travel-work-6)
+#' OD datasets available include [wu03uk_v3](https://www.statistics.digitalresources.jisc.ac.uk/)
 #' and others listed on the Wicid website.
 #'
 #' @param n top n number of destinations with most trips in the 2011 census
