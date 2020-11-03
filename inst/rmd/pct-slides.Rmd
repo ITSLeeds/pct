@@ -649,13 +649,24 @@ The Hopin platform will be used, enabling break-out sessions.
 In this workshop you will take a deep dive into the Propensity to Cycle Tool (PCT).
 Beginner and intermediate PCT events focus on using the PCT via the web application hosted at www.pct.bike and the data provided by the PCT in QGIS but the focus here is on analysing cycling potential in the open source statistical programming language R. The majority of the PCT was built on R, which is a powerful object-orientated programming language with a focus on statistical modelling, visualisation and geographic analysis. The workshop will show how the code underlying the PCT works, how the underlying data can be accessed for reproducible analysis, and how the methods can be used to generate new scenarios of cycling uptake.
 
-If you are inexperienced with R you should prepare by taking a free online course such as that provided by DataCamp or by working through Chapter 2 onwards of the open source book Geocomputation with R (see reading list below for more transport-specific resources) before signing-up.
+---
+
+# Preparation
+
+If you are inexperienced with R you should prepare by
+
+- Essential: taking an online course such as the free[ 'Introduction to R' course provided by DataCamp ](https://www.datacamp.com/courses/free-introduction-to-r)
+- Essential: ensuring you have [installed](https://rstudio-education.github.io/hopr/starting.html) up-to-date versions of R (R 4.0.0 or greater), RStudio (1.2 or greater) and the pct R package (0.6.0) on your computer
+- Essential: test your computer set up by running the R code here [github.com/ITSLeeds/pct/blob/master/inst/test-setup.R](https://github.com/ITSLeeds/pct/blob/master/inst/test-setup.R) - you should make a note of the result of this final commented-out command: `round(mean(rnet_potential$Potential))`
+- Highly recommended: working through and reproducing results in Chapter 12 onwards of the open source book Geocomputation with R (see [geocompr.robinlovelace.net/transport.html](https://geocompr.robinlovelace.net/transport.html))
+
+If you are new to R but have *not* completed the above tasks you may be unable to follow the second and third sections of the workshop outlined in the agenda below.
 
 ---
 
 # Agenda and sign-up
 
-- 14:00 - 14:45 Talk on the PCT and questions
+- 14:00 - 14:45 Talk and demo on getting and using PCT data
   - 14:45 - 15:00 Virtual networking and break
 - 15:00 - 15:45 Propensity to Cycle Tool worked tutorial in R
   - 15:45 - 16:00 Networking, questions and break
