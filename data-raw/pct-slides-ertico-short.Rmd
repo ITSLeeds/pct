@@ -1,0 +1,220 @@
+---
+title: "The Propensity to Cycle Tool"
+subtitle: '`r emojifont::emoji("bike")`<br/>A nationally scalable strategic cycle network planning tool'
+# subtitle: '`r emojifont::emoji("bike")`<br/>Advanced Training Workshop'
+author: "Robin Lovelace, Associate Professor of Transport Data Science<br/>ITS, University of Leeds"
+date: 'ERTICO presentation 2020-10-11<br/><img class="img-footer" alt="" src="https://www.pct.bike/www/static/01_logos/pct-logo.png"><br/><img class="img-footer" alt="" src="https://www.stephanehess.me.uk/images/picture3.png">'
+output:
+  xaringan::moon_reader:
+    # css: ["default", "its.css"]
+    # chakra: libs/remark-latest.min.js
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+# bibliography:
+#  - ../vignettes/ref.bib
+#  - ../vignettes/ref_training.bib
+---
+
+```{r setup, include=FALSE, eval=FALSE}
+pagedown::chrome_print("data-raw/pct-slides-ertico-short.Rmd")
+browseURL("data-raw/pct-slides-ertico-short.pdf")
+
+```
+
+```{r, include=FALSE}
+library(RefManageR)
+my_bib = RefManageR::ReadBib("~/itsleeds/pct/inst/rmd/refs.bib")
+```
+
+```{r, eval=FALSE, echo=FALSE, engine='bash'}
+# publish results online
+cp -Rv inst/rmd/pct-slides* ~/saferactive/site/static/slides/
+cp -Rv inst/rmd/libs ~/saferactive/site/static/slides/
+cd ~/saferactive/site
+git add -A
+git status
+git commit -am 'Update slides'
+git push
+cd -
+```
+
+
+background-image: url(https://media.giphy.com/media/YlQQYUIEAZ76o/giphy.gif)
+background-size: cover
+class: center, middle
+
+# How the PCT works
+
+---
+
+## The first prototype of the PCT
+
+- 1st prototype: Hackathon at ODI Leeds in February 2015
+
+- We identifying key routes and mapped them
+
+- For description of aims, see Lovelace et al. (2017)
+
+```{r, echo=FALSE}
+knitr::include_graphics("https://raw.githubusercontent.com/npct/pct-team/master/figures/early.png")
+```
+
+---
+
+<!-- ## Launched in 2017 -->
+
+- Launched in 2017 with the Cycling and Walking Investment Strategy ([CWIS](https://www.gov.uk/government/publications/cycling-and-walking-investment-strategy))
+
+![](https://raw.githubusercontent.com/npct/pct-team/master/figures/front-page-leeds-pct-demo.png)
+
+Photo: demo of the PCT to Secretary of State for Transport ([March 2017](https://environment.leeds.ac.uk/transport/news/article/187/research-showcased-to-secretary-of-state))
+
+
+---
+
+## The PCT in 2020
+
+- Now the go-to tool for strategic cycle network planning in England and Wales, used by most local authorities with cycling plans ([source](https://npct.github.io/pct-shiny/regions_www/www/static/03d_other_reports/2019-use-of-pct-report.pdf)).
+
+.pull-left[
+
+## Geographic levels in the PCT
+
+
+- Generate and analyse route networks for transport planning with reference to:
+    - Zones
+    - Origin-destination (OD) data
+    - Geographic desire lines
+    - Route allocation using different routing services
+    - Route network generation and analysis
+]
+
+.pull-right[
+
+![](https://user-images.githubusercontent.com/1825120/94201205-9758c600-feb3-11ea-8383-a01966457562.png)
+See these levels at [www.pct.bike](https://www.pct.bike)
+
+]
+
+---
+
+### Route networks
+
+```{r, echo=FALSE}
+u = "https://github.com/ITSLeeds/pct/releases/download/0.5.0/routes_od_data_df_df.Rds"
+f = basename(u)
+if(!file.exists(f)){
+  download.file(u, f)
+}
+r = readRDS(f)
+```
+
+
+```{r, message=FALSE}
+rnet = stplanr::overline(r, "bicycle")
+plot(rnet, lwd = rnet$bicycle / 10)
+```
+
+---
+
+### Cycling uptake
+
+<!-- ![](https://itsleeds.github.io/pct/reference/uptake_pct_govtarget-1.png) -->
+.pull-left[
+
+![](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAkAAAAJACAMAAABSRCkEAAABGlBMVEUAAAAAACsAAFUAK1UAK4AAVVUAVaoAtusAwJQrAAArACsrAFUrKwArK1UrK4ArVVUrVaorgKorgNQzMzNNTU1NTYhNa2tNiMRTtABVAABVACtVAFVVKwBVKytVK1VVK4BVVQBVqqpVqv9rTU1rTWtrTYhra6ZrpuGAKwCAKyuAK1WAVQCAgCuAgFWAqoCA1KqA1NSA1P+ITU2ITWuITYiIxP+liv+ma02ma2uma4im4f+qVQCqVSuqgCuq1ICq/6qq/9Sq///EiE3EmgDE/8TE///UgCvUqlXU1IDU1KrU1NTU1P/U/6rU/9TU///hpmvh///r6+v4dm37Ydf/qlX/xIj/1ID/4ab/4eH//6r//8T//9T//+H///+RTke2AAAACXBIWXMAAAsSAAALEgHS3X78AAAgAElEQVR4nO2djX/ctnnHz66nysnibYpSS2nWbdcldtq1nZrYS31dU1uVmm2J7bucz5Vl/v//xvDCFxDEG/kAPJD3+36S0x3vIUiLXwEg+RBYFAAQWOx7B8C0gUCABAQCJCAQIAGBAIkIAn18UNB/X/MihkDN23VA+LRjIJAGBIJAJCAQBCIBgSAQCQgEgUhAIAhEAgJBIBIQCAKRgEAQiAQEgkAkIBAEIgGBIBAJCASBSEAgCEQCAkEgEhAIApGAQBCIBASCQCQgEAQiAYEgEAkIBIFIQCAIRAICQSASYwm0YfhiQsrZdwwE0kgt0KZEvLfEdMk3BgJppBSoqXXKz4YYM/nGQCCNpALpkZtujJl8YyCQBgSCQCRGFUgsyVeOkBgIpAGBIBCJcQXii/KVIyQGAmlAIAhEYmSB2LJ85QiJgUAaYwtUbPKVIyQGAmlAIAhEYnSBLEvbQKDJkItA7ZseEGgyjC/Q2ty3bikEgSZDFgKV7jQKQaDJsAeBOsubz9Xtewg0GawCvf+v09OHRfHm9PSJ/VVgE8jSW17r32if8r7dAYE0rAK9esgcevLuq2dvP7+yvcpIokDde/Y5X2yEQBrOJuzVo7dfvH7/zTPbayHnOVib2ViWt77amKKqNEZ7AXsDAmm4BHr39dUb1oq9eGJ7lWH9a6DmK0dM0c6HtcU4QQ2UHIdArJkqEglUfWe7qKgdVGMYBMoCu0Bv/501Ud4mrKAIZL0oDYEmg1Ug2UdO04kuOlcOjTHuoiBQFlgFenHKeJTmNF586bonBoEmQ8ILiZ4OsqvIzkE1REOgLNibQE4g0GSYiECGwiBQFkAgCERiKgJ1S4NAWTAZgTrFQaAsgEAQiMR0BNLLg0BZAIEgEIkJCaQVCIGyAAJBIBJTEqhdIgTKAggEgUhMSqBWkRAoC6YlkFomBMoCCASBSExMIKVQCJQFEAgCkZiaQE2pECgLIBAEIjE5gepiIVAWQCAIRCKdQIFPnfaP2eu0URBIY4IClU8kQqAsmKJAUiEIlAXTFIgrBIGyYKoC7Wu4YAikMV2B1o7BGaJvq34HgTQmLJBzfI/o2yqBQBqTFsirEARKzsQF6jvKBzkGAmlAIAhEYvIC9Rqoih4DgTQgEAQiMX2BXAZBoORAIAhEAgJBIBIzEMhhEARKDgSCQCTmIFDwiPcRYiCQBgSCQCQgEAQiMQuBRtwWBNKAQBCIxDwESvUIUTcGAmlAIAhEAgJBIBIzEcg6R33sbUEgDQgEgUjMRaCx5lWFQBoQCAKRSCbQiFeH7duDQMmJIdDaxMa4NCHjbBACacymBhppZmcIpDEfgcaZmBcCaUAgCEQCAkEgEjMSaJSZnSGQBgSCQCTmJNAYU4NDIA0IBIFIQCAIRGJWAo0wtzwE0oBAEIjEvARKP7c8BNKAQBCIxMwE0kbdhEDJmZtAbYUgUHLmJ1DaaTEhkMYcBWoqIQiUnFkKVCsEgZIzU4HK7UOg5MxWoERzikEgjfkKlGZOMQikMWeBUswpBoE0IBAEIgGBIBCJeQu0DjAIApGAQBCIBASCQCRSCTTm6PGOGAiUmpkLFNCNhkAkIBAEIgGBIBAJCASBSMxdIL9BEIgEBIJAJCAQBCIBgSAQidkL5DUIApGAQBCIBASCQCQgEAQiMX+BfAZBIBIQCAKRgEAQiAQEgkAkDkAgj0EQiAQEgkAkIBAEIgGBIBCJQxDIbRAEIgGBIBAJCASBSEAgCETiIARyGgSBSEAgCETCIdC7r6+K4sXp6SdXxZvT0yeF4VUAgQ4Zu0Dvfs/Mef/NM/72q2dvP7/qvspACHTIWAV6/4e/sBpIWvL2i9fMpO4r++pjxtrAxrRwf0TbHQik4WnC3vzsl6cPizcPWVv2pPsq40w1kONPfh81ULz9gUAavj7Q314XrwzqQCAg8QnEePXI0YQVEOiw8TVhrKZ59aR/Jzo3gaJ16iGQRsBp/CPTCbznNB4CHQqJLiRCoEMBAkEgEociUKxRYyGQBgSCQCQgEAQiAYEgEImDEci6SxCIBASCQCQgEAQiAYEgEInDEci2TxCIBASCQCQgEAQiAYEgEIkDEsiyUxCIBASCQCQgEAQicUgCmfcKApGAQBCIxEEJZNwtCEQCAkEgEoclkGm/IBAJCASBSByYQIYdg0Ak0ggUbziV2DEQKDKHJlB31yAQCQgEgUgcnECdfYNAJCAQBCJxeALpOweBSCgC7T64uDlf3LnoW8TUBNL2DgKRaAS6fXxSrO693N572bMICHTINALdfHpx+/io2H34vGcRkxOovXsQiIRaAy1395fF9fxroAQCrRaLxVFAQYX4Qw0LnAZqH+g++x2s7vatgCYoUGv/Ygi0OuJ/gIEGzYsDPAsrogskK5Ut+9tjf4S8Br99vOA/bz797X1xVsIWLxbL4vbL3yzu/I4Fl9/PgVYTNqyICQqk7mAEgerK5+Z8yc9F+P+8L3Bzzpxa8Z/sV8vq9tvHwirR1+TLA7acPa1O9LAiIBATR9YoW9kBED/YH6QQp1zGfwqx2O9ZnKiIL6eP0oRdD2zDpyiQsoeRzsKYQ0fVGcj1QnDSCMQN4wIthUBb2cydBGw5e5Qa6Fz+s3v3oiGQZPfBRSVQ2TpVArFf7YmsgeYs0GAmKVCzixEEkq0U00VtwopGoG3ZvFUCzbQJGwoEEp3j4ppXNUveExCft3cuaoHE+dmdi0qgeXaiRdO97H8nY6IC1fsY7UIi/82x83XZgV7w0/e6D8S+vvstP0OTAs3zNJ79SfzA/oGr3l3piQpU7SRuZZDQ7oUtD+JemAQCxaAj0PYwzsI4mwHlQCAN9ToQb8JuznufXEKgQ0btRG/F1a/eRUxWILmbEIjEwZ7GCza9y4FAGp17YYfTiS4gUAQ6Ah1QJ7oQOwqBSFQCbRcVB3MdSLCBQDRipHOsO2y6izKl755CII0knWhXBZRZDVRsUAORSJLOAYEOB70Guv2yd0M2bYHcO9spBwJpdJqwGA8WTkqgdYBBAwUSufTVs743/1L+YncPBt6Hr0vIiY5AMa4DQaCa6/rKfu3NYIEGr5iSjkD985ymLlBAI0YU6HqxOLl9vLj38ppfJREe7P6B51CLb6pQmUskluw++mzxT48XJ/XPBy9vv/xPXsJWlPDRZ3f//HjIbaf4dDrRMQZXmJhAfoO8Am1aKF9wgVilzvNYH7xk/938/LkUiC1jb8U3MpK/uT4qYz8Q/z34rvrJBSpLKFZLtqzYHhWsgIB/X2IO/jQ+jkBWuEBbnsC65Md+x58zlAIJJeQ3MlI2UHWs+O+75qcUSN7vLovK4klYCMRjfAZFEog/oPHpQIHkitujJpQplEFaPgRKL1DdhLHDv23VQHoTtr33ndLcKQJ9+Fw0ZS/ZKx8Eg5XAn+JbZdAJUgTaHuSFRBnjMYjeiV6yPua9788Xf3e+VAQqv5F9mboTvSx0gV6uFj/55wtWQtmJ5iWs8sjLVzvRA32eg0Aeg3Ah0UqSZ+Mh0OGQ5Nn4CQoUus8QSAN9oH45TBBIQ+0DRRsfCAIdDugD1TFBMwxBIA21CRt4VjgXgRy7DYGsHHxCmRpj3W8IZAVXoiEQCQikxth2HAJZgUCtGMueDxaIDwTUPrkV9yfEOzXBUMkV24qcmvJ+aR2cLbgO1I4x7/pQgfg4iNrZbaOKJcFQveGeaRaiCu6FRRHoskW9WBz+//m/lczpEHdLeaXyw+MyRfGHKq2QLZUpirVAH30m7pqyGuj6qBC3UG8zyUFsg+tAWoxx34fWQFIGns/BR42WKYfMib+KbEKZ3yFvxYuMDfl2K0bL291firwNFnxSyDzEXHIQ2+BemB5j2nmiQDKFp+nWfCeyCfmiKq2wSjqs1+HPNlyfsMX3WZeizEPMJAexDfpAnRjD3g8VqOrBbI+uTwq1X8yzCWVekEwrtAv04L9PKg8zyUFsg3thKQUSnehz3pH+6HmVcsidENmEO9G9kWmFXYHqJux7kWPPPuSSg9gGfaBuTHf3B5/G88v7IieRW1F3ol+KbEKeYFilFaoC8WZgqXSit2UeYi45iG1wL8wQ09l/6oXEAQ+MT4UU98JCs/vyjdH/BUSBtjn2fiOR4ko0BDogIJAxZmOLgUAa2lwZUYb5hUAHhHohUc6MRh9oHAIdEJ3rQBFGaYVABwQEgkAk0ISZYzaWGAikgU50UoEGJJRVs9XVbNVRm+gD5UUGp/EpBRqSUCYm41U7EvzmWD3wIH2gvMhAoCgCnbWoFw9KKBN3lP54UQ9/J+6uijGDymHuZDniZtn+UQTi3R85fWw/IJCVIQll1bCc9dhBopDrk101SllZzgcXWaSXNQKV85hHGGQTAlUMSSjjAq349MfV6GW6QFU5L7O4RZtiuicIVDEooUz8Ba80gUQTVo9dVuQokKx7xJTm/YBAVoYklImW4OZ82WrC2IddNcxdVU52AonJzwd0zCCQnQEJZfI4LMuB8YrmNL4e5q4sJz+BBgKBvGRxqNMAgSwxG3MMEso0INAIAs0ZCASBSEAgCESiEujm099Fe6zHItClGuMmgxgIFMZ4Al0WctSBDOQIiYFAYdRN2Kqa9jtVQhm3hyuUgRwhMRAoDMeTqe++viqKN6enT+yvgjCBygbs8jIDOUJiIFAY9k70u99/clW8++rZ28+vbK8ysJdARaEMn2NlNgLFSCgLRBTXmqXVGFGo03DqiGfxq90Km6LVmpH4/g9/YTXQ2y9ev//mme2VhX3MWGts9AWMS/X9pSEgO0z/ivV6DwllgVTFufQQEbt/dJbR7NY2JDvVkRPNm7A3D4vixRPbq4wLqoEuWzG+WiiDGqj1ryDdjScllHEd2P/1VKl/EmHVXKrlcr5MzMnK168mmJLxz7eLu/+xFHFVBCu6qEZruPfrZTPxlBjMgZV879dyf29/FWCx46mMmAJd6jHd4eBUJifQcYt6MT2hrM4CKqdKLedabeZS5cvlMqUGKidnZfGsiBs5RZmcdLMQGyyHPBMDoTWJaj8XdvM5ysT+sqICBvzxCORtwoquQO4KSD9gRpEmJ5CFCAllf7xgTY4yVaqSVrZ78NdqeSlZUa7fTM5aqlKvL2tF+ZlnG62qGqhcQwhUToroaA0bPE3YkE60uwKyHbCWQXMRKEJC2fZIvFSlaQJVyzWBmslZ6+EV670RAonPtUAstlpDCCT3t7dA+mM9Q0/juwIFyREgWYspCBQhoezmF79gTU49VWpboO+q5bpA9eSsZRNWr182YeLzluckLWWiWrWGFEjsbzMfsIsE98IgUEOEhLIVX7WeKrUtUD2FKlvGi+NrXwv/6slZWSf6X2Unuigj1E40/65MVJNrsNN4HiX2t2cnejBegQL7N/Z+kpFJCFSy14QyfeOt03hzJVM2pj1P44cSSyDtVN/HhATaY0JZVQWqqF0bo0Byf/tfSByITyDtTN1xUC8DYkLKiROzMcXgVoZGVgLVoRBoMqgPFkYaJ1oTSL9U6DyoOeUMQaAQEowTDYEOiQRzZbQF6tyrcB/Uy4CYkHIixECgEBKME90SqHuvy3NQ88lahEAhpO5E9xZIrAGBJkNigVR/zpQYF7mkvcYQaGIJZQaUPWPrd68NaffClgMmzAgU6Kw0yH9QL2cj0NQSyhzFlm87V6dbo3P8wM7kV+TROZRfvFYBndUxTuYjUK4JZTu5MXlHrIktmoLrhX+q59wU63fuj7VO4/mlIPr4QGaBhDx89LeAg5pJ4v3GEGMR6Kct6sXZJpTVa8h0DhnLN9oUXC7cNXNuyhwh7WphRyD6ONHN7133R/wMOagBefd5CWQh14QyuYZc2sTKL8v/6gKUOTdNSWbqdSDehEUYJ9okUDPu5FnQQc3iyQ26QLkmlJUCySazji0agf6qFFDPuekTqPSs12+IYxXIUAG131pZB9RBUxAo24QyuYZMK6tjC0WgeuGumXNTxOi371OexpsqIBYTYNA6oBWbgkC5JpSVedDl0jq2Eej7euGumXOTr+/oRA/GL1BLmXVAHTS5TrSHfBPK+uI6jS+ne+1dZm+BijOfQuvCXwVNSKCME8r6Fue6kBhrspWOQG1d1t1FHdbq6q4YD5kINGcSTPekC6TJsjYtLEwxboMgUBZ0BIp4IVEKoKtSHgxnM7ZWC3DHOCHGbLoxEEij24T17gTZBDJXQM3BcChUxbgMgkBZUI9Qdh5tgKm2QB1LlANmVaiOcRgEgbIg4Wm8OPhdRVoHzKJQE2M3CAJlQXyB2l0gj0AWhfK4DgSBAkgskMGOzgEzKKTEWKsgCJQFikDbOH0gVaDA2qWjkBpjM2gSAsXLSNSfutpaMg9bo9SNgHoaP/ACpV0gYwfHeMDODBcbm3KMTEGgiBmJHYEsF7erW/BjEf+5sEECdW93KOxtFLNwgZ62qBeTMhKbbEN+Y/Unny2bvMTntUCeUerSE/+5sEYg3xlWC4dAZoOyEsgCKSNRzTb88LkcjK7MSyxkE3bvpXeUuuSk7AP1Eqid8tH+al8C1f8WokDDMhKVbEOxrJVXqA8yZhulLjmdWxn9iSSQapAeYzJoCgJRMxKrbMNSICWvMHSUuuSk7ANBIFJGopptyBqydl5hKZB3lLrkqE1Y/0fCBLEEUgzqxBgMmoJApIxEJduQ9Y/v/P2yyUss6uQtzyh16Yn/bHxzJ6OvQM0KsxGoJGlGomuUuvSkuxIdVaABz9jHiIkkUNqMRMcodSOQUCDLrXbXATuzx/QcJiZOTKwaaMYkbMIGCOQYgAEC5YleAw1oOscRqN9IZ5FiIJCXThPW/1wspkCOETz2IVD1j4FAVjoCkXOiaQI5RvDoMdprtBgI5KMj0Gq/NRAEmhidTnT/sbHiCiQMMsfsYUooCOQjr9N4gX0MofGnhKIKNDShLOC2JA+Tg0TxYHknX76OCgRKKdDQhLKQ+5LXR4XMEeG91ptz+UxW/5HxqMR/rIcskGMQqtGnhAoV6McW9eIhCWXlOmo+2a0Ik7fFbh8rD7tfl+ket7/6ltU98nVk9Bpo1X+AoOgC2QehylYgC0MSyqp1lHyybRUvR4WqGyr5lbiXkUkTdnM+YHxZs0C2W2EkgUafUyyOQL0Sysp11HyyXRVfvxeI/JCsBBp2B84ikPepUwf2h57HnlNso8WkTyhr5fuU2RxVvOgblasUIre1CshCoNWAwYGKJALZRzGblkBDE8rYOmo+mQyTaWPNKuKKb9mJzkEgMRznED5et9jIH5dnawL2lS8pxfZno30eIaGsXEfNJ5NhIm2sqFZZyREtszmNvx6cQJKiBrI3YiPPakirgSr2OsRdWpKdxhMF8hs0IYH2OMRdcpJdSKQKZDVoggLNmegC+S4DkQUad1ZDCOQhX4F8BkGgLMhYIE8jBoGyIGeB3AZBoCyYpEBjTou5acdAII2sBXJWQRAoC1IJZPWn30F1GASBsiBzgRwGQaAsgEAQiETuAtkNgkBZkL1A3lsaoeUMjIFAbvIXyGYQBMqC6Qo00sS8EMjNBASyjjM0zsS8mwICOZiCQLbxpiFQBkxZoHFmdoZATiYhkHXOjTEm5oVATiAQBCKRSiD/dJYuOjG2aaNGmNkZAjmZuEAjzOwMgZwkEsjegg08qLZJ6SDQnpmKQNbJe5NPDQ6BnExeoORTg0MgJ5MRyDr/fPK55TcQyMH0BUo+tzwEcjEdgXSDIFAWzEAgh0EQKDkTEkgzCAJlwZQEsk7MazUIAiUntkDeW2EQaF4kEsjuD+mg2mZ2thkEgZIzD4FsBkGg5ExLIOvMzikFYv8mCGQljUCOLhDxoNpmdjYbBIGSA4EgEImpCWSd2dloEARKDgSCQCQmJ5B1anCTQRAoOfMRyGQQBErO9ASyTg0OgfbBBAWyTg3eNQgCJQcCBcRsIJCVNAI5/IlxUG1Tg3cMgkDJmaRAtqnBIdD4zEqgjkEQKDnTFMg2NTgEGp0kArn60JEOqmVqcM0gCJScmQmkGQSBkjNVgaxTg7cMgkDJmaxAQYO3QqDkzE6glkEQKDk+gV6cnn5yVbw5PX1SGF4FexLIOre8YlCsbW3qdxBIwyPQ+2+esdd3Xz17+/lV91XG7EuggDoIAiXHI5C05O0Xr5lJ3VcZk51A8eeWh0BWPAK9+dkvTx8Wbx6ytuxJ95UFfMxYK2z4y9l6HKzbuYy8oU39DgJp+PpAf3tdvDKoUwtUmGogVwUUsQbax9zyEEgj4Czs1aO+TdjeBUo3tzwE0vA1YaymefWkbyd6NIHGn1seAmkEnMY/Mp3AW07j/fdSIx9Ut0EQKDmRLyT6T8LGEijRzM4QSGPqArkNgkDJmbxAzkYMAiVnxgIlmdkZAmlMXyCXQRAoOTMQyNORjrstCKQxb4HiT8wLgTTmIJDdIAiUnBQCOf0ZV6DoE/NCII1ZCGTdIgRKzjwEsm1yHX1mZwikAYEgEImZCGTZJo+JO7MzBNJIIJD7JCyRQGaDIFBy5i9Q3KnBIZDGbAQyGgSBkjMfgcaZWx4CaUAgCERiRgIZDCpjIs4tD4E0DkKgiFODQyCNBAK5/UkoUHfLECg5sxJohLnlIZAGBIJAJOYlUPq55SGQxswESj63PATSmJtAqacGh0Aa8QXynMWnFsg2szMESsP8BLLN7BxnbnkIpDFDgSwT80KgJMQVKOBC9AgCWeZVjTK3PATSmKVA5mkxIVAK5imQOSbG3PIQSCO+QB5/xhHIPK9qhKnBIZDGTAWyTItJnxocAmnMVSDLtJjkmZ0hkMZsBbLMakidmBcCacxXIMushsR5VSGQxowFskxKR5sWEwJpzFkg66R0hG1BII3oAvkuA416Hci4L6R5VSGQxrwFMs8pRplXFQJpHKJAlGkxIZDGzAWy9MiGT4sJgTRiz5mam0B+gyAQiegC+fzJQ6DB02JCII3ZC+Q1CAKRyEKgY44nJqQcc4zHIAhEYq8CHZfUHwwxIeV4YtwGQSAS+xKoU+lUS5WYkHJCYtwzq0IgEvsQyOhOhfgycj/JalD/SekgkMboArnk6RPT68DHm1MMAmmMKpC9dvkpRy3HWUtV2/LiFaj3nGIQSCOGQGuVs7WN42PLF8yd6udPq/dyBdsavbHv1WW/giCQRuwayH4h+riOadGqeaolJYWrIupXc8SaUwwCaYwmkPEUvWtPK0YxyRrjJESgflNCQSCNsQQ6VmJKbPYUXTlMkT3P1CJNCQWBNGIL5PWnPBgOewqTHN34vqf69imh5Ol8WDkQSGMcgdR+zNpnT2GW41hbqfe1IvuMPj1Gs4dAGqMI1OoHe+0pbHIca6f6foIFCh6MHAJpjCGQ6g87Sw8o0hZzrFRD/cuxTwlVBA9GDoE0RhCo8UfUILTbFMd1NTSgHPuMPoW7IwSBrKQXqPZn+IFvl1c6NKScM+t8GpyQgTghkEZygRp/6hg/npjj48FNoX06hMJRCUEgK6kF6vgT5067UGhQZ9w6HYLAOwgVBNJILFDXn1ipGschDpnKsY5mLzBXQhDISlqBDP6Y5XjK8cRo8Dv2/S9IFp2OkB5jUggCWYksUPtOhsmf7kGt3Xn6tPIotJYSd1p73BIpsQ1GXuIaAgYCaaQUyOhP+4C1K55m2dOnpm9a1KmxhfleWWdbCpbByCs6lRAEshJZIGMFZLkF4VBk3URYTarLcVRD1ppMacaMMdYBGCCQRkKBzP7Ig+GpX/SDaopuPd0httN1yNEUmseSrrENwACBNNILpB9Vf+NkPKidlVoxx2aHXH0p41jSNRAokOQCtY4od2f4aXzbIT2mTF0Mv+F6Zh7JtcQyggcE0kgnUMef8viTrgMpDnVjquzXxiHPts7MA3EKIFAYiQVS/aliAop0xVQOGXOGNIe82zIPxCkwDwEDgTSSCaT546o5unhiRC/KElMn4XOH/Ns6s4+jaBwCBgJpJBVI8UeJCSgyIMbeEz9WHArYlukOvQAChZBSIKM/sQRiMfbTuUqhddANV79BEMhKKoFaFVDrMJvk+LHCEaMjY2wSyWpoHVALra2VEAQKIKFA1ZHTjrAmh+qNYlJ7sYmmHItE1WPUHoVEjFkhwyBUEEgjrkCXBoH0Y9scDLskayXAFtUW0Xh58thyLdNUjtMgCGQlrkAB/pQHw13BdJowg0Xmq9VabVdfXfRvy1QJQSAvqQUy3cPytk6WPlDbIks/qSXRWrlA7d+WQaHOKGYQSCONQJU/hr6JVx6OoxNdW+SIedq62OhRSC2noxAE8pFUIF0fcexjnMbzgnpcbHQq1C5HV0gfBg8CaaQSyOBPWfXEug7kP09TLjaa7rRatqUpdNmOgUAaSQSSFVDbnwHXeAJiPKf760JXqFsNGR79URWCQG6iD3HH6VZA/s5vi54x1nN9HqMoZKyGjE9uKAq1B+KEQBrpBGr5U3RinAyL6VpUX60uP5scMm+rMQgCOUkhkF4BtY9qOoHKjZlqu+Z0sJM05H1y4xICOUgmUH3EAi4AdiDG1BIpMapCjUOOZ+xVgyCQlSQCtfzRw0cQSGy3c8ngqcGhwjYCY6EYBIEcJBBIrYAMPduRBJJb1zb/tNsdYuXYJGoMgkBWEgkkD1PATVAz8WK6Z2cth46rcowSVQZBIDvxBWoqIOeddidxYzwVkTKAkS5RdToPgaykEcjhzx4EKkw3/2uH1h2JVIv0R38gkEYCgdz+7EcgTkciWRGVHX91SHzVobN2ORBII7pAVQVkvb+wN4E4Fokk7Zqoetd+dgwCacQXyOPPfgXiaBes1x2JtHv3ZxDIQQKB3P7sXyDBj9rFxqeGqqgxCAJZiS2QrIBcaRZ5CCT4UcsrUgeTkcOfyeVnEMhKfIE8/uQkkKB7C7a0SFEIAlmJLFB1CuYgN4GUvCLVpFqhdjkQSCO6QL4KKE+BahSTeDUkhoKFQA4iC+T3J3OBakqH9EHNIZBGXIF4BeR76CIDORTfgAgAAAPzSURBVAJjuEOsGmpNFAyBNOIKFOBPJnIExkiHjiGQlchN2FP/Q1/ZyBEYwxx6CoGsDBXozenpk/KtKhDtocFcY36EQFYGCvTuq2dvP7+S75XfaYA/ucnRMwYCaQwU6O0Xr99/80y+7z6V4WTaMRBIY6BAbx4WxQvehn3MWB8QEEiDKlCBGuiwQRMGgUjE7UTne+BjxUAgjcin8QFrTjsGAmkkeTbeybRjIJAGBIJAJCAQBCIBgSAQCQgEgUhAIAhEAgJBIBIQCAKRgEAQiAQEgkAkIBAEIgGBIBAJCASBSEAgCEQCAkEgEhAIApGAQBCIBASCQCQgEAQiEUOgg4L++5oXEQRSiPXrnWs5MwQCjVnODIkrEDg4IBAgAYEACQgESEAgQCKmQMrz8iRenJ5+ckUu5d3XV1F2SZQTZ5fmSESB1BE7KNTjxpB493t2xCPskignzi7NkogCqWMGkcqJYuEf/sJqDvouleXE2KV5ElEgddQyUjk/++XpQ3oxvOmJsUuinDi7NEcyFKj42+viFb2cmAJF2qU5kmETxnn1iFzEuyhNWClQnF2aIxl2onm1EakGirFLVU2GGshIpqfxEf7aY5/GowIygguJgAQEAiQgECABgQAJCARIQCBAIk+B/jdCBBiF/Ql0+3jBuffS8M1JN3x79/nNpxeuCCOr5c35UlvWlAPI7FOgZWFWwSaQJ8LE9VHRFajYPehaC4axb4GKLauCeGXEfohDvb37Z/bpqFomuDlf3PmNrIGuF4s7F7ciYnefVWBLVp/89j5bVvDPfIXWij9/Lkrd3T/affAbttKWr8jqpdAKDPjIQaDbx+ygru69LAV6zusXUcdcSxH4+5tzIRCvh8oIEb1iS9k35dr6irwC4nG7+8KhYsu1++BCWguisG+Bbs5Pit2Hz8VxVgUSLVblGH+/rQUqlCaMLy3XKr9SVxRhN+f/xrZRcIl4qAhHLygae+9EH5X1ATvYqkDX4suF8ETUJ8wydtj5SstKINayLRqBylpHXVHKci4bOFbzcG/EslIwQGfPNdBKVC4mgZRGRhGIfVqJThBvwhYnag1UCaSsKFZg3/MNaAKhExSJfTdh3CBrE1aiNGFyxRMRwU2xNGElZQ0k+kaogdKwb4FuzvkJl+xE85+3j6tONPNje6c05kjtRDMVKsV29+9cVALxn9dH2oon0iL2uSUQ+kDR2LdA4syoOvPm3ZXfsuroulx256IKrU/jV+LUXUSwt3e/beotfhovO9DNiuVZGNfzO1UgnIVFI89bGbGw1TS4DhSNeQskqqAuuBIdj5kLZOwtowcUkZkLBFIDgQAJCARIQCBAAgIBEhAIkPh/PSdJ0BR5irYAAAAASUVORK5CYII=)
+
+]
+
+.pull-right[
+
+#### Cycling potential in London under scenarios of change
+
+- Ebike scenario is most ambitious
+- Government target can be set to local priorities
+]
+
+--
+
+Dose/response modelling: about cycling in response to distance, hilliness and other factors. Source: [pct R package website](https://itsleeds.github.io/pct/reference/uptake_pct_govtarget.html)
+
+---
+
+background-image: url(https://user-images.githubusercontent.com/1825120/96583573-d3c1eb00-12d4-11eb-88b8-ca78087b63f7.png)
+
+# Live demo of the PCT for Bristol
+
+## See https://www.pct.bike/
+
+
+---
+
+
+.pull-left[
+
+# Uses of the PCT
+
+- Visioning
+- Planning strategic cycle networks
+- Identifying corridors with high latent demand
+
+Uses that were not initially planned
+
+- Pop-up cycleway planning
+- LTN planning?
+
+]
+
+--
+
+.pull-right[
+
+## Deploying in new contexts
+
+- Requires survey based or synthetic OD data, to be processed by software developed at Leeds `r Citep(my_bib, "lovelace_stplanr:_2018", .opts = list(cite.style = "authoryear"))`
+- For mor on methods, see the [transport chapter](https://geocompr.robinlovelace.net/transport.html) (available free [online](https://geocompr.robinlovelace.net/)) `r Citep(my_bib, "lovelace_geocomputation_2019", .opts = list(cite.style = "authoryear"))` 
+- Can also be used for specific contexts (e.g. cycling to school, cycling to public transport) `r Citep(my_bib, "goodman_scenarios_2019", .opts = list(cite.style = "authoryear"))`
+
+]
+
+--
+
+#### For further info, see the training materials at [itsleeds.github.io](https://itsleeds.github.io/pct/articles/pct_training.html)
+
+---
+
+# References
+
+```{r, 'refs', results="asis", echo=FALSE}
+PrintBibliography(my_bib)
+# RefManageR::WriteBib(my_bib, "refs-geostat.bib")
+```
+
+<!-- --- -->
+
+<!-- ## Transport planning software -->
+
+<!-- Transport modelling software products are a vital component of modern transport planning *and* research. -->
+
+<!-- - They generate the evidence base on which strategic investments are made and, furthermore, -->
+<!-- - provide a powerful mechanism for researching alternative futures. -->
+
+<!-- -- -->
+
+<!-- It would not be an overstatement to say that software determines the range of futures that are visible to policymakers. This makes status of transport modelling software and how it may evolve in the future important questions. -->
+
+<!-- What will transport software look like? What will their capabilities be? And who will control? Answers to each of these questions will affect the future of transport systems.  -->
+
+<!-- -- -->
+
+<!-- - Premise: transport planning/modelling software used in practice ~~will become~~ is becoming increasingly data-driven, modular and open.  -->
+
+
+
+<!-- --- -->
+
+<!-- ```{r geocompr-cover, echo=FALSE, out.width="20%"} -->
+<!-- knitr::include_graphics("https://geocompr.robinlovelace.net/images/cover.png") -->
+<!-- ``` -->
