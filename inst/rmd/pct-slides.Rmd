@@ -307,7 +307,7 @@ background-image: url(https://raw.githubusercontent.com/cyipt/popupCycleways/mas
 
 ## 12th November, 2pm, online
 
-## Sign-up: watch this space... (BaseCamp, Landor)
+![](https://user-images.githubusercontent.com/1825120/98568567-24f84580-22a9-11eb-83a5-783c013a6560.png)
 
 ---
 
@@ -341,23 +341,40 @@ background-image: url(https://raw.githubusercontent.com/cyipt/popupCycleways/mas
 ## Overview of workshop
 
 <!-- - The venue + facilities -->
-- Seminar: how the Propensity to Cycle Tool works (45 min)
+Part 1: how the Propensity to Cycle Tool works + demo: 'I do'
+
+  - Introductions (14:00 - 14:15)
+  - Walk through of [`test-setup.R`](https://github.com/ITSLeeds/pct/blob/master/inst/test-setup.R) (14:15 - 14:30)
+  - Demonstration of calculating cycling potential in a new context (14:30 - 14:45)
+  - Questions, break and debugging the test code in breakout rooms  (14:45 - 15:00)
+     - Room 1: technical questions and debugging code
+     - Room 2: methodological questions about the PCT
+     - Room 3: applying the PCT in new contexts
+     - Room 4: networking
 
 --
-   
+
+Part 2: Co-coding session: getting started with transport data in R: 'we do'
+
+- Working through the code in [`pct_training.R`](https://github.com/ITSLeeds/pct/blob/master/inst/pct_training.R) (15:00 - 15:45)
+
    ☕☕☕ 15 minute break  ☕☕☕
 
---
+---
 
-- Workshop part 1: getting started with transport data in R (45 min)
+## Workshop overview - part III
 
-   ☕☕☕ 15 minute break  ☕☕☕
+Part 3: using PCT data for local transport planning: 'you do'
 
---
+- Getting set-up with RStudio and input data (16:00 - 16:15)
 
-- Workshop part 2: using PCT data for local transport planning (1 hr)
+- Break-out rooms (16:15 - 17:00)
+   - Getting and visualising PCT data
+   - Running the PCT for new areas
+   - Advanced topics (different routing, uptake and route network summary methods)
 
-  🍻🍻🍻 
+- Presentation of work and next steps (17:00 - 17:15)
+- Networking and 'ideas with beers' 🍻🍻🍻 (17:15 - 18:00)
 
 
 ```{r, echo=FALSE, eval=FALSE}
