@@ -103,10 +103,17 @@ If you have any issues, please open an issue here: https://github.com/ITSLeeds/p
 
 The second thing to say is that having a GitHub account will help you ask questions and share reproducible examples, so please sign-up if you have not yet registered: https://github.com
 
-After you have signed-up, please check it works by saying hi on this issue: https://github.com/ITSLeeds/pct/issues/74
+After you have signed-up, please check it works by saying hi on this issue (we will also use this link to answer code related questions during the course): https://github.com/ITSLeeds/pct/issues/74
 
 The third and final thing to say: please ensure that you have at least taken a read of (and ideally have reproduced some of the code examples in) these links:
 
-- 
+- The original paper on the Propensity to Cycle Tool: https://www.jtlu.org/index.php/jtlu/article/view/862
+- The transport chapter ([12](https://geocompr.robinlovelace.net/transport.html)) in the open source book [*Geocomputation with R*](https://geocompr.robinlovelace.net/)  [@lovelace_geocomputation_2019]
+- The vignette that describes the pct R package, which can be found here: https://itsleeds.github.io/pct/articles/pct.html
+- Information on how to create reproducible examples (this will be useful when asking for help during the workshop): https://reprex.tidyverse.org/
 
+Hope this is useful, please prioritise getting R up-and-running and let us know if you have any issues.
 
+All the best,
+
+Robin

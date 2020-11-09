@@ -73,9 +73,9 @@ If you are an intermediate user, it may be worth brushing-up on your R skills, e
 
 <!-- In addition to computer hardware (a laptop) and software (an up-to-date R set-up and experience using R) pre-requisites, you should have read, or at least have working knowledge of the contents of, the following publications, all of which are freely available online: -->
 
-<!-- - The original paper on the Propensity to Cycle Tool [@lovelace_propensity_2017] -->
-<!-- - The transport chapter ([12](https://geocompr.robinlovelace.net/transport.html)) in the open source book [*Geocomputation with R*](https://geocompr.robinlovelace.net/)  [@lovelace_geocomputation_2019] -->
-<!-- - The vignette that describes the pct R package, which can be found here: https://itsleeds.github.io/pct/articles/pct.html -->
+- The original paper on the Propensity to Cycle Tool [@lovelace_propensity_2017]
+- The transport chapter ([12](https://geocompr.robinlovelace.net/transport.html)) in the open source book [*Geocomputation with R*](https://geocompr.robinlovelace.net/)  [@lovelace_geocomputation_2019]
+- The vignette that describes the pct R package, which can be found here: https://itsleeds.github.io/pct/articles/pct.html
 
 ## Prerequisites
 
