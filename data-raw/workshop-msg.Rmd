@@ -1,0 +1,112 @@
+
+```{r, include=FALSE}
+# knitr::opts_chunk$set(echo = FALSE)
+# test you can install packages
+# install.packages("remotes", quiet = TRUE)
+
+# test you have the right packages installed
+pkgs = c("sf", "stplanr", "pct", "tmap", "dplyr")
+remotes::install_cran(pkgs, quiet = TRUE)
+
+# test you can read-in csv files:
+od_data = read.csv("https://github.com/npct/pct-outputs-regional-notR/raw/master/commute/msoa/avon/od_attributes.csv")
+head(od_data)
+od_data$pcycle = od_data$bicycle / od_data$all
+```
+
+
+Dear Propensity to Cycle Tool Advanced Workshop Participant,
+
+I am looking forward to the event this Thursday and wanted to share with you a few links and reminders beforehand.
+
+The first thing to say is that this is an **Advanced Workshop** based on the **statistical programming language R** so you will be expected to run code in R/RStudio.
+You will be expected to 'get you hands dirty' and write some code so it's important that you have your computer set-up and ready to before the course starts.
+To check that R is working on your computer, please ensure that you can run the entirety of this script in RStudio: https://github.com/ITSLeeds/pct/blob/master/inst/test-setup.R
+
+If you see this plot appear after running line 14 (shown below - see this in context in the link above), congratulations on getting a basic R set-up working.
+
+```{r, echo=TRUE}
+plot(od_data$rf_dist_km, od_data$pcycle, cex = od_data$all / mean(od_data$all))
+```
+
+
+```{r, include=FALSE, fig.show='hide'}
+# test the sf package: read-in and download zones and centroids
+library(sf)
+u1 = "https://github.com/npct/pct-outputs-regional-notR/raw/master/commute/msoa/avon/c.geojson"
+u1b = "https://github.com/npct/pct-outputs-regional-notR/raw/master/commute/msoa/avon/z.geojson"
+centroids = read_sf(u1)
+districts = read_sf(u1b)
+plot(districts$geometry)
+centroids_geo = st_centroid(districts)
+plot(centroids$geometry, add = TRUE)
+plot(centroids_geo$geometry, add = TRUE, col = "red")
+
+# check interactive mapping with tmap
+library(tmap)
+tmap_mode("view")
+u2 = "https://github.com/npct/pct-outputs-regional-notR/raw/master/commute/msoa/avon/l.geojson"
+desire_lines = sf::read_sf(u2)
+desire_lines_subset = desire_lines[desire_lines$all > 100, ]
+tm_shape(desire_lines_subset) +
+  tm_lines(col = "bicycle", palette = "viridis", lwd = "all", scale = 9)
+
+# check route network generation with stplanr
+library(stplanr)
+u3 = "https://github.com/npct/pct-outputs-regional-notR/raw/master/commute/msoa/avon/rf.geojson"
+routes = sf::read_sf(u3)
+library(dplyr)
+routes_1 = routes %>%
+  slice(which.max(bicycle))
+tm_shape(routes_1) +
+  tm_lines()
+rnet = overline(routes, "bicycle")
+b = c(0, 0.5, 1, 2, 3, 8) * 1e3
+tm_shape(rnet) +
+  tm_lines(scale = 2, col = "bicycle", palette = "viridis", breaks = b)
+
+# check analysis with dplyr and estimation of cycling uptake with pct function
+library(pct)
+
+routes$Potential = pct::uptake_pct_godutch(
+  distance = routes$rf_dist_km,
+  gradient = routes$rf_avslope_perc
+) *
+  routes$all
+rnet_potential = overline(routes, "Potential")
+```
+
+After running the lines from 15 onwards you should see a number of plots and other outputs.
+The following line of code should, after running all the code in the link above, tell you the average number of cyclists on route network segments in Avon under the PCT's Go Dutch scenario:
+
+```r
+round(mean(rnet_potential$Potential))
+```
+
+What number did you get? We will test you during the course so make sure you try to reproduce the result.
+A more visual check that your computer is set-up to do transport data science with R for modelling cycling uptake is plotting the result.
+If you got the plot shown below after running the following [code](https://github.com/ITSLeeds/pct/blob/8fb7b876a3b372c728c8e09f1a2a2004272b37d0/inst/test-setup.R#L59-L60) (you will need to have run all previous lines), congratulations, you're ready to go!
+
+```{r}
+tm_shape(rnet_potential) +
+  tm_lines(lwd = "Potential", scale = 9, col = "Potential", palette = "viridis", breaks = b)
+```
+
+If you have any issues reproducing the code, please double check your R install.
+
+You will need to have a recent version of R and RStudio installed.
+Double check you have at least R 4.0.0 and RStudio 1.2 installed.
+If not, [**ensure that you have the latest versions installed**](https://rstudio-education.github.io/hopr/starting.html).
+
+If you have any issues, please open an issue here: https://github.com/ITSLeeds/pct/issues
+(As a last resourt you can email at r.lovelace@leeds.ac.uk although may not be able to respond before the event).
+
+The second thing to say is that having a GitHub account will help you ask questions and share reproducible examples, so please sign-up if you have not yet registered: https://github.com
+
+After you have signed-up, please check it works by saying hi on this issue: https://github.com/ITSLeeds/pct/issues/74
+
+The third and final thing to say: please ensure that you have at least taken a read of (and ideally have reproduced some of the code examples in) these links:
+
+- 
+
+
