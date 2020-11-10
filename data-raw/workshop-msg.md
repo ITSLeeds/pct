@@ -4,13 +4,14 @@ Dear Propensity to Cycle Tool Advanced Workshop Participant,
 I am looking forward to the event this Thursday and wanted to share with
 you a few links and reminders beforehand.
 
-The first thing to say is that this is an **Advanced Workshop** based on
-the **statistical programming language R** so you will be expected to
-run code in R/RStudio. You will be expected to ‘get you hands dirty’ and
-write some code so it’s important that you have your computer set-up and
-ready to before the course starts. To check that R is working on your
-computer, please ensure that you can run the entirety of this script in
-RStudio: <https://github.com/ITSLeeds/pct/blob/master/inst/test-setup.R>
+The **first** thing to say is that this is an **Advanced Workshop**
+based on the **statistical programming language R** so you will be
+expected to run code in R/RStudio. You will be expected to ‘get you
+hands dirty’ and write some code so it’s important that you have your
+computer set-up and ready to before the course starts. To check that R
+is working on your computer, please ensure that you can run the entirety
+of this script in RStudio:
+<https://github.com/ITSLeeds/pct/blob/master/inst/test-setup.R>
 
 If you see this plot appear after running line 14 (shown below - see
 this in context in the link above), congratulations on getting a basic R
@@ -62,15 +63,15 @@ If you have any issues, please open an issue here:
 at <r.lovelace@leeds.ac.uk> although I may not be able to respond before
 the event).
 
-The second thing to say is that having a GitHub account will help you
-ask questions and share reproducible examples, so please sign-up if you
-have not yet registered: <https://github.com>
+The **second** thing to say is that having a GitHub account will help
+you ask questions and share reproducible examples, so please sign-up if
+you have not yet registered: <https://github.com>
 
 After you have signed-up, please check it works by saying hi on this
 issue (we will also use this link to answer code related questions
 during the course): <https://github.com/ITSLeeds/pct/issues/74>
 
-The **third thing is about routing.** If you want to do routing on the
+The **third** thing is about routing. If you want to do routing on the
 network, please sign-up at <https://www.cyclestreets.net/api/apply/>.
 You should save the resulting key on your system by running the
 following commands:
@@ -88,9 +89,9 @@ Then add the following line to the file that pops up:
 
 For more info on testing if this worked, see:
 
-The fourth and final thing to say: please ensure that you have at least
-taken a read of (and ideally have reproduced some of the code examples
-in) these links:
+The **fourth and final** thing to say: please ensure that you have at
+least taken a read of (and ideally have reproduced some of the code
+examples in) these links:
 
 -   The original paper on the Propensity to Cycle Tool:
     <https://www.jtlu.org/index.php/jtlu/article/view/862>
