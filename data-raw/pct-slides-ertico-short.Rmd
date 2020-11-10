@@ -30,7 +30,7 @@ my_bib = RefManageR::ReadBib("~/itsleeds/pct/inst/rmd/refs.bib")
 
 ```{r, eval=FALSE, echo=FALSE, engine='bash'}
 # publish results online
-cp -Rv inst/rmd/pct-slides* ~/saferactive/site/static/slides/
+cp -Rv data-raw/pct-slides* ~/saferactive/site/static/slides/
 cp -Rv inst/rmd/libs ~/saferactive/site/static/slides/
 cd ~/saferactive/site
 git add -A

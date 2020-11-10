@@ -1,3 +1,7 @@
+---
+output: github_document
+---
+
 
 ```{r, include=FALSE}
 # knitr::opts_chunk$set(echo = FALSE)
@@ -92,20 +96,37 @@ tm_shape(rnet_potential) +
   tm_lines(lwd = "Potential", scale = 9, col = "Potential", palette = "viridis", breaks = b)
 ```
 
-If you have any issues reproducing the code, please double check your R install.
+If you have any issues reproducing the code, please double check your R install and make sure you have installed the necessary.
 
 You will need to have a recent version of R and RStudio installed.
 Double check you have at least R 4.0.0 and RStudio 1.2 installed.
 If not, [**ensure that you have the latest versions installed**](https://rstudio-education.github.io/hopr/starting.html).
 
 If you have any issues, please open an issue here: https://github.com/ITSLeeds/pct/issues
-(As a last resourt you can email at r.lovelace@leeds.ac.uk although may not be able to respond before the event).
+(As a last resort you can email at r.lovelace@leeds.ac.uk although I may not be able to respond before the event).
 
 The second thing to say is that having a GitHub account will help you ask questions and share reproducible examples, so please sign-up if you have not yet registered: https://github.com
 
 After you have signed-up, please check it works by saying hi on this issue (we will also use this link to answer code related questions during the course): https://github.com/ITSLeeds/pct/issues/74
 
-The third and final thing to say: please ensure that you have at least taken a read of (and ideally have reproduced some of the code examples in) these links:
+The **third thing is about routing.** If you want to do routing on the network, please sign-up at https://www.cyclestreets.net/api/apply/. You should save the resulting key on your system by running the following commands:
+
+```{r, eval=FALSE}
+# uncomment these lines to install cyclestreets
+# install.packages("usethis")
+# install.packages("cyclestreets")
+usethis::edit_r_environ()
+```
+
+Then add the following line to the file that pops up:
+
+```
+CYCLESTREETS=ca43ed677e5e6fe1
+```
+
+For more info on testing if this worked, see: 
+
+The fourth and final thing to say: please ensure that you have at least taken a read of (and ideally have reproduced some of the code examples in) these links:
 
 - The original paper on the Propensity to Cycle Tool: https://www.jtlu.org/index.php/jtlu/article/view/862
 - The transport chapter ([12](https://geocompr.robinlovelace.net/transport.html)) in the open source book [*Geocomputation with R*](https://geocompr.robinlovelace.net/)  [@lovelace_geocomputation_2019]
@@ -117,3 +138,5 @@ Hope this is useful, please prioritise getting R up-and-running and let us know 
 All the best,
 
 Robin
+
+P.s. there is one more thing to say: we plan a virtual 'to the pub' session after the event from 5pm to 6pm so make sure you have beer (or whatever refreshment takes your fancy) in stock if you want to join for a post workshop social.
