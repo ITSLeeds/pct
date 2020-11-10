@@ -329,7 +329,7 @@ background-image: url(https://raw.githubusercontent.com/cyipt/popupCycleways/mas
 
 ### Rosa Felix
 
-- Civil Engineer by training
+- Transport Engineer by training
 - Working on cycling potential and infrastructure prioritisation
 
 --
@@ -357,6 +357,7 @@ Part 1: how the Propensity to Cycle Tool works + demo: 'I do'
 Part 2: Co-coding session: getting started with transport data in R: 'we do'
 
 - Working through the code in [`pct_training.R`](https://github.com/ITSLeeds/pct/blob/master/inst/pct_training.R) (15:00 - 15:30)
+  - Breakout rooms 2 and 3 open for people who have questions
 - Live demo: overlaying PCT data with data from the Rapid tool and OSM (15:30 - 15:45)
 
    ☕☕☕ 15 minute break  ☕☕☕

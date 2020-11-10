@@ -158,34 +158,34 @@ tm_shape(car_dependent) +
   tm_lines("Percent Drive", palette = "-RdYlBu", lwd = "all", scale = 9)
 ```
 
-\newpage
+<!-- \newpage -->
 
-# Agenda
+<!-- # Agenda -->
 
-- 09:30 - 10:00: Arrival and set-up
-- 10:00 - 11:00: Data and methods underlying the PCT
-- 11:00 - 12:30: Getting and analysing PCT data
-    - Comparing PCT results with existing road infrastructure
-        - Getting data from the CyIPT
-        - Identfying 'weak links'
-        - Identify gaps in the network
+<!-- - 09:30 - 10:00: Arrival and set-up -->
+<!-- - 10:00 - 11:00: Data and methods underlying the PCT -->
+<!-- - 11:00 - 12:30: Getting and analysing PCT data -->
+<!--     - Comparing PCT results with existing road infrastructure -->
+<!--         - Getting data from the CyIPT -->
+<!--         - Identfying 'weak links' -->
+<!--         - Identify gaps in the network -->
 
-Lunch break
+<!-- Lunch break -->
 
-- 13:30 - 15:30: Extending the PCT: minihack
-    - Alternative scenarios of cycling uptake
-        - A 'replace short car trips' scenario
-    - New input data
-        - Travel to stations
-    - Other extensions of the PCT
+<!-- - 13:30 - 15:30: Extending the PCT: minihack -->
+<!--     - Alternative scenarios of cycling uptake -->
+<!--         - A 'replace short car trips' scenario -->
+<!--     - New input data -->
+<!--         - Travel to stations -->
+<!--     - Other extensions of the PCT -->
 
-Break and presentation of results
+<!-- Break and presentation of results -->
 
-- 16:00 - 16:30: Policy implementation
-    - Building open source web applications
-    - Community-building
-    - User interface
-    - Policy uptake
+<!-- - 16:00 - 16:30: Policy implementation -->
+<!--     - Building open source web applications -->
+<!--     - Community-building -->
+<!--     - User interface -->
+<!--     - Policy uptake -->
     
 # Exercises
 
