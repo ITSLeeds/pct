@@ -129,7 +129,7 @@ For more info on testing if this worked, see:
 The fourth and final thing to say: please ensure that you have at least taken a read of (and ideally have reproduced some of the code examples in) these links:
 
 - The original paper on the Propensity to Cycle Tool: https://www.jtlu.org/index.php/jtlu/article/view/862
-- The transport chapter ([12](https://geocompr.robinlovelace.net/transport.html)) in the open source book [*Geocomputation with R*](https://geocompr.robinlovelace.net/)  [@lovelace_geocomputation_2019]
+- The transport chapter ([12](https://geocompr.robinlovelace.net/transport.html)) in the open source book [*Geocomputation with R*](https://geocompr.robinlovelace.net/)
 - The vignette that describes the pct R package, which can be found here: https://itsleeds.github.io/pct/articles/pct.html
 - Information on how to create reproducible examples (this will be useful when asking for help during the workshop): https://reprex.tidyverse.org/
 

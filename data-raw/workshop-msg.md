@@ -98,7 +98,6 @@ in) these links:
     ([12](https://geocompr.robinlovelace.net/transport.html)) in the
     open source book [*Geocomputation with
     R*](https://geocompr.robinlovelace.net/)
-    \[@lovelace\_geocomputation\_2019\]
 -   The vignette that describes the pct R package, which can be found
     here: <https://itsleeds.github.io/pct/articles/pct.html>
 -   Information on how to create reproducible examples (this will be
