@@ -17,6 +17,9 @@ header-includes:
 - \fancyfoot[CO,CE]{For source code and support see github.com/ITSLeeds and github.com/npct}
 - \fancyfoot[LE,RO]{\thepage}
 output: pdf_document
+# output as .R script
+knitr::purl("vignettes/pct_training.Rmd")
+file.rename("pct_training.R", "inst/pct_training.R")
 ```
 
 
@@ -297,7 +300,7 @@ plot(z_highest_cycling$geometry, col = "red", add = TRUE)
     
 ```{r get routes}
 # Aim: get top 5 cycle routes
-l_original_msoa = get_pct_lines("isle-of-wight")
+l_original_msoa = get_pct_lines("isle-of-wight", geography = "msoa")
 l_msoa = l_original_msoa %>% 
   select(geo_code1, geo_code2, all, foot, bicycle, car_driver, rf_avslope_perc, rf_dist_km)
 ```
@@ -431,16 +434,18 @@ plot(l_msoa["pcycle_dutch"], lwd = l_msoa$all / mean(l_msoa$all), breaks = c(0, 
 - R1: Using the function `route_osrm()` find the route associated with the most cycled desire line in the Isle of Wight. The result should look similar to that displayed in the map below (hint: you may want to start your answer with the following lines of code - **warning: the function may need to run a few times before it works**):
 
 ```{r}
-library(stplanr)
 l_top = l_msoa %>% 
   top_n(n = 1, wt = bicycle)
 ```
 
 ```{r, eval=FALSE, echo=FALSE}
-r_top = stplanr::route_osrm(l_top)
-sf::write_sf(sf::st_as_sf(r_top), "r_top.geojson")
+library(osrm)
+r_top = route(l = l_top, route_fun = osrmRoute, returnclass = "sf")
+# r_top = route(l = l_top, route_fun = cyclestreets::journey)
+mapview::mapview(r_top)
+sf::write_sf(r_top, "r_top.geojson")
 piggyback::pb_upload("r_top.geojson")
-piggyback::pb_download_url()
+piggyback::pb_download_url("r_top.geojson")
 ```
 
 ```{r, echo=FALSE}
@@ -454,7 +459,8 @@ tm_shape(r_top) +
 - R3: Regenerate the route using the function `line2route()`. What is the difference in the length between each route, and what other differences can you spot? **Note: this exercise requires an API Key from CycleStreets.net.**
 
 ```{r, echo=FALSE, eval=FALSE}
-r_cs = stplanr::line2route(l_top)
+r_cs = route(l = l_top, route_fun = cyclestreets::journey)
+library(leaflet)
 leaflet() %>% 
   addTiles() %>% 
   addPolylines(data = r_cs)
@@ -471,7 +477,7 @@ route_data = sf::st_sf(wight_lines_30, geometry = wight_routes_30$geometry)
 ```
 
 ```{r, echo=FALSE, message=FALSE}
-rnet_walk = overline2(route_data, attrib = "foot")
+rnet_walk = overline(route_data, attrib = "foot")
 tm_shape(rnet_walk) +
   tm_lines(lwd = "foot", scale = 9)
 ```

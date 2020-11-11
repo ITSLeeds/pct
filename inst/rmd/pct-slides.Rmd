@@ -231,9 +231,7 @@ background-image: url(https://user-images.githubusercontent.com/1825120/96583573
 
 ## See https://www.pct.bike/
 
-
 ---
-
 
 .pull-left[
 
@@ -327,7 +325,7 @@ background-image: url(https://raw.githubusercontent.com/cyipt/popupCycleways/mas
 - Experienced data scientist
 - Policy and planning knowledge through role in Transport for New Homes
 
-### Rosa Felix
+### Rosa Félix
 
 - Transport Engineer by training
 - Working on cycling potential and infrastructure prioritisation
@@ -344,9 +342,9 @@ background-image: url(https://raw.githubusercontent.com/cyipt/popupCycleways/mas
 Part 1: how the Propensity to Cycle Tool works + demo: 'I do'
 
   - Introductions (14:00 - 14:15)
-  - Walk through of [`test-setup.R`](https://github.com/ITSLeeds/pct/blob/master/inst/test-setup.R) (14:15 - 14:30)
-  - Demonstration of calculating cycling potential in a new context (14:30 - 14:40)
-  - Questions, break and debugging the test code in breakout rooms  (14:40 - 15:00)
+  - Walk through of [`test-setup.R`](https://github.com/ITSLeeds/pct/blob/master/inst/test-setup.R) (14:15 - 14:40)
+  - Demonstration of cycling potential in a new context (14:40 - 14:45)
+  - Questions, break and debugging the test code in breakout rooms  (14:45 - 15:00)
      - Room 1: technical questions and debugging code (Joey)
      - Room 2: methodological questions about the PCT (Robin)
      - Room 3: applying the PCT in new contexts (Rosa)
