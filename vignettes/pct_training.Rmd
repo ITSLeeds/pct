@@ -195,6 +195,7 @@ Part 1: how the Propensity to Cycle Tool works + demo: 'I do'
   - Introductions (14:00 - 14:15)
   - Walk through of [`test-setup.R`](https://github.com/ITSLeeds/pct/blob/master/inst/test-setup.R) (14:15 - 14:30)
   - Demonstration of calculating cycling potential in a new context (14:30 - 14:40)
+  <!-- I will write an adapted version based on: https://github.com/ITSLeeds/pct/blob/master/data-raw/test-setup2.R -->
   - Questions, break and debugging the test code in breakout rooms  (14:40 - 15:00)
      - Room 1: technical questions and debugging code (Joey)
      - Room 2: methodological questions about the PCT (Robin)
