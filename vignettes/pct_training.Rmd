@@ -19,7 +19,6 @@ header-includes:
 output: pdf_document
 # output as .R script
 knitr::purl("vignettes/pct_training.Rmd")
-file.rename("pct_training.R", "inst/pct_training.R")
 ```
 
 
@@ -115,7 +114,7 @@ It should result in the map below, showing the % of short trips in Isle of Wight
 ```{r setup, out.width="30%", message=FALSE}
 library(pct)
 library(dplyr)   # in the tidyverse
-library(tmap) # installed alongside mapview
+library(tmap)    # installed alongside mapview
 region_name = "isle-of-wight"
 max_distance = 7
 zones_all = get_pct_zones(region_name)
@@ -477,6 +476,7 @@ route_data = sf::st_sf(wight_lines_30, geometry = wight_routes_30$geometry)
 ```
 
 ```{r, echo=FALSE, message=FALSE}
+library(stplanr) # required for the overline function
 rnet_walk = overline(route_data, attrib = "foot")
 tm_shape(rnet_walk) +
   tm_lines(lwd = "foot", scale = 9)
