@@ -272,7 +272,7 @@ library(pct)
 library(dplyr) # suggestion: use library(tidyverse)
 z_original = get_pct_zones("isle-of-wight")
 z = z_original %>% 
-  select(geo_code, geo_name, all, bicycle, car_driver)
+  select(geo_code, geo_name, all, foot, bicycle, car_driver)
 ```
 
 ```{r, echo=FALSE}
@@ -282,7 +282,7 @@ z_highest_cycling = z %>%
   top_n(n = 1, wt = bicycle)
 ```
 
-- G3: Use the `plot()` command to visualise where on the Ilse of Wight this 'high cycling' zone is (hint: you will need to use the `plot()` function twice, once to plot `z$geometry`, and again with the argument `add = TRUE` and a `col` argument to add the layer on top of the base layer and give it a colour).
+- G3: Use the `plot()` command to visualise where on the Isle of Wight this 'high cycling' zone is (hint: you will need to use the `plot()` function twice, once to plot `z$geometry`, and again with the argument `add = TRUE` and a `col` argument to add the layer on top of the base layer and give it a colour).
 The result should look something like something this:
 
 ```{r, echo=FALSE}
@@ -299,7 +299,7 @@ plot(z_highest_cycling$geometry, col = "red", add = TRUE)
 # Aim: get top 5 cycle routes
 l_original_msoa = get_pct_lines("isle-of-wight")
 l_msoa = l_original_msoa %>% 
-  select(geo_code1, geo_code2, all, bicycle, car_driver, rf_avslope_perc, rf_dist_km)
+  select(geo_code1, geo_code2, all, foot, bicycle, car_driver, rf_avslope_perc, rf_dist_km)
 ```
 
 ```{r, echo=FALSE, warning=FALSE, fig.show='hold', fig.cap="Top 5 MSOA to MSOA desire lines with highest number of people cycling (left) and driving (right) in the Isle of Wight."}
@@ -325,30 +325,29 @@ plot(st_geometry(l_top_driving), add = TRUE, lwd = 5, col = "red")
 # tm_shape(l_top_driving) + tm_lines("red", lwd = 7) + tm_basemap(server = leaflet::providers$OpenStreetMap.BlackAndWhite)
 ```
 
-- G6 (Bonus):  Repeat the exercise but for LSOA to LSOA desire lines (by setting the argument `geography = "lsoa"`, remember to change the names of the objects you create). The results should look something like this:
+- G6 (Bonus):  Repeat the exercise but calculate the top 10 LSOA to LSOA desire lines (by setting the argument `geography = "lsoa"`, remember to change the names of the objects you create). The results should look like this:
 
-```{r, echo=FALSE, warning=FALSE, fig.show='hold', fig.cap="Top 5 LSOA-LSOA desire lines with highest number of people cycling (left) and driving (right) in the Isle of Wight."}
+```{r, echo=FALSE, warning=FALSE, fig.show='hold', fig.cap="Top 10 LSOA-LSOA desire lines with highest number of people cycling (left) and driving (right) in the Isle of Wight."}
 # at the lsoa level
 l_original_lsoa = get_pct_lines("isle-of-wight", geography = "lsoa")
-l = l_original_lsoa %>% 
-  select(geo_code1, geo_code2, all, bicycle, car_driver)
-l_top_cycling = l %>% 
-  top_n(n = 5, wt = bicycle)
-plot(z$geometry)
-plot(st_geometry(l_top_driving), add = TRUE, lwd = 5, col = "green")
+l_lsoa = l_original_lsoa %>% 
+  select(geo_code1, geo_code2, all, bicycle, car_driver, rf_avslope_perc, rf_dist_km)
+l_top_cycling = l_lsoa %>% 
+  top_n(n = 10, wt = bicycle)
+l_top_driving = l_lsoa %>% 
+  top_n(n = 10, wt = car_driver)
 
-# top 5 driving routes
-l_top_driving = l %>% 
-  top_n(n = 5, wt = car_driver)
+plot(z$geometry)
+plot(st_geometry(l_top_cycling), add = TRUE, lwd = 5, col = "green")
 plot(z$geometry)
 plot(st_geometry(l_top_driving), add = TRUE, lwd = 5, col = "red")
 ```
 
 - G7: Why are the results different? What are the advantages and disadvantages of using smaller zones, as represented by the LSOA data above?
 
-- G8 (bonus): do the same analysis but with the top **300** routes cycled and driven. Hint: set the line width with `lwd = l_top_cycling$bicycle / mean(l_top_cycling$bicycle)` to portray the relative importance of each route.
+<!-- - G8 (bonus): do the same analysis but with the top **30** routes with a  cycled and driven. Hint: set the line width with `lwd = l_top_cycling$bicycle / mean(l_top_cycling$bicycle)` to portray the relative importance of each route. -->
 
-```{r, echo=FALSE, warning=FALSE, fig.show='hold', fig.cap="Top 300 LSOA-LSOA desire lines with highest number of people cycling (left) and driving (right) in the Isle of Wight."}
+```{r, echo=FALSE, warning=FALSE, fig.show='hold', fig.cap="Top 300 LSOA-LSOA desire lines with highest number of people cycling (left) and driving (right) in the Isle of Wight.", eval=FALSE}
 # at the lsoa level
 l_top_cycling = l %>% 
   top_n(n = 300, wt = bicycle)
@@ -364,7 +363,7 @@ plot(st_geometry(l_top_driving), add = TRUE, lwd = l_top_driving$car_driver / me
 
 ## Modifying PCT data to identify routes/roads of interest
 
-- M1: Building on the example above, add a new column called `pcycle` to the object `l_msoa` that contains the % who cycle to work (hint: you might want to start this by typing `l_msoa$pcycle = ...`) and plot the results (shown in left hand panel in plot below).
+- M1: Building on the MSOA examples above, add a new column called `pcycle` to the object `l_msoa` that contains the % who cycle to work (hint: you might want to start this by typing `l_msoa$pcycle = ...`) and plot the results (shown in left hand panel in plot below).
 
 ```{r p2}
 l_msoa$pcycle = l_msoa$bicycle / l_msoa$all * 100
@@ -376,6 +375,23 @@ l_msoa$pcycle = l_msoa$bicycle / l_msoa$all * 100
 ```{r eval=FALSE, echo=FALSE}
 rnet = get_pct_rnet("isle-of-wight")
 ```
+
+- M3 Calculate the proportion of trips in the Isle of Wight that are less than 10 km in length and (bonus) plot the cumulative distribution graph for the fastest route distances
+
+```{r, echo=FALSE}
+l_less_than_10km = l %>% 
+  filter(rf_dist_km < 10)
+sum(l_less_than_10km$all) / sum(l$all)
+```
+
+- M4: Plot all the MSOA-MSOA desire lines that have a route distance of less than 10 KM *and* more than 5 people travelling by mode with colour varying by numbers of walking, cycling, and driving.
+
+```{r, fig.show='hold', out.width="33%"}
+plot(l_less_than_10km %>% filter(foot > 5) %>% select(foot))
+plot(l_less_than_10km %>% filter(bicycle > 5) %>% select(bicycle))
+plot(l_less_than_10km %>% filter(car_driver > 5) %>% select(car_driver))
+```
+
 
 ## Scenarios of change
 
