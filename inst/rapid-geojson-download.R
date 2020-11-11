@@ -49,6 +49,7 @@ s = c(
   `Satellite image` = "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'"
 )
 tms = c(FALSE, FALSE, FALSE, TRUE, TRUE, FALSE)
+# Find other basemaps at https://leaflet-extras.github.io/leaflet-providers/preview/
 
 # create map
 library(tmap)
