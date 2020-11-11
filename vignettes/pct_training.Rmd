@@ -384,7 +384,10 @@ l_less_than_10km = l %>%
 sum(l_less_than_10km$all) / sum(l$all)
 ```
 
-- M4: Plot all the MSOA-MSOA desire lines that have a route distance of less than 10 KM *and* more than 5 people travelling by mode with colour varying by numbers of walking, cycling, and driving.
+- M4: subset and then plot all the MSOA-MSOA desire lines that have a route distance of less than 10 KM *and* more than 5 people travelling by mode, for each of the following modes:
+   - walking
+   - cycling
+   - driving
 
 ```{r, fig.show='hold', out.width="33%"}
 plot(l_less_than_10km %>% filter(foot > 5) %>% select(foot))
