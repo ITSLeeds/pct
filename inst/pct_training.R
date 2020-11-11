@@ -61,8 +61,8 @@ plot(zones_all$geometry)
 plot(lines_all$geometry[lines_all$all > 500], col = "red", add = TRUE)
 
 # create 'active' desire lines (less than 5 km)
-active = lines_all %>% 
-  mutate(`Percent Active` = (bicycle + foot) / all * 100) %>% 
+active = lines_all %>%
+  mutate(`Percent Active` = (bicycle + foot) / all * 100) %>%
   filter(e_dist_km < max_distance)
 
 # interactive plot
@@ -78,7 +78,7 @@ tm_shape(active) +
 ##   addProviderTiles(providers$OpenStreetMap.BlackAndWhite) %>%
 ##   addPolylines(color = ~pal(`Percent Active`), weight = active$all / 100) %>%
 ##   addLegend(pal = pal, values = ~`Percent Active`)
-## 
+##
 ## pal = colorBin(palette = "RdYlBu", domain = car_dependent$`Percent Active`, bins = c(0, 20, 40, 60, 80, 100), reverse = TRUE)
 ## leaflet(data = car_dependent) %>%
 ##   addProviderTiles(providers$OpenStreetMap.BlackAndWhite) %>%
@@ -88,8 +88,8 @@ tm_shape(active) +
 
 ## ---- out.width="30%"----------------------------------------------------
 # Create car dependent desire lines
-car_dependent = lines_all %>% 
-  mutate(`Percent Drive` = (car_driver) / all * 100) %>% 
+car_dependent = lines_all %>%
+  mutate(`Percent Drive` = (car_driver) / all * 100) %>%
   filter(e_dist_km < max_distance)
 tm_shape(car_dependent) +
   tm_lines("Percent Drive", palette = "-RdYlBu", lwd = "all", scale = 9)
@@ -107,14 +107,14 @@ knitr::include_graphics("https://raw.githubusercontent.com/npct/pct-team/master/
 library(pct)
 library(dplyr) # suggestion: use library(tidyverse)
 z_original = get_pct_zones("isle-of-wight")
-z = z_original %>% 
+z = z_original %>%
   select(geo_code, geo_name, all, bicycle, car_driver)
 
 
 ## ---- echo=FALSE---------------------------------------------------------
 # the solution:
 # View(z)
-z_highest_cycling = z %>% 
+z_highest_cycling = z %>%
   top_n(n = 1, wt = bicycle)
 
 
@@ -126,20 +126,20 @@ plot(z_highest_cycling$geometry, col = "red", add = TRUE)
 ## ----get routes----------------------------------------------------------
 # Aim: get top 5 cycle routes
 l_original_msoa = get_pct_lines("isle-of-wight")
-l_msoa = l_original_msoa %>% 
+l_msoa = l_original_msoa %>%
   select(geo_code1, geo_code2, all, bicycle, car_driver, rf_avslope_perc, rf_dist_km)
 
 
 ## ---- echo=FALSE, warning=FALSE, fig.show='hold', fig.cap="Top 5 MSOA to MSOA desire lines with highest number of people cycling (left) and driving (right) in the Isle of Wight."----
 # View(l)
 l = l_msoa
-l_top_cycling = l %>% 
+l_top_cycling = l %>%
   top_n(n = 5, wt = bicycle)
 plot(z$geometry)
 plot(l_top_cycling, add = TRUE, lwd = 5, col = "green")
 
 # top 5 driving routes
-l_top_driving = l %>% 
+l_top_driving = l %>%
   top_n(n = 5, wt = car_driver)
 plot(z$geometry)
 plot(l_top_driving, add = TRUE, lwd = 5, col = "red")
@@ -156,15 +156,15 @@ plot(l_top_driving, add = TRUE, lwd = 5, col = "red")
 ## ---- echo=FALSE, warning=FALSE, fig.show='hold', fig.cap="Top 5 LSOA-LSOA desire lines with highest number of people cycling (left) and driving (right) in the Isle of Wight."----
 # at the lsoa level
 l_original_lsoa = get_pct_lines("isle-of-wight", geography = "lsoa")
-l = l_original_lsoa %>% 
+l = l_original_lsoa %>%
   select(geo_code1, geo_code2, all, bicycle, car_driver)
-l_top_cycling = l %>% 
+l_top_cycling = l %>%
   top_n(n = 5, wt = bicycle)
 plot(z$geometry)
 plot(l_top_cycling, add = TRUE, lwd = 5, col = "green")
 
 # top 5 driving routes
-l_top_driving = l %>% 
+l_top_driving = l %>%
   top_n(n = 5, wt = car_driver)
 plot(z$geometry)
 plot(l_top_driving, add = TRUE, lwd = 5, col = "red")
@@ -172,13 +172,13 @@ plot(l_top_driving, add = TRUE, lwd = 5, col = "red")
 
 ## ---- echo=FALSE, warning=FALSE, fig.show='hold', fig.cap="Top 300 LSOA-LSOA desire lines with highest number of people cycling (left) and driving (right) in the Isle of Wight."----
 # at the lsoa level
-l_top_cycling = l %>% 
+l_top_cycling = l %>%
   top_n(n = 300, wt = bicycle)
 plot(z$geometry)
 plot(l_top_cycling, add = TRUE, lwd = l_top_cycling$bicycle / mean(l_top_cycling$bicycle), col = "green")
 
 # top 5 driving routes
-l_top_driving = l %>% 
+l_top_driving = l %>%
   top_n(n = 300, wt = car_driver)
 plot(z$geometry)
 plot(l_top_driving, add = TRUE, lwd = l_top_driving$car_driver / mean(l_top_driving$car_driver), col = "red")
@@ -218,7 +218,7 @@ plot(l_msoa["pcycle_dutch"], lwd = l_msoa$all / mean(l_msoa$all), breaks = c(0, 
 
 ## ------------------------------------------------------------------------
 library(stplanr)
-l_top = l_msoa %>% 
+l_top = l_msoa %>%
   top_n(n = 1, wt = bicycle)
 
 
@@ -261,54 +261,54 @@ tm_shape(rnet_walk) +
 ## # Demo PCT Analysis#
 ## # Make a commuting quiet route network for Isle of Wight
 ## # and combine it with the travel to school route network
-## 
+##
 ## # Step 1: Load Library
 ## library(tidyverse)
 ## library(sf)
 ## library(pct)
 ## library(stplanr)
-## 
+##
 ## # Step 2: Get Data
 ## routes_commute = get_pct_routes_quiet(region = "isle-of-wight",
 ##                               purpose = "commute",
 ##                               geography = "lsoa")
-## 
+##
 ## lines_commute = get_pct_lines(region = "isle-of-wight",
 ##                               purpose = "commute",
 ##                               geography = "lsoa")
-## 
+##
 ## rnet_school = get_pct_rnet(region = "isle-of-wight",
 ##                            purpose = "school",
 ##                            geography = "lsoa")
-## 
+##
 ## # Step 3: Prepare Data
 ## lines_commute = lines_commute %>%
 ##   st_drop_geometry() %>%
 ##   select(id, bicycle, dutch_slc)
-## 
+##
 ## routes_commute = routes_commute %>%
 ##   select(id)
-## 
+##
 ## # Join Cycling Levels to Routes
 ## routes_commute = left_join(routes_commute, lines_commute)
 ## plot(routes_commute["bicycle"])
-## 
+##
 ## # Make a commuting Rnet
 ## rnet_commute = overline2(routes_commute,
 ##                          attrib = c("bicycle","dutch_slc"))
 ## plot(rnet_commute["bicycle"])
-## 
+##
 ## # Combine commuting and travel to schools
 ## rnet_school = rnet_school %>%
 ##   select(dutch_slc)
 ## rnet_commute = rnet_commute %>%
 ##   select(dutch_slc)
 ## rnet_commute$bicycle = NULL
-## 
-## 
+##
+##
 ## rnet_both = rbind(rnet_commute, rnet_school)
 ## rnet_both = overline2(rnet_both,
 ##                          attrib = c("dutch_slc"))
 ## mapview::mapview(rnet_both, at = c(50,100,200,500,1000))
-## 
+##
 

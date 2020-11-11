@@ -402,14 +402,14 @@ plot(l_less_than_10km %>% filter(car_driver > 5) %>% select(car_driver))
 
 ```{r}
 l_msoa$euclidean_distance = as.numeric(sf::st_length(l_msoa))
-l_msoa$pcycle_govtarget = uptake_pct_govtarget(
+l_msoa$pcycle_govtarget = uptake_pct_govtarget_2020(
   distance = l_msoa$rf_dist_km,
   gradient = l_msoa$rf_avslope_perc
   ) * 100 + l_msoa$pcycle
 ```
 
 ```{r change, echo=FALSE}
-l_msoa$pcycle_dutch = uptake_pct_godutch(
+l_msoa$pcycle_dutch = uptake_pct_godutch_2020(
   distance = l_msoa$rf_dist_km,
   gradient = l_msoa$rf_avslope_perc
   ) * 100 + l_msoa$pcycle
