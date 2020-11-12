@@ -283,7 +283,7 @@ tm_shape(rnet_all) +
 - V3 (Bonus): Run the following command to show the % of short trips in Isle of Wight made by active modes.
 
 
-```{r setup, out.width="30%", message=FALSE}
+```{r setup, out.width="100%", message=FALSE}
 # basic plot
 max_distance = 7
 # plot(zones_all$geometry)
@@ -300,7 +300,7 @@ tm_shape(active) +
 
 - V4 (Bonus): Use the same technique to to identify short distance trips with a high mode share by car, as follows:
 
-```{r, out.width="30%"}
+```{r, out.width="100%"}
 # Create car dependent desire lines
 car_dependent = lines_all %>% 
   mutate(`Percent Drive` = (car_driver) / all * 100) %>% 
@@ -340,7 +340,7 @@ plot(z_highest_cycling$geometry, col = "red", add = TRUE)
 
 - E4: Using the online interface, identify the top 5 MSOA to MSOA **desire lines** that have the highest number of people who cycle to work.
 
-- E5: Using the function `get_pct_lines()`, identify the top 5 MSOA to MSOA **desire lines** that have the highest number of people who cycle to work (hint: you might want to start with the code shown below).
+- E5: Using the function `top_n(n = 5, wt = bicycle)`, identify the top 5 MSOA to MSOA **desire lines** that have the highest number of people who cycle to work (hint: you might want to start with the code shown below).
     - Bonus: also find the 5 desire lines with the highest number of people driving to work. Plot them and find the straight line distance of these lines with the function `st_length()`.
     
 ```{r get routes}
