@@ -21,9 +21,9 @@ rapid_file_names = file.path("data/rapid-data", paste(substring(dirname(rapid_ur
 download.file(url = rapid_urls, destfile = rapid_file_names)
 
 # read one file at a time
-# library(sf)
-# west_of_england_cycleways = read_sf("data/rapid-data/west-of-england_cycleways.geojson")
-# west_of_england_cohesive_network = read_sf("data/rapid-data/west-of-england_cohesive_network.geojson")
+library(sf)
+west_of_england_cycleways = read_sf("data/rapid-data/west-of-england_cycleways.geojson")
+west_of_england_cohesive_network = read_sf("data/rapid-data/west-of-england_cohesive_network.geojson")
 
 # read all files in directory
 library(sf)
