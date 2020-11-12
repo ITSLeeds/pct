@@ -245,28 +245,52 @@ plot(rnet_all$geometry, col = "red", lwd = rnet_all$bicycle / 10, add = TRUE)
 ## Visualising PCT data
 
 At its heart, the PCT is a data visualisation tool.
-Type and run the following commands, which load packages and gets data we will use in the exercises .
-It should result in the map below, showing the % of short trips in Isle of Wight made by active modes.
+
+- V1: Create a static plot showing the route network layer with the `tmap` package
+
+```{r}
+tm_shape(rnet_all) +
+  tm_lines(lwd = "dutch_slc", scale = 9)
+```
+
+
+```{r, eval=FALSE, echo=FALSE}
+# tmap_mode("plot")
+tm_shape(zones_all) +
+  tm_polygons("all") +
+  tm_shape(rnet_all) +
+  tm_lines(lwd = c("bicycle", "dutch_slc"), scale = 9)
+```
+
+- V2: Create an interactive map showing the route network layer with the `tmap` package
+
+```{r}
+# interactive plot
+tmap_mode("view")
+tm_shape(rnet_all) +
+  tm_lines(lwd = "dutch_slc", scale = 9)
+```
+
+
+- V3 (Bonus): Run the following command to show the % of short trips in Isle of Wight made by active modes.
 
 
 ```{r setup, out.width="30%", message=FALSE}
 # basic plot
 max_distance = 7
-plot(zones_all$geometry)
-plot(lines_all$geometry[lines_all$all > 500], col = "red", add = TRUE)
+# plot(zones_all$geometry)
+# plot(lines_all$geometry[lines_all$all > 500], col = "red", add = TRUE)
 
 # create 'active' desire lines (less than 5 km)
 active = lines_all %>% 
   mutate(`Percent Active` = (bicycle + foot) / all * 100) %>% 
   filter(e_dist_km < max_distance)
 
-# interactive plot
-tmap_mode("view")
 tm_shape(active) +
   tm_lines("Percent Active", palette = "RdYlBu", lwd = "all", scale = 9)
 ```
 
-We can also use the data to explore car dependence, as follows:
+- V4 (Bonus): We can also use the data to explore car dependence, as follows:
 
 ```{r, out.width="30%"}
 # Create car dependent desire lines
@@ -279,13 +303,12 @@ tm_shape(car_dependent) +
 
 ## Exploring PCT data
 
-- G1: Using the PCT's online interface, hosted at [www.pct.bike/m/?r=isle-of-wight](https://www.pct.bike/m/?r=isle-of-wight), identify the MSOA **zone** that has the highest number of people who cycle to work.
+- E1: Using the PCT's online interface, hosted at [www.pct.bike/m/?r=isle-of-wight](https://www.pct.bike/m/?r=isle-of-wight), identify the MSOA **zone** that has the highest number of people who cycle to work.
 
-- G2: Using data downloaded with the command `get_pct_zones()`, identify the zone that has highest level of cycling with the function `top_n()` and save the result as an object called `z_highest_cycling` (hint: you may want to start by 'cleaning' the data you have downloaded to include only a few key columns with the function `select()`, as follows):
+- E2: Using data downloaded with the command `get_pct_zones()`, identify the zone that has highest level of cycling with the function `top_n()` and save the result as an object called `z_highest_cycling` (hint: you may want to start by 'cleaning' the data you have downloaded to include only a few key columns with the function `select()`, as follows):
 
 ```{r}
-z_original = get_pct_zones("isle-of-wight")
-z = z_original %>% 
+z = zones_all %>% 
   select(geo_code, geo_name, all, foot, bicycle, car_driver)
 ```
 
@@ -296,7 +319,7 @@ z_highest_cycling = z %>%
   top_n(n = 1, wt = bicycle)
 ```
 
-- G3: Use the `plot()` command to visualise where on the Isle of Wight this 'high cycling' zone is (hint: you will need to use the `plot()` function twice, once to plot `z$geometry`, and again with the argument `add = TRUE` and a `col` argument to add the layer on top of the base layer and give it a colour).
+- E3: Use the `plot()` command to visualise where on the Isle of Wight this 'high cycling' zone is (hint: you will need to use the `plot()` function twice, once to plot `z$geometry`, and again with the argument `add = TRUE` and a `col` argument to add the layer on top of the base layer and give it a colour).
 The result should look something like something this:
 
 ```{r, echo=FALSE}
@@ -304,15 +327,14 @@ plot(z$geometry)
 plot(z_highest_cycling$geometry, col = "red", add = TRUE)
 ```
 
-- G4: Using the online interface, identify the top 5 MSOA to MSOA **desire lines** that have the highest number of people who cycle to work.
+- E4: Using the online interface, identify the top 5 MSOA to MSOA **desire lines** that have the highest number of people who cycle to work.
 
-- G5: Using the function `get_pct_lines()`, identify the top 5 MSOA to MSOA **desire lines** that have the highest number of people who cycle to work (hint: you might want to start with the code shown below).
+- E5: Using the function `get_pct_lines()`, identify the top 5 MSOA to MSOA **desire lines** that have the highest number of people who cycle to work (hint: you might want to start with the code shown below).
     - Bonus: also find the 5 desire lines with the highest number of people driving to work. Plot them and find the straight line distance of these lines with the function `st_length()`.
     
 ```{r get routes}
 # Aim: get top 5 cycle routes
-l_original_msoa = get_pct_lines("isle-of-wight", geography = "msoa")
-l_msoa = l_original_msoa %>% 
+l_msoa = lines_all %>% 
   select(geo_code1, geo_code2, all, foot, bicycle, car_driver, rf_avslope_perc, rf_dist_km)
 ```
 
@@ -339,7 +361,7 @@ plot(st_geometry(l_top_driving), add = TRUE, lwd = 5, col = "red")
 # tm_shape(l_top_driving) + tm_lines("red", lwd = 7) + tm_basemap(server = leaflet::providers$OpenStreetMap.BlackAndWhite)
 ```
 
-- G6 (Bonus):  Repeat the exercise but calculate the top 10 LSOA to LSOA desire lines (by setting the argument `geography = "lsoa"`, remember to change the names of the objects you create). The results should look like this:
+- E6 (Bonus):  Repeat the exercise but calculate the top 10 LSOA to LSOA desire lines (by setting the argument `geography = "lsoa"`, remember to change the names of the objects you create). The results should look like this:
 
 ```{r, echo=FALSE, warning=FALSE, fig.show='hold', fig.cap="Top 10 LSOA-LSOA desire lines with highest number of people cycling (left) and driving (right) in the Isle of Wight."}
 # at the lsoa level
@@ -357,9 +379,9 @@ plot(z$geometry)
 plot(st_geometry(l_top_driving), add = TRUE, lwd = 5, col = "red")
 ```
 
-- G7: Why are the results different? What are the advantages and disadvantages of using smaller zones, as represented by the LSOA data above?
+- E7: Why are the results different? What are the advantages and disadvantages of using smaller zones, as represented by the LSOA data above?
 
-<!-- - G8 (bonus): do the same analysis but with the top **30** routes with a  cycled and driven. Hint: set the line width with `lwd = l_top_cycling$bicycle / mean(l_top_cycling$bicycle)` to portray the relative importance of each route. -->
+<!-- - E8 (bonus): do the same analysis but with the top **30** routes with a  cycled and driven. Hint: set the line width with `lwd = l_top_cycling$bicycle / mean(l_top_cycling$bicycle)` to portray the relative importance of each route. -->
 
 ```{r, echo=FALSE, warning=FALSE, fig.show='hold', fig.cap="Top 300 LSOA-LSOA desire lines with highest number of people cycling (left) and driving (right) in the Isle of Wight.", eval=FALSE}
 # at the lsoa level
