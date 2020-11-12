@@ -175,6 +175,14 @@ Part 3: using PCT data for local transport planning: 'you do'
     
 # Exercises
 
+## Useful links
+
+These links may be useful when working through the exercises below:
+
+- The codebook describing each variable in the PCT route: [od_l_rf_codebook.csv](https://github.com/npct/pct-shiny/blob/master/regions_www/www/static/02_codebooks/commute/od_l_rf_codebook.csv)
+- Folder containing all [codebooks, including variables in zone, line and centroid datasets](https://github.com/npct/pct-shiny/blob/master/regions_www/www/static/02_codebooks/)
+- The PCT tool itself, which can be used to cross-compare results from the analysis steps below: [www.pct.bike](https://www.pct.bike/)
+
 ## How the PCT works and what you can use it for
 
 - Take a look at the image below from [@lovelace_propensity_2017]. Which parts of the process are of most interest for your work?
@@ -290,7 +298,7 @@ tm_shape(active) +
   tm_lines("Percent Active", palette = "RdYlBu", lwd = "all", scale = 9)
 ```
 
-- V4 (Bonus): We can also use the data to explore car dependence, as follows:
+- V4 (Bonus): Use the same technique to to identify short distance trips with a high mode share by car, as follows:
 
 ```{r, out.width="30%"}
 # Create car dependent desire lines
@@ -300,6 +308,9 @@ car_dependent = lines_all %>%
 tm_shape(car_dependent) +
   tm_lines("Percent Drive", palette = "-RdYlBu", lwd = "all", scale = 9)
 ```
+
+Advanced: visualise the PCT data using a range of visualisation techniques.
+For inspiration, check out the [Making maps with R](https://geocompr.robinlovelace.net/adv-map.html) chapter of Geocomputation with R.
 
 ## Exploring PCT data
 
