@@ -475,7 +475,7 @@ plot(l_msoa["pcycle_dutch"], lwd = l_msoa$all / mean(l_msoa$all), breaks = c(0, 
 
 ## Routing
 
-- R1: Using the function `route_osrm()` find the route associated with the most cycled desire line in the Isle of Wight. The result should look similar to that displayed in the map below (hint: you may want to start your answer with the following lines of code - **warning: the function may need to run a few times before it works**):
+- R1: Using the function `route()` find the route associated with the most cycled desire line in the Isle of Wight. If you use the arguments `route_fun = osrmRoute` `returnclass = "sf"`, the result should look similar to that displayed in the map below (hint: you may want to start your answer with the following lines of code):
 
 ```{r}
 l_top = l_msoa %>% 
@@ -498,9 +498,9 @@ tm_shape(r_top) +
   tm_lines(lwd = 5)
 ```
 
-- R2: What are the problems associated with this route from a cycling perspective? Take a look at the help page opened by entering `?route_osrm` to identify the reason why the route is not particularly useful from a cycling perspective.
+- R2: What are the problems associated with this route from a cycling perspective? Take a look at the help page opened by entering `?route ` to identify the reason why the route is not particularly useful from a cycling perspective.
 
-- R3: Regenerate the route using the function `line2route()`. What is the difference in the length between each route, and what other differences can you spot? **Note: this exercise requires an API Key from CycleStreets.net.**
+- R3: Regenerate the route using the following command: `route(l = l_top, route_fun = cyclestreets::journey)`. What is the difference in the length between each route, and what other differences can you spot? **Note: this exercise requires an API Key from CycleStreets.net.**
 
 ```{r, echo=FALSE, eval=FALSE}
 r_cs = route(l = l_top, route_fun = cyclestreets::journey)
