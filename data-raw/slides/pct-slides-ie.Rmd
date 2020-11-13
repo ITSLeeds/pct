@@ -1,0 +1,254 @@
+---
+title: "The Propensity to Cycle Tool"
+# subtitle: '`r emojifont::emoji("bike")`<br/>For England and Wales'
+subtitle: '`r emojifont::emoji("bike")`<br/>For England, Wales and beyond'
+author: "Robin Lovelace and Joey Talbot, ITS, University of Leeds"
+date: 'TII Safety Webinar, 2020-11-13<br/><img class="img-footer" alt="" src="https://www.pct.bike/www/static/01_logos/pct-logo.png"><br/><img class="img-footer" alt="" src="https://www.stephanehess.me.uk/images/picture3.png">'
+output:
+  xaringan::moon_reader:
+    # css: ["default", "its.css"]
+    # chakra: libs/remark-latest.min.js
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+# bibliography:
+#  - ../vignettes/ref.bib
+#  - ../vignettes/ref_training.bib
+---
+
+```{r setup, include=FALSE, eval=FALSE}
+# get citations
+refs = RefManageR::ReadZotero(group = "418217", .params = list(collection = "JFR868KJ", limit = 100))
+refs_df = as.data.frame(refs)
+# View(refs_df)
+# citr::insert_citation(bib_file = "vignettes/refs_training.bib")
+RefManageR::WriteBib(refs, "refs.bib")
+# citr::tidy_bib_file(rmd_file = "vignettes/pct_training.Rmd", messy_bibliography = "vignettes/refs_training.bib")
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(message = FALSE)
+library(RefManageR)
+BibOptions(check.entries = FALSE, 
+           bib.style = "authoryear", 
+           cite.style = 'alphabetic', 
+           style = "markdown",
+           first.inits = FALSE,
+           hyperlink = FALSE, 
+           dashed = FALSE)
+my_bib = refs
+```
+
+```{r, include=FALSE}
+library(RefManageR)
+my_bib = RefManageR::ReadBib("~/itsleeds/pct/inst/rmd/refs.bib")
+```
+
+```{r, eval=FALSE, echo=FALSE, engine='bash'}
+# publish results online
+cp -Rv ~/itsleeds/pct/data-raw/slides/pct-slides-i* ~/saferactive/site/static/slides/
+# cp -Rv inst/rmd/libs ~/saferactive/site/static/slides/
+cd ~/saferactive/site
+git add -A
+git status
+git commit -am 'Update slides'
+git push
+cd -
+
+```
+
+
+background-image: url(https://media.giphy.com/media/YlQQYUIEAZ76o/giphy.gif)
+background-size: cover
+class: center, middle
+
+# How the PCT works
+
+---
+
+## The first prototype of the PCT
+
+- 1st prototype: Hackathon at ODI Leeds in February 2015
+
+- We identifying key routes and mapped them
+
+- For description of aims, see Lovelace et al. (2017)
+
+```{r, echo=FALSE}
+knitr::include_graphics("https://raw.githubusercontent.com/npct/pct-team/master/figures/early.png")
+```
+
+---
+
+<!-- ## Launched in 2017 -->
+
+- Launched in 2017 with the Cycling and Walking Investment Strategy ([CWIS](https://www.gov.uk/government/publications/cycling-and-walking-investment-strategy))
+
+![](https://raw.githubusercontent.com/npct/pct-team/master/figures/front-page-leeds-pct-demo.png)
+
+Photo: demo of the PCT to Secretary of State for Transport ([March 2017](https://environment.leeds.ac.uk/transport/news/article/187/research-showcased-to-secretary-of-state))
+
+---
+
+## The important of open access models
+
+![](https://pbs.twimg.com/media/EkRvDM0WkAIZmFV?format=jpg&name=small)
+
+---
+
+## The PCT in 2020
+
+- Now the go-to tool for strategic cycle network planning in England and Wales, used by most local authorities with cycling plans ([source](https://npct.github.io/pct-shiny/regions_www/www/static/03d_other_reports/2019-use-of-pct-report.pdf)).
+
+.pull-left[
+
+## Geographic levels in the PCT
+
+- Generate and analyse route networks for transport planning with reference to:
+    - Zones
+    - Origin-destination (OD) data
+    - Geographic desire lines
+    - Route allocation using different routing services
+    - Route network generation and analysis
+]
+
+.pull-right[
+
+![](https://user-images.githubusercontent.com/1825120/94201205-9758c600-feb3-11ea-8383-a01966457562.png)
+See these levels at [www.pct.bike](https://www.pct.bike)
+
+]
+
+---
+
+background-image: url(https://user-images.githubusercontent.com/1825120/96583573-d3c1eb00-12d4-11eb-88b8-ca78087b63f7.png)
+
+# Live demo of the PCT for Bristol
+
+## See https://www.pct.bike/
+
+---
+
+
+.pull-left[
+
+# Uses of the PCT
+
+- Visioning
+- Planning strategic cycle networks
+- Identifying corridors with high latent demand
+
+Uses that were not initially planned
+
+- Pop-up cycleway planning
+- LTN planning?
+
+]
+
+--
+
+.pull-right[
+
+## Deploying in new contexts
+
+- Requires survey based or synthetic OD data, to be processed by software developed at Leeds `r Citep(my_bib, "lovelace_stplanr:_2018", .opts = list(cite.style = "authoryear"))`
+- For mor on methods, see the [transport chapter](https://geocompr.robinlovelace.net/transport.html) (available free [online](https://geocompr.robinlovelace.net/)) `r Citep(my_bib, "lovelace_geocomputation_2019", .opts = list(cite.style = "authoryear"))` 
+- Can also be used for specific contexts (e.g. cycling to school, cycling to public transport) `r Citep(my_bib, "goodman_scenarios_2019", .opts = list(cite.style = "authoryear"))`
+
+]
+
+--
+
+#### For further info, see the training materials at [itsleeds.github.io](https://itsleeds.github.io/pct/articles/pct_training.html)
+
+
+#### Many use cases on the PCT website: [pct.bike/manual.html](https://www.pct.bike/manual.html)
+
+- Case studies of over a dozen areas, including Greater Manchester and Herefordshire in the manual
+
+---
+
+## New possibilities in the PCT approach
+
+See [web.tecnico.ulisboa.pt](http://web.tecnico.ulisboa.pt/~rosamfelix/gis/declives/DeclivesLisboa.html) for interactive map
+
+![](https://user-images.githubusercontent.com/1825120/99063305-389ef700-259c-11eb-94cc-24a85c3858db.png)
+---
+
+background-image: url(https://raw.githubusercontent.com/saferactive/saferactive/master/figures/la-multipliers.gif)
+
+--
+
+## Estimating change in exposure 
+
+### Tackling denominator neglect
+
+![]()
+
+---
+
+## Estimating safety levels in KSI/bkm at high resolution
+
+![](https://user-images.githubusercontent.com/1825120/97208200-c7490100-17b2-11eb-858d-5eb3fc713b25.png)
+
+---
+
+## Estimating health benefits of cycling uptake with the PCT
+
+- The PCT uses a modified version of the HEAT methodology to calculate health benefits of scenarios of change
+- Based on the DfT's TAG methodology
+- The scenarios are **what if** scenarios not forecasts 
+- See the PCT manual for further information: [pct.bike/manual.html](https://npct.github.io/pct-shiny/regions_www/www/static/03a_manual/pct-bike-eng-user-manual-c1.pdf)
+- See the DfT's [AMAT tool](https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/888754/amat-user-guidance.pdf) also
+
+![](https://user-images.githubusercontent.com/1825120/96588892-15a25f80-12dc-11eb-990b-1fc3c66e71c9.png)
+
+---
+
+## From evidence to network plans
+
+Plans from Leeds City Council responding to national [guidance](https://www.gov.uk/government/publications/reallocating-road-space-in-response-to-covid-19-statutory-guidance-for-local-authorities) and [funding](https://www.gov.uk/government/news/2-billion-package-to-create-new-era-for-cycling-and-walking) for 'pop-up' cycleways (image credit: [Leeds City Council](https://news.leeds.gov.uk/news/leeds-city-council-announces-emergency-walking-and-cycling-plans-in-response-to-covid-19)):
+
+
+![](https://pbs.twimg.com/media/EZ_-A0dXgAAlBzt?format=png&name=900x900)
+
+---
+
+background-image: url(https://raw.githubusercontent.com/cyipt/popupCycleways/master/figures/results-top-leeds.png)
+
+## The Rapid tool - see [cyipt.bike/rapid](https://www.cyipt.bike/rapid/)
+
+---
+
+# References
+
+```{r, 'refs', results="asis", echo=FALSE}
+PrintBibliography(my_bib)
+# RefManageR::WriteBib(my_bib, "refs-geostat.bib")
+```
+
+<!-- --- -->
+
+<!-- ## Transport planning software -->
+
+<!-- Transport modelling software products are a vital component of modern transport planning *and* research. -->
+
+<!-- - They generate the evidence base on which strategic investments are made and, furthermore, -->
+<!-- - provide a powerful mechanism for researching alternative futures. -->
+
+<!-- -- -->
+
+<!-- It would not be an overstatement to say that software determines the range of futures that are visible to policymakers. This makes status of transport modelling software and how it may evolve in the future important questions. -->
+
+<!-- What will transport software look like? What will their capabilities be? And who will control? Answers to each of these questions will affect the future of transport systems.  -->
+
+<!-- -- -->
+
+<!-- - Premise: transport planning/modelling software used in practice ~~will become~~ is becoming increasingly data-driven, modular and open.  -->
+
+
+
+<!-- --- -->
+
+<!-- ```{r geocompr-cover, echo=FALSE, out.width="20%"} -->
+<!-- knitr::include_graphics("https://geocompr.robinlovelace.net/images/cover.png") -->
+<!-- ``` -->
