@@ -154,7 +154,8 @@ https://doi.org/10.5198/jtlu.2016.862</p>
   d3 <span class='op'>=</span> <span class='fl'>0.00805</span>,
   h1 <span class='op'>=</span> <span class='op'>-</span><span class='fl'>0.271</span>,
   i1 <span class='op'>=</span> <span class='fl'>0.009394</span>,
-  i2 <span class='op'>=</span> <span class='op'>-</span><span class='fl'>0.05135</span>
+  i2 <span class='op'>=</span> <span class='op'>-</span><span class='fl'>0.05135</span>,
+  verbose <span class='op'>=</span> <span class='cn'>FALSE</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -196,6 +197,10 @@ https://doi.org/10.5198/jtlu.2016.862</p>
       <th>i2</th>
       <td><p>Distance-hilliness interaction term 2</p></td>
     </tr>
+    <tr>
+      <th>verbose</th>
+      <td><p>Print messages? <code>FALSE</code> by default.</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
@@ -227,7 +232,7 @@ https://doi.org/10.5198/jtlu.2016.862</p>
 <span class='fu'>uptake_pct_godutch</span><span class='op'>(</span><span class='va'>distance</span>, <span class='va'>gradient</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] 0.04132445</div><div class='input'><span class='va'>l</span> <span class='op'>=</span> <span class='va'>routes_fast_leeds</span>
 <span class='va'>pcycle_scenario</span> <span class='op'>=</span> <span class='fu'>uptake_pct_godutch</span><span class='op'>(</span><span class='va'>l</span><span class='op'>$</span><span class='va'>length</span>, <span class='va'>l</span><span class='op'>$</span><span class='va'>av_incline</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Distance assumed in m, switching to km</span></div><div class='input'><span class='fu'><a href='https://r-spatial.github.io/sf/reference/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>l</span><span class='op'>$</span><span class='va'>length</span>, <span class='va'>pcycle_scenario</span><span class='op'>)</span>
+<span class='fu'><a href='https://r-spatial.github.io/sf/reference/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>l</span><span class='op'>$</span><span class='va'>length</span>, <span class='va'>pcycle_scenario</span><span class='op'>)</span>
 </div><div class='img'><img src='uptake_pct_godutch-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
