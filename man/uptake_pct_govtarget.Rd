@@ -17,7 +17,8 @@ uptake_pct_govtarget(
   d3 = 0.00805,
   h1 = -0.271,
   i1 = 0.009394,
-  i2 = -0.05135
+  i2 = -0.05135,
+  verbose = FALSE
 )
 
 uptake_pct_govtarget_2020(
@@ -30,7 +31,8 @@ uptake_pct_govtarget_2020(
   h1 = -0.2555,
   h2 = -0.78,
   i1 = 0.02006,
-  i2 = -0.1234
+  i2 = -0.1234,
+  verbose = FALSE
 )
 
 uptake_pct_godutch_2020(
@@ -43,7 +45,8 @@ uptake_pct_godutch_2020(
   h1 = -0.2555,
   h2 = -0.78,
   i1 = 0.02006,
-  i2 = -0.1234
+  i2 = -0.1234,
+  verbose = FALSE
 )
 
 uptake_pct_govtarget_school2(
@@ -53,7 +56,8 @@ uptake_pct_govtarget_school2(
   d1 = -1.87,
   d2 = 5.961,
   h1 = -0.529,
-  h2 = -0.63
+  h2 = -0.63,
+  verbose = FALSE
 )
 
 uptake_pct_godutch_school2(
@@ -63,7 +67,8 @@ uptake_pct_godutch_school2(
   d1 = -1.87 + 0.3438,
   d2 = 5.961,
   h1 = -0.529,
-  h2 = -0.63
+  h2 = -0.63,
+  verbose = FALSE
 )
 }
 \arguments{
@@ -84,6 +89,8 @@ uptake_pct_godutch_school2(
 \item{i1}{Distance-hilliness interaction term 1}
 
 \item{i2}{Distance-hilliness interaction term 2}
+
+\item{verbose}{Print messages? \code{FALSE} by default.}
 
 \item{h2}{Hilliness term 2}
 }

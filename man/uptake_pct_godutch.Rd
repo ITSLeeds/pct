@@ -13,7 +13,8 @@ uptake_pct_godutch(
   d3 = 0.00805,
   h1 = -0.271,
   i1 = 0.009394,
-  i2 = -0.05135
+  i2 = -0.05135,
+  verbose = FALSE
 )
 }
 \arguments{
@@ -34,6 +35,8 @@ uptake_pct_godutch(
 \item{i1}{Distance-hilliness interaction term 1}
 
 \item{i2}{Distance-hilliness interaction term 2}
+
+\item{verbose}{Print messages? \code{FALSE} by default.}
 }
 \description{
 This function implements the uptake model described in the original

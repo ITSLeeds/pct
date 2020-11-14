@@ -33,6 +33,7 @@
 #' @param h2 Hilliness term 2
 #' @param i1 Distance-hilliness interaction term 1
 #' @param i2 Distance-hilliness interaction term 2
+#' @param verbose Print messages? `FALSE` by default.
 #'
 #' @export
 #' @examples
@@ -90,14 +91,15 @@ uptake_pct_govtarget = function(
   d3 = 0.008050,
   h1 = -0.2710,
   i1 = 0.009394,
-  i2 = -0.05135
+  i2 = -0.05135,
+  verbose = FALSE
 ) {
   if(!exists(c("distance", "gradient")) |
      !is.numeric(c(distance, gradient))) {
     stop("distance and gradient need to be numbers.")
   }
   # is it in m
-  if(mean(distance, na.rm = TRUE) > 1000) {
+  if(mean(distance, na.rm = TRUE) > 1000 && verbose) {
     message("Distance assumed in m, switching to km")
     distance = distance / 1000
   }
@@ -167,14 +169,15 @@ uptake_pct_godutch = function(
   d3 = 0.008050,
   h1 = -0.2710,
   i1 = 0.009394,
-  i2 = -0.05135
+  i2 = -0.05135,
+  verbose = FALSE
   ) {
   if(!exists(c("distance", "gradient")) |
      !is.numeric(c(distance, gradient))) {
     stop("distance and gradient need to be numbers.")
   }
   # is it in m
-  if(mean(distance, na.rm = TRUE) > 1000) {
+  if(mean(distance, na.rm = TRUE) > 1000 && verbose) {
     message("Distance assumed in m, switching to km")
     distance = distance / 1000
   }
@@ -200,14 +203,15 @@ uptake_pct_govtarget_2020 = function(
   h1 = -0.2555,
   h2 = -0.78,
   i1 = 0.02006,
-  i2 = -0.1234
+  i2 = -0.1234,
+  verbose = FALSE
 ) {
   if(!exists(c("distance", "gradient")) |
      !is.numeric(c(distance, gradient))) {
     stop("distance and gradient need to be numbers.")
   }
   # is it in m
-  if(mean(distance, na.rm = TRUE) > 1000) {
+  if(mean(distance, na.rm = TRUE) > 1000 && verbose) {
     message("Distance assumed in m, switching to km")
     distance = distance / 1000
   }
@@ -243,14 +247,15 @@ uptake_pct_godutch_2020 = function(
   h1 = -0.2555,
   h2 = -0.78,
   i1 = 0.02006,
-  i2 = -0.1234
+  i2 = -0.1234,
+  verbose = FALSE
 ) {
   if(!exists(c("distance", "gradient")) |
      !is.numeric(c(distance, gradient))) {
     stop("distance and gradient need to be numbers.")
   }
   # is it in m
-  if(mean(distance, na.rm = TRUE) > 1000) {
+  if(mean(distance, na.rm = TRUE) > 1000 && verbose) {
     message("Distance assumed in m, switching to km")
     distance = distance / 1000
   }
@@ -288,7 +293,8 @@ uptake_pct_govtarget_school2 = function(
   d2 = 5.961,
   # d3 = -0.2401,
   h1 = -0.5290,
-  h2 = -0.63
+  h2 = -0.63,
+  verbose = FALSE
   # i1 = 0.02006,
   # i2 = -0.1234
 ) {
@@ -306,7 +312,7 @@ uptake_pct_govtarget_school2 = function(
     stop("distance and gradient need to be numbers.")
   }
   # is it in m
-  if(mean(distance, na.rm = TRUE) > 1000) {
+  if(mean(distance, na.rm = TRUE) > 1000 && verbose) {
     message("Distance assumed in m, switching to km")
     distance = distance / 1000
   }
@@ -336,7 +342,8 @@ uptake_pct_godutch_school2 = function(
   d2 = 5.961,
   # d3 = -0.2401,
   h1 = -0.5290,
-  h2 = -0.63
+  h2 = -0.63,
+  verbose = FALSE
   # i1 = 0.02006,
   # i2 = -0.1234
 ) {
@@ -359,7 +366,7 @@ uptake_pct_godutch_school2 = function(
     stop("distance and gradient need to be numbers.")
   }
   # is it in m
-  if(mean(distance, na.rm = TRUE) > 1000) {
+  if(mean(distance, na.rm = TRUE) > 1000 && verbose) {
     message("Distance assumed in m, switching to km")
     distance = distance / 1000
   }
