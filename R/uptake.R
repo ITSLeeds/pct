@@ -99,7 +99,7 @@ uptake_pct_govtarget = function(
     stop("distance and gradient need to be numbers.")
   }
   # is it in m
-  if(mean(distance, na.rm = TRUE) > 1000) {
+  if(mean(distance, na.rm = TRUE) > 100) {
     if(verbose) {
       message("Distance assumed in m, switching to km")
     }
@@ -179,7 +179,7 @@ uptake_pct_godutch = function(
     stop("distance and gradient need to be numbers.")
   }
   # is it in m
-  if(mean(distance, na.rm = TRUE) > 1000) {
+  if(mean(distance, na.rm = TRUE) > 100) {
     if(verbose) {
       message("Distance assumed in m, switching to km")
     }
@@ -215,7 +215,7 @@ uptake_pct_govtarget_2020 = function(
     stop("distance and gradient need to be numbers.")
   }
   # is it in m
-  if(mean(distance, na.rm = TRUE) > 1000) {
+  if(mean(distance, na.rm = TRUE) > 100) {
     if(verbose) {
       message("Distance assumed in m, switching to km")
     }
@@ -261,7 +261,7 @@ uptake_pct_godutch_2020 = function(
     stop("distance and gradient need to be numbers.")
   }
   # is it in m
-  if(mean(distance, na.rm = TRUE) > 1000) {
+  if(mean(distance, na.rm = TRUE) > 100) {
     if(verbose) {
       message("Distance assumed in m, switching to km")
     }
@@ -320,7 +320,7 @@ uptake_pct_govtarget_school2 = function(
     stop("distance and gradient need to be numbers.")
   }
   # is it in m
-  if(mean(distance, na.rm = TRUE) > 1000) {
+  if(mean(distance, na.rm = TRUE) > 100) {
     if(verbose) {
       message("Distance assumed in m, switching to km")
     }
@@ -376,7 +376,7 @@ uptake_pct_godutch_school2 = function(
     stop("distance and gradient need to be numbers.")
   }
   # is it in m
-  if(mean(distance, na.rm = TRUE) > 1000) {
+  if(mean(distance, na.rm = TRUE) > 100) {
     if(verbose) {
       message("Distance assumed in m, switching to km")
     }
