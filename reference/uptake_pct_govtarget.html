@@ -217,7 +217,8 @@ which states that:</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>distance</th>
-      <td><p>Vector distance numeric values of routes.</p></td>
+      <td><p>Vector distance numeric values of routes in km
+(switches to km if more than 100).</p></td>
     </tr>
     <tr>
       <th>gradient</th>
@@ -279,6 +280,9 @@ pcycle = exp ([logit (pcycle)]) / (1 + (exp([logit(pcycle)])
 <code>uptake_pct_godutch_2020()</code>
 approximate the uptake models used in the updated 2020 release of
 the PCT results.</p>
+<p>If the <code>distance</code> parameter is greater than 100, it is assumed that it is in m.
+If for some reason you want to model cycling uptake associated with trips with
+distances of less than 100 m, convert the distances to km first.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>distance</span> <span class='op'>=</span> <span class='fl'>15</span>
