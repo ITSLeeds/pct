@@ -23,7 +23,12 @@
 #' approximate the uptake models used in the updated 2020 release of
 #' the PCT results.
 #'
-#' @param distance Vector distance numeric values of routes.
+#' If the `distance` parameter is greater than 100, it is assumed that it is in m.
+#' If for some reason you want to model cycling uptake associated with trips with
+#' distances of less than 100 m, convert the distances to km first.
+#'
+#' @param distance Vector distance numeric values of routes in km
+#' (switches to km if more than 100).
 #' @param gradient Vector gradient numeric values of routes.
 #' @param alpha The intercept
 #' @param d1 Distance term 1

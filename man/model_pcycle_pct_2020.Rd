@@ -9,7 +9,8 @@ model_pcycle_pct_2020(pcycle, distance, gradient, weights)
 \arguments{
 \item{pcycle}{The proportion of trips by bike, e.g. 0.1, meaning 10\%}
 
-\item{distance}{Vector distance numeric values of routes.}
+\item{distance}{Vector distance numeric values of routes in km
+(switches to km if more than 100).}
 
 \item{gradient}{Vector gradient numeric values of routes.}
 

@@ -18,7 +18,8 @@ uptake_pct_godutch(
 )
 }
 \arguments{
-\item{distance}{Vector distance numeric values of routes.}
+\item{distance}{Vector distance numeric values of routes in km
+(switches to km if more than 100).}
 
 \item{gradient}{Vector gradient numeric values of routes.}
 
