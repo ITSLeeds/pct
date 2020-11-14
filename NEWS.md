@@ -1,5 +1,3 @@
-# pct (development version)
-
 # pct 0.6.0
 
 - New functions `uptake_pct_govtarget_school2()` and `uptake_pct_godutch_school2()`
