@@ -112,7 +112,7 @@ To get the centroids in Isle of Wight, you would run:
 ```{r, eval=TRUE}
 library(pct)
 wight_centroids = get_pct_centroids(region = "isle-of-wight", geography = "msoa")
-wight_zones = get_pct_zones(region = "isle-of-wight")
+wight_zones = get_pct_zones(region = "isle-of-wight", geography = "msoa")
 ```
 
 Let's verify that the data gave us what we would expect to see:
@@ -127,7 +127,7 @@ The zones with higher cycling levels are in the more densely populated south of 
 Likewise, the following command downloads the desire lines for the Isle of Wight:
 
 ```{r get_pct_lines, eval=FALSE}
-wight_lines_pct = get_pct_lines(region = "isle-of-wight")
+wight_lines_pct = get_pct_lines(region = "isle-of-wight", geography = "msoa")
 ```
 
 
