@@ -189,8 +189,22 @@ Underlying the PCT is origin-destination data from the 2011 Census.
 The MSOA-level data is open access, so we only provide access to this dataset.
 The following command gets the origin-destination data for the Isle of Wight:
 
-```{r, message=FALSE}
+```{r, eval=FALSE}
 wight_od_all = get_od(region = "wight")
+```
+
+```{r, echo=FALSE, eval=FALSE}
+saveRDS(wight_od_all, "wight_od_all.Rds")
+piggyback::pb_upload("wight_od_all.Rds")
+piggyback::pb_download_url("wight_od_all.Rds")
+```
+
+```{r echo=FALSE}
+u = "https://github.com/ITSLeeds/pct/releases/download/0.5.0/wight_od_all.Rds"
+wight_od_all = readRDS(url(u))
+```
+
+```{r, message=FALSE}
 summary(wight_od_all$geo_code1 %in% wight_centroids$geo_code)
 summary(wight_od_all$geo_code2 %in% wight_centroids$geo_code)
 ```
