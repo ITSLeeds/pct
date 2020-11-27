@@ -99,8 +99,7 @@ uptake_pct_govtarget = function(
   i2 = -0.05135,
   verbose = FALSE
 ) {
-  if(!exists(c("distance", "gradient")) |
-     !is.numeric(c(distance, gradient))) {
+  if(!is.numeric(c(distance, gradient))) {
     stop("distance and gradient need to be numbers.")
   }
   # is it in m
@@ -179,7 +178,7 @@ uptake_pct_godutch = function(
   i2 = -0.05135,
   verbose = FALSE
   ) {
-  if(!exists(c("distance", "gradient")) |
+  if(
      !is.numeric(c(distance, gradient))) {
     stop("distance and gradient need to be numbers.")
   }
@@ -215,7 +214,7 @@ uptake_pct_govtarget_2020 = function(
   i2 = -0.1234,
   verbose = FALSE
 ) {
-  if(!exists(c("distance", "gradient")) |
+  if(
      !is.numeric(c(distance, gradient))) {
     stop("distance and gradient need to be numbers.")
   }
@@ -261,7 +260,7 @@ uptake_pct_godutch_2020 = function(
   i2 = -0.1234,
   verbose = FALSE
 ) {
-  if(!exists(c("distance", "gradient")) |
+  if(
      !is.numeric(c(distance, gradient))) {
     stop("distance and gradient need to be numbers.")
   }
@@ -320,7 +319,7 @@ uptake_pct_govtarget_school2 = function(
   # Equation 2.1 (secondary school children):
   #   logit (pcycle) = −7.178 + (−1.870 * distance) + (5.961 * distance sqrt) + (−0.5290 * centred_gradient)
   # pcycle = exp ([logit (pcycle)])/(1 + (exp([logit(pcycle)])))
-  if(!exists(c("distance", "gradient")) |
+  if(
      !is.numeric(c(distance, gradient))) {
     stop("distance and gradient need to be numbers.")
   }
@@ -376,7 +375,7 @@ uptake_pct_godutch_school2 = function(
   #   (1.988  * distancesqrt)  +  (0.008775* distancesq) +
   #   (-0.2555* gradient) + (0.02006* distance*gradient) +
   #   (-0.1234* distancesqrt*gradient)
-  if(!exists(c("distance", "gradient")) |
+  if(
      !is.numeric(c(distance, gradient))) {
     stop("distance and gradient need to be numbers.")
   }
