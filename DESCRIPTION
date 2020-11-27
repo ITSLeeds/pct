@@ -6,6 +6,8 @@ Authors@R: c(
     person("Robin", "Lovelace", email = "rob00x@gmail.com", role = c("aut", "cre"),
       comment = c(ORCID = "0000-0001-5679-6536")),
     person("Layik", "Hama", email = "layik.hama@gmail.com", role = c("aut"),
+      comment = c(ORCID = "0000-0003-1912-4890")),
+    person("Nathanael", "Sheehan", role = c("cbt"),
       comment = c(ORCID = "0000-0003-1912-4890"))
     )
 Description: Functions and example data to teach and
