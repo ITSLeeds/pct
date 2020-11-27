@@ -1,9 +1,9 @@
 # pct 0.7.0
 
-# pct 0.6.1
-
 - New argument `verbose`, false by default, in uptake functions
 - Updated training vignette
+- Updated introductory `pct` vignette
+- Fix in code for checks
 
 # pct 0.6.0
 
