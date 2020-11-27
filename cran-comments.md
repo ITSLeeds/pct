@@ -1,4 +1,4 @@
-Updated submission with fix for failing tests.
+Updated submission with fixxed url.
 
 ## Test environments
 * local Ubuntu 20.04 install, R 4.0.2
