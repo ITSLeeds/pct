@@ -180,7 +180,7 @@ NULL
 #' @docType data
 #' @keywords datasets
 #' @name wight_routes_30
-#' @aliases wight_rnet
+#' @aliases wight_rnet wight_routes_30_cs
 #' @examples
 #' names(wight_routes_30)
 #' head(wight_routes_30)
