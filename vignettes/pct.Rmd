@@ -88,6 +88,8 @@ library(sf)
 library(dplyr)
 library(stplanr)
 library(leaflet)
+library(ggplot2)
+library(pbapply)
 ```
 
 
@@ -110,7 +112,6 @@ For now, let's see how the functions work.
 To get the centroids in Isle of Wight at the lower-resolution (smaller files) MSOA level (LSOA level data is returned by default or by replacing `msoa` with `lsoa` in the code below) you would run:
 
 ```{r}
-library(pct)
 wight_centroids = get_pct_centroids(region = "isle-of-wight", geography = "msoa")
 wight_zones = get_pct_zones(region = "isle-of-wight", geography = "msoa")
 ```
@@ -357,7 +358,7 @@ In terms of cycling uptake, the results are shown below:
 wight_routes_30_cs$govtarget = wight_lines_census_30$bicycle +
   pcycle_govtarget * wight_lines_census_30$all
 wight_routes_30_cs$govtarget_pct = wight_lines_30$govtarget_slc
-library(ggplot2)
+
 ggplot(wight_routes_30_cs) +
   geom_point(aes(length, govtarget), colour = "red") +
   geom_point(aes(length, govtarget_pct), colour = "blue") 
