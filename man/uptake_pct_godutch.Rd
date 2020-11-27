@@ -57,16 +57,17 @@ logit = -3.959 + 2.523 +
   (1.866 * sqrt(distance)) +
   (0.008050 * distance^2) +
   (-0.2710 * gradient) +
-  (0.009394 * distance*gradient) +
-  (-0.05135 * sqrt(distance) *gradient)
+  (0.009394 * distance * gradient) +
+  (-0.05135 * sqrt(distance) * gradient)
 logit
 # Result: -3.144098
 
 pcycle = exp(logit) / (1 + exp(logit))
 # Result: 0.04132445
 boot::inv.logit(logit)
-uptake_pct_godutch(distance, gradient, alpha = -3.959 + 2.523, d1 = -0.5963 - 0.07626,
- d2 = 1.866, d3 = 0.008050, h1 = -0.2710, i1 = 0.009394, i2 = -0.05135
+uptake_pct_godutch(distance, gradient,
+  alpha = -3.959 + 2.523, d1 = -0.5963 - 0.07626,
+  d2 = 1.866, d3 = 0.008050, h1 = -0.2710, i1 = 0.009394, i2 = -0.05135
 )
 # these are the default values
 uptake_pct_godutch(distance, gradient)

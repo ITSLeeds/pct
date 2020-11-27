@@ -44,12 +44,12 @@
 #' @examples
 #' distance = 15
 #' gradient = 2
-#' logit_pcycle = -3.959 +   # alpha
-#'   (-0.5963 * distance) +    # d1
-#'   (1.866 * sqrt(distance)) +  # d2
+#' logit_pcycle = -3.959 + # alpha
+#'   (-0.5963 * distance) + # d1
+#'   (1.866 * sqrt(distance)) + # d2
 #'   (0.008050 * distance^2) + # d3
-#'   (-0.2710 * gradient) +    # h1
-#'   (0.009394 * distance * gradient) +  # i1
+#'   (-0.2710 * gradient) + # h1
+#'   (0.009394 * distance * gradient) + # i1
 #'   (-0.05135 * sqrt(distance) * gradient) # i2
 #' boot::inv.logit(logit_pcycle)
 #' uptake_pct_govtarget(15, 2)
@@ -88,23 +88,22 @@
 #' mean(godutch_slc)
 #' mean(godutch_slc_2020)
 uptake_pct_govtarget = function(
-  distance,
-  gradient,
-  alpha = -3.959,
-  d1 = -0.5963,
-  d2 = 1.866,
-  d3 = 0.008050,
-  h1 = -0.2710,
-  i1 = 0.009394,
-  i2 = -0.05135,
-  verbose = FALSE
-) {
-  if(!is.numeric(c(distance, gradient))) {
+                                 distance,
+                                 gradient,
+                                 alpha = -3.959,
+                                 d1 = -0.5963,
+                                 d2 = 1.866,
+                                 d3 = 0.008050,
+                                 h1 = -0.2710,
+                                 i1 = 0.009394,
+                                 i2 = -0.05135,
+                                 verbose = FALSE) {
+  if (!is.numeric(c(distance, gradient))) {
     stop("distance and gradient need to be numbers.")
   }
   # is it in m
-  if(mean(distance, na.rm = TRUE) > 100) {
-    if(verbose) {
+  if (mean(distance, na.rm = TRUE) > 100) {
+    if (verbose) {
       message("Distance assumed in m, switching to km")
     }
     distance = distance / 1000
@@ -121,11 +120,11 @@ uptake_pct_govtarget = function(
   # c = -0.5963
   # d = -0.2710
   pcycle_scenario = alpha +
-    (d1 * distance) +    # d1
-    (d2 * sqrt(distance)) +  # d2
+    (d1 * distance) + # d1
+    (d2 * sqrt(distance)) + # d2
     (d3 * distance^2) + # d3
-    (h1 * gradient) +    # h1
-    (i1 * distance * gradient) +  # i1
+    (h1 * gradient) + # h1
+    (i1 * distance * gradient) + # i1
     (i2 * sqrt(distance) * gradient) # i2
   boot::inv.logit(pcycle_scenario)
 }
@@ -150,16 +149,17 @@ uptake_pct_govtarget = function(
 #'   (1.866 * sqrt(distance)) +
 #'   (0.008050 * distance^2) +
 #'   (-0.2710 * gradient) +
-#'   (0.009394 * distance*gradient) +
-#'   (-0.05135 * sqrt(distance) *gradient)
+#'   (0.009394 * distance * gradient) +
+#'   (-0.05135 * sqrt(distance) * gradient)
 #' logit
 #' # Result: -3.144098
 #'
 #' pcycle = exp(logit) / (1 + exp(logit))
 #' # Result: 0.04132445
 #' boot::inv.logit(logit)
-#' uptake_pct_godutch(distance, gradient, alpha = -3.959 + 2.523, d1 = -0.5963 - 0.07626,
-#'  d2 = 1.866, d3 = 0.008050, h1 = -0.2710, i1 = 0.009394, i2 = -0.05135
+#' uptake_pct_godutch(distance, gradient,
+#'   alpha = -3.959 + 2.523, d1 = -0.5963 - 0.07626,
+#'   d2 = 1.866, d3 = 0.008050, h1 = -0.2710, i1 = 0.009394, i2 = -0.05135
 #' )
 #' # these are the default values
 #' uptake_pct_godutch(distance, gradient)
@@ -167,30 +167,29 @@ uptake_pct_govtarget = function(
 #' pcycle_scenario = uptake_pct_godutch(l$length, l$av_incline)
 #' plot(l$length, pcycle_scenario)
 uptake_pct_godutch = function(
-  distance,
-  gradient,
-  alpha = -3.959 + 2.523,
-  d1 = -0.5963 - 0.07626,
-  d2 = 1.866,
-  d3 = 0.008050,
-  h1 = -0.2710,
-  i1 = 0.009394,
-  i2 = -0.05135,
-  verbose = FALSE
-  ) {
-  if(
-     !is.numeric(c(distance, gradient))) {
+                               distance,
+                               gradient,
+                               alpha = -3.959 + 2.523,
+                               d1 = -0.5963 - 0.07626,
+                               d2 = 1.866,
+                               d3 = 0.008050,
+                               h1 = -0.2710,
+                               i1 = 0.009394,
+                               i2 = -0.05135,
+                               verbose = FALSE) {
+  if (
+    !is.numeric(c(distance, gradient))) {
     stop("distance and gradient need to be numbers.")
   }
   # is it in m
-  if(mean(distance, na.rm = TRUE) > 100) {
-    if(verbose) {
+  if (mean(distance, na.rm = TRUE) > 100) {
+    if (verbose) {
       message("Distance assumed in m, switching to km")
     }
     distance = distance / 1000
   }
   logit_pcycle = alpha + (d1 * distance) +
-    (d2 * sqrt(distance) ) + (d3 * distance^2) +
+    (d2 * sqrt(distance)) + (d3 * distance^2) +
     (h1 * gradient) +
     (i1 * distance * gradient) +
     (i2 * sqrt(distance) * gradient)
@@ -202,25 +201,24 @@ uptake_pct_godutch = function(
 #' @rdname uptake_pct_govtarget
 #' @export
 uptake_pct_govtarget_2020 = function(
-  distance,
-  gradient,
-  alpha = -4.018,
-  d1 = -0.6369,
-  d2 = 1.988,
-  d3 = 0.008775,
-  h1 = -0.2555,
-  h2 = -0.78,
-  i1 = 0.02006,
-  i2 = -0.1234,
-  verbose = FALSE
-) {
-  if(
-     !is.numeric(c(distance, gradient))) {
+                                      distance,
+                                      gradient,
+                                      alpha = -4.018,
+                                      d1 = -0.6369,
+                                      d2 = 1.988,
+                                      d3 = 0.008775,
+                                      h1 = -0.2555,
+                                      h2 = -0.78,
+                                      i1 = 0.02006,
+                                      i2 = -0.1234,
+                                      verbose = FALSE) {
+  if (
+    !is.numeric(c(distance, gradient))) {
     stop("distance and gradient need to be numbers.")
   }
   # is it in m
-  if(mean(distance, na.rm = TRUE) > 100) {
-    if(verbose) {
+  if (mean(distance, na.rm = TRUE) > 100) {
+    if (verbose) {
       message("Distance assumed in m, switching to km")
     }
     distance = distance / 1000
@@ -236,11 +234,11 @@ uptake_pct_govtarget_2020 = function(
   #   (-0.1234* distancesqrt*gradient)
   gradient = gradient + h2
   pcycle_scenario = alpha +
-    (d1 * distance) +    # d1
-    (d2 * sqrt(distance)) +  # d2
+    (d1 * distance) + # d1
+    (d2 * sqrt(distance)) + # d2
     (d3 * distance^2) + # d3
-    (h1 * gradient) +    # h1
-    (i1 * distance * gradient) +  # i1
+    (h1 * gradient) + # h1
+    (i1 * distance * gradient) + # i1
     (i2 * sqrt(distance) * gradient) # i2
   boot::inv.logit(pcycle_scenario)
 }
@@ -248,25 +246,24 @@ uptake_pct_govtarget_2020 = function(
 #' @rdname uptake_pct_govtarget
 #' @export
 uptake_pct_godutch_2020 = function(
-  distance,
-  gradient,
-  alpha = -4.018 + 2.550,
-  d1 = -0.6369 -0.08036,
-  d2 = 1.988,
-  d3 = 0.008775,
-  h1 = -0.2555,
-  h2 = -0.78,
-  i1 = 0.02006,
-  i2 = -0.1234,
-  verbose = FALSE
-) {
-  if(
-     !is.numeric(c(distance, gradient))) {
+                                    distance,
+                                    gradient,
+                                    alpha = -4.018 + 2.550,
+                                    d1 = -0.6369 - 0.08036,
+                                    d2 = 1.988,
+                                    d3 = 0.008775,
+                                    h1 = -0.2555,
+                                    h2 = -0.78,
+                                    i1 = 0.02006,
+                                    i2 = -0.1234,
+                                    verbose = FALSE) {
+  if (
+    !is.numeric(c(distance, gradient))) {
     stop("distance and gradient need to be numbers.")
   }
   # is it in m
-  if(mean(distance, na.rm = TRUE) > 100) {
-    if(verbose) {
+  if (mean(distance, na.rm = TRUE) > 100) {
+    if (verbose) {
       message("Distance assumed in m, switching to km")
     }
     distance = distance / 1000
@@ -278,11 +275,11 @@ uptake_pct_godutch_2020 = function(
   # (0.05509* ebike * distance) + (-0.0002950* ebike * distancesq) + (0.1812* ebike * gradient)
   gradient = gradient + h2
   pcycle_scenario = alpha +
-    (d1 * distance) +    # d1
-    (d2 * sqrt(distance)) +  # d2
+    (d1 * distance) + # d1
+    (d2 * sqrt(distance)) + # d2
     (d3 * distance^2) + # d3
-    (h1 * gradient) +    # h1
-    (i1 * distance * gradient) +  # i1
+    (h1 * gradient) + # h1
+    (i1 * distance * gradient) + # i1
     (i2 * sqrt(distance) * gradient) # i2
   boot::inv.logit(pcycle_scenario)
 }
@@ -298,17 +295,17 @@ uptake_pct_godutch_2020 = function(
 #' # The observed number of cyclists is 2. ... Modelled baseline= 30 * .0558 = 1.8.
 #' uptake_pct_govtarget_school2(3.51, 1.11)
 uptake_pct_govtarget_school2 = function(
-  distance,
-  gradient,
-  alpha = -7.178,
-  d1 = -1.870,
-  d2 = 5.961,
-  # d3 = -0.2401,
-  h1 = -0.5290,
-  h2 = -0.63,
-  verbose = FALSE
-  # i1 = 0.02006,
-  # i2 = -0.1234
+                                         distance,
+                                         gradient,
+                                         alpha = -7.178,
+                                         d1 = -1.870,
+                                         d2 = 5.961,
+                                         # d3 = -0.2401,
+                                         h1 = -0.5290,
+                                         h2 = -0.63,
+                                         verbose = FALSE
+                                         # i1 = 0.02006,
+                                         # i2 = -0.1234
 ) {
   # Uptake formula from Goodman et al. (2019)
   # http://www.sciencedirect.com/science/article/pii/S2214140518301257
@@ -319,26 +316,26 @@ uptake_pct_govtarget_school2 = function(
   # Equation 2.1 (secondary school children):
   #   logit (pcycle) = −7.178 + (−1.870 * distance) + (5.961 * distance sqrt) + (−0.5290 * centred_gradient)
   # pcycle = exp ([logit (pcycle)])/(1 + (exp([logit(pcycle)])))
-  if(
-     !is.numeric(c(distance, gradient))) {
+  if (
+    !is.numeric(c(distance, gradient))) {
     stop("distance and gradient need to be numbers.")
   }
   # is it in m
-  if(mean(distance, na.rm = TRUE) > 100) {
-    if(verbose) {
+  if (mean(distance, na.rm = TRUE) > 100) {
+    if (verbose) {
       message("Distance assumed in m, switching to km")
     }
     distance = distance / 1000
   }
   gradient = gradient + h2
   pcycle_scenario = alpha +
-    (d1 * distance) +    # d1
-    (d2 * sqrt(distance)) +  # d2
+    (d1 * distance) + # d1
+    (d2 * sqrt(distance)) + # d2
     # (d3 * distance^2) + # d3
     (h1 * gradient)
   # +    # h1
-    # (i1 * distance * gradient) +  # i1
-    # (i2 * sqrt(distance) * gradient) # i2
+  # (i1 * distance * gradient) +  # i1
+  # (i2 * sqrt(distance) * gradient) # i2
   boot::inv.logit(pcycle_scenario)
 }
 
@@ -349,17 +346,17 @@ uptake_pct_govtarget_school2 = function(
 #' # pcycle = exp(1.953)/(1 + exp(1.953)) = .8758, or 87.58%.
 #' uptake_pct_godutch_school2(3.51, 1.11)
 uptake_pct_godutch_school2 = function(
-  distance,
-  gradient,
-  alpha = -7.178 + 3.574,
-  d1 = -1.870 + 0.3438,
-  d2 = 5.961,
-  # d3 = -0.2401,
-  h1 = -0.5290,
-  h2 = -0.63,
-  verbose = FALSE
-  # i1 = 0.02006,
-  # i2 = -0.1234
+                                       distance,
+                                       gradient,
+                                       alpha = -7.178 + 3.574,
+                                       d1 = -1.870 + 0.3438,
+                                       d2 = 5.961,
+                                       # d3 = -0.2401,
+                                       h1 = -0.5290,
+                                       h2 = -0.63,
+                                       verbose = FALSE
+                                       # i1 = 0.02006,
+                                       # i2 = -0.1234
 ) {
   # Uptake formula from Goodman et al. (2019)
   # http://www.sciencedirect.com/science/article/pii/S2214140518301257
@@ -375,21 +372,21 @@ uptake_pct_godutch_school2 = function(
   #   (1.988  * distancesqrt)  +  (0.008775* distancesq) +
   #   (-0.2555* gradient) + (0.02006* distance*gradient) +
   #   (-0.1234* distancesqrt*gradient)
-  if(
-     !is.numeric(c(distance, gradient))) {
+  if (
+    !is.numeric(c(distance, gradient))) {
     stop("distance and gradient need to be numbers.")
   }
   # is it in m
-  if(mean(distance, na.rm = TRUE) > 100) {
-    if(verbose) {
+  if (mean(distance, na.rm = TRUE) > 100) {
+    if (verbose) {
       message("Distance assumed in m, switching to km")
     }
     distance = distance / 1000
   }
   gradient = gradient + h2
   pcycle_scenario = alpha +
-    (d1 * distance) +    # d1
-    (d2 * sqrt(distance)) +  # d2
+    (d1 * distance) + # d1
+    (d2 * sqrt(distance)) + # d2
     # (d3 * distance^2) + # d3
     (h1 * gradient)
   # +    # h1
