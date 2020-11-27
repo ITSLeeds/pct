@@ -1,3 +1,5 @@
+# pct 0.7.0
+
 # pct 0.6.1
 
 - New argument `verbose`, false by default, in uptake functions
