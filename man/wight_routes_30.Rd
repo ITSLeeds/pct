@@ -4,6 +4,7 @@
 \name{wight_routes_30}
 \alias{wight_routes_30}
 \alias{wight_rnet}
+\alias{wight_routes_30_cs}
 \title{Cycle route data for the Isle of Wight}
 \description{
 This data was obtained using code shown in the introductory

@@ -17,7 +17,8 @@ uptake_pct_govtarget(
   d3 = 0.00805,
   h1 = -0.271,
   i1 = 0.009394,
-  i2 = -0.05135
+  i2 = -0.05135,
+  verbose = FALSE
 )
 
 uptake_pct_govtarget_2020(
@@ -30,7 +31,8 @@ uptake_pct_govtarget_2020(
   h1 = -0.2555,
   h2 = -0.78,
   i1 = 0.02006,
-  i2 = -0.1234
+  i2 = -0.1234,
+  verbose = FALSE
 )
 
 uptake_pct_godutch_2020(
@@ -43,7 +45,8 @@ uptake_pct_godutch_2020(
   h1 = -0.2555,
   h2 = -0.78,
   i1 = 0.02006,
-  i2 = -0.1234
+  i2 = -0.1234,
+  verbose = FALSE
 )
 
 uptake_pct_govtarget_school2(
@@ -53,7 +56,8 @@ uptake_pct_govtarget_school2(
   d1 = -1.87,
   d2 = 5.961,
   h1 = -0.529,
-  h2 = -0.63
+  h2 = -0.63,
+  verbose = FALSE
 )
 
 uptake_pct_godutch_school2(
@@ -63,11 +67,13 @@ uptake_pct_godutch_school2(
   d1 = -1.87 + 0.3438,
   d2 = 5.961,
   h1 = -0.529,
-  h2 = -0.63
+  h2 = -0.63,
+  verbose = FALSE
 )
 }
 \arguments{
-\item{distance}{Vector distance numeric values of routes.}
+\item{distance}{Vector distance numeric values of routes in km
+(switches to km if more than 100).}
 
 \item{gradient}{Vector gradient numeric values of routes.}
 
@@ -84,6 +90,8 @@ uptake_pct_godutch_school2(
 \item{i1}{Distance-hilliness interaction term 1}
 
 \item{i2}{Distance-hilliness interaction term 2}
+
+\item{verbose}{Print messages? \code{FALSE} by default.}
 
 \item{h2}{Hilliness term 2}
 }
@@ -110,16 +118,20 @@ pcycle = exp ([logit (pcycle)]) / (1 + (exp([logit(pcycle)])
 \code{uptake_pct_godutch_2020()}
 approximate the uptake models used in the updated 2020 release of
 the PCT results.
+
+If the \code{distance} parameter is greater than 100, it is assumed that it is in m.
+If for some reason you want to model cycling uptake associated with trips with
+distances of less than 100 m, convert the distances to km first.
 }
 \examples{
 distance = 15
 gradient = 2
-logit_pcycle = -3.959 +   # alpha
-  (-0.5963 * distance) +    # d1
-  (1.866 * sqrt(distance)) +  # d2
+logit_pcycle = -3.959 + # alpha
+  (-0.5963 * distance) + # d1
+  (1.866 * sqrt(distance)) + # d2
   (0.008050 * distance^2) + # d3
-  (-0.2710 * gradient) +    # h1
-  (0.009394 * distance * gradient) +  # i1
+  (-0.2710 * gradient) + # h1
+  (0.009394 * distance * gradient) + # i1
   (-0.05135 * sqrt(distance) * gradient) # i2
 boot::inv.logit(logit_pcycle)
 uptake_pct_govtarget(15, 2)

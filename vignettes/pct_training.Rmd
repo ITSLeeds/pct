@@ -180,7 +180,7 @@ Part 3: using PCT data for local transport planning: 'you do'
 These links may be useful when working through the exercises below:
 
 - The codebook describing each variable in the PCT route: [od_l_rf_codebook.csv](https://github.com/npct/pct-shiny/blob/master/regions_www/www/static/02_codebooks/commute/od_l_rf_codebook.csv)
-- Folder containing all [codebooks, including variables in zone, line and centroid datasets](https://github.com/npct/pct-shiny/blob/master/regions_www/www/static/02_codebooks/)
+- Folder containing all [codebooks, including variables in zone, line and centroid datasets](https://github.com/npct/pct-shiny/tree/master/regions_www/www/static/02_codebooks)
 - The PCT tool itself, which can be used to cross-compare results from the analysis steps below: [www.pct.bike](https://www.pct.bike/)
 
 ## How the PCT works and what you can use it for

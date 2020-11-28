@@ -1,3 +1,10 @@
+# pct 0.7.0
+
+- New argument `verbose`, false by default, in uptake functions
+- Updated training vignette
+- Updated introductory `pct` vignette
+- Fix in code for checks
+
 # pct 0.6.0
 
 - New functions `uptake_pct_govtarget_school2()` and `uptake_pct_godutch_school2()`

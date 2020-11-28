@@ -69,7 +69,6 @@ You can install the development version of the package as follows:
 remotes::install_github("ITSLeeds/pct")
 ```
 
-
 <!-- You can install the released version of pct from [CRAN](https://CRAN.R-project.org) with: -->
 
 <!-- ``` r -->
@@ -84,10 +83,13 @@ library(pct)
 
 We will also use the following packages in this tutorial:
 
-```{r}
+```{r, message=FALSE}
 library(sf)
+library(dplyr)
 library(stplanr)
 library(leaflet)
+library(ggplot2)
+library(pbapply)
 ```
 
 
@@ -107,12 +109,11 @@ To download the data within www.pct.bike, we have added a suite of functions:
 
 There are other `get_()` functions that get official data underlying the PCT, as we will see in a later section.
 For now, let's see how the functions work.
-To get the centroids in Isle of Wight, you would run:
+To get the centroids in Isle of Wight at the lower-resolution (smaller files) MSOA level (LSOA level data is returned by default or by replacing `msoa` with `lsoa` in the code below) you would run:
 
-```{r, eval=FALSE}
-library(pct)
-wight_centroids = get_pct_centroids(region = "isle-of-wight")
-wight_zones = get_pct_zones(region = "isle-of-wight")
+```{r}
+wight_centroids = get_pct_centroids(region = "isle-of-wight", geography = "msoa")
+wight_zones = get_pct_zones(region = "isle-of-wight", geography = "msoa")
 ```
 
 Let's verify that the data gave us what we would expect to see:
@@ -126,10 +127,9 @@ The results are indeed as we would expect, with the centroid data showing points
 The zones with higher cycling levels are in the more densely populated south of the island, as we would expect.
 Likewise, the following command downloads the desire lines for the Isle of Wight:
 
-```{r get_pct_lines, eval=FALSE}
-wight_lines_pct = get_pct_lines(region = "isle-of-wight")
+```{r get_pct_lines}
+wight_lines_pct = get_pct_lines(region = "isle-of-wight", geography = "msoa")
 ```
-
 
 The rest of the `get_pct_` functions are similar to the above two examples and download data from www.pct.bike.
 

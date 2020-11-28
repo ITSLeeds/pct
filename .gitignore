@@ -16,3 +16,7 @@ inst/rmd/pct-slides_files/
 inst/rmd/refs.bib
 refs.bib
 *.Rds
+libs
+*.html
+*_files
+*.geojson

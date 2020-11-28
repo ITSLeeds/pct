@@ -13,11 +13,13 @@ uptake_pct_godutch(
   d3 = 0.00805,
   h1 = -0.271,
   i1 = 0.009394,
-  i2 = -0.05135
+  i2 = -0.05135,
+  verbose = FALSE
 )
 }
 \arguments{
-\item{distance}{Vector distance numeric values of routes.}
+\item{distance}{Vector distance numeric values of routes in km
+(switches to km if more than 100).}
 
 \item{gradient}{Vector gradient numeric values of routes.}
 
@@ -34,6 +36,8 @@ uptake_pct_godutch(
 \item{i1}{Distance-hilliness interaction term 1}
 
 \item{i2}{Distance-hilliness interaction term 2}
+
+\item{verbose}{Print messages? \code{FALSE} by default.}
 }
 \description{
 This function implements the uptake model described in the original
@@ -53,16 +57,17 @@ logit = -3.959 + 2.523 +
   (1.866 * sqrt(distance)) +
   (0.008050 * distance^2) +
   (-0.2710 * gradient) +
-  (0.009394 * distance*gradient) +
-  (-0.05135 * sqrt(distance) *gradient)
+  (0.009394 * distance * gradient) +
+  (-0.05135 * sqrt(distance) * gradient)
 logit
 # Result: -3.144098
 
 pcycle = exp(logit) / (1 + exp(logit))
 # Result: 0.04132445
 boot::inv.logit(logit)
-uptake_pct_godutch(distance, gradient, alpha = -3.959 + 2.523, d1 = -0.5963 - 0.07626,
- d2 = 1.866, d3 = 0.008050, h1 = -0.2710, i1 = 0.009394, i2 = -0.05135
+uptake_pct_godutch(distance, gradient,
+  alpha = -3.959 + 2.523, d1 = -0.5963 - 0.07626,
+  d2 = 1.866, d3 = 0.008050, h1 = -0.2710, i1 = 0.009394, i2 = -0.05135
 )
 # these are the default values
 uptake_pct_godutch(distance, gradient)
