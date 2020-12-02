@@ -1,5 +1,3 @@
-Updated submission with fixxed url.
-
 ## Test environments
 * local Ubuntu 20.04 install, R 4.0.2
 * Ubuntu (other versions and various R releases), GH Actions

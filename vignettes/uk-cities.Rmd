@@ -1,8 +1,8 @@
 ---
-title: "Cycling potential in UK cities"
+title: "Reproducing cycling potential estimates in UK cities"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Cycling potential in UK cities}
+  %\VignetteIndexEntry{Reproducing cycling potential estimates in UK cities}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -13,20 +13,25 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 ```
-Where is cycle infrastructure most needed in UK cities? Such decisions will fundamentally change our built enviroment and support national initiatives to build a more sustainable future. With the mission of growing cycling, the PCT package is designed to provide transport planners, policymakers and academics with free tools to prioritise investments and interventions. 
-Meaning, through an open and reproducible method our streets can become safer and less harmful for future generations. This article demonstrates how to retrieve cycling potential data for any UK city and how to plot which streets may see an increased demand. 
 
-# Loading Libraries 
-The following libraries are needed to run this example. 
+ Where is cycle infrastructure most needed in UK cities? Clear answers can fundamentally change our built environment and support national initiatives to build a more sustainable future. With the aim of enabling cycling uptake, the PCT project provides transport planners, policymakers and academics with free tools to prioritise investments and interventions. 
+ 
+Evidence-based interventions can make streets safer for future generations.
+This article demonstrates how to retrieve cycling potential data for any UK city, down to the route network level (see [`vignette("cycling-potential-uk")`](https://itsleeds.github.io/pct/articles/cycling-potential-uk.html) for a tutorial showing how the package can provide cycling uptake estimates at the area level), and how to use the results to see which streets will have high potential (and where to prioritise investment). 
+
+# Prerequisites 
+
+The following packages must be installed and loaded to run the code in this vignette. 
+
 ```{r setup, message=FALSE, warning=FALSE}
 library(pct)
-library(tidyverse)
+library(dplyr)
 library(sf)
 library(tmap)
-library(dplyr)
 ```
 
 # Picking a study area
+
 ## Part A) Choosing a region
 
 Exploring study areas with PCT can be achieved by running ```view(pct_regions)``` in the R console. ```pct_regions``` are based on ‘regions’ from the geographic structure for England [(ONS)](https://www.ons.gov.uk/methodology/geography/ukgeographies/administrativegeography/england). Formerly known as Government offices for the regions or GOR’s (established in 1994), regions reflect a number of government departments who work with their local community to maximise prosperity and the quality of life within their area. Northern Ireland, Scotland and Wales were not subdivided into GOR’s but are listed with them for UK wide statistics.
