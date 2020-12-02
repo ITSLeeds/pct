@@ -5,6 +5,8 @@ vignette: >
   %\VignetteIndexEntry{Reproducing cycling potential estimates in UK cities}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+author: 
+- "Nathan Sheehan"
 ---
 
 ```{r, include = FALSE}
@@ -14,7 +16,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-Where is cycle infrastructure most needed in UK cities? Clear answers can fundamentally change our built environment and support national initiatives to build a more sustainable future. With the aim of enabling cycling uptake, the PCT project provides transport planners, policymakers and academics with free tools to prioritise investments and interventions. 
+Where is cycle infrastructure most needed in UK cities? Clear answers can fundamentally change our built environment and support national initiatives to build a more sustainable future. With the aim of enabling cycling uptake, the PCT project provides transport planners, policy-makers and academics with free tools to prioritise investments and interventions. 
  
 Evidence-based interventions can make streets safer for future generations.
 This article demonstrates how to retrieve cycling potential data for any UK city, down to the route network level (see the `cycling-potential-uk` [here](https://itsleeds.github.io/pct/articles/cycling-potential-uk.html) or by running [`vignette("cycling-potential-uk")`](https://itsleeds.github.io/pct/articles/cycling-potential-uk.html) in R for a tutorial showing how the package can provide cycling uptake estimates at the area level), and how to use the results to see which streets will have high potential.
@@ -128,5 +130,14 @@ tmap_arrange(m1, m2, ncol = 2)
 
 # Conclusions and next steps
 
-As demonstrated, the PCT package provides an easy way to understand current cycle statistics and potential cycle uptake in any UK city. The methods used in this article can be used for planning future cycle infrastructure and can be expanded on using the other methods part of the PCT package. If this article has spoke to you, then why not try for your local region showing the potential based on three different models. Let us know on [(social media)](https://twitter.com/robinlovelace) and [(Github)](https://github.com/ITSLeeds/pct) how you get on. Any comments/contributions to this analysis: welcome.
+As demonstrated, the PCT package provides an easy way to understand current cycle statistics and potential cycle uptake in any UK city. The methods used in this article can be used for planning future cycle infrastructure and can be expanded on using the other methods part of the PCT package. If this article is of use/interest, why not try for your local region showing the potential based on different models.
+You can also try the following resources (in R and online):
+
+- Have a play with the [PCT web application](https://www.pct.bike/)
+- For more of a deep dive into the methods, see the [`pct_training`](https://itsleeds.github.io/pct/articles/pct_training.html) vignette
+- See the [`pct-international`](https://itsleeds.github.io/pct/articles/pct-international.html) to see how to apply the methods internationally
+
+
+We're interested to know how you've used the methods/data so please get in touch on [(social media)](https://twitter.com/robinlovelace) and [(Github)](https://github.com/ITSLeeds/pct) letting us know how get on.
+Any comments/contributions to this analysis: welcome.
 
