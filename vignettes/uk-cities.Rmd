@@ -14,10 +14,11 @@ knitr::opts_chunk$set(
 )
 ```
 
- Where is cycle infrastructure most needed in UK cities? Clear answers can fundamentally change our built environment and support national initiatives to build a more sustainable future. With the aim of enabling cycling uptake, the PCT project provides transport planners, policymakers and academics with free tools to prioritise investments and interventions. 
+Where is cycle infrastructure most needed in UK cities? Clear answers can fundamentally change our built environment and support national initiatives to build a more sustainable future. With the aim of enabling cycling uptake, the PCT project provides transport planners, policymakers and academics with free tools to prioritise investments and interventions. 
  
 Evidence-based interventions can make streets safer for future generations.
-This article demonstrates how to retrieve cycling potential data for any UK city, down to the route network level (see [`vignette("cycling-potential-uk")`](https://itsleeds.github.io/pct/articles/cycling-potential-uk.html) for a tutorial showing how the package can provide cycling uptake estimates at the area level), and how to use the results to see which streets will have high potential (and where to prioritise investment). 
+This article demonstrates how to retrieve cycling potential data for any UK city, down to the route network level (see the `cycling-potential-uk` [here](https://itsleeds.github.io/pct/articles/cycling-potential-uk.html) or by running [`vignette("cycling-potential-uk")`](https://itsleeds.github.io/pct/articles/cycling-potential-uk.html) in R for a tutorial showing how the package can provide cycling uptake estimates at the area level), and how to use the results to see which streets will have high potential.
+These results can help prioritise investment in new cycleways and other interventions. 
 
 # Prerequisites 
 
@@ -34,13 +35,13 @@ library(tmap)
 
 ## Part A) Choosing a region
 
-Exploring study areas with PCT can be achieved by running ```view(pct_regions)``` in the R console. ```pct_regions``` are based on ‘regions’ from the geographic structure for England [(ONS)](https://www.ons.gov.uk/methodology/geography/ukgeographies/administrativegeography/england). Formerly known as Government offices for the regions or GOR’s (established in 1994), regions reflect a number of government departments who work with their local community to maximise prosperity and the quality of life within their area. Northern Ireland, Scotland and Wales were not subdivided into GOR’s but are listed with them for UK wide statistics.
+Exploring study areas with PCT can be achieved by running `view(pct_regions)` in the R console. `pct_regions` are based on ‘regions’ from the geographic structure for England [(ONS)](https://www.ons.gov.uk/methodology/geography/ukgeographies/administrativegeography/england). Formerly known as Government offices for the regions or GOR’s (established in 1994), regions reflect a number of government departments who work with their local community to maximise prosperity and the quality of life within their area. Northern Ireland, Scotland and Wales were not subdivided into GOR’s but are listed with them for UK wide statistics.
 
 Based on data from the most recent census (2011), PCT provides spatial and travel data for all 45 regions across England and Wales. To begin with, this example will demonstrate the PCT method for the city of Cardiff which belongs to the region of Wales.
 
 ```{r}
 region_name = "wales"
-zones_all = pct::get_pct_zones(region_name)
+zones_all = get_pct_zones(region_name)
 ```
 
 ## Part A) Picking a Local Authority
@@ -75,7 +76,9 @@ PCT provides an easy way to get road network data for any ```pct_region```. The 
 rnet_all = pct::get_pct_rnet(region_name)
 rnet = rnet_all[zones, ]
 ```
-With our road network data fitted to our study area, we are now ready to plot where investment should be prioritised based on a demand model. PCT is built with numerous demand models based on varying situations (e.g. ```govtarget_slc```,```gendereq_slc``` and ```ebike_slc```. In this example, we use the `go dutch` demand model; where demand is modelled on a cycle uptake equivalent to that in the Netherlands.
+
+With our road network data fitted to our study area, we are now ready to plot where investment should be prioritised based on a demand model. PCT is built with numerous demand models based on varying situations (e.g. `govtarget_slc`,`gendereq_slc` and `ebike_slc`. In this example, we use the `go dutch` demand model; where demand is modelled on a cycle uptake equivalent to that in the Netherlands.
+
 ```{r include=TRUE, fig.align='center', fig.width = 7, fig.height = 6}
 plot(zones$geometry)
 plot(rnet["dutch_slc"], add = TRUE)
@@ -83,14 +86,14 @@ plot(rnet["dutch_slc"], add = TRUE)
 
 Voila! The blue lines represent the road network with colour proportional to estimated potential based on the go dutch model. This plot helps us understand where to prioritise cycle infrastructure and what a new demand may look like.
 
-#Comparing Two Cities
+# Comparing Two Cities
 
-Now we have seen the ease and versatility the PCT package provides, we can now use the method to explore more cities. Take Devon for example, the region has two major cities Exeter and Plymouth. Both cities obtain major universities, growing industrys and have a relatively low cycle uptake. The later should change, and the PCT package can provide the tools to help that. 
+Now we have seen the ease and versatility the PCT package provides, we can now use the method to explore more cities. Take Devon for example, the region has two major cities Exeter and Plymouth. Both cities obtain major universities, growing industries and have a relatively low cycle uptake. The latter should change, and the PCT package can provide the tools to help that. 
 
 We can now wrap the method we used for Cardiff into a function in order to compare the differences between the two cities. 
+
 ```{r}
-PCTMethodDevon <- function(la_name) {
-  region_name = "devon"
+pct_zones_rnet = function(la_name, region_name = "devon") {
   zones_all = pct::get_pct_zones(region_name)
   zones = zones_all %>% 
   filter(lad_name == la_name)
@@ -99,16 +102,31 @@ PCTMethodDevon <- function(la_name) {
   rnet = rnet_all[zones, ]
   plot(zones$geometry)
   plot(rnet["dutch_slc"], add = TRUE)
+  list(zones = zones, rnet = rnet)
 }
 
-PCTMethodDevon(la_name = "Plymouth")
-PCTMethodDevon(la_name = "Exeter")
-
+plymouth_results = pct_zones_rnet(la_name = "Plymouth")
+exeter_results = pct_zones_rnet(la_name = "Exeter")
 ```
 
-Nice! The plots indicate a spatial spread for cycling in Plymouth, with investment nessecary not only in the centre of the city. While for Exeter the distribution remains monocentric, with investment nessecary mostly in the centre.
 
-#Conclusions and reccommendations
+Nice! The plots indicate a spatial spread for cycling in Plymouth, with investment necessary not only in the centre of the city. While for Exeter the distribution remains monocentric, with investment necessary mostly in the centre.
 
-As demonstrated, the PCT package provides an easy way to understand current cycle statisitcs and potential cycle uptake in any UK city. The methods used in this article can be used for planning future cycle infrastcture and can be expanded on using the other methods part of the PCT package. If this article has spoke to you, then why not try for your local region showing the potential based on three different models. Let us know on [(social media)](https://twitter.com/robinlovelace) and [(Github)](https://github.com/ITSLeeds/pct) how you get on. Any comments/contributions to this analysis: welcome.
+We can create side-by-side interactive maps of the route network potential for of same cities for a more detailed comparison as follow:
+
+```{r}
+tmap_mode("view")
+b = c(0, 100, 200, 500, 1000)
+m1 = tm_shape(plymouth_results$rnet) +
+  tm_lines("dutch_slc", breaks = b, palette = "viridis", lwd = 2) +
+  tm_scale_bar()
+m2 = tm_shape(exeter_results$rnet) +
+  tm_lines("dutch_slc", breaks = b, palette = "viridis", lwd = 2) +
+  tm_scale_bar()
+tmap_arrange(m1, m2, ncol = 2)
+```
+
+# Conclusions and next steps
+
+As demonstrated, the PCT package provides an easy way to understand current cycle statistics and potential cycle uptake in any UK city. The methods used in this article can be used for planning future cycle infrastructure and can be expanded on using the other methods part of the PCT package. If this article has spoke to you, then why not try for your local region showing the potential based on three different models. Let us know on [(social media)](https://twitter.com/robinlovelace) and [(Github)](https://github.com/ITSLeeds/pct) how you get on. Any comments/contributions to this analysis: welcome.
 
