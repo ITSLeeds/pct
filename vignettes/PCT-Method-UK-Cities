@@ -1,0 +1,109 @@
+---
+title: "Cycling potential in UK cities"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Cycling potential in UK cities}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+Where is cycle infrastructure most needed in UK cities? Such decisions will fundamentally change our built enviroment and support national initiatives to build a more sustainable future. With the mission of growing cycling, the PCT package is designed to provide transport planners, policymakers and academics with free tools to prioritise investments and interventions. 
+Meaning, through an open and reproducible method our streets can become safer and less harmful for future generations. This article demonstrates how to retrieve cycling potential data for any UK city and how to plot which streets may see an increased demand. 
+
+# Loading Libraries 
+The following libraries are needed to run this example. 
+```{r setup, message=FALSE, warning=FALSE}
+library(pct)
+library(tidyverse)
+library(sf)
+library(tmap)
+library(dplyr)
+```
+
+# Picking a study area
+## Part A) Choosing a region
+
+Exploring study areas with PCT can be achieved by running ```view(pct_regions)``` in the R console. ```pct_regions``` are based on ‘regions’ from the geographic structure for England [(ONS)](https://www.ons.gov.uk/methodology/geography/ukgeographies/administrativegeography/england). Formerly known as Government offices for the regions or GOR’s (established in 1994), regions reflect a number of government departments who work with their local community to maximise prosperity and the quality of life within their area. Northern Ireland, Scotland and Wales were not subdivided into GOR’s but are listed with them for UK wide statistics.
+
+Based on data from the most recent census (2011), PCT provides spatial and travel data for all 45 regions across England and Wales. To begin with, this example will demonstrate the PCT method for the city of Cardiff which belongs to the region of Wales.
+
+```{r}
+region_name = "wales"
+zones_all = pct::get_pct_zones(region_name)
+```
+
+## Part A) Picking a Local Authority
+
+Each region in England and Wales is composed of multiple local authorities. Among other things, each local authority takes the lead for local planning, housing and environmental health. 
+
+How do you find all the local authorities part of your region?
+```{r include=TRUE}
+unique(zones_all$lad_name)
+```
+
+Aha! As we can see Wales is composed of 42 local authorities. As we are looking at Cardiff in this example, we should declare that as our ```la_name```.
+```{r}
+la_name = "Cardiff"
+```
+
+# Plotting Current Cycle Uptake
+
+Now we have chosen our region and city, we can easily plot the total number of cyclists based on the 2011 census. 
+```{r include=TRUE, fig.align='center', fig.width = 7, fig.height = 6}
+zones = zones_all %>% 
+  filter(lad_name == la_name)
+plot(zones["bicycle"])
+```
+
+TaDa! The plot shows us that cycling is most prominent within the centre of Cardiff. While this is a first step in understanding where new cycle infrastructure is needed, it doesn't outline the road network where new demand is likely to occur.
+
+# Plotting New Demand Based On PCT Models
+
+PCT provides an easy way to get road network data for any ```pct_region```. The road network data can then be filtered to the zones within our local authority.     
+```{r}
+rnet_all = pct::get_pct_rnet(region_name)
+rnet = rnet_all[zones, ]
+```
+With our road network data fitted to our study area, we are now ready to plot where investment should be prioritised based on a demand model. PCT is built with numerous demand models based on varying situations (e.g. ```govtarget_slc```,```gendereq_slc``` and ```ebike_slc```. In this example, we use the `go dutch` demand model; where demand is modelled on a cycle uptake equivalent to that in the Netherlands.
+```{r include=TRUE, fig.align='center', fig.width = 7, fig.height = 6}
+plot(zones$geometry)
+plot(rnet["dutch_slc"], add = TRUE)
+```
+
+Voila! The blue lines represent the road network with colour proportional to estimated potential based on the go dutch model. This plot helps us understand where to prioritise cycle infrastructure and what a new demand may look like.
+
+#Comparing Two Cities
+
+Now we have seen the ease and versatility the PCT package provides, we can now use the method to explore more cities. Take Devon for example, the region has two major cities Exeter and Plymouth. Both cities obtain major universities, growing industrys and have a relatively low cycle uptake. The later should change, and the PCT package can provide the tools to help that. 
+
+We can now wrap the method we used for Cardiff into a function in order to compare the differences between the two cities. 
+```{r}
+PCTMethodDevon <- function(la_name) {
+  region_name = "devon"
+  zones_all = pct::get_pct_zones(region_name)
+  zones = zones_all %>% 
+  filter(lad_name == la_name)
+  plot(zones["bicycle"])
+  rnet_all = pct::get_pct_rnet(region_name)
+  rnet = rnet_all[zones, ]
+  plot(zones$geometry)
+  plot(rnet["dutch_slc"], add = TRUE)
+}
+
+PCTMethodDevon(la_name = "Plymouth")
+PCTMethodDevon(la_name = "Exeter")
+
+```
+
+Nice! The plots indicate a spatial spread for cycling in Plymouth, with investment nessecary not only in the centre of the city. While for Exeter the distribution remains monocentric, with investment nessecary mostly in the centre.
+
+#Conclusions and reccommendations
+
+As demonstrated, the PCT package provides an easy way to understand current cycle statisitcs and potential cycle uptake in any UK city. The methods used in this article can be used for planning future cycle infrastcture and can be expanded on using the other methods part of the PCT package. If this article has spoke to you, then why not try for your local region showing the potential based on three different models. Let us know on [(social media)](https://twitter.com/robinlovelace) and [(Github)](https://github.com/ITSLeeds/pct) how you get on. Any comments/contributions to this analysis: welcome.
+
