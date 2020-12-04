@@ -52,6 +52,6 @@ get_od("wight", n = 3)
 get_od()
 get_od(filename = "wu03uk_v3")
 u = "https://www.nomisweb.co.uk/output/census/2011/wf02ew_oa.zip"
-get_od(u = u)
+# get_od(u = u)
 }
 }
