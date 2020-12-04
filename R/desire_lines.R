@@ -72,7 +72,7 @@ get_desire_lines = function(region = NULL, n = NULL, omit_intrazonal = FALSE) {
 #' get_od()
 #' get_od(filename = "wu03uk_v3")
 #' u = "https://www.nomisweb.co.uk/output/census/2011/wf02ew_oa.zip"
-#' get_od(url = u)
+#' get_od(u = u)
 #' }
 get_od = function(region = NULL,
                   n = NULL,
