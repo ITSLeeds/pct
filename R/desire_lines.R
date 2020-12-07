@@ -64,12 +64,15 @@ get_desire_lines = function(region = NULL, n = NULL, omit_intrazonal = FALSE) {
 #' data.
 #' @param omit_intrazonal should intrazonal OD pairs be omited from result?
 #' `FALSE` by default.
+#' @param u full url of file to download
 #' @inheritParams get_pct
 #' @export
 #' @examples \donttest{
 #' get_od("wight", n = 3)
 #' get_od()
 #' get_od(filename = "wu03uk_v3")
+#' u = "https://www.nomisweb.co.uk/output/census/2011/wf02ew_oa.zip"
+#' # get_od(u = u)
 #' }
 get_od = function(region = NULL,
                   n = NULL,
@@ -78,7 +81,8 @@ get_od = function(region = NULL,
                   base_url = paste0("https://s3-eu-west-1.amazonaws.com/",
                                     "statistics.digitalresources.jisc.ac.uk",
                                     "/dkan/files/FLOW/"),
-                  filename = "wu03ew_v2") {
+                  filename = "wu03ew_v2",
+                  u = NULL) {
 
   if(length(region) > 1L) {
     stop("region must be of length 0 or 1")
@@ -107,6 +111,23 @@ get_od = function(region = NULL,
     } else {
       stop("invalid region name")
     }
+  }
+
+  if(!is.null(u)) {
+    filename = basename(u)
+    zip_file = file.path(tempdir(), paste0(filename))
+    census_file = file.path(tempdir(), paste0(filename, ".csv"))
+    file_url = u
+    if(!exists(census_file)) {
+      utils::download.file(file_url, zip_file)
+      utils::unzip(zip_file, exdir = tempdir())
+    }
+    csv_files = list.files(tempdir(), pattern = "csv", recursive = TRUE, full.names = TRUE)
+    message("Unzipped the following files: ", csv_files)
+    message("Reading-in the first")
+    od_all = readr::read_csv(csv_files[1])
+    return(od_all)
+    # pct:::rename_od_variables(names(od_all))
   }
 
   # get the census file to read the trip counts

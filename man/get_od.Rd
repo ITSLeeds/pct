@@ -11,7 +11,8 @@ get_od(
   omit_intrazonal = FALSE,
   base_url = paste0("https://s3-eu-west-1.amazonaws.com/",
     "statistics.digitalresources.jisc.ac.uk", "/dkan/files/FLOW/"),
-  filename = "wu03ew_v2"
+  filename = "wu03ew_v2",
+  u = NULL
 )
 }
 \arguments{
@@ -31,6 +32,8 @@ the od dataset should be subset in relation to the \code{region}.}
 
 \item{filename}{the name of the file to download, if not the default MSOA level
 data.}
+
+\item{u}{full url of file to download}
 }
 \description{
 This function downloads a .csv file representing movement
@@ -48,5 +51,7 @@ and others listed on the Wicid website.
 get_od("wight", n = 3)
 get_od()
 get_od(filename = "wu03uk_v3")
+u = "https://www.nomisweb.co.uk/output/census/2011/wf02ew_oa.zip"
+# get_od(u = u)
 }
 }
