@@ -159,7 +159,8 @@ local authority or region.</p>
   omit_intrazonal <span class='op'>=</span> <span class='cn'>FALSE</span>,
   base_url <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='st'>"https://s3-eu-west-1.amazonaws.com/"</span>,
     <span class='st'>"statistics.digitalresources.jisc.ac.uk"</span>, <span class='st'>"/dkan/files/FLOW/"</span><span class='op'>)</span>,
-  filename <span class='op'>=</span> <span class='st'>"wu03ew_v2"</span>
+  filename <span class='op'>=</span> <span class='st'>"wu03ew_v2"</span>,
+  u <span class='op'>=</span> <span class='cn'>NULL</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -193,6 +194,10 @@ the od dataset should be subset in relation to the <code>region</code>.</p></td>
       <th>filename</th>
       <td><p>the name of the file to download, if not the default MSOA level
 data.</p></td>
+    </tr>
+    <tr>
+      <th>u</th>
+      <td><p>full url of file to download</p></td>
     </tr>
     </table>
 
@@ -312,7 +317,9 @@ and others listed on the Wicid website.</p>
 #&gt; </span><span style='color: #555555;'> 9</span><span> 95AA  95II        282         0          0     2    15     0         0
 #&gt; </span><span style='color: #555555;'>10</span><span> 95AA  95JJ        108         0          0    15     2     0         0
 #&gt; </span><span style='color: #555555;'># … with 110,152 more rows, and 5 more variables: car_driver </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   car_passenger </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, bicycle </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, foot </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, other </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span></div><div class='input'><span class='co'># }</span>
+#&gt; </span><span style='color: #555555;'>#   car_passenger </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, bicycle </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, foot </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, other </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span></div><div class='input'><span class='va'>u</span> <span class='op'>=</span> <span class='st'>"https://www.nomisweb.co.uk/output/census/2011/wf02ew_oa.zip"</span>
+<span class='co'># get_od(u = u)</span>
+<span class='co'># }</span>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
