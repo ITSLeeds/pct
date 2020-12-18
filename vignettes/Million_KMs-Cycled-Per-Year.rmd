@@ -2,7 +2,7 @@
 title: "Estimating million km's cycled per zone in England and Wales regions"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Estimating million km's cycled per zone in England and Wales regions}
+  %\VignetteIndexEntry{Reproducing cycling potential estimates in UK cities}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 author: 
@@ -55,7 +55,7 @@ zones$mkm_cycled_for_commuting_per_year_estimated = cycled_m_per_zone$m_cycled_p
 
 With this calculated, we can now answer our question and visualize yearly km's cycled using ```tmap```.
 
-```{r echo = TRUE, message=FALSE, warning=FALSE, fig.align="center"}
+```{r echo = TRUE, message=FALSE, warning=FALSE, fig.align="center", fig.width = 7, fig.height = 6}
   tm_shape(zones) +
     tm_fill(
       col = "mkm_cycled_for_commuting_per_year_estimated",
@@ -109,27 +109,13 @@ pct_zones_rnet_current <- function(region_name) {
       palette = "plasma",
       title = "Million km's cycled by commuters per year\n(2011 Census Data)",
       legend.size.is.portrait = TRUE
-    ) +
-    tm_layout(
-      title = toupper(region_name),
-      title.position = c("left", "top"),
-      bg.color = "honeydew3",
-      outer.bg.color = "honeydew",
-      legend.stack = "horizontal",
-      legend.outside = TRUE,
-      legend.outside.position = "bottom",
-      frame.lwd = 5
-    ) +   
-    tm_compass(type = "8star", position = c("left", "top")
-    ) +
-    tm_scale_bar(breaks = c(0, 10, 20, 30, 40), text.size = 0.4, position = c("left", "bottom"))
-  
+    ) 
 }
 ```
 
 With our function built, we can now easily compare regional differences.
 
-```{r echo = TRUE, message=FALSE, warning=FALSE, fig.align="center"}
+```{r echo = TRUE, message=FALSE, warning=FALSE, fig.align="center", fig.width = 7, fig.height = 6}
 oxfordshire_results = pct_zones_rnet_current(region_name = "oxfordshire")
 cambrideshire_results = pct_zones_rnet_current(region_name = "cambridgeshire")
 tmap_arrange(oxfordshire_results, cambrideshire_results, ncol = 2)
@@ -183,7 +169,7 @@ pct_zones_rnet_ebikes <- function(region_name) {
 
 With our E-Bikes function built we can plot our results to see what these cities could look like if there was a significant increase in E-Bike users.
 
-```{r}
+```{r echo = TRUE, message=FALSE, warning=FALSE}
 london_results_ebikes = pct_zones_rnet_ebikes(region_name = "london")
 gm_results_ebikes = pct_zones_rnet_ebikes(region_name = "greater-manchester")
 tmap_mode("view")
@@ -194,10 +180,10 @@ Wow! The maps show how an E-Bike scenario could increase cycle uptake by ~500%. 
 
 ## Conclusions and next steps
 
-As demonstrated, the PCT packages provides easy methods to visualize cycle potential. This article has briefly shown how you can use the PCT package models to understand what future cycle uptake could look like and how to calculate the number of km's cycled per year at granular level.If this article is of use/interest, why not try for your local region showing the potential based on different models. You can also try the following resources (in R and online):
+As demonstrated, the PCT packages provides easy methods to visualize cycle potential. This article has briefly shown how you can use the PCT package models to understand what future cycle uptake could look like and how to calculate the number of km's cycled per year at a granular level.If this article is of use/interest, why not try for your local region showing the potential based on different models. You can also try the following resources (in R and online):
 
 * Have a play with the PCT web application
 * For more of a deep dive into the methods, see the pct_training vignette
 * See the pct-international to see how to apply the methods internationally
 
-We’re interested to know how you’be used the methods/data so please get in touch on (social media) and (Git-hub) letting us know how get on. Any comments/contributions to this analysis: welcome.
+We’re interested to know how you’be used the methods/data so please get in touch on <a href="https://twitter.com/robinlovelace">(social media)</a> and <a href="https://github.com/ITSLeeds/pct">(Github) </a> letting us know how get on. Any comments/contributions to this analysis: welcome.
