@@ -109,7 +109,21 @@ pct_zones_rnet_current <- function(region_name) {
       palette = "plasma",
       title = "Million km's cycled by commuters per year\n(2011 Census Data)",
       legend.size.is.portrait = TRUE
-    ) 
+    ) +
+    tm_layout(
+      title = toupper(region_name),
+      title.position = c("left", "top"),
+      bg.color = "honeydew3",
+      outer.bg.color = "honeydew",
+      legend.stack = "horizontal",
+      legend.outside = TRUE,
+      legend.outside.position = "bottom",
+      frame.lwd = 5
+    ) +   
+    tm_compass(type = "8star", position = c("left", "top")
+    ) +
+    tm_scale_bar(breaks = c(0, 10, 20, 30, 40), text.size = 0.4, position = c("left", "bottom"))
+  
 }
 ```
 
