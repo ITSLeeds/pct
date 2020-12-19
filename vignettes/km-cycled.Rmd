@@ -1,5 +1,5 @@
 ---
-title: "Estimating million km's cycled per zone in England and Wales regions"
+title: "stimating million km's cycled per zone in England and Wales regions"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Reproducing cycling potential estimates in UK cities}
@@ -120,7 +120,7 @@ pct_zones_rnet_current <- function(region_name) {
       legend.outside.position = "bottom",
       frame.lwd = 5
     ) +   
-    tm_compass(type = "8star", position = c("left", "top")
+    tm_compass(type = "8star", position = c("right", "top")
     ) +
     tm_scale_bar(breaks = c(0, 10, 20, 30, 40), text.size = 0.4, position = c("left", "bottom"))
   
@@ -150,7 +150,7 @@ Jheeze! The maps provides insight at a highly granular level. Both Greater Manch
 
 ## Using PCT models to visualize potential cycle uptake
 
-While the results based on the 2011 census provide interesting and valuable results; a lot has changed since 2011 and thus it should be explored what other scenarios may look like. The PCT package features numerous models (e.g. ```govtarget_slc```,```gendereq_slc``` and ```ebike_slc```). In this example lets examine these two cities again, but this time using the PCT E-bike model scenario. To do this, we will build a function similar to what we used for the census data, but change the daily miled cycled to use the ```ebike_slc``` model.
+While the results based on the 2011 census provide interesting and valuable results; a lot has changed since 2011 and other scenarios should be explored. The PCT package features numerous models (e.g. ```govtarget_slc```,```gendereq_slc``` and ```ebike_slc```). In this example lets examine these two cities again, but this time using the PCT E-bike model scenario. To do this, we will build a function similar to what we used for the census data, but change the daily miled cycled to use the ```ebike_slc``` model.
 
 ```{r echo = TRUE, message=FALSE, warning=FALSE}
 pct_zones_rnet_ebikes <- function(region_name) {
@@ -181,7 +181,7 @@ pct_zones_rnet_ebikes <- function(region_name) {
 }
 ```
 
-With our E-Bikes function built we can plot our results to see what these cities could look like if there was a significant increase in E-Bike users.
+With our E-Bikes function built, we can plot our results to see what these cities could look like if there was a significant increase in E-Bike users.
 
 ```{r echo = TRUE, message=FALSE, warning=FALSE}
 london_results_ebikes = pct_zones_rnet_ebikes(region_name = "london")
@@ -194,10 +194,10 @@ Wow! The maps show how an E-Bike scenario could increase cycle uptake by ~500%. 
 
 ## Conclusions and next steps
 
-As demonstrated, the PCT packages provides easy methods to visualize cycle potential. This article has briefly shown how you can use the PCT package models to understand what future cycle uptake could look like and how to calculate the number of km's cycled per year at a granular level.If this article is of use/interest, why not try for your local region showing the potential based on different models. You can also try the following resources (in R and online):
+As demonstrated, the PCT packages provides easy methods to visualize cycle potential. This article has briefly shown how you can use the PCT package models to understand what future cycle uptake could look like and how to calculate the number of km's cycled per year at a granular level. If this article is of use/interest, why not try for your local region showing the potential based on different models. You can also try the following resources (in R and online):
 
 * Have a play with the PCT web application
 * For more of a deep dive into the methods, see the pct_training vignette
 * See the pct-international to see how to apply the methods internationally
 
-We’re interested to know how you’be used the methods/data so please get in touch on <a href="https://twitter.com/robinlovelace">(social media)</a> and <a href="https://github.com/ITSLeeds/pct">(Github) </a> letting us know how get on. Any comments/contributions to this analysis: welcome.
+We’re interested to know how you’ve used the methods/data so please get in touch on <a href="https://twitter.com/robinlovelace">(social media)</a> and <a href="https://github.com/ITSLeeds/pct">(Github) </a> letting us know how get on. Any comments/contributions to this analysis: welcome.
