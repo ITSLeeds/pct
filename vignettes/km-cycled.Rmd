@@ -2,7 +2,7 @@
 title: "Estimating million km's cycled per zone in England and Wales regions"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Reproducing cycling potential estimates in UK cities}
+  %\VignetteIndexEntry{Estimating million km's cycled per zone in England and Wales regions}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 author: 
