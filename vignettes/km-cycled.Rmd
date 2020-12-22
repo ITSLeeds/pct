@@ -11,7 +11,7 @@ author:
 
 In the context of society, cycling acts as a vessel to mobilise citizens to navigate through spatial geography in a sustainable fashion. In doing so, cycling obtains numerous socio-spatial benefits both at the micro (individual health benefits from active transport) and macro (lower pollution from vehicles) scale. With the ambition of building a sustainable future, the PCT project promotes cycle uptake through providing open tools for policy-makers, transport planners and academics to plan future cycle infrastructure for the built environment. 
 
-Using data from the 2011 census and models built into the PCT package, this article asks the question of "How many km's per LSOA do commuters cycle through each year?". The results of which provide valuable insight into future sustainable transport planning decisions and illustrate the versatility of the PCT package through a reproducible method. 
+Using data from the 2011 census and models built into the PCT package, this article asks the question of "How many km's per LSOA do commuters cycle through each year?". The results of which provide valuable insight into future sustainable transport planning decisions and highlight the versatility of the PCT package through a reproducible method. 
 
 ## Prerequisites
 
@@ -25,7 +25,7 @@ library(tmap)
 
 ## Estimating million km's cycled for a region based on 2011 census data
 
-The PCT package permits an easy method for fetching road network and commuting origin/destination data for any region in England and Wales. This data will be used as the basis for understanding the current context of cycling for a given region (A definition of regions can be found in this article). For this first example we will use the region of Oxfordshire as a case study. Firstly, we use the ```get_pct_rnet``` to retrieve road network data at the LSOA level in order to calculate the number of miles cycled per data using```base ``` r functions.
+The PCT package permits an easy method for fetching road network and commuting origin/destination data for any region in England and Wales. This data will be used as the basis for understanding the current context of cycling for a given region (A definition of regions can be found in this earlier <a href="https://itsleeds.github.io/pct/articles/uk-cities.html">article</a>). For this first example, we will aplly the pct method to the the region of Oxfordshire. To begin with, we use the ```get_pct_rnet``` to retrieve road network data for the region. This data is then used to calculate the length of the road network cycled using ```base ``` r functions.
 
 ```{r echo = TRUE, message=FALSE, warning=FALSE}
 #Get road network for preselected regin
@@ -79,11 +79,12 @@ With this calculated, we can now answer our question and visualize yearly km's c
     tm_scale_bar(breaks = c(0, 10, 20, 30), text.size = 0.4, position = c("left", "bottom"))
 ```
 
-Wow, that's a lot of miles cycled! The plot breaks down the number km's cycled by quartiles and thus paints the picture of where cycling is most prominent. In the context of Oxford, the map shows us that the region has a rather high cycle uptake; with its spatial distribution primarily in the centre. 
+Wow, that's a lot of miles cycled! The plot breaks down the number km's cycled by quartiles and thus paints the picture of where cycling is most prominent. In the context of Oxfordshire, the map depecits the region obtainaing a rather high cycle uptake; with its spatial distribution primarily in the centre of the region. 
 
 ## Comparing Regions
 
 Now say we wanted to compare the results of Oxfordshire, with its regional neighbor Cambridgeshire. This can be achieved by wrapping the previous method into a function.
+
 ```{r echo = TRUE, message=FALSE, warning=FALSE}
 pct_zones_rnet_current <- function(region_name) {
   #Get road network for preselected regin
@@ -135,7 +136,7 @@ cambrideshire_results = pct_zones_rnet_current(region_name = "cambridgeshire")
 tmap_arrange(oxfordshire_results, cambrideshire_results, ncol = 2)
 ```
 
-In comparison to Oxfordshire, Cambridgeshire spatial distribution of km's cycled exhibit a high number of cycling not only in the centre. While Oxfordshire obtains a zone with a higher number of km's cycled through it, in general Cambridgeshire displays a higher number in its quartile range. Interesting!
+In comparison to Oxfordshire, Cambridgeshire spatial distribution of km's cycled exhibit a high number of cycling not only in the centre of the region. While Oxfordshire obtains a zone with a higher number of km's cycled through it, in general Cambridgeshire displays a higher number in its quartile range. Interesting!
 
 Now lets say we wanted to compare two cities. Lets take London and Greater Manchester. Again we can use the function we built but this time lets set the map mode to interactive; so we can easily see the number per LSOA.
 
@@ -146,11 +147,11 @@ tmap_mode("view")
 tmap_arrange(london_results, gm_results, ncol = 2)
 ```
 
-Jheeze! The maps provides insight at a highly granular level. Both Greater Manchester and London have similar quartile ranges and are fairly monocentric, however, LSOA's in London such as ```E01032739``` obtain billions in km's cycled per year; likely due to population differences. Nonetheless, outer LSOA's in both Greater Manchester and London also feature in the highest quartile, representing that cycle uptake is not just dominant in the centre of the regions. 
+Jheeze! The maps provides insight at a highly granular level. Both Greater Manchester and London have similar quartile ranges and are fairly monocentric, however, LSOA's in London such as ```E01032739``` obtain billions in km's cycled per year; likely due to working population differences. Nonetheless, outer LSOA's in both Greater Manchester and London also feature in the highest quartile, representing that cycle uptake is not dominant soley in the centre of the regions. 
 
 ## Using PCT models to visualize potential cycle uptake
 
-While the results based on the 2011 census provide interesting and valuable results; a lot has changed since 2011 and other scenarios should be explored. The PCT package features numerous models (e.g. ```govtarget_slc```,```gendereq_slc``` and ```ebike_slc```). In this example lets examine these two cities again, but this time using the PCT E-bike model scenario. To do this, we will build a function similar to what we used for the census data, but change the daily miled cycled to use the ```ebike_slc``` model.
+While the results based on the 2011 census provide interesting and valuable results, a lot has changed since 2011 and other scenarios should be explored. The PCT package features numerous models (e.g. ```govtarget_slc```,```gendereq_slc``` and ```ebike_slc```). In this example lets examine these two cities again, but this time using the PCT E-bike model scenario. The PCT E-Bike model assumes commuters will use e-Bikes for longer or hillier trips (based on data from Dutch and Swiss travel surveys). In order to model this, we will build a function similar to what we used for the census data, but change the daily miled cycled to use the ```ebike_slc``` column within ```rnet```.
 
 ```{r echo = TRUE, message=FALSE, warning=FALSE}
 pct_zones_rnet_ebikes <- function(region_name) {
@@ -181,7 +182,7 @@ pct_zones_rnet_ebikes <- function(region_name) {
 }
 ```
 
-With our E-Bikes function built, we can plot our results to see what these cities could look like if there was a significant increase in E-Bike users.
+With our E-Bikes function built, we can map the results to visualise the effect an E-bike scenario may have on these two cities.
 
 ```{r echo = TRUE, message=FALSE, warning=FALSE}
 london_results_ebikes = pct_zones_rnet_ebikes(region_name = "london")
