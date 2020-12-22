@@ -3,9 +3,10 @@ pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   cycling-potential-uk: cycling-potential-uk.html
+  km-cycled: km-cycled.html
   pct-international: pct-international.html
   pct: pct.html
   pct_training: pct_training.html
   uk-cities: uk-cities.html
-last_built: 2020-12-18T22:11Z
+last_built: 2020-12-22T17:03Z
 
