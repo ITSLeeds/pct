@@ -342,8 +342,8 @@ check_distance_gradient = function(distance, gradient, verbose = TRUE) {
     }
     distance = distance / 1000
   }
-  # is it in %?
-  is_gradient_percent = max(gradient) > 0.5
+  # is it in %? If mean of gradient is more than 0.1 (10% as ratio), probably
+  is_gradient_percent = mean(gradient) > 0.1
   if(!is_gradient_percent) {
     if (verbose) {
       message("Gradient assumed to be gradient, switching to % (*100)")
