@@ -226,7 +226,7 @@ routes_fast = segments_fast %>%
     all = unique(all),
     bicycle = unique(bicycle),
     length = sum(distances),
-    av_incline = diff(range(elevations)) / sum(distances) * 100
+    av_incline = mean(gradient_smooth) * 100
   ) 
 ```
 

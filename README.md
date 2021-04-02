@@ -1,17 +1,17 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-
 <!-- badges: start -->
 
+[![](https://cranlogs.r-pkg.org/badges/grand-total/pct)](https://cran.r-project.org/package=pct)
 [![R build
 status](https://github.com/itsleeds/pct/workflows/R-CMD-check/badge.svg)](https://github.com/itsleeds/pct/actions)
 [![](https://www.r-pkg.org/badges/version/pct)](https://www.r-pkg.org/pkg/pct)
 [![Coverage
 status](https://codecov.io/gh/ITSLeeds/pct/branch/master/graph/badge.svg)](https://codecov.io/github/ITSLeeds/pct?branch=master)
+[![R-CMD-check](https://github.com/itsleeds/pct/workflows/R-CMD-check/badge.svg)](https://github.com/itsleeds/pct/actions)
 <!-- badges: end -->
 
 <!-- [![R build status](https://github.com/itsleeds/pct/workflows/R-CMD-check/badge.svg)](https://github.com/itsleeds/pct/actions) -->
-
 <!-- [![Travis build status](https://travis-ci.org/ITSLeeds/pct.svg?branch=master)](https://travis-ci.org/ITSLeeds/pct) -->
 
 # pct
@@ -41,7 +41,7 @@ town/city/region.
 In summary, if you want to know how PCT works, be able to reproduce some
 of its results, and build scenarios of cycling uptake to inform
 transport policies enabling cycling in cities worldwide, this package is
-for you\!
+for you!
 
 ## Installation
 
@@ -69,16 +69,16 @@ the package’s website at <https://itsleeds.github.io/pct/>
 
 There you will find the following vignettes:
 
-  - An introduction to the PCT and associated R package:
+-   An introduction to the PCT and associated R package:
     <https://itsleeds.github.io/pct/articles/pct.html>
-  - A
+-   A
     [vignette](https://itsleeds.github.io/pct/articles/cycling-potential-uk.html)
     explaining how the package estimates cycling uptake in UK cities
-  - A
+-   A
     [vignette](https://itsleeds.github.io/pct/articles/pct-international.html)
     demonstrating the international applicability of the PCT method,
     with help from this and other R packages
-  - A [training
+-   A [training
     vignette](https://itsleeds.github.io/pct/articles/pct_training.html)
     for getting started with the PCT
 
@@ -92,19 +92,19 @@ From feedback, we hear that the use of the data is critical in decision
 making. Therefore, one area where the package could be useful is making
 the data “easily” available to be processed.
 
-  - `get_pct`: the basic function to obtain data available
+-   `get_pct`: the basic function to obtain data available
     [here](https://itsleeds.github.io/pct/reference/get_pct.html).
 
 The rest of these should be self explanatory.
 
-  - `get_pct_centroids`
-  - `get_pct_lines`
-  - `get_pct_rnet`
-  - `get_pct_routes_fast`
-  - `get_pct_routes_quiet`
-  - `get_pct_zones`
-  - `uptake_pct_godutch`
-  - `uptake_pct_govtarget`
+-   `get_pct_centroids`
+-   `get_pct_lines`
+-   `get_pct_rnet`
+-   `get_pct_routes_fast`
+-   `get_pct_routes_quiet`
+-   `get_pct_zones`
+-   `uptake_pct_godutch`
+-   `uptake_pct_govtarget`
 
 For example, to get the centroids in West Yorkshire:
 
@@ -181,10 +181,56 @@ ggplot(uptake_df) +
 <img src="man/figures/README-decay-1.png" width="100%" />
 
 The proportion of trips made by cycling along each origin-destination
-(OD) pair therefore depends on the trip distance and hilliness. The main
-input dataset into the PCT is OD data and, to convert each OD pair into
-a geographic desire line, geographic zone or centroids. Typical input
-data is provided in packaged datasets `od_leeds` and `zones_leeds`:
+(OD) pair therefore depends on the trip distance and hilliness. The
+equivalent plot for hilliness is as follows:
+
+``` r
+distances = c(1, 3, 6, 10, 15, 21)
+hilliness = seq(0, 10, by = 0.2)
+uptake_df = 
+  data.frame(
+    expand.grid(distances, hilliness)
+  )
+names(uptake_df) = c("distances", "hilliness")
+p_govtarget = uptake_pct_govtarget(
+    distance = uptake_df$distances,
+    gradient = uptake_df$hilliness
+    )
+p_godutch = uptake_pct_godutch(
+    distance = uptake_df$distances,
+    gradient = uptake_df$hilliness
+    )
+uptake_df = rbind(
+  cbind(uptake_df, scenario = "govtarget", pcycle = p_govtarget),
+  cbind(uptake_df, scenario = "godutch", pcycle = p_godutch)
+)
+ggplot(uptake_df) +
+  geom_line(aes(
+    hilliness,
+    pcycle,
+    linetype = scenario,
+    colour = formatC(distances, flag = "0", width = 2)
+  )) +
+  scale_color_discrete("Distance (km)")
+```
+
+<img src="man/figures/README-decayhills-1.png" width="100%" />
+
+Note: if distances or gradient values appear to be provided in incorrect
+units, they will automatically be updated:
+
+``` r
+distances = uptake_df$distances * 1000
+hilliness = uptake_df$hilliness / 100
+res = uptake_pct_godutch(distances, hilliness, verbose = TRUE)
+#> Distance assumed in m, switching to km
+#> Gradient assumed to be gradient, switching to % (*100)
+```
+
+The main input dataset into the PCT is OD data and, to convert each OD
+pair into a geographic desire line, geographic zone or centroids.
+Typical input data is provided in packaged datasets `od_leeds` and
+`zones_leeds`, as shown in the next section.
 
 ## Reproduce PCT for Leeds
 
@@ -215,10 +261,10 @@ class(zones_leeds)
 #> [1] "sf"         "data.frame"
 zones_leeds[1:3, ]
 #> Simple feature collection with 3 features and 6 fields
-#> geometry type:  MULTIPOLYGON
-#> dimension:      XY
-#> bbox:           xmin: -1.727245 ymin: 53.90046 xmax: -1.294313 ymax: 53.94589
-#> geographic CRS: WGS 84
+#> Geometry type: MULTIPOLYGON
+#> Dimension:     XY
+#> Bounding box:  xmin: -1.727245 ymin: 53.90046 xmax: -1.294313 ymax: 53.94589
+#> Geodetic CRS:  WGS 84
 #>      objectid  msoa11cd  msoa11nm msoa11nmw st_areasha st_lengths
 #> 2270     2270 E02002330 Leeds 001 Leeds 001    3460674  10002.983
 #> 2271     2271 E02002331 Leeds 002 Leeds 002   21870986  26417.665
@@ -234,7 +280,7 @@ into geographic desire lines as follows:
 
 ``` r
 library(sf)
-#> Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 6.3.1
+#> Linking to GEOS 3.9.0, GDAL 3.2.1, PROJ 7.2.1
 desire_lines = stplanr::od2line(flow = od_leeds, zones = zones_leeds[2])
 #> Creating centroids representing desire line start and end points.
 plot(desire_lines[c(1:3, 12)])
@@ -269,9 +315,19 @@ routes_fast = segments_fast %>%
     all = unique(all),
     bicycle = unique(bicycle),
     length = sum(distances),
-    av_incline = diff(range(elevations)) / sum(distances) * 100
+    av_incline = mean(gradient_smooth) * 100
   ) 
-#> `summarise()` regrouping output by 'area_of_residence' (override with `.groups` argument)
+#> `summarise()` has grouped output by 'area_of_residence'. You can override using the `.groups` argument.
+#> although coordinates are longitude/latitude, st_union assumes that they are planar
+#> although coordinates are longitude/latitude, st_union assumes that they are planar
+#> although coordinates are longitude/latitude, st_union assumes that they are planar
+#> although coordinates are longitude/latitude, st_union assumes that they are planar
+#> although coordinates are longitude/latitude, st_union assumes that they are planar
+#> although coordinates are longitude/latitude, st_union assumes that they are planar
+#> although coordinates are longitude/latitude, st_union assumes that they are planar
+#> although coordinates are longitude/latitude, st_union assumes that they are planar
+#> although coordinates are longitude/latitude, st_union assumes that they are planar
+#> although coordinates are longitude/latitude, st_union assumes that they are planar
 ```
 
 The results at the route level are as follows:
@@ -286,7 +342,6 @@ Now we estimate cycling uptake:
 
 ``` r
 routes_fast$uptake = uptake_pct_govtarget(distance = routes_fast$length, gradient = routes_fast$av_incline)
-#> Distance assumed in m, switching to km
 routes_fast$bicycle_govtarget = routes_fast$bicycle +
   round(routes_fast$uptake * routes_fast$all)
 ```
@@ -295,15 +350,15 @@ Let’s see how many people started cycling:
 
 ``` r
 sum(routes_fast$bicycle_govtarget) - sum(routes_fast$bicycle)
-#> [1] 547
+#> [1] 400
 ```
 
-Nearly 1000 more people cycling to work, just in 10 desire is not bad\!
+Nearly 1000 more people cycling to work, just in 10 desire is not bad!
 What % cycling is this, for those routes?
 
 ``` r
 sum(routes_fast$bicycle_govtarget) / sum(routes_fast$all)
-#> [1] 0.09356206
+#> [1] 0.07906931
 sum(routes_fast$bicycle) / sum(routes_fast$all)
 #> [1] 0.03963324
 ```
@@ -325,7 +380,7 @@ plot(rnet["bicycle_govtarget"], lwd = lwd)
 <img src="man/figures/README-rnetgove-1.png" width="100%" />
 
 We can view the results in an interactive map and share with policy
-makers, stakeholders, and the public\! E.g. (see interactive map
+makers, stakeholders, and the public! E.g. (see interactive map
 [here](https://rpubs.com/RobinLovelace/474074)):
 
 ``` r
@@ -336,14 +391,14 @@ mapview::mapview(rnet, zcol = "bicycle_govtarget", lwd = lwd * 2)
 
 ## Current limitations
 
-  - This package currently does not estimate cycling uptake associated
+-   This package currently does not estimate cycling uptake associated
     with intrazonal flows and people with no fixed job data
-  - This package currently does not estimate health benefits
+-   This package currently does not estimate health benefits
 
 ## Next steps and further resources (work in progress)
 
-  - Add additional scenarios of cycling uptake from different places
+-   Add additional scenarios of cycling uptake from different places
     (e.g. goCambridge)
-  - Add additional distance decay functions
-  - Make it easy to use data from other cities around the world
-  - Show how to create raster tiles of cycling uptake
+-   Add additional distance decay functions
+-   Make it easy to use data from other cities around the world
+-   Show how to create raster tiles of cycling uptake
