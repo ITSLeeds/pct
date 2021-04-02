@@ -145,8 +145,49 @@ ggplot(uptake_df) +
 ```
 
 The proportion of trips made by cycling along each origin-destination (OD) pair therefore depends on the trip distance and hilliness.
+The equivalent plot for hilliness is as follows:
+
+```{r decayhills}
+distances = c(1, 3, 6, 10, 15, 21)
+hilliness = seq(0, 10, by = 0.2)
+uptake_df = 
+  data.frame(
+    expand.grid(distances, hilliness)
+  )
+names(uptake_df) = c("distances", "hilliness")
+p_govtarget = uptake_pct_govtarget(
+    distance = uptake_df$distances,
+    gradient = uptake_df$hilliness
+    )
+p_godutch = uptake_pct_godutch(
+    distance = uptake_df$distances,
+    gradient = uptake_df$hilliness
+    )
+uptake_df = rbind(
+  cbind(uptake_df, scenario = "govtarget", pcycle = p_govtarget),
+  cbind(uptake_df, scenario = "godutch", pcycle = p_godutch)
+)
+ggplot(uptake_df) +
+  geom_line(aes(
+    hilliness,
+    pcycle,
+    linetype = scenario,
+    colour = formatC(distances, flag = "0", width = 2)
+  )) +
+  scale_color_discrete("Distance (km)")
+```
+
+Note: if distances or gradient values appear to be provided in incorrect units, they will automatically be updated:
+
+```{r}
+distances = uptake_df$distances * 1000
+hilliness = uptake_df$hilliness / 100
+res = uptake_pct_godutch(distances, hilliness, verbose = TRUE)
+```
+
+
 The main input dataset into the PCT is OD data and, to convert each OD pair into a geographic desire line, geographic zone or centroids.
-Typical input data is provided in packaged datasets `od_leeds` and `zones_leeds`:
+Typical input data is provided in packaged datasets `od_leeds` and `zones_leeds`, as shown in the next section.
 
 ## Reproduce PCT for Leeds
 
