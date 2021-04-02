@@ -10,9 +10,13 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  eval = FALSE
 )
 ```
+
+Note: this vignette is not evaluated to reduce package build times.
+See https://rpubs.com/RobinLovelace/749112 for the results with the code running.
 
 What modal shift to cycling do you think we could achieve in UK cities in an ideal scenario?
 Answers to that question are vital to support high level ambition for active transport and wider sustainability policies in settlements worldwide.
