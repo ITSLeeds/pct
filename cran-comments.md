@@ -1,7 +1,8 @@
 ## Changes
 
 - Minor updates - see news
-
+- Updated URLs
+- Reduced tar file size
 
 ## Test environments
 * local Ubuntu 20.04 install, R 4.0.2
@@ -13,3 +14,4 @@
 
 ## R CMD check results
 There were no ERRORs or WARNINGs. 
+

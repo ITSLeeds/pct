@@ -83,22 +83,24 @@ Wow, that's a lot of miles cycled! The plot breaks down the number km's cycled b
 Now say we wanted to compare the results of Oxfordshire, with its regional neighbor Cambridgeshire. This can be achieved by wrapping the previous method into a function.
 
 ```{r echo = TRUE, message=FALSE, warning=FALSE}
-pct_zones_rnet_current <- function(region_name) {
-  #Get road network for preselected regin
+pct_zones_rnet_current = function(region_name) {
+  # Get road network for preselected regin
   rnet = pct::get_pct_rnet(region = region_name)
-  #Calculate road length
+  # Calculate road length
   rnet$segment_length = as.numeric(sf::st_length(rnet))
-  #Calculate daily miles cycled
+  # Calculate daily km cycled
   rnet$m_cycled_per_working_day = rnet$segment_length * rnet$bicycle
-  #Get LSOA spatial data
+  # Convert to centroids to avoid double counting flows that cross zones
+  rnet_centroids = sf::st_centroid(rnet)
+  # Get LSOA spatial data
   zones = pct::get_pct_zones(region = region_name)
-  #Calculate cyced miles per zone
-  cycled_m_per_zone = aggregate(rnet["m_cycled_per_working_day"], zones, FUN = sum)
-  #Calculate miles cycled per year from commuting
+  # Calculate cyced miles per zone
+  cycled_m_per_zone = aggregate(rnet_centroids["m_cycled_per_working_day"], zones, FUN = sum)
+  # Calculate miles cycled per year from commuting
   zones$mkm_cycled_for_commuting_per_year_estimated = cycled_m_per_zone$m_cycled_per_working_day *
     2 * 200 / # estimate of trips days per year, morning and afternoon
     1e9
-  #Plot results
+  # Plot results
   tmap_mode("plot")
   tm_shape(zones) +
     tm_fill(
@@ -149,17 +151,19 @@ While the results based on the 2011 census provide interesting and valuable resu
 
 ```{r echo = TRUE, message=FALSE, warning=FALSE}
 pct_zones_rnet_ebikes <- function(region_name) {
-  #Get road network for pre-selected region
+  # Get road network for pre-selected region
   rnet = pct::get_pct_rnet(region = region_name)
-  #Calculate road length
+  # Calculate road length
   rnet$segment_length = as.numeric(sf::st_length(rnet))
-  #Calculate daily miles cycled
+  # Calculate daily miles cycled
   rnet$m_cycled_per_working_day = rnet$segment_length * rnet$ebike_slc
-  #Get LSOA spatial data
+  # Convert to centroids to avoid double counting flows that cross zones
+  rnet_centroids = sf::st_centroid(rnet)
+  # Get LSOA spatial data
   zones = pct::get_pct_zones(region = region_name)
-  #Calculate cyced miles per zone
-  cycled_m_per_zone = aggregate(rnet["m_cycled_per_working_day"], zones, FUN = sum)
-  #Calculate miles cycled per year from commuting
+  # Calculate cycled miles per zone
+  cycled_m_per_zone = aggregate(rnet_centroids["m_cycled_per_working_day"], zones, FUN = sum)
+  # Calculate km cycled per year from commuting
   zones$mkm_cycled_for_commuting_per_year_estimated = cycled_m_per_zone$m_cycled_per_working_day *
     2 * 200 / # estimate of trips days per year, morning and afternoon
     1e9

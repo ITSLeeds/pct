@@ -16,3 +16,4 @@ data-raw/*
 ^inst/pct_training_solutions\.html$
 ^\.github$
 ^inst/rmd/refs\.bib$
+^data-raw$
