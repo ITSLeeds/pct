@@ -169,22 +169,24 @@
 <a href="#comparing-regions" class="anchor"></a>Comparing Regions</h2>
 <p>Now say we wanted to compare the results of Oxfordshire, with its regional neighbor Cambridgeshire. This can be achieved by wrapping the previous method into a function.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">pct_zones_rnet_current</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">region_name</span><span class="op">)</span> <span class="op">{</span>
-  <span class="co">#Get road network for preselected regin</span>
+<code class="sourceCode R"><span class="va">pct_zones_rnet_current</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">region_name</span><span class="op">)</span> <span class="op">{</span>
+  <span class="co"># Get road network for preselected regin</span>
   <span class="va">rnet</span> <span class="op">=</span> <span class="fu">pct</span><span class="fu">::</span><span class="fu"><a href="../reference/get_pct_rnet.html">get_pct_rnet</a></span><span class="op">(</span>region <span class="op">=</span> <span class="va">region_name</span><span class="op">)</span>
-  <span class="co">#Calculate road length</span>
+  <span class="co"># Calculate road length</span>
   <span class="va">rnet</span><span class="op">$</span><span class="va">segment_length</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_measures.html">st_length</a></span><span class="op">(</span><span class="va">rnet</span><span class="op">)</span><span class="op">)</span>
-  <span class="co">#Calculate daily miles cycled</span>
+  <span class="co"># Calculate daily km cycled</span>
   <span class="va">rnet</span><span class="op">$</span><span class="va">m_cycled_per_working_day</span> <span class="op">=</span> <span class="va">rnet</span><span class="op">$</span><span class="va">segment_length</span> <span class="op">*</span> <span class="va">rnet</span><span class="op">$</span><span class="va">bicycle</span>
-  <span class="co">#Get LSOA spatial data</span>
+  <span class="co"># Convert to centroids to avoid double counting flows that cross zones</span>
+  <span class="va">rnet_centroids</span> <span class="op">=</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_unary.html">st_centroid</a></span><span class="op">(</span><span class="va">rnet</span><span class="op">)</span>
+  <span class="co"># Get LSOA spatial data</span>
   <span class="va">zones</span> <span class="op">=</span> <span class="fu">pct</span><span class="fu">::</span><span class="fu"><a href="../reference/get_pct_zones.html">get_pct_zones</a></span><span class="op">(</span>region <span class="op">=</span> <span class="va">region_name</span><span class="op">)</span>
-  <span class="co">#Calculate cyced miles per zone</span>
-  <span class="va">cycled_m_per_zone</span> <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/aggregate.sf.html">aggregate</a></span><span class="op">(</span><span class="va">rnet</span><span class="op">[</span><span class="st">"m_cycled_per_working_day"</span><span class="op">]</span>, <span class="va">zones</span>, FUN <span class="op">=</span> <span class="va">sum</span><span class="op">)</span>
-  <span class="co">#Calculate miles cycled per year from commuting</span>
+  <span class="co"># Calculate cyced miles per zone</span>
+  <span class="va">cycled_m_per_zone</span> <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/aggregate.sf.html">aggregate</a></span><span class="op">(</span><span class="va">rnet_centroids</span><span class="op">[</span><span class="st">"m_cycled_per_working_day"</span><span class="op">]</span>, <span class="va">zones</span>, FUN <span class="op">=</span> <span class="va">sum</span><span class="op">)</span>
+  <span class="co"># Calculate miles cycled per year from commuting</span>
   <span class="va">zones</span><span class="op">$</span><span class="va">mkm_cycled_for_commuting_per_year_estimated</span> <span class="op">=</span> <span class="va">cycled_m_per_zone</span><span class="op">$</span><span class="va">m_cycled_per_working_day</span> <span class="op">*</span>
     <span class="fl">2</span> <span class="op">*</span> <span class="fl">200</span> <span class="op">/</span> <span class="co"># estimate of trips days per year, morning and afternoon</span>
     <span class="fl">1e9</span>
-  <span class="co">#Plot results</span>
+  <span class="co"># Plot results</span>
   <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tmap_mode.html">tmap_mode</a></span><span class="op">(</span><span class="st">"plot"</span><span class="op">)</span>
   <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">zones</span><span class="op">)</span> <span class="op">+</span>
     <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_polygons.html">tm_fill</a></span><span class="op">(</span>
@@ -228,17 +230,19 @@
 <p>While the results based on the 2011 census provide interesting and valuable results, a lot has changed since 2011 and other scenarios should be explored. The PCT package features numerous models (e.g. <code>govtarget_slc</code>,<code>gendereq_slc</code> and <code>ebike_slc</code>). In this example, lets examine London and Manchester again, but this time, lets use the PCT E-bike model scenario. The PCT E-Bike model assumes commuters will use e-Bikes for longer or hillier trips (based on data from Dutch and Swiss travel surveys). In order to model this, we will build a function similar to what we used for the census data, but change the daily miles cycled to use the <code>ebike_slc</code> column.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pct_zones_rnet_ebikes</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">region_name</span><span class="op">)</span> <span class="op">{</span>
-  <span class="co">#Get road network for pre-selected region</span>
+  <span class="co"># Get road network for pre-selected region</span>
   <span class="va">rnet</span> <span class="op">=</span> <span class="fu">pct</span><span class="fu">::</span><span class="fu"><a href="../reference/get_pct_rnet.html">get_pct_rnet</a></span><span class="op">(</span>region <span class="op">=</span> <span class="va">region_name</span><span class="op">)</span>
-  <span class="co">#Calculate road length</span>
+  <span class="co"># Calculate road length</span>
   <span class="va">rnet</span><span class="op">$</span><span class="va">segment_length</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_measures.html">st_length</a></span><span class="op">(</span><span class="va">rnet</span><span class="op">)</span><span class="op">)</span>
-  <span class="co">#Calculate daily miles cycled</span>
+  <span class="co"># Calculate daily miles cycled</span>
   <span class="va">rnet</span><span class="op">$</span><span class="va">m_cycled_per_working_day</span> <span class="op">=</span> <span class="va">rnet</span><span class="op">$</span><span class="va">segment_length</span> <span class="op">*</span> <span class="va">rnet</span><span class="op">$</span><span class="va">ebike_slc</span>
-  <span class="co">#Get LSOA spatial data</span>
+  <span class="co"># Convert to centroids to avoid double counting flows that cross zones</span>
+  <span class="va">rnet_centroids</span> <span class="op">=</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_unary.html">st_centroid</a></span><span class="op">(</span><span class="va">rnet</span><span class="op">)</span>
+  <span class="co"># Get LSOA spatial data</span>
   <span class="va">zones</span> <span class="op">=</span> <span class="fu">pct</span><span class="fu">::</span><span class="fu"><a href="../reference/get_pct_zones.html">get_pct_zones</a></span><span class="op">(</span>region <span class="op">=</span> <span class="va">region_name</span><span class="op">)</span>
-  <span class="co">#Calculate cyced miles per zone</span>
-  <span class="va">cycled_m_per_zone</span> <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/aggregate.sf.html">aggregate</a></span><span class="op">(</span><span class="va">rnet</span><span class="op">[</span><span class="st">"m_cycled_per_working_day"</span><span class="op">]</span>, <span class="va">zones</span>, FUN <span class="op">=</span> <span class="va">sum</span><span class="op">)</span>
-  <span class="co">#Calculate miles cycled per year from commuting</span>
+  <span class="co"># Calculate cycled miles per zone</span>
+  <span class="va">cycled_m_per_zone</span> <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/aggregate.sf.html">aggregate</a></span><span class="op">(</span><span class="va">rnet_centroids</span><span class="op">[</span><span class="st">"m_cycled_per_working_day"</span><span class="op">]</span>, <span class="va">zones</span>, FUN <span class="op">=</span> <span class="va">sum</span><span class="op">)</span>
+  <span class="co"># Calculate km cycled per year from commuting</span>
   <span class="va">zones</span><span class="op">$</span><span class="va">mkm_cycled_for_commuting_per_year_estimated</span> <span class="op">=</span> <span class="va">cycled_m_per_zone</span><span class="op">$</span><span class="va">m_cycled_per_working_day</span> <span class="op">*</span>
     <span class="fl">2</span> <span class="op">*</span> <span class="fl">200</span> <span class="op">/</span> <span class="co"># estimate of trips days per year, morning and afternoon</span>
     <span class="fl">1e9</span>
