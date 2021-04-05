@@ -1,6 +1,7 @@
 # pct 0.8.0
 
 - Check and update hilliness if the seem to be in incorrect units, and document (#70)
+- New vignette contributed by Nathanael Sheehan
 
 # pct 0.7.0
 
