@@ -25,7 +25,7 @@ library(tmap)
 
 ## Estimating million km's cycled for a region based on 2011 census data
 
-The PCT package permits an easy method for fetching road network and commuting origin/destination data for any region in England and Wales. This data will be used as the basis for understanding the current context of cycling for a given region (A definition of regions can be found in this earlier <a href="https://itsleeds.github.io/pct/articles/uk-cities.html">article</a>). For this first example, we will aplly the pct method to the the region of Oxfordshire. To begin with, we use the ```get_pct_rnet``` to retrieve road network data for the region. This data is then used to calculate the length of the road network cycled using ```base ``` r functions.
+The PCT package permits an easy method for fetching road network and commuting origin/destination data for any region in England and Wales. This data will be used as the basis for understanding the current context of cycling for a given region (A definition of regions can be found in this earlier <a href="https://itsleeds.github.io/pct/articles/uk-cities.html">article</a>). For this first example, we will apply the pct method to the region of Oxfordshire. To kick things off, we use the ```get_pct_rnet``` to retrieve road network data for the region. This data is then used to calculate the length of the road network cycled using ```base ``` r functions.
 
 ```{r echo = TRUE, message=FALSE, warning=FALSE}
 #Get road network for preselected regin
@@ -45,7 +45,7 @@ zones = pct::get_pct_zones(region = "oxfordshire")
 cycled_m_per_zone = aggregate(rnet["m_cycled_per_working_day"], zones, FUN = sum)
 ```
 
-While this is great information, it doesn't provide answer the long term question of how many million km's are cycled per year. In order to achieve this we must multiple the number of trips per day by the number of days in a standard working year (200) and divide by a million. Once again, this is achieved using ```base``` r functionality.
+While this is great information, it doesn't provide answer the long term question of how many million km's are cycled per year. In order to achieve this, we must multiple the number of trips per day by the number of days in a standard working year (200) and divide by a million. Once again, this is achieved using ```base``` r functionality.
 
 ```{r echo = TRUE, message=FALSE, warning=FALSE}
 zones$mkm_cycled_for_commuting_per_year_estimated = cycled_m_per_zone$m_cycled_per_working_day * 
@@ -73,10 +73,7 @@ With this calculated, we can now answer our question and visualize yearly km's c
       legend.outside = TRUE,
       legend.outside.position = "left",
       frame.lwd = 5
-    ) +   
-    tm_compass(type = "8star", position = c("right", "top", size = 2)
-    ) +
-    tm_scale_bar(breaks = c(0, 10, 20, 30), text.size = 0.4, position = c("left", "bottom"))
+    ) 
 ```
 
 Wow, that's a lot of miles cycled! The plot breaks down the number km's cycled by quartiles and thus paints the picture of where cycling is most prominent. In the context of Oxfordshire, the map depecits the region obtainaing a rather high cycle uptake; with its spatial distribution primarily in the centre of the region. 
@@ -120,10 +117,7 @@ pct_zones_rnet_current <- function(region_name) {
       legend.outside = TRUE,
       legend.outside.position = "bottom",
       frame.lwd = 5
-    ) +   
-    tm_compass(type = "8star", position = c("right", "top")
-    ) +
-    tm_scale_bar(breaks = c(0, 10, 20, 30, 40), text.size = 0.4, position = c("left", "bottom"))
+    )
   
 }
 ```
@@ -138,24 +132,24 @@ tmap_arrange(oxfordshire_results, cambrideshire_results, ncol = 2)
 
 In comparison to Oxfordshire, Cambridgeshire spatial distribution of km's cycled exhibit a high number of cycling not only in the centre of the region. While Oxfordshire obtains a zone with a higher number of km's cycled through it, in general Cambridgeshire displays a higher number in its quartile range. Interesting!
 
-Now lets say we wanted to compare two cities. Lets take London and Greater Manchester. Again we can use the function we built but this time lets set the map mode to interactive; so we can easily see the number per LSOA.
+Now lets say we wanted to compare two cities. Lets take London and Greater Manchester.
 
-```{r echo = TRUE, message=FALSE, warning=FALSE, fig.align="center"}
+```{r echo = TRUE, message=FALSE, warning=FALSE, fig.align="center", fig.width = 7, fig.height = 6}
 london_results = pct_zones_rnet_current(region_name = "london")
 gm_results = pct_zones_rnet_current(region_name = "greater-manchester")
-tmap_mode("view")
+#tmap_mode("view")  
 tmap_arrange(london_results, gm_results, ncol = 2)
 ```
 
-Jheeze! The maps provides insight at a highly granular level. Both Greater Manchester and London have similar quartile ranges and are fairly monocentric, however, LSOA's in London such as ```E01032739``` obtain billions in km's cycled per year; likely due to working population differences. Nonetheless, outer LSOA's in both Greater Manchester and London also feature in the highest quartile, representing that cycle uptake is not dominant soley in the centre of the regions. 
+Jheeze! The maps provides insight at a highly granular level. Both Greater Manchester and London have similar quartile ranges and are fairly monocentric, however, LSOA's in London such as ```E01032739``` obtain billions in km's cycled per year; likely due to working population differences. Nonetheless, outer LSOA's in both Greater Manchester and London also feature in the highest quartile, representing that cycle uptake is not dominant solely in the centre of the regions. 
 
 ## Using PCT models to visualize potential cycle uptake
 
-While the results based on the 2011 census provide interesting and valuable results, a lot has changed since 2011 and other scenarios should be explored. The PCT package features numerous models (e.g. ```govtarget_slc```,```gendereq_slc``` and ```ebike_slc```). In this example lets examine these two cities again, but this time using the PCT E-bike model scenario. The PCT E-Bike model assumes commuters will use e-Bikes for longer or hillier trips (based on data from Dutch and Swiss travel surveys). In order to model this, we will build a function similar to what we used for the census data, but change the daily miled cycled to use the ```ebike_slc``` column within ```rnet```.
+While the results based on the 2011 census provide interesting and valuable results, a lot has changed since 2011 and other scenarios should be explored. The PCT package features numerous models (e.g. ```govtarget_slc```,```gendereq_slc``` and ```ebike_slc```). In this example, lets examine London and Manchester again, but this time, lets use the PCT E-bike model scenario. The PCT E-Bike model assumes commuters will use e-Bikes for longer or hillier trips (based on data from Dutch and Swiss travel surveys). In order to model this, we will build a function similar to what we used for the census data, but change the daily miles cycled to use the ```ebike_slc``` column.
 
 ```{r echo = TRUE, message=FALSE, warning=FALSE}
 pct_zones_rnet_ebikes <- function(region_name) {
-  #Get road network for preselected regin
+  #Get road network for pre-selected region
   rnet = pct::get_pct_rnet(region = region_name)
   #Calculate road length
   rnet$segment_length = as.numeric(sf::st_length(rnet))
@@ -178,16 +172,26 @@ pct_zones_rnet_ebikes <- function(region_name) {
       palette = "plasma",
       title = "Million km's cycled by commuters per year\n(E-Bike model)",
       legend.size.is.portrait = TRUE
+    ) +
+    tm_layout(
+      title = toupper(region_name),
+      title.position = c("left", "top"),
+      bg.color = "honeydew3",
+      outer.bg.color = "honeydew",
+      legend.stack = "horizontal",
+      legend.outside = TRUE,
+      legend.outside.position = "bottom",
+      frame.lwd = 5
     )
 }
 ```
 
 With our E-Bikes function built, we can map the results to visualise the effect an E-bike scenario may have on these two cities.
 
-```{r echo = TRUE, message=FALSE, warning=FALSE}
+```{r echo = TRUE, message=FALSE, warning=FALSE, fig.align="center", fig.width = 7, fig.height = 6}
 london_results_ebikes = pct_zones_rnet_ebikes(region_name = "london")
 gm_results_ebikes = pct_zones_rnet_ebikes(region_name = "greater-manchester")
-tmap_mode("view")
+#tmap_mode("view")
 tmap_arrange(london_results_ebikes, gm_results_ebikes, ncol = 2)
 ```
 
@@ -201,4 +205,4 @@ As demonstrated, the PCT packages provides easy methods to visualize cycle poten
 * For more of a deep dive into the methods, see the pct_training vignette
 * See the pct-international to see how to apply the methods internationally
 
-We’re interested to know how you’ve used the methods/data so please get in touch on <a href="https://twitter.com/robinlovelace">(social media)</a> and <a href="https://github.com/ITSLeeds/pct">(Github) </a> letting us know how get on. Any comments/contributions to this analysis: welcome.
+We’re interested to know how you’ve used the methods/data so please get in touch on <a href="https://twitter.com/robinlovelace"> social media </a> and <a href="https://github.com/ITSLeeds/pct"> GitHub </a> letting us know how get on. Any comments/contributions to this analysis: welcome.
