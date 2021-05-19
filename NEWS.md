@@ -1,5 +1,7 @@
 # pct 0.9.0
 
+- New function `uptake_pct_ebike_2020()`
+
 # pct 0.8.0
 
 - Check and update hilliness if the seem to be in incorrect units, and document (#70)

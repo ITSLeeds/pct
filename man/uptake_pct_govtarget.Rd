@@ -4,6 +4,7 @@
 \alias{uptake_pct_govtarget}
 \alias{uptake_pct_govtarget_2020}
 \alias{uptake_pct_godutch_2020}
+\alias{uptake_pct_ebike_2020}
 \alias{uptake_pct_govtarget_school2}
 \alias{uptake_pct_godutch_school2}
 \title{Calculate cycling uptake for UK 'Government Target' scenario}
@@ -43,6 +44,20 @@ uptake_pct_godutch_2020(
   d2 = 1.988,
   d3 = 0.008775,
   h1 = -0.2555,
+  h2 = -0.78,
+  i1 = 0.02006,
+  i2 = -0.1234,
+  verbose = FALSE
+)
+
+uptake_pct_ebike_2020(
+  distance,
+  gradient,
+  alpha = -4.018 + 2.55,
+  d1 = -0.6369 - 0.08036 + 0.05509,
+  d2 = 1.988,
+  d3 = 0.008775 - 0.000295,
+  h1 = -0.2555 + 0.1812,
   h2 = -0.78,
   i1 = 0.02006,
   i2 = -0.1234,
@@ -97,13 +112,16 @@ uptake_pct_godutch_school2(
 }
 \description{
 Uptake model that takes distance and hilliness and returns
-a percentage of people likely to cycle along a desire line.
-Source: appendix of pct paper, hosted at:
+a percentage of trips that could be made by cycling along a desire line
+under scenarios of change. Source: appendix of pct paper, hosted at:
 \href{https://www.jtlu.org/index.php/jtlu/article/download/862/1381/4359}{www.jtlu.org}
-which states that:
+which states that: "To  estimate  cycling  potential,the  Propensity  to  Cycle  Tool  (PCT)  was
+designed  to  use  the  best available  geographically  disaggregated
+data  sources  on  travel  patterns."
 }
 \details{
-\preformatted{logit (pcycle) = -3.959 +   # alpha
+The functional form of the cycling uptake model used in the PCT is as follows:
+(Source: \href{https://npct.github.io/pct-shiny/regions_www/www/static/03a_manual/pct-bike-eng-user-manual-c1.pdf}{npct.github.io})\preformatted{logit (pcycle) = -3.959 +   # alpha
   (-0.5963 * distance) +    # d1
   (1.866 * distancesqrt) +  # d2
   (0.008050 * distancesq) + # d3

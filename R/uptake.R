@@ -1,10 +1,15 @@
 #' Calculate cycling uptake for UK 'Government Target' scenario
 #'
 #' Uptake model that takes distance and hilliness and returns
-#' a percentage of people likely to cycle along a desire line.
-#' Source: appendix of pct paper, hosted at:
+#' a percentage of trips that could be made by cycling along a desire line
+#' under scenarios of change. Source: appendix of pct paper, hosted at:
 #' [www.jtlu.org](https://www.jtlu.org/index.php/jtlu/article/download/862/1381/4359)
-#' which states that:
+#' which states that: "To  estimate  cycling  potential,the  Propensity  to  Cycle  Tool  (PCT)  was
+#' designed  to  use  the  best available  geographically  disaggregated
+#' data  sources  on  travel  patterns."
+#'
+#' The functional form of the cycling uptake model used in the PCT is as follows:
+#' (Source: [npct.github.io](https://npct.github.io/pct-shiny/regions_www/www/static/03a_manual/pct-bike-eng-user-manual-c1.pdf))
 #'
 #' ```
 #' logit (pcycle) = -3.959 +   # alpha
@@ -213,6 +218,38 @@ uptake_pct_godutch_2020 = function(distance,
                                    d2 = 1.988,
                                    d3 = 0.008775,
                                    h1 = -0.2555,
+                                   h2 = -0.78,
+                                   i1 = 0.02006,
+                                   i2 = -0.1234,
+                                   verbose = FALSE) {
+  distance_gradient = check_distance_gradient(distance, gradient, verbose)
+  distance = distance_gradient$distance
+  gradient = distance_gradient$gradient
+  # Uptake formula from manual:
+  # logit_pcycle = -4.018  +  (-0.6369  *  distance)  +  (1.988  *  distancesqrt) +
+  # (0.008775  * distancesq) + (-0.2555 * gradient) + (0.02006 * distance*gradient) +
+  # (-0.1234 * distancesqrt*gradient) + (2.550 * dutch) +  (-0.08036* dutch * distance) +
+  # (0.05509* ebike * distance) + (-0.0002950* ebike * distancesq) + (0.1812* ebike * gradient)
+  gradient = gradient + h2
+  pcycle_scenario = alpha +
+    (d1 * distance) + # d1
+    (d2 * sqrt(distance)) + # d2
+    (d3 * distance ^ 2) + # d3
+    (h1 * gradient) + # h1
+    (i1 * distance * gradient) + # i1
+    (i2 * sqrt(distance) * gradient) # i2
+  boot::inv.logit(pcycle_scenario)
+}
+
+#' @rdname uptake_pct_govtarget
+#' @export
+uptake_pct_ebike_2020 = function(distance,
+                                   gradient,
+                                   alpha = -4.018 + 2.550,
+                                   d1 = -0.6369 - 0.08036 + 0.05509,
+                                   d2 = 1.988,
+                                   d3 = 0.008775 -0.0002950,
+                                   h1 = -0.2555 + 0.1812,
                                    h2 = -0.78,
                                    i1 = 0.02006,
                                    i2 = -0.1234,
