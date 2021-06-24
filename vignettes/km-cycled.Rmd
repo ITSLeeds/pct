@@ -39,9 +39,11 @@ rnet$m_cycled_per_working_day = rnet$segment_length * rnet$bicycle
 Simples! Now we can use the ```get_pct_zones``` function to get LSOA geographies in order to calculate the number of km's cycled per day through each LSOA.
 
 ```{r echo = TRUE, message=FALSE, warning=FALSE}
-#Get road network for preselected regin
+# Get road network for preselected regin
 zones = pct::get_pct_zones(region = "oxfordshire")
-
+summary(sf::st_is_valid(zones))
+zones = sf::st_make_valid(zones)
+summary(sf::st_is_valid(zones))
 cycled_m_per_zone = aggregate(rnet["m_cycled_per_working_day"], zones, FUN = sum)
 ```
 
@@ -93,7 +95,7 @@ pct_zones_rnet_current = function(region_name) {
   # Convert to centroids to avoid double counting flows that cross zones
   rnet_centroids = sf::st_centroid(rnet)
   # Get LSOA spatial data
-  zones = pct::get_pct_zones(region = region_name)
+  zones = sf::st_make_valid(pct::get_pct_zones(region = region_name))
   # Calculate cyced miles per zone
   cycled_m_per_zone = aggregate(rnet_centroids["m_cycled_per_working_day"], zones, FUN = sum)
   # Calculate miles cycled per year from commuting
@@ -160,7 +162,7 @@ pct_zones_rnet_ebikes <- function(region_name) {
   # Convert to centroids to avoid double counting flows that cross zones
   rnet_centroids = sf::st_centroid(rnet)
   # Get LSOA spatial data
-  zones = pct::get_pct_zones(region = region_name)
+  zones = sf::st_make_valid(pct::get_pct_zones(region = region_name))
   # Calculate cycled miles per zone
   cycled_m_per_zone = aggregate(rnet_centroids["m_cycled_per_working_day"], zones, FUN = sum)
   # Calculate km cycled per year from commuting
