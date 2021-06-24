@@ -178,45 +178,45 @@ within the <code>region</code>.</p></td>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
 <span class='va'>desire_lines</span> <span class='op'>=</span> <span class='fu'>get_desire_lines</span><span class='op'>(</span><span class='st'>"wight"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>Column specification</span><span> </span><span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span><span></span>
+#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span></span>
 #&gt; <span class='message'>cols(</span>
-#&gt; <span class='message'>  `Area of residence` = </span><span style='color: #BB0000;'>col_character()</span><span>,</span>
-#&gt; <span class='message'>  `Area of workplace` = </span><span style='color: #BB0000;'>col_character()</span><span>,</span>
-#&gt; <span class='message'>  `All categories: Method of travel to work` = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  `Work mainly at or from home` = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  `Underground, metro, light rail, tram` = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  Train = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  `Bus, minibus or coach` = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  Taxi = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  `Motorcycle, scooter or moped` = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  `Driving a car or van` = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  `Passenger in a car or van` = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  Bicycle = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  `On foot` = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  `Other method of travel to work` = </span><span style='color: #00BB00;'>col_double()</span><span></span>
+#&gt; <span class='message'>  `Area of residence` = <span style='color: #BB0000;'>col_character()</span>,</span>
+#&gt; <span class='message'>  `Area of workplace` = <span style='color: #BB0000;'>col_character()</span>,</span>
+#&gt; <span class='message'>  `All categories: Method of travel to work` = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  `Work mainly at or from home` = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  `Underground, metro, light rail, tram` = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  Train = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  `Bus, minibus or coach` = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  Taxi = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  `Motorcycle, scooter or moped` = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  `Driving a car or van` = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  `Passenger in a car or van` = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  Bicycle = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  `On foot` = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  `Other method of travel to work` = <span style='color: #00BB00;'>col_double()</span></span>
 #&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>Column specification</span><span> </span><span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span><span></span>
+#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span></span>
 #&gt; <span class='message'>cols(</span>
-#&gt; <span class='message'>  MSOA11CD = </span><span style='color: #BB0000;'>col_character()</span><span>,</span>
-#&gt; <span class='message'>  MSOA11NM = </span><span style='color: #BB0000;'>col_character()</span><span>,</span>
-#&gt; <span class='message'>  BNGEAST = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  BNGNORTH = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  LONGITUDE = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  LATITUDE = </span><span style='color: #00BB00;'>col_double()</span><span></span>
+#&gt; <span class='message'>  MSOA11CD = <span style='color: #BB0000;'>col_character()</span>,</span>
+#&gt; <span class='message'>  MSOA11NM = <span style='color: #BB0000;'>col_character()</span>,</span>
+#&gt; <span class='message'>  BNGEAST = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  BNGNORTH = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  LONGITUDE = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  LATITUDE = <span style='color: #00BB00;'>col_double()</span></span>
 #&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='message'>Downloading population weighted centroids</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>Column specification</span><span> </span><span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span><span></span>
+#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span></span>
 #&gt; <span class='message'>cols(</span>
-#&gt; <span class='message'>  MSOA11CD = </span><span style='color: #BB0000;'>col_character()</span><span>,</span>
-#&gt; <span class='message'>  MSOA11NM = </span><span style='color: #BB0000;'>col_character()</span><span>,</span>
-#&gt; <span class='message'>  BNGEAST = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  BNGNORTH = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  LONGITUDE = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
-#&gt; <span class='message'>  LATITUDE = </span><span style='color: #00BB00;'>col_double()</span><span></span>
+#&gt; <span class='message'>  MSOA11CD = <span style='color: #BB0000;'>col_character()</span>,</span>
+#&gt; <span class='message'>  MSOA11NM = <span style='color: #BB0000;'>col_character()</span>,</span>
+#&gt; <span class='message'>  BNGEAST = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  BNGNORTH = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  LONGITUDE = <span style='color: #00BB00;'>col_double()</span>,</span>
+#&gt; <span class='message'>  LATITUDE = <span style='color: #00BB00;'>col_double()</span></span>
 #&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='message'>Not all flows origins have ID in centroids, removing 2527 OD pairs.</span></div><div class='input'><span class='fu'><a href='https://r-spatial.github.io/sf/reference/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>desire_lines</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: plotting the first 10 out of 18 attributes; use max.plot = 18 to plot all</span></div><div class='img'><img src='get_desire_lines-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>intra_zonal</span> <span class='op'>=</span> <span class='va'>desire_lines</span><span class='op'>$</span><span class='va'>geo_code1</span> <span class='op'>==</span> <span class='va'>desire_lines</span><span class='op'>$</span><span class='va'>geo_code2</span>
 <span class='fu'><a href='https://r-spatial.github.io/sf/reference/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>desire_lines</span><span class='op'>[</span><span class='va'>intra_zonal</span>, <span class='op'>]</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: plotting the first 10 out of 18 attributes; use max.plot = 18 to plot all</span></div><div class='img'><img src='get_desire_lines-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
-</div></span></pre>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
