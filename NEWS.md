@@ -1,5 +1,7 @@
 # pct 0.9.1
 
+- Minor updates to vignettes to support `sf` 1.0 (#101)
+
 # pct 0.9.0
 
 - New function `uptake_pct_ebike_2020()`
