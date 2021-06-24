@@ -227,6 +227,7 @@ In this section we will get PCT data at the MSOA level and plot the result in a 
 
 ```{r}
 library(pct)
+library(sf)      # key package for working with spatial vector data
 library(dplyr)   # in the tidyverse
 library(tmap)    # installed alongside mapview
 ```
