@@ -31,24 +31,25 @@ knitr::opts_chunk$set(
 ```
 
 ```{r, eval=FALSE, echo=FALSE}
-# get citations
-refs = RefManageR::ReadZotero(group = "418217", .params = list(collection = "JFR868KJ", limit = 100))
-refs2 = RefManageR::ReadBib("vignettes/refs.bib")
-refs = c(refs, refs2)
-refs_df = as.data.frame(refs)
-# View(refs_df)
-# citr::insert_citation(bib_file = "vignettes/refs_training.bib")
-RefManageR::WriteBib(refs, "vignettes/refs_training.bib")
-# citr::tidy_bib_file(rmd_file = "vignettes/pct_training.Rmd", messy_bibliography = "vignettes/refs_training.bib")
+library(rbbt)
+rbbt::bbt_update_bib(path_rmd = "vignettes/pct_training.Rmd")
 ```
 
 # Introduction
 
-This vignette supports workshops on advanced usage and development of the Propensity to Cycle Tool (PCT).
+This guide supports workshops on advanced usage and development of the Propensity to Cycle Tool (PCT).
 Beginner and intermediate PCT events focus on using the PCT via the web application hosted at [www.pct.bike](https://www.pct.bike/) and the data provided by the PCT in [QGIS](https://www.qgis.org/en/site/).
 
-The focus here is on analysing cycling potential in the open source statistical programming language R, in which the majority of the PCT was built.
-It will show how the code underlying the PCT works, how the underlying data can be accessed for reproducible analysis, and how the methods can be used to generate new scenarios of cycling uptake.
+The focus here is on analysing cycling potential in the open source statistical programming language R.
+It makes sense to use R for advanced applications using PCT data because the tool was developed in and can be extended with R code.
+Furthermore, using open source software with a command-line interface reduces barriers to entry in the planning process enabling it to become more citizen-led and participatory [@lovelace_open_2020].
+
+The guide covers:
+
+- How to download and get data from the PCT
+- How to compare PCT data with cycle infrastructure data to identify gaps in the network
+- How the code underlying the PCT works
+- How to generate new scenarios of cycling uptake
 
 <!-- There will be 2 courses: -->
 
