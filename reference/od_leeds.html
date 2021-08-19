@@ -73,7 +73,7 @@ according to the 2011 Census." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pct</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.2</span>
       </span>
     </div>
 
@@ -102,7 +102,7 @@ according to the 2011 Census." />
       <a href="../articles/cycling-potential-uk.html">Cycling potential in UK cities</a>
     </li>
     <li>
-      <a href="../articles/km-cycled.html">Estimating million km's cycled per zone in England and Wales regions</a>
+      <a href="../articles/km-cycled.html">Estimating distance cycled per zone in England and Wales regions</a>
     </li>
     <li>
       <a href="../articles/pct-international.html">International application of the PCT methods</a>
@@ -155,19 +155,19 @@ according to the 2011 Census.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># see data-raw folder for generation code</span>
 <span class='va'>od_leeds</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 10 x 14</span>
-#&gt;    area_of_residence area_of_workpla…   all  home metro train bus_minibus_or_co…
-#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>             <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>            <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>              <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
-#&gt; <span style='color: #BCBCBC;'> 1</span> E02002363         E02006875          922     0     0     5                356
-#&gt; <span style='color: #BCBCBC;'> 2</span> E02002373         E02006875         <span style='text-decoration: underline;'>1</span>037     0     5   111                424
-#&gt; <span style='color: #BCBCBC;'> 3</span> E02002384         E02006875          966     0     3    14                153
-#&gt; <span style='color: #BCBCBC;'> 4</span> E02002385         E02006875          958     0     4   121                334
-#&gt; <span style='color: #BCBCBC;'> 5</span> E02002392         E02006875          753     0     0    10                 91
-#&gt; <span style='color: #BCBCBC;'> 6</span> E02002404         E02006875         <span style='text-decoration: underline;'>1</span>145     0     0     6                174
-#&gt; <span style='color: #BCBCBC;'> 7</span> E02002411         E02006875          929     0     0     8                200
-#&gt; <span style='color: #BCBCBC;'> 8</span> E02006852         E02006875         <span style='text-decoration: underline;'>1</span>221     0     4    14                509
-#&gt; <span style='color: #BCBCBC;'> 9</span> E02006861         E02006875         <span style='text-decoration: underline;'>1</span>177     0     3    43                400
-#&gt; <span style='color: #BCBCBC;'>10</span> E02006876         E02006875         <span style='text-decoration: underline;'>1</span>035     0     1    11                132
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 10 × 14</span>
+#&gt;    area_of_residence area_of_workplace   all  home metro train bus_minibus_or_c…
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>             <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>             <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>             <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span> E02002363         E02006875           922     0     0     5               356
+#&gt; <span style='color: #BCBCBC;'> 2</span> E02002373         E02006875          <span style='text-decoration: underline;'>1</span>037     0     5   111               424
+#&gt; <span style='color: #BCBCBC;'> 3</span> E02002384         E02006875           966     0     3    14               153
+#&gt; <span style='color: #BCBCBC;'> 4</span> E02002385         E02006875           958     0     4   121               334
+#&gt; <span style='color: #BCBCBC;'> 5</span> E02002392         E02006875           753     0     0    10                91
+#&gt; <span style='color: #BCBCBC;'> 6</span> E02002404         E02006875          <span style='text-decoration: underline;'>1</span>145     0     0     6               174
+#&gt; <span style='color: #BCBCBC;'> 7</span> E02002411         E02006875           929     0     0     8               200
+#&gt; <span style='color: #BCBCBC;'> 8</span> E02006852         E02006875          <span style='text-decoration: underline;'>1</span>221     0     4    14               509
+#&gt; <span style='color: #BCBCBC;'> 9</span> E02006861         E02006875          <span style='text-decoration: underline;'>1</span>177     0     3    43               400
+#&gt; <span style='color: #BCBCBC;'>10</span> E02006876         E02006875          <span style='text-decoration: underline;'>1</span>035     0     1    11               132
 #&gt; <span style='color: #949494;'># … with 7 more variables: taxi &lt;dbl&gt;, motorcycle &lt;dbl&gt;,</span>
 #&gt; <span style='color: #949494;'>#   driving_a_car_or_van &lt;dbl&gt;, passenger &lt;dbl&gt;, bicycle &lt;dbl&gt;, on_foot &lt;dbl&gt;,</span>
 #&gt; <span style='color: #949494;'>#   other &lt;dbl&gt;</span></div></pre>

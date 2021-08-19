@@ -73,7 +73,7 @@ See geoportal.statistics.gov.uk." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pct</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.2</span>
       </span>
     </div>
 
@@ -102,7 +102,7 @@ See geoportal.statistics.gov.uk." />
       <a href="../articles/cycling-potential-uk.html">Cycling potential in UK cities</a>
     </li>
     <li>
-      <a href="../articles/km-cycled.html">Estimating million km's cycled per zone in England and Wales regions</a>
+      <a href="../articles/km-cycled.html">Estimating distance cycled per zone in England and Wales regions</a>
     </li>
     <li>
       <a href="../articles/pct-international.html">International application of the PCT methods</a>
@@ -155,16 +155,12 @@ See <a href='https://geoportal.statistics.gov.uk/datasets/b0a6d8a3dc5d4718b3fd62
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>pwc</span> <span class='op'>=</span> <span class='fu'>get_centroids_ew</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span></span>
-#&gt; <span class='message'>cols(</span>
-#&gt; <span class='message'>  MSOA11CD = <span style='color: #BB0000;'>col_character()</span>,</span>
-#&gt; <span class='message'>  MSOA11NM = <span style='color: #BB0000;'>col_character()</span>,</span>
-#&gt; <span class='message'>  BNGEAST = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  BNGNORTH = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  LONGITUDE = <span style='color: #00BB00;'>col_double()</span>,</span>
-#&gt; <span class='message'>  LATITUDE = <span style='color: #00BB00;'>col_double()</span></span>
-#&gt; <span class='message'>)</span></div><div class='input'><span class='fu'><a href='https://r-spatial.github.io/sf/reference/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>pwc</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>pwc</span><span class='op'>)</span>, <span class='fl'>1000</span><span class='op'>)</span>, <span class='op'>]</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'><span style='font-weight: bold;'>Rows: </span><span style='color: #0000BB;'>7201</span> <span style='font-weight: bold;'>Columns: </span><span style='color: #0000BB;'>6</span></span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span></span>
+#&gt; <span class='message'><span style='font-weight: bold;'>Delimiter:</span> ","</span>
+#&gt; <span class='message'><span style='color: #BB0000;'>chr</span> (2): MSOA11CD, MSOA11NM</span>
+#&gt; <span class='message'><span style='color: #00BB00;'>dbl</span> (4): BNGEAST, BNGNORTH, LONGITUDE, LATITUDE</span></div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Use <span style='color: #262626; background-color: #DADADA;'>`spec()`</span> to retrieve the full column specification for this data.</span>
+#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Specify the column types or set <span style='color: #262626; background-color: #DADADA;'>`show_col_types = FALSE`</span> to quiet this message.</span></div><div class='input'><span class='fu'><a href='https://r-spatial.github.io/sf/reference/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>pwc</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>pwc</span><span class='op'>)</span>, <span class='fl'>1000</span><span class='op'>)</span>, <span class='op'>]</span><span class='op'>)</span>
 </div><div class='img'><img src='get_centroids_ew-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
