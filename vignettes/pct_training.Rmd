@@ -31,7 +31,6 @@ knitr::opts_chunk$set(
 ```
 
 ```{r, eval=FALSE, echo=FALSE}
-library(rbbt)
 rbbt::bbt_update_bib(path_rmd = "vignettes/pct_training.Rmd")
 ```
 
@@ -42,7 +41,7 @@ Beginner and intermediate PCT events focus on using the PCT via the web applicat
 
 The focus here is on analysing cycling potential in the open source statistical programming language R.
 It makes sense to use R for advanced applications using PCT data because the tool was developed in and can be extended with R code.
-Furthermore, using open source software with a command-line interface reduces barriers to entry in the planning process enabling it to become more citizen-led and participatory [@lovelace_open_2020].
+Furthermore, using open source software with a command-line interface reduces barriers to entry, enabling the development of [open access transport models](https://doi.org/10.1016/j.tranpol.2020.06.015) for more citizen-led and participatory transport planning [@lovelace_open_2020].
 
 The guide covers:
 
@@ -50,6 +49,8 @@ The guide covers:
 - How to compare PCT data with cycle infrastructure data to identify gaps in the network
 - How the code underlying the PCT works
 - How to generate new scenarios of cycling uptake
+
+## Preparing for the training event
 
 <!-- There will be 2 courses: -->
 
@@ -70,7 +71,11 @@ The guide covers:
 <!-- - Register for a CycleStreets.net API key from: https://www.cyclestreets.net/api/ -->
 
 <!-- If you are new to R this course may not be appropriate for you. -->
-If you are an intermediate user, it may be worth brushing-up on your R skills, e.g. by taking a free online course such as that provided by [DataCamp](https://www.datacamp.com/courses/free-introduction-to-r) or by working through [Chapter 2 onwards of the open source book *Geocomputation with R*](https://geocompr.robinlovelace.net/spatial-class.html) (see reading list below for more transport-specific resources).
+If you are new to R, it is worth installing R and RStudio before the course.
+may be worth brushing-up on your skills.
+You can do so by taking a [free online course](https://www.datacamp.com/courses/free-introduction-to-r) or by working through [Chapter 2 of the open source book *Geocomputation with R*](https://geocompr.robinlovelace.net/spatial-class.html).
+It may also be worth taking a read of one or more of the following:
+
 
 ## Prior reading
 
@@ -138,62 +143,61 @@ source("https://github.com/ITSLeeds/pct/raw/master/inst/test-setup.R")
 <!--     - User interface -->
 <!--     - Policy uptake -->
 
-## Agenda
+<!-- ## Agenda -->
 
 <!-- - The venue + facilities -->
-Part 1: how the Propensity to Cycle Tool works + demo: 'I do'
+<!-- Part 1: how the Propensity to Cycle Tool works + demo: 'I do' -->
 
-  - Introductions (14:00 - 14:15)
-  - Walk through of [`test-setup.R`](https://github.com/ITSLeeds/pct/blob/master/inst/test-setup.R) (14:15 - 14:30)
-  - Demonstration of calculating cycling potential in a new context (14:30 - 14:40)
-  <!-- I will write an adapted version based on: https://github.com/ITSLeeds/pct/blob/master/data-raw/test-setup2.R -->
-  - Questions, break and debugging the test code in breakout rooms  (14:40 - 15:00)
-     - Room 1: technical questions and debugging code (Joey)
-     - Room 2: methodological questions about the PCT (Robin)
-     - Room 3: applying the PCT in new contexts (Rosa)
-     - Room 4: networking 
+<!--   - Introductions (14:00 - 14:15) -->
+<!--   - Walk through of [`test-setup.R`](https://github.com/ITSLeeds/pct/blob/master/inst/test-setup.R) (14:15 - 14:30) -->
+<!--   - Demonstration of calculating cycling potential in a new context (14:30 - 14:40) -->
+<!--   <!-- I will write an adapted version based on: https://github.com/ITSLeeds/pct/blob/master/data-raw/test-setup2.R --> -->
+<!--   - Questions, break and debugging the test code in breakout rooms  (14:40 - 15:00) -->
+<!--      - Room 1: technical questions and debugging code (Joey) -->
+<!--      - Room 2: methodological questions about the PCT (Robin) -->
+<!--      - Room 3: applying the PCT in new contexts (Rosa) -->
+<!--      - Room 4: networking  -->
 
-Part 2: Co-coding session: getting started with transport data in R: 'we do'
+<!-- Part 2: Co-coding session: getting started with transport data in R: 'we do' -->
 
-- Working through the code in [`pct_training.R`](https://github.com/ITSLeeds/pct/blob/master/inst/pct_training.R) (15:00 - 15:30)
-  - Breakout rooms 2 and 3 open for people who have questions
-- Live demo: overlaying PCT data with data from the Rapid tool and OSM (15:30 - 15:45)
+<!-- - Working through the code in [`pct_training.R`](https://github.com/ITSLeeds/pct/blob/master/inst/pct_training.R) (15:00 - 15:30) -->
+<!--   - Breakout rooms 2 and 3 open for people who have questions -->
+<!-- - Live demo: overlaying PCT data with data from the Rapid tool and OSM (15:30 - 15:45) -->
 
-   ☕☕☕ 15 minute break  ☕☕☕
+<!--    ☕☕☕ 15 minute break  ☕☕☕ -->
 
 
-Part 3: using PCT data for local transport planning: 'you do'
+<!-- Part 3: using PCT data for local transport planning: 'you do' -->
 
-- Getting set-up with RStudio and input data (16:00 - 16:15, Robin)
+<!-- - Getting set-up with RStudio and input data (16:00 - 16:15, Robin) -->
 
-- Break-out rooms (16:15 - 17:00)
-   - Getting and visualising PCT data (e.g. `get_pct_rnet`)
-   - Running the PCT for new areas
-   - Advanced topics (different routing, uptake and route network summary methods - developments in **stplanr**)
+<!-- - Break-out rooms (16:15 - 17:00) -->
+<!--    - Getting and visualising PCT data (e.g. `get_pct_rnet`) -->
+<!--    - Running the PCT for new areas -->
+<!--    - Advanced topics (different routing, uptake and route network summary methods - developments in **stplanr**) -->
 
-- Presentation of work and next steps (17:00 - 17:15)
-- Networking and 'ideas with beers' 🍻🍻🍻 (17:20 - 18:00)
+<!-- - Presentation of work and next steps (17:00 - 17:15) -->
+<!-- - Networking and 'ideas with beers' 🍻🍻🍻 (17:20 - 18:00) -->
+
+If you are following this guide as part of the [Cycle City Active City 2021](https://hopin.com/events/cycle-active-city-2021) conference, the workshops are scheduled at the following times:
+
+- Propensity to Cycle Tool: getting and using the data, 11:30 - 12:30
+
+- Propensity to Cycle Tool: build your own scenarios, 13:30 - 14:30
     
 # Exercises
 
-## Useful links
-
-These links may be useful when working through the exercises below:
-
-- The codebook describing each variable in the PCT route: [od_l_rf_codebook.csv](https://github.com/npct/pct-shiny/blob/master/regions_www/www/static/02_codebooks/commute/od_l_rf_codebook.csv)
-- Folder containing all [codebooks, including variables in zone, line and centroid datasets](https://github.com/npct/pct-shiny/tree/master/regions_www/www/static/02_codebooks)
-- The PCT tool itself, which can be used to cross-compare results from the analysis steps below: [www.pct.bike](https://www.pct.bike/)
-
 ## How the PCT works and what you can use it for
 
-- Take a look at the image below from [@lovelace_propensity_2017]. Which parts of the process are of most interest for your work?
+- Take a look at the image below from [@woodcock_health_2021a], which builds on an earlier diagram in @lovelace_propensity_2017. Which parts of the process are of most interest for your work?
 
-```{r, echo=FALSE, out.width="90%"}
+```{r, echo=FALSE, out.width="75%"}
 # u = "https://raw.githubusercontent.com/npct/pct-team/master/flow-model/flow-diag2.png"
 # f = "vignettes/flow-diag2.png"
 # download.file(u, f)
 # knitr::include_graphics("flow-diag2.png")
-knitr::include_graphics("https://raw.githubusercontent.com/npct/pct-team/master/flow-model/flow-diag2.png")
+# knitr::include_graphics("https://raw.githubusercontent.com/npct/pct-team/master/flow-model/flow-diag2.png")
+knitr::include_graphics("https://user-images.githubusercontent.com/1825120/130079051-378fcaf1-9cac-4768-a42e-28c287497618.png")
 ```
 
 <!-- - In groups of 2, identify 3 real world questions/problems that you could use the PCT to help answer/solve -->
@@ -222,7 +226,16 @@ Which types of data are most appropriate to tackle each of the questions/problem
 
 ## Getting PCT data
 
-In this section we will get PCT data at the MSOA level and plot the result in a simple map.
+<!-- From ccac 2021 -->
+In this section you will learn about the open datasets provided by the PCT project and how to use them. 
+While the most common use of the PCT is via the interactive web application hosted at www.pct.bike, there is much value in downloading the data, e.g. to identify existing cycling infrastructure in close proximity to routes with high potential, and to help identify roads in need of interventions from a safety perspective.
+In this session, which assumes you know how to use QGIS, R, or other program for working with geographic data, you will learn how to:
+
+- Find data on travel behaviour from the 2011 Census and from the School Census
+- How to download and import data from the PCT into QGIS
+- How to process the data alongside infrastructure data, to help find gaps in the network
+
+We will get PCT data at the MSOA level and plot the result in a simple map.
 
 - G1: The first stage is to load packages we will use:
 
@@ -447,6 +460,16 @@ plot(l_less_than_10km %>% filter(car_driver > 5) %>% select(car_driver))
 
 ## Scenarios of change
 
+<!-- From ccag 2021 -->
+This advanced section is designed for people with experience with the PCT and cycling uptake estimates who want to learn more about how uptake models work and how to generate new scenarios of change.
+Reproducible and open R code will be used to demonstrate the concepts so knowledge of R or other programming languages is recommended but not essential, as there will be conceptual exercises covering the factors linked to mode shift. In it you will:
+
+- Learn about the uptake model underlying the Propensity to Cycle Tool scenarios
+- Develop your own uptake model in conceptual terms, e.g., to represent the government’s target for 50% of all trips in cities to be made by walking and cycling by 2030
+- Learn how to train uptake models against data, to build evidence-based uptake models
+
+Work through the exercises.
+
 - S1: Generate a 'Go Dutch' scenario for the Isle of Wight using the function `uptake_pct_godutch()` (hint: the following code chunk will create a 'Government Target' scenario):
 
 ```{r}
@@ -620,5 +643,13 @@ leaflet(data = car_dependent) %>%
   addPolylines(color = ~pal(`Percent Drive`), weight = active$all / 100) %>% 
   addLegend(pal = pal, values = ~`Percent Drive`)
 ```
+
+## Useful links
+
+These links may be useful when working through the exercises:
+
+- The codebook describing each variable in the PCT route: [od_l_rf_codebook.csv](https://github.com/npct/pct-shiny/blob/master/regions_www/www/static/02_codebooks/commute/od_l_rf_codebook.csv)
+- Folder containing all [codebooks, including variables in zone, line and centroid datasets](https://github.com/npct/pct-shiny/tree/master/regions_www/www/static/02_codebooks)
+- The PCT tool itself, which can be used to cross-compare results from the analysis steps below: [www.pct.bike](https://www.pct.bike/)
 
 # References
