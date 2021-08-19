@@ -105,13 +105,15 @@ remotes::install_cran(pkgs)
 # remotes::install_github("ITSLeeds/pct")
 ```
 
-To test your computer is ready to work with PCT data in R, try running the following command:
+To test your computer is ready to work with PCT data in R, you can also try running the code hosted at https://raw.githubusercontent.com/ITSLeeds/pct/master/inst/test-setup.R to check everything is working:
 
  <!-- method for helping people set up their computers. Type this single line into the console and follow the instructions.  -->
 
 ```{r testcode, eval = FALSE }
 source("https://github.com/ITSLeeds/pct/raw/master/inst/test-setup.R") 
 ```
+
+If you have any questions before the workshop, feel free to ask a question on the package's issue tracker (requires a GitHub login): https://github.com/itsleeds/slopes/issues
 
 
 <!-- \newpage -->
