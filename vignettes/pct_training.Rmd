@@ -39,9 +39,9 @@ rbbt::bbt_update_bib(path_rmd = "vignettes/pct_training.Rmd")
 This guide supports workshops on advanced usage and development of the Propensity to Cycle Tool (PCT).
 Beginner and intermediate PCT events focus on using the PCT via the web application hosted at [www.pct.bike](https://www.pct.bike/) and the data provided by the PCT in [QGIS](https://www.qgis.org/en/site/).
 
-The focus here is on analysing cycling potential in the open source statistical programming language R.
-It makes sense to use R for advanced applications using PCT data because the tool was developed in and can be extended with R code.
-Furthermore, using open source software with a command-line interface reduces barriers to entry, enabling the development of [open access transport models](https://doi.org/10.1016/j.tranpol.2020.06.015) for more citizen-led and participatory transport planning [@lovelace_open_2020].
+The focus here is on analysing cycling potential in the open source statistical programming language R, although we will also look at the data in QGIS.
+We use R because the PCT was developed in, and can be extended with, R code.
+Using open source software with a command-line interface reduces barriers to entry, enabling the development of [open access transport models](https://doi.org/10.1016/j.tranpol.2020.06.015) for more citizen-led and participatory transport planning [@lovelace_open_2020].
 
 The guide covers:
 
@@ -71,11 +71,20 @@ The guide covers:
 <!-- - Register for a CycleStreets.net API key from: https://www.cyclestreets.net/api/ -->
 
 <!-- If you are new to R this course may not be appropriate for you. -->
-If you are new to R, it is worth installing R and RStudio before the course.
-may be worth brushing-up on your skills.
-You can do so by taking a [free online course](https://www.datacamp.com/courses/free-introduction-to-r) or by working through [Chapter 2 of the open source book *Geocomputation with R*](https://geocompr.robinlovelace.net/spatial-class.html).
-It may also be worth taking a read of one or more of the following:
+If you are new to R, you should install R and RStudio before the course.
+For instructions on that, see the download links at [cran.r-project.org](https://cran.r-project.org/) and [RStudio.com](https://www.rstudio.com/products/rstudio/download/#download).
 
+R is a powerful statistical programming language for data science and a wide range of other applications and, like any language, takes time to learn.
+To get started we recommend the following free resources:
+
+- Beginner: A free online course such as [DataCamp](https://www.datacamp.com/courses/free-introduction-to-r) or those listed at [education.rstudio.com](https://education.rstudio.com/learn/beginner/)
+- Recommended for people with knowledge of transport and road safety data: getting started with R in the context of road safety data, a tutorial hosted at https://itsleeds.github.io/rrsrr/
+- For people interested in geographic data, which is at the heart of the PCT: [Chapter 2 of the open source book *Geocomputation with R*](https://geocompr.robinlovelace.net/spatial-class.html).
+
+If you want to calculate cycle routes from within R, you are recommended to sign-up for a CycleStreets API key.
+See [here](https://www.cyclestreets.net/api/apply/) to apply and see [here](https://rpackage.cyclestreets.net/reference/journey.html#details) for instructions on creating a 'environment variable' (recommended for experienced R users only). 
+
+It may also be worth taking a read about the PCT if you're not familiar with it before the course starts.
 
 ## Prior reading
 
