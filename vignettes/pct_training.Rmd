@@ -1,6 +1,8 @@
 ---
 title: "Propensity to Cycle Tool Advanced Workshop"
-output: rmarkdown::html_vignette
+output:
+  rmarkdown::html_vignette:
+    number_sections: true
 vignette: >
   %\VignetteIndexEntry{Propensity to Cycle Tool Advanced Workshop}
   %\VignetteEngine{knitr::rmarkdown}
