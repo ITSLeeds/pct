@@ -88,6 +88,12 @@ get_od = function(region = NULL,
     stop("region must be of length 0 or 1")
   }
 
+  # Set the local edition for readr.
+  # See https://github.com/ropensci/stats19/issues/205
+  if (.Platform$OS.type == "windows" && utils::packageVersion("readr") >= "2.0.0") {
+    readr::local_edition(1)
+  }
+
   if(!is.null(region)) {
 
     valid_region = region %in% c(pct_regions_lookup$region_name)
