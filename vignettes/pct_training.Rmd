@@ -1,7 +1,7 @@
 ---
 title: "Propensity to Cycle Tool Advanced Workshop"
 output:
-  bookdown::html_document2:
+  bookdown::html_vignette2:
     number_sections: true
 vignette: >
   %\VignetteIndexEntry{Propensity to Cycle Tool Advanced Workshop}
