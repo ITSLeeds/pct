@@ -1,5 +1,5 @@
 ---
-title: "An Introduction to the pct package"
+title: "Introducing the pct package"
 subtitle: "Obtaining and reproducing data from the Propensity to Cycle Tool (PCT)"
 author: 
 - "Robin Lovelace and Layik Hama"
