@@ -20,3 +20,4 @@ libs
 *.html
 *_files
 *.geojson
+docs

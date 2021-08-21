@@ -1,0 +1,2 @@
+pkgdown:
+  as_is: true

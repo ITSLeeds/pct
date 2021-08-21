@@ -17,3 +17,5 @@ data-raw/*
 ^\.github$
 ^inst/rmd/refs\.bib$
 ^data-raw$
+^_pkgdown\.yml$
+^pkgdown$
