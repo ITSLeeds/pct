@@ -3,7 +3,7 @@ title: "Propensity to Cycle Tool Advanced Workshop"
 output:
   bookdown::html_document2:
     number_sections: true
-    toc_float: true
+    # toc_float: true
     theme: cosmo
 vignette: >
   %\VignetteIndexEntry{Propensity to Cycle Tool Advanced Workshop}
@@ -297,7 +297,7 @@ library(tmap)    # installed alongside mapview
 -   G2: After setting the region name (to avoid re-typing it many times) run the following commands to download data at the four main levels used in the PCT:
 
 ```{r}
-region_name = "isle-of-wight"
+region_name = "north-yorkshire"
 zones_all = get_pct_zones(region_name, geography = "msoa")
 lines_all = get_pct_lines(region_name, geography = "msoa")
 routes_all = get_pct_routes_fast(region_name, geography = "msoa")
@@ -306,11 +306,11 @@ rnet_all = get_pct_rnet(region_name)
 
 -   G3: Check the downloads worked by plotting the result as follows:
 
-```{r}
+```{r plotall, out.width="70%"}
 plot(zones_all$geometry)
 plot(lines_all$geometry, col = "blue", add = TRUE)
 plot(routes_all$geometry, col = "green", add = TRUE)
-plot(rnet_all$geometry, col = "red", lwd = rnet_all$bicycle / 10, add = TRUE)
+plot(rnet_all$geometry, col = "red", lwd = sqrt(rnet_all$bicycle), add = TRUE)
 ```
 
 ## Visualising PCT data
