@@ -9,6 +9,10 @@ vignette: >
   %\VignetteEncoding{UTF-8}
   %\VignetteDepends{tmap} 
 bibliography: refs_training.bib
+# Reformatted the Rmd doc
+editor_options:
+  markdown:
+    wrap: sentence
 ---
 
 ```{r, eval=FALSE, echo=FALSE}
@@ -22,7 +26,6 @@ output: pdf_document
 # output as .R script
 knitr::purl("vignettes/pct_training.Rmd")
 ```
-
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
@@ -47,25 +50,29 @@ Using open source software with a command-line interface reduces barriers to ent
 
 The guide covers:
 
-- How to download and get data from the PCT
-- How to compare PCT data with cycle infrastructure data to identify gaps in the network
-- How the code underlying the PCT works
-- How to generate new scenarios of cycling uptake
+-   How to download and get data from the PCT
+-   How to compare PCT data with cycle infrastructure data to identify gaps in the network
+-   How the code underlying the PCT works
+-   How to generate new scenarios of cycling uptake
 
 ## Preparing for the training event
 
 <!-- There will be 2 courses: -->
 
 <!-- - In London on **Friday 21st June**  -->
+
 <!-- - In Leeds on **Friday 2nd August (TBC)**  -->
 
 <!-- # Prerequisites -->
 
 <!-- This is an advanced training course with specific pre-requisites. -->
+
 <!-- Please only register if you: -->
 
 <!-- - Have experience analysing geographic area and route data of the type used in the PCT -->
+
 <!-- - Have experience using software for geographic data, including working knowledge of the statistical programming language R -->
+
 <!-- - Can bring a laptop that has up-to-date versions of R, RStudio and the necessary R packages installed (see next section) -->
 
 <!-- In addition, if you want to do routing on your computer:  -->
@@ -73,28 +80,29 @@ The guide covers:
 <!-- - Register for a CycleStreets.net API key from: https://www.cyclestreets.net/api/ -->
 
 <!-- If you are new to R this course may not be appropriate for you. -->
+
 If you are new to R, you should install R and RStudio before the course.
 For instructions on that, see the download links at [cran.r-project.org](https://cran.r-project.org/) and [RStudio.com](https://www.rstudio.com/products/rstudio/download/#download).
 
 R is a powerful statistical programming language for data science and a wide range of other applications and, like any language, takes time to learn.
 To get started we recommend the following free resources:
 
-- Beginner: A free online course such as [DataCamp](https://www.datacamp.com/courses/free-introduction-to-r) or those listed at [education.rstudio.com](https://education.rstudio.com/learn/beginner/)
-- Recommended for people with knowledge of transport and road safety data: getting started with R in the context of road safety data, a tutorial hosted at https://itsleeds.github.io/rrsrr/
-- For people interested in geographic data, which is at the heart of the PCT: [Chapter 2 of the open source book *Geocomputation with R*](https://geocompr.robinlovelace.net/spatial-class.html).
+-   Beginner: A free online course such as [DataCamp](https://www.datacamp.com/courses/free-introduction-to-r) or those listed at [education.rstudio.com](https://education.rstudio.com/learn/beginner/)
+-   Recommended for people with knowledge of transport and road safety data: getting started with R in the context of road safety data, a tutorial hosted at <https://itsleeds.github.io/rrsrr/>
+-   For people interested in geographic data, which is at the heart of the PCT: [Chapter 2 of the open source book *Geocomputation with R*](https://geocompr.robinlovelace.net/spatial-class.html).
 
 If you want to calculate cycle routes from within R, you are recommended to sign-up for a CycleStreets API key.
-See [here](https://www.cyclestreets.net/api/apply/) to apply and see [here](https://rpackage.cyclestreets.net/reference/journey.html#details) for instructions on creating a 'environment variable' (recommended for experienced R users only). 
+See [here](https://www.cyclestreets.net/api/apply/) to apply and see [here](https://rpackage.cyclestreets.net/reference/journey.html#details) for instructions on creating a 'environment variable' (recommended for experienced R users only).
 
 It may also be worth taking a read about the PCT if you're not familiar with it before the course starts.
 
 ## Prior reading
 
-In addition to computer hardware (a laptop) and software (an up-to-date R set-up and experience using R) pre-requisites, you should have read, or at least have working knowledge of the contents of, the following publications, all of which are freely available online:
+In addition to computer hardware (a laptop) and software (an up-to-date R set-up and experience using R) pre-requisites, you should have read, or at least have working knowledge of the contents of, the following publications, all of which are freely available online [@mobasheri2018]:
 
-- The original paper on the Propensity to Cycle Tool [@lovelace_propensity_2017]
-- The transport chapter ([12](https://geocompr.robinlovelace.net/transport.html)) in the open source book [*Geocomputation with R*](https://geocompr.robinlovelace.net/)  [@lovelace_geocomputation_2019]
-- The vignette that describes the pct R package, which can be found here: https://itsleeds.github.io/pct/articles/pct.html
+-   The original paper on the Propensity to Cycle Tool [@lovelace_propensity_2017]
+-   The transport chapter ([12](https://geocompr.robinlovelace.net/transport.html)) in the open source book [*Geocomputation with R*](https://geocompr.robinlovelace.net/) [@lovelace_geocomputation_2019]
+-   The vignette that describes the pct R package, which can be found here: <https://itsleeds.github.io/pct/articles/pct.html>
 
 ## Prerequisites
 
@@ -116,93 +124,113 @@ remotes::install_cran(pkgs)
 # remotes::install_github("ITSLeeds/pct")
 ```
 
-To test your computer is ready to work with PCT data in R, you can also try running the code hosted at https://raw.githubusercontent.com/ITSLeeds/pct/master/inst/test-setup.R to check everything is working:
+To test your computer is ready to work with PCT data in R, you can also try running the code hosted at <https://raw.githubusercontent.com/ITSLeeds/pct/master/inst/test-setup.R> to check everything is working:
 
- <!-- method for helping people set up their computers. Type this single line into the console and follow the instructions.  -->
+<!-- method for helping people set up their computers. Type this single line into the console and follow the instructions.  -->
 
 ```{r testcode, eval = FALSE }
 source("https://github.com/ITSLeeds/pct/raw/master/inst/test-setup.R") 
 ```
 
-If you have any questions before the workshop, feel free to ask a question on the package's issue tracker (requires a GitHub login): https://github.com/itsleeds/slopes/issues
-
+If you have any questions before the workshop, feel free to ask a question on the package's issue tracker (requires a GitHub login): <https://github.com/itsleeds/slopes/issues>
 
 <!-- \newpage -->
 
 <!-- # Agenda -->
 
 <!-- - 09:30 - 10:00: Arrival and set-up -->
+
 <!-- - 10:00 - 11:00: Data and methods underlying the PCT -->
+
 <!-- - 11:00 - 12:30: Getting and analysing PCT data -->
+
 <!--     - Comparing PCT results with existing road infrastructure -->
+
 <!--         - Getting data from the CyIPT -->
+
 <!--         - Identfying 'weak links' -->
+
 <!--         - Identify gaps in the network -->
 
 <!-- Lunch break -->
 
 <!-- - 13:30 - 15:30: Extending the PCT: minihack -->
+
 <!--     - Alternative scenarios of cycling uptake -->
+
 <!--         - A 'replace short car trips' scenario -->
+
 <!--     - New input data -->
+
 <!--         - Travel to stations -->
+
 <!--     - Other extensions of the PCT -->
 
 <!-- Break and presentation of results -->
 
 <!-- - 16:00 - 16:30: Policy implementation -->
+
 <!--     - Building open source web applications -->
+
 <!--     - Community-building -->
+
 <!--     - User interface -->
+
 <!--     - Policy uptake -->
 
 <!-- ## Agenda -->
 
 <!-- - The venue + facilities -->
+
 <!-- Part 1: how the Propensity to Cycle Tool works + demo: 'I do' -->
 
 <!--   - Introductions (14:00 - 14:15) -->
+
 <!--   - Walk through of [`test-setup.R`](https://github.com/ITSLeeds/pct/blob/master/inst/test-setup.R) (14:15 - 14:30) -->
+
 <!--   - Demonstration of calculating cycling potential in a new context (14:30 - 14:40) -->
-<!--   <!-- I will write an adapted version based on: https://github.com/ITSLeeds/pct/blob/master/data-raw/test-setup2.R --> -->
-<!--   - Questions, break and debugging the test code in breakout rooms  (14:40 - 15:00) -->
-<!--      - Room 1: technical questions and debugging code (Joey) -->
-<!--      - Room 2: methodological questions about the PCT (Robin) -->
-<!--      - Room 3: applying the PCT in new contexts (Rosa) -->
-<!--      - Room 4: networking  -->
+
+<!--   <!-- I will write an adapted version based on: https://github.com/ITSLeeds/pct/blob/master/data-raw/test-setup2.R -->
+
+--> <!--   - Questions, break and debugging the test code in breakout rooms  (14:40 - 15:00) --> <!--      - Room 1: technical questions and debugging code (Joey) --> <!--      - Room 2: methodological questions about the PCT (Robin) --> <!--      - Room 3: applying the PCT in new contexts (Rosa) --> <!--      - Room 4: networking  -->
 
 <!-- Part 2: Co-coding session: getting started with transport data in R: 'we do' -->
 
 <!-- - Working through the code in [`pct_training.R`](https://github.com/ITSLeeds/pct/blob/master/inst/pct_training.R) (15:00 - 15:30) -->
+
 <!--   - Breakout rooms 2 and 3 open for people who have questions -->
+
 <!-- - Live demo: overlaying PCT data with data from the Rapid tool and OSM (15:30 - 15:45) -->
 
 <!--    ☕☕☕ 15 minute break  ☕☕☕ -->
-
 
 <!-- Part 3: using PCT data for local transport planning: 'you do' -->
 
 <!-- - Getting set-up with RStudio and input data (16:00 - 16:15, Robin) -->
 
 <!-- - Break-out rooms (16:15 - 17:00) -->
+
 <!--    - Getting and visualising PCT data (e.g. `get_pct_rnet`) -->
+
 <!--    - Running the PCT for new areas -->
+
 <!--    - Advanced topics (different routing, uptake and route network summary methods - developments in **stplanr**) -->
 
 <!-- - Presentation of work and next steps (17:00 - 17:15) -->
+
 <!-- - Networking and 'ideas with beers' 🍻🍻🍻 (17:20 - 18:00) -->
 
 If you are following this guide as part of the [Cycle City Active City 2021](https://hopin.com/events/cycle-active-city-2021) conference, the workshops are scheduled at the following times:
 
-- Propensity to Cycle Tool: getting and using the data, 11:30 - 12:30
+-   Propensity to Cycle Tool: getting and using the data, 11:30 - 12:30
 
-- Propensity to Cycle Tool: build your own scenarios, 13:30 - 14:30
-    
+-   Propensity to Cycle Tool: build your own scenarios, 13:30 - 14:30
+
 # Exercises
 
 ## How the PCT works and what you can use it for
 
-- Take a look at the image below from [@woodcock_health_2021a], which builds on an earlier diagram in @lovelace_propensity_2017. Which parts of the process are of most interest for your work?
+-   Take a look at the image below from [@woodcock_health_2021a], which builds on an earlier diagram in @lovelace_propensity_2017. Which parts of the process are of most interest for your work?
 
 ```{r, echo=FALSE, out.width="75%"}
 # u = "https://raw.githubusercontent.com/npct/pct-team/master/flow-model/flow-diag2.png"
@@ -216,41 +244,49 @@ knitr::include_graphics("https://user-images.githubusercontent.com/1825120/13007
 <!-- - In groups of 2, identify 3 real world questions/problems that you could use the PCT to help answer/solve -->
 
 <!-- Communicating a vision -->
+
 <!-- Deciding on network scale/size/shape -->
+
 <!-- Generating business case for investment -->
+
 <!-- Feed into consulation -->
+
 <!-- Extend it to look at cycling integraton -->
 
 The PCT provides data at 4 geographic levels:
 
-- Zones
-- Desire lines
-- Routes
-- Route networks
+-   Zones
+-   Desire lines
+-   Routes
+-   Route networks
 
 Which types of data are most appropriate to tackle each of the questions/problems you identified?
 
-- Name 3 limitations of the data currently provided by the PCT and discuss how you could overcome them
+-   Name 3 limitations of the data currently provided by the PCT and discuss how you could overcome them
 
 <!-- OD data is old -> use new OD data -->
+
 <!-- Only single stage journeys -> Model travel to rail, for example -->
+
 <!-- It does not predict future levels of cycling following new infrastructure -> -->
+
 <!--   Wait until follow-on work building CyIPT is developed -->
 
 ## Getting PCT data
 
 <!-- From ccac 2021 -->
-In this section you will learn about the open datasets provided by the PCT project and how to use them. 
+
+In this section you will learn about the open datasets provided by the PCT project and how to use them.
 While the most common use of the PCT is via the interactive web application hosted at www.pct.bike, there is much value in downloading the data, e.g. to identify existing cycling infrastructure in close proximity to routes with high potential, and to help identify roads in need of interventions from a safety perspective.
 In this session, which assumes you know how to use QGIS, R, or other program for working with geographic data, you will learn how to:
 
-- Find data on travel behaviour from the 2011 Census and from the School Census
-- How to download and import data from the PCT into QGIS
-- How to process the data alongside infrastructure data, to help find gaps in the network
+-   Find data on travel behaviour from the 2011 Census and from the School Census
+-   How to download and import data from the PCT into QGIS
+-   How to process the data alongside infrastructure data, to help find gaps in the network
 
 We will get PCT data at the MSOA level and plot the result in a simple map.
 
-- G1: The first stage is to load packages we will use:
+-   G1: The first stage is to load packages we will use:
 
 ```{r}
 library(pct)
@@ -259,7 +295,7 @@ library(dplyr)   # in the tidyverse
 library(tmap)    # installed alongside mapview
 ```
 
-- G2: After setting the region name (to avoid re-typing it many times) run the following commands to download data at the four main levels used in the PCT:
+-   G2: After setting the region name (to avoid re-typing it many times) run the following commands to download data at the four main levels used in the PCT:
 
 ```{r}
 region_name = "isle-of-wight"
@@ -269,7 +305,7 @@ routes_all = get_pct_routes_fast(region_name, geography = "msoa")
 rnet_all = get_pct_rnet(region_name)
 ```
 
-- G3: Check the downloads worked by plotting the result as follows:
+-   G3: Check the downloads worked by plotting the result as follows:
 
 ```{r}
 plot(zones_all$geometry)
@@ -282,13 +318,12 @@ plot(rnet_all$geometry, col = "red", lwd = rnet_all$bicycle / 10, add = TRUE)
 
 At its heart, the PCT is a data visualisation tool.
 
-- V1: Create a static plot showing the route network layer with the `tmap` package
+-   V1: Create a static plot showing the route network layer with the `tmap` package
 
 ```{r}
 tm_shape(rnet_all) +
   tm_lines(lwd = "dutch_slc", scale = 9)
 ```
-
 
 ```{r, eval=FALSE, echo=FALSE}
 # tmap_mode("plot")
@@ -298,7 +333,7 @@ tm_shape(zones_all) +
   tm_lines(lwd = c("bicycle", "dutch_slc"), scale = 9)
 ```
 
-- V2: Create an interactive map showing the route network layer with the `tmap` package
+-   V2: Create an interactive map showing the route network layer with the `tmap` package
 
 ```{r}
 # interactive plot
@@ -307,9 +342,7 @@ tm_shape(rnet_all) +
   tm_lines(lwd = "dutch_slc", scale = 9)
 ```
 
-
-- V3 (Bonus): Run the following command to show the % of short trips in Isle of Wight made by active modes.
-
+-   V3 (Bonus): Run the following command to show the % of short trips in Isle of Wight made by active modes.
 
 ```{r setup, out.width="100%", message=FALSE}
 # basic plot
@@ -326,7 +359,7 @@ tm_shape(active) +
   tm_lines("Percent Active", palette = "RdYlBu", lwd = "all", scale = 9)
 ```
 
-- V4 (Bonus): Use the same technique to to identify short distance trips with a high mode share by car, as follows:
+-   V4 (Bonus): Use the same technique to to identify short distance trips with a high mode share by car, as follows:
 
 ```{r, out.width="100%"}
 # Create car dependent desire lines
@@ -342,9 +375,9 @@ For inspiration, check out the [Making maps with R](https://geocompr.robinlovela
 
 ## Exploring PCT data
 
-- E1: Using the PCT's online interface, hosted at [www.pct.bike/m/?r=isle-of-wight](https://www.pct.bike/m/?r=isle-of-wight), identify the MSOA **zone** that has the highest number of people who cycle to work.
+-   E1: Using the PCT's online interface, hosted at [www.pct.bike/m/?r=isle-of-wight](https://www.pct.bike/m/?r=isle-of-wight), identify the MSOA **zone** that has the highest number of people who cycle to work.
 
-- E2: Using data downloaded with the command `get_pct_zones()`, identify the zone that has highest level of cycling with the function `top_n()` and save the result as an object called `z_highest_cycling` (hint: you may want to start by 'cleaning' the data you have downloaded to include only a few key columns with the function `select()`, as follows):
+-   E2: Using data downloaded with the command `get_pct_zones()`, identify the zone that has highest level of cycling with the function `top_n()` and save the result as an object called `z_highest_cycling` (hint: you may want to start by 'cleaning' the data you have downloaded to include only a few key columns with the function `select()`, as follows):
 
 ```{r}
 z = zones_all %>% 
@@ -358,19 +391,19 @@ z_highest_cycling = z %>%
   top_n(n = 1, wt = bicycle)
 ```
 
-- E3: Use the `plot()` command to visualise where on the Isle of Wight this 'high cycling' zone is (hint: you will need to use the `plot()` function twice, once to plot `z$geometry`, and again with the argument `add = TRUE` and a `col` argument to add the layer on top of the base layer and give it a colour).
-The result should look something like something this:
+-   E3: Use the `plot()` command to visualise where on the Isle of Wight this 'high cycling' zone is (hint: you will need to use the `plot()` function twice, once to plot `z$geometry`, and again with the argument `add = TRUE` and a `col` argument to add the layer on top of the base layer and give it a colour). The result should look something like something this:
 
 ```{r, echo=FALSE}
 plot(z$geometry)
 plot(z_highest_cycling$geometry, col = "red", add = TRUE)
 ```
 
-- E4: Using the online interface, identify the top 5 MSOA to MSOA **desire lines** that have the highest number of people who cycle to work.
+-   E4: Using the online interface, identify the top 5 MSOA to MSOA **desire lines** that have the highest number of people who cycle to work.
 
-- E5: Using the function `top_n(n = 5, wt = bicycle)`, identify the top 5 MSOA to MSOA **desire lines** that have the highest number of people who cycle to work (hint: you might want to start with the code shown below).
-    - Bonus: also find the 5 desire lines with the highest number of people driving to work. Plot them and find the straight line distance of these lines with the function `st_length()`.
-    
+-   E5: Using the function `top_n(n = 5, wt = bicycle)`, identify the top 5 MSOA to MSOA **desire lines** that have the highest number of people who cycle to work (hint: you might want to start with the code shown below).
+
+    -   Bonus: also find the 5 desire lines with the highest number of people driving to work. Plot them and find the straight line distance of these lines with the function `st_length()`.
+
 ```{r get routes}
 # Aim: get top 5 cycle routes
 l_msoa = lines_all %>% 
@@ -400,7 +433,7 @@ plot(st_geometry(l_top_driving), add = TRUE, lwd = 5, col = "red")
 # tm_shape(l_top_driving) + tm_lines("red", lwd = 7) + tm_basemap(server = leaflet::providers$OpenStreetMap.BlackAndWhite)
 ```
 
-- E6 (Bonus):  Repeat the exercise but calculate the top 10 LSOA to LSOA desire lines (by setting the argument `geography = "lsoa"`, remember to change the names of the objects you create). The results should look like this:
+-   E6 (Bonus): Repeat the exercise but calculate the top 10 LSOA to LSOA desire lines (by setting the argument `geography = "lsoa"`, remember to change the names of the objects you create). The results should look like this:
 
 ```{r, echo=FALSE, warning=FALSE, fig.show='hold', fig.cap="Top 10 LSOA-LSOA desire lines with highest number of people cycling (left) and driving (right) in the Isle of Wight."}
 # at the lsoa level
@@ -418,7 +451,7 @@ plot(z$geometry)
 plot(st_geometry(l_top_driving), add = TRUE, lwd = 5, col = "red")
 ```
 
-- E7: Why are the results different? What are the advantages and disadvantages of using smaller zones, as represented by the LSOA data above?
+-   E7: Why are the results different? What are the advantages and disadvantages of using smaller zones, as represented by the LSOA data above?
 
 <!-- - E8 (bonus): do the same analysis but with the top **30** routes with a  cycled and driven. Hint: set the line width with `lwd = l_top_cycling$bicycle / mean(l_top_cycling$bicycle)` to portray the relative importance of each route. -->
 
@@ -438,20 +471,20 @@ plot(st_geometry(l_top_driving), add = TRUE, lwd = l_top_driving$car_driver / me
 
 ## Modifying PCT data to identify routes/roads of interest
 
-- M1: Building on the MSOA examples above, add a new column called `pcycle` to the object `l_msoa` that contains the % who cycle to work (hint: you might want to start this by typing `l_msoa$pcycle = ...`) and plot the results (shown in left hand panel in plot below).
+-   M1: Building on the MSOA examples above, add a new column called `pcycle` to the object `l_msoa` that contains the % who cycle to work (hint: you might want to start this by typing `l_msoa$pcycle = ...`) and plot the results (shown in left hand panel in plot below).
 
 ```{r p2}
 l_msoa$pcycle = l_msoa$bicycle / l_msoa$all * 100
 # plot(l_msoa["pcycle"], lwd = l_msoa$all / mean(l_msoa$all), breaks = c(0, 5, 10, 20, 50))
 ```
 
-- M2 (bonus): identify road segments with the highest estimated number of people cycling currently, and under the Go Dutch scenario (hint: you can download the route network with `get_pct_rnet("isle-of-wight")`)
+-   M2 (bonus): identify road segments with the highest estimated number of people cycling currently, and under the Go Dutch scenario (hint: you can download the route network with `get_pct_rnet("isle-of-wight")`)
 
 ```{r eval=FALSE, echo=FALSE}
 rnet = get_pct_rnet("isle-of-wight")
 ```
 
-- M3 Calculate the proportion of trips in the Isle of Wight that are less than 10 km in length and (bonus) plot the cumulative distribution graph for the fastest route distances
+-   M3 Calculate the proportion of trips in the Isle of Wight that are less than 10 km in length and (bonus) plot the cumulative distribution graph for the fastest route distances
 
 ```{r, echo=FALSE}
 l_less_than_10km = l %>% 
@@ -459,10 +492,11 @@ l_less_than_10km = l %>%
 sum(l_less_than_10km$all) / sum(l$all)
 ```
 
-- M4: subset and then plot all the MSOA-MSOA desire lines that have a route distance of less than 10 KM *and* more than 5 people travelling by mode, for each of the following modes:
-   - walking
-   - cycling
-   - driving
+-   M4: subset and then plot all the MSOA-MSOA desire lines that have a route distance of less than 10 KM *and* more than 5 people travelling by mode, for each of the following modes:
+
+    -   walking
+    -   cycling
+    -   driving
 
 ```{r, fig.show='hold', out.width="33%"}
 plot(l_less_than_10km %>% filter(foot > 5) %>% select(foot))
@@ -470,20 +504,21 @@ plot(l_less_than_10km %>% filter(bicycle > 5) %>% select(bicycle))
 plot(l_less_than_10km %>% filter(car_driver > 5) %>% select(car_driver))
 ```
 
-
 ## Scenarios of change
 
 <!-- From ccag 2021 -->
-This advanced section is designed for people with experience with the PCT and cycling uptake estimates who want to learn more about how uptake models work and how to generate new scenarios of change.
-Reproducible and open R code will be used to demonstrate the concepts so knowledge of R or other programming languages is recommended but not essential, as there will be conceptual exercises covering the factors linked to mode shift. In it you will:
 
-- Learn about the uptake model underlying the Propensity to Cycle Tool scenarios
-- Develop your own uptake model in conceptual terms, e.g., to represent the government’s target for 50% of all trips in cities to be made by walking and cycling by 2030
-- Learn how to train uptake models against data, to build evidence-based uptake models
+This advanced section is designed for people with experience with the PCT and cycling uptake estimates who want to learn more about how uptake models work and how to generate new scenarios of change.
+Reproducible and open R code will be used to demonstrate the concepts so knowledge of R or other programming languages is recommended but not essential, as there will be conceptual exercises covering the factors linked to mode shift.
+In it you will:
+
+-   Learn about the uptake model underlying the Propensity to Cycle Tool scenarios
+-   Develop your own uptake model in conceptual terms, e.g., to represent the government's target for 50% of all trips in cities to be made by walking and cycling by 2030
+-   Learn how to train uptake models against data, to build evidence-based uptake models
 
 Work through the exercises.
 
-- S1: Generate a 'Go Dutch' scenario for the Isle of Wight using the function `uptake_pct_godutch()` (hint: the following code chunk will create a 'Government Target' scenario):
+-   S1: Generate a 'Go Dutch' scenario for the Isle of Wight using the function `uptake_pct_godutch()` (hint: the following code chunk will create a 'Government Target' scenario):
 
 ```{r}
 l_msoa$euclidean_distance = as.numeric(sf::st_length(l_msoa))
@@ -508,12 +543,12 @@ plot(l_msoa["pcycle_dutch"], lwd = l_msoa$all / mean(l_msoa$all), breaks = c(0, 
 # plot(l_original_msoa$dutch_slc / l_original_msoa$all, l_msoa$pcycle_dutch)
 ```
 
-- S2: Think of alternative scenarios that would be useful for your work
-- S3 (bonus): look inside the function [`pct_uptake_godutch()`](https://github.com/ITSLeeds/pct/blob/master/R/uptake.R#L36) - how could it be modified?
+-   S2: Think of alternative scenarios that would be useful for your work
+-   S3 (bonus): look inside the function [`pct_uptake_godutch()`](https://github.com/ITSLeeds/pct/blob/master/R/uptake.R#L36) - how could it be modified?
 
 ## Routing
 
-- R1: Using the function `route()` find the route associated with the most cycled desire line in the Isle of Wight. If you use the arguments `route_fun = osrmRoute` `returnclass = "sf"`, the result should look similar to that displayed in the map below (hint: you may want to start your answer with the following lines of code):
+-   R1: Using the function `route()` find the route associated with the most cycled desire line in the Isle of Wight. If you use the arguments `route_fun = osrmRoute` `returnclass = "sf"`, the result should look similar to that displayed in the map below (hint: you may want to start your answer with the following lines of code):
 
 ```{r}
 l_top = l_msoa %>% 
@@ -536,9 +571,12 @@ tm_shape(r_top) +
   tm_lines(lwd = 5)
 ```
 
-- R2: What are the problems associated with this route from a cycling perspective? Take a look at the help page opened by entering `?route ` to identify the reason why the route is not particularly useful from a cycling perspective.
+-   R2: What are the problems associated with this route from a cycling perspective?
+    Take a look at the help page opened by entering `?route` to identify the reason why the route is not particularly useful from a cycling perspective.
 
-- R3: Regenerate the route using the following command: `route(l = l_top, route_fun = cyclestreets::journey)`. What is the difference in the length between each route, and what other differences can you spot? **Note: this exercise requires an API Key from CycleStreets.net.**
+-   R3: Regenerate the route using the following command: `route(l = l_top, route_fun = cyclestreets::journey)`.
+    What is the difference in the length between each route, and what other differences can you spot?
+    **Note: this exercise requires an API Key from CycleStreets.net.**
 
 ```{r, echo=FALSE, eval=FALSE}
 r_cs = route(l = l_top, route_fun = cyclestreets::journey)
@@ -548,11 +586,11 @@ leaflet() %>%
   addPolylines(data = r_cs)
 ```
 
-- R4 (bonus): what features of a routing service would be most useful for your work and why? 
+-   R4 (bonus): what features of a routing service would be most useful for your work and why?
 
 ## Route networks
 
-- RN1: Generate a 'route network' showing number of people walking in the top 30 routes in the Isle of Wight, allocated to the transport network (hint: use the `overline()` function and begin the script as follows, the results should look similar to the results below):
+-   RN1: Generate a 'route network' showing number of people walking in the top 30 routes in the Isle of Wight, allocated to the transport network (hint: use the `overline()` function and begin the script as follows, the results should look similar to the results below):
 
 ```{r}
 route_data = sf::st_sf(wight_lines_30, geometry = wight_routes_30$geometry)
@@ -565,9 +603,10 @@ tm_shape(rnet_walk) +
   tm_lines(lwd = "foot", scale = 9)
 ```
 
-- RN2: Download the travel to school route network and compare the results with the route network created for RN1.
-  - Which roads have greatest overlap between the two route networks?
-  - For more information on the travel to school layer, see @goodman_scenarios_2019. What other trip purposes would you like to see in tools for cycle planning?
+-   RN2: Download the travel to school route network and compare the results with the route network created for RN1.
+
+    -   Which roads have greatest overlap between the two route networks?
+    -   For more information on the travel to school layer, see @goodman_scenarios_2019. What other trip purposes would you like to see in tools for cycle planning?
 
 ```{r, eval=FALSE, echo=FALSE}
 rnet_school = get_pct_rnet(region = "isle-of-wight", purpose = "school")
@@ -632,11 +671,11 @@ mapview::mapview(rnet_both, at = c(50,100,200,500,1000))
 
 ## Ideas for further work and a 'minihack'
 
-- Create a route network reflecting where you would invest if the priority was reducing car trips of less than 5 km
-- Design interventions to replace short car trips across London (or another region of your choice) using the PCT methods/data to support your decisions
-- Identify quiet routes and design a quiet route network for city/region of your choice, e.g. Westminter
-- Import alternative origin-destination datasets and use those as the basis for propensity to cycle analysis for trip purposes other than single stage commutes, encapsulated in the commut layer in the PCT
-- Any other layers/scenarios/hacks: welcome! Comments in this repo's [issue tracker](https://github.com/ITSLeeds/pct/issues) also welcome.
+-   Create a route network reflecting where you would invest if the priority was reducing car trips of less than 5 km
+-   Design interventions to replace short car trips across London (or another region of your choice) using the PCT methods/data to support your decisions
+-   Identify quiet routes and design a quiet route network for city/region of your choice, e.g. Westminter
+-   Import alternative origin-destination datasets and use those as the basis for propensity to cycle analysis for trip purposes other than single stage commutes, encapsulated in the commut layer in the PCT
+-   Any other layers/scenarios/hacks: welcome! Comments in this repo's [issue tracker](https://github.com/ITSLeeds/pct/issues) also welcome.
 
 <!-- - Identify priority routes to improve for bike share users by using OD data from TfL's bike share (if we get time to do this) -->
 
@@ -661,8 +700,8 @@ leaflet(data = car_dependent) %>%
 
 These links may be useful when working through the exercises:
 
-- The codebook describing each variable in the PCT route: [od_l_rf_codebook.csv](https://github.com/npct/pct-shiny/blob/master/regions_www/www/static/02_codebooks/commute/od_l_rf_codebook.csv)
-- Folder containing all [codebooks, including variables in zone, line and centroid datasets](https://github.com/npct/pct-shiny/tree/master/regions_www/www/static/02_codebooks)
-- The PCT tool itself, which can be used to cross-compare results from the analysis steps below: [www.pct.bike](https://www.pct.bike/)
+-   The codebook describing each variable in the PCT route: [od_l\_rf_codebook.csv](https://github.com/npct/pct-shiny/blob/master/regions_www/www/static/02_codebooks/commute/od_l_rf_codebook.csv)
+-   Folder containing all [codebooks, including variables in zone, line and centroid datasets](https://github.com/npct/pct-shiny/tree/master/regions_www/www/static/02_codebooks)
+-   The PCT tool itself, which can be used to cross-compare results from the analysis steps below: [www.pct.bike](https://www.pct.bike/)
 
 # References
