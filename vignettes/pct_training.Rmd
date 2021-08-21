@@ -9,6 +9,9 @@ vignette: >
   %\VignetteEncoding{UTF-8}
   %\VignetteDepends{tmap} 
 bibliography: refs_training.bib
+pkgdown:
+  as_is: true
+  set_null_theme: false
 # Reformatted the Rmd doc
 editor_options:
   markdown:
