@@ -4,7 +4,7 @@ output:
   bookdown::html_document2:
     number_sections: true
 vignette: >
-  %\VignetteIndexEntry{Propensity to Cycle Tool Advanced Workshop}
+  %\VignetteIndexEntry{Getting and using data from the PCT}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
   %\VignetteDepends{tmap} 
