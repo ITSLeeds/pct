@@ -18,6 +18,9 @@ editor_options:
     wrap: sentence
 ---
 
+```{r, include=FALSE}
+knitr::opts_chunk$set(cache = TRUE)
+```
 
 If you are following this guide as part of the [Cycle City Active City 2021](https://hopin.com/events/cycle-active-city-2021) conference, the workshops are scheduled at the following times:
 
@@ -47,7 +50,7 @@ If you know the URL of the region you're interested in, you can navigate straigh
 From there you will see a map showing the region.
 Before you download and use PCT data, it is worth exploring it on the PCT web app.
 
-### Exercise: explore the current level and distribution of cycling
+**Exercise: explore the current level and distribution of cycling:**
 
 - Explore different data layers contained in the PCT by selecting different options from the dropdown menus on the right.
 - Look at the different types of Cycling Flows options and consider: which visualisation layer is most useful?
@@ -57,12 +60,41 @@ Before you download and use PCT data, it is worth exploring it on the PCT web ap
 Hint: Select the Fast Routes option from the Cycling Flows menu, zoom into the Bridge, and then click on the Freeze Lines checkbox to prevent the selected routes from moving when you zoom back out.
 ]
 
-```{r clifton, fig.cap="Areas that may benefit from improved cycle provision on Clifton Bridge, according to the PCT."}
+```{r clifton, echo=FALSE, fig.cap="Areas that may benefit from improved cycle provision on Clifton Bridge, according to the PCT."}
 knitr::include_graphics("https://user-images.githubusercontent.com/1825120/130370123-5b8885de-4aed-43b4-8a49-b2f875ffff1b.png")
 ```
 
+## Downloading data from the PCT in GeoJSON form
+
+On the PCT web app Click on the Region data tab, shown in the top of Figure \@ref(fig:clifton), just beneath the 'north' in the URL.
+You should see a web page like that shown in Figure \@ref(fig:downloads), which highlights the Region data table alongside the Map, Region stats, National Data, Manual, and About page links.
+
+```{r downloads, echo=FALSE, fig.cap="The Region data tab in the PCT."}
+knitr::include_graphics("https://user-images.githubusercontent.com/1825120/130371496-bd0d22ba-c969-4634-904a-0bd0dd924516.png")
+```
+
+- Download the Zones (LSOA) dataset in geojson format
+- Download the Route network layer in [geojson](https://npttile.vs.mythic-beasts.com/pct-outputs-regional-notR/commute/lsoa/north-yorkshire/rnet_full.geojson) format
+- Download the Fast routes in [geojson](https://npttile.vs.mythic-beasts.com/pct-outputs-regional-notR/commute/lsoa/north-yorkshire/rf.geojson) format (warning: this file is nearly 100 MB in size so may take some time to download)
 
 ## Visualising PCT data in QGIS
+
+In this section we assume you have a recent version of QGIS installed and have some experience using this popular and powerful free and open source desktop GIS software.^[
+This tutorial was tested on QGIS version 3.20 but it should work fine on other versions, including the Long Term Support version (3.16 at the time of writing in summer 2021).
+To install the latest version of QGIS see [qgis.org](https://qgis.org/en/site/forusers/download.html).
+If you are new to QGIS, it is worth taking a look at the User Guide at [docs.qgis.org](https://docs.qgis.org/3.16/en/docs/user_manual/) and, for a transport-oriented introduction, the [QGIS for Transport Research](https://itsleeds.github.io/QGIS-intro/) resource developed by the University of Leeds.
+]
+Open QGIS and create a new [project](https://docs.qgis.org/3.16/en/docs/user_manual/introduction/project_files.html) and name it pctdemo.
+
+Once in the project, open the three layers you downloaded in the previous section.
+You should see something resembling the screenshot shown in Figure \@ref(fig:pctqgis1).
+
+```{r pctqgis1, echo=FALSE, fig.cap="Three PCT layers visualised in QGIS."}
+knitr::include_graphics("https://user-images.githubusercontent.com/1825120/130372558-629b7fb5-452c-4a44-80bb-2d88a0492be9.png")
+```
+
+
+
 
 ## Comparing PCT data with transport network data
 
