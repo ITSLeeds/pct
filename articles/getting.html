@@ -123,7 +123,7 @@
     
 <p>If you are following this guide as part of the <a href="https://hopin.com/events/cycle-active-city-2021">Cycle City Active City 2021</a> conference, the workshops are scheduled at the following times:</p>
 <ul>
-<li><p>Propensity to Cycle Tool: getting and using the data, based on section <a href="#getting-pct-data"><strong>??</strong></a> 11:30 - 12:30</p></li>
+<li><p>Propensity to Cycle Tool: getting and using the data, based on section <a href="#getting-and-exploring-pct-data">1</a> 11:30 - 12:30</p></li>
 <li><p>Propensity to Cycle Tool: build your own scenarios, based on section <a href="#modelling-change">2</a> 13:30 - 14:30</p></li>
 </ul>
 <div id="getting-and-exploring-pct-data" class="section level1">
@@ -146,9 +146,7 @@ You can use the PCT, which works at the regional level, for North Yorkshire or a
 If you know the URL of the region you’re interested in, you can navigate straight there, in this case by typing in on clicking on the link <a href="https://www.pct.bike/m/?r=north-yorkshire" class="uri">https://www.pct.bike/m/?r=north-yorkshire</a>.</p>
 <p>From there you will see a map showing the region.
 Before you download and use PCT data, it is worth exploring it on the PCT web app.</p>
-<div id="exercise-explore-the-current-level-and-distribution-of-cycling" class="section level3">
-<h3 class="hasAnchor">
-<a href="#exercise-explore-the-current-level-and-distribution-of-cycling" class="anchor"></a><span class="header-section-number">1.1.1</span> Exercise: explore the current level and distribution of cycling</h3>
+<p><strong>Exercise: explore the current level and distribution of cycling:</strong></p>
 <ul>
 <li>Explore different data layers contained in the PCT by selecting different options from the dropdown menus on the right.</li>
 <li>Look at the different types of Cycling Flows options and consider: which visualisation layer is most useful?</li>
@@ -157,8 +155,6 @@ Before you download and use PCT data, it is worth exploring it on the PCT web ap
 <li>Bonus: find the areas that would benefit from improved cycling provision on Clifton bridge, 1 km northwest from central York over the River Ouse (see result in Figure <a href="#fig:clifton">1.1</a>)<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>
 </li>
 </ul>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/include_graphics.html">include_graphics</a></span><span class="op">(</span><span class="st">"https://user-images.githubusercontent.com/1825120/130370123-5b8885de-4aed-43b4-8a49-b2f875ffff1b.png"</span><span class="op">)</span></code></pre></div>
 <div class="figure">
 <span style="display:block;" id="fig:clifton"></span>
 <img src="https://user-images.githubusercontent.com/1825120/130370123-5b8885de-4aed-43b4-8a49-b2f875ffff1b.png" alt="Areas that may benefit from improved cycle provision on Clifton Bridge, according to the PCT."><p class="caption">
@@ -166,31 +162,57 @@ Figure 1.1: Areas that may benefit from improved cycle provision on Clifton Brid
 </p>
 </div>
 </div>
+<div id="downloading-data-from-the-pct-in-geojson-form" class="section level2">
+<h2 class="hasAnchor">
+<a href="#downloading-data-from-the-pct-in-geojson-form" class="anchor"></a><span class="header-section-number">1.2</span> Downloading data from the PCT in GeoJSON form</h2>
+<p>On the PCT web app Click on the Region data tab, shown in the top of Figure <a href="#fig:clifton">1.1</a>, just beneath the ‘north’ in the URL.
+You should see a web page like that shown in Figure <a href="#fig:downloads">1.2</a>, which highlights the Region data table alongside the Map, Region stats, National Data, Manual, and About page links.</p>
+<div class="figure">
+<span style="display:block;" id="fig:downloads"></span>
+<img src="https://user-images.githubusercontent.com/1825120/130371496-bd0d22ba-c969-4634-904a-0bd0dd924516.png" alt="The Region data tab in the PCT."><p class="caption">
+Figure 1.2: The Region data tab in the PCT.
+</p>
+</div>
+<ul>
+<li>Download the Zones (LSOA) dataset in geojson format</li>
+<li>Download the Route network layer in <a href="https://npttile.vs.mythic-beasts.com/pct-outputs-regional-notR/commute/lsoa/north-yorkshire/rnet_full.geojson">geojson</a> format</li>
+<li>Download the Fast routes in <a href="https://npttile.vs.mythic-beasts.com/pct-outputs-regional-notR/commute/lsoa/north-yorkshire/rf.geojson">geojson</a> format (warning: this file is nearly 100 MB in size so may take some time to download)</li>
+</ul>
 </div>
 <div id="visualising-pct-data-in-qgis" class="section level2">
 <h2 class="hasAnchor">
-<a href="#visualising-pct-data-in-qgis" class="anchor"></a><span class="header-section-number">1.2</span> Visualising PCT data in QGIS</h2>
+<a href="#visualising-pct-data-in-qgis" class="anchor"></a><span class="header-section-number">1.3</span> Visualising PCT data in QGIS</h2>
+<p>In this section we assume you have a recent version of QGIS installed and have some experience using this popular and powerful free and open source desktop GIS software.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>
+Open QGIS and create a new <a href="https://docs.qgis.org/3.16/en/docs/user_manual/introduction/project_files.html">project</a> and name it pctdemo.</p>
+<p>Once in the project, open the three layers you downloaded in the previous section.
+You should see something resembling the screenshot shown in Figure <a href="#fig:pctqgis1">1.3</a>.</p>
+<div class="figure">
+<span style="display:block;" id="fig:pctqgis1"></span>
+<img src="https://user-images.githubusercontent.com/1825120/130372558-629b7fb5-452c-4a44-80bb-2d88a0492be9.png" alt="Three PCT layers visualised in QGIS."><p class="caption">
+Figure 1.3: Three PCT layers visualised in QGIS.
+</p>
+</div>
 </div>
 <div id="comparing-pct-data-with-transport-network-data" class="section level2">
 <h2 class="hasAnchor">
-<a href="#comparing-pct-data-with-transport-network-data" class="anchor"></a><span class="header-section-number">1.3</span> Comparing PCT data with transport network data</h2>
+<a href="#comparing-pct-data-with-transport-network-data" class="anchor"></a><span class="header-section-number">1.4</span> Comparing PCT data with transport network data</h2>
 </div>
 <div id="identifying-gaps-in-the-network" class="section level2">
 <h2 class="hasAnchor">
-<a href="#identifying-gaps-in-the-network" class="anchor"></a><span class="header-section-number">1.4</span> Identifying gaps in the network</h2>
+<a href="#identifying-gaps-in-the-network" class="anchor"></a><span class="header-section-number">1.5</span> Identifying gaps in the network</h2>
 </div>
 <div id="getting-pct-data-with-r" class="section level2">
 <h2 class="hasAnchor">
-<a href="#getting-pct-data-with-r" class="anchor"></a><span class="header-section-number">1.5</span> Getting PCT data with R</h2>
+<a href="#getting-pct-data-with-r" class="anchor"></a><span class="header-section-number">1.6</span> Getting PCT data with R</h2>
 <p>We will get PCT data at the MSOA level and plot the result in a simple map.</p>
 <ul>
 <li>G1: The first stage is to load packages we will use:</li>
 </ul>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://itsleeds.github.io/pct/">pct</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span>      <span class="co"># key package for working with spatial vector data</span></code></pre></div>
 <pre><code>## Linking to GEOS 3.8.1, GDAL 3.2.1, PROJ 7.2.1</code></pre>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>   <span class="co"># in the tidyverse</span></code></pre></div>
 <pre><code>## 
 ## Attaching package: 'dplyr'</code></pre>
@@ -200,12 +222,12 @@ Figure 1.1: Areas that may benefit from improved cycle provision on Clifton Brid
 <pre><code>## The following objects are masked from 'package:base':
 ## 
 ##     intersect, setdiff, setequal, union</code></pre>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mtennekes/tmap">tmap</a></span><span class="op">)</span>    <span class="co"># installed alongside mapview</span></code></pre></div>
 <ul>
 <li>G2: After setting the region name (to avoid re-typing it many times) run the following commands to download data at the four main levels used in the PCT:</li>
 </ul>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">region_name</span> <span class="op">=</span> <span class="st">"north-yorkshire"</span>
 <span class="va">zones_all</span> <span class="op">=</span> <span class="fu"><a href="../reference/get_pct_zones.html">get_pct_zones</a></span><span class="op">(</span><span class="va">region_name</span>, geography <span class="op">=</span> <span class="st">"msoa"</span><span class="op">)</span>
 <span class="va">lines_all</span> <span class="op">=</span> <span class="fu"><a href="../reference/get_pct_lines.html">get_pct_lines</a></span><span class="op">(</span><span class="va">region_name</span>, geography <span class="op">=</span> <span class="st">"msoa"</span><span class="op">)</span>
@@ -214,7 +236,7 @@ Figure 1.1: Areas that may benefit from improved cycle provision on Clifton Brid
 <ul>
 <li>G3: Check the downloads worked by plotting the result as follows:</li>
 </ul>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">zones_all</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span>
 <span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">lines_all</span><span class="op">$</span><span class="va">geometry</span>, col <span class="op">=</span> <span class="st">"blue"</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">routes_all</span><span class="op">$</span><span class="va">geometry</span>, col <span class="op">=</span> <span class="st">"green"</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
@@ -240,7 +262,7 @@ In it you will:</p>
 <ul>
 <li>S1: Generate a ‘Go Dutch’ scenario for the North Yorkshire using the function <code><a href="../reference/uptake_pct_godutch.html">uptake_pct_godutch()</a></code> (hint: the following code chunk will create a ‘Government Target’ scenario):</li>
 </ul>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">lines_all</span><span class="op">$</span><span class="va">pcycle</span> <span class="op">=</span> <span class="va">lines_all</span><span class="op">$</span><span class="va">bicycle</span> <span class="op">/</span> <span class="va">lines_all</span><span class="op">$</span><span class="va">all</span>
 <span class="va">lines_all</span><span class="op">$</span><span class="va">euclidean_distance</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_measures.html">st_length</a></span><span class="op">(</span><span class="va">lines_all</span><span class="op">)</span><span class="op">)</span>
 <span class="va">lines_all</span><span class="op">$</span><span class="va">pcycle_govtarget</span> <span class="op">=</span> <span class="fu"><a href="../reference/uptake_pct_govtarget.html">uptake_pct_govtarget_2020</a></span><span class="op">(</span>
@@ -276,6 +298,10 @@ In it you will:</p>
 <ol>
 <li id="fn1"><p>
 Hint: Select the Fast Routes option from the Cycling Flows menu, zoom into the Bridge, and then click on the Freeze Lines checkbox to prevent the selected routes from moving when you zoom back out.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>
+This tutorial was tested on QGIS version 3.20 but it should work fine on other versions, including the Long Term Support version (3.16 at the time of writing in summer 2021).
+To install the latest version of QGIS see <a href="https://qgis.org/en/site/forusers/download.html">qgis.org</a>.
+If you are new to QGIS, it is worth taking a look at the User Guide at <a href="https://docs.qgis.org/3.16/en/docs/user_manual/">docs.qgis.org</a> and, for a transport-oriented introduction, the <a href="https://itsleeds.github.io/QGIS-intro/">QGIS for Transport Research</a> resource developed by the University of Leeds.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
   </div>
