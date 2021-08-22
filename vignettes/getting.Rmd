@@ -40,6 +40,28 @@ In this session, which assumes you know how to have experience using QGIS, or R,
 
 ## Getting PCT data from the PCT website
 
+In this example we will use data from North Yorkshire, an area with urban areas surrounding York and many rural areas.
+You can use the PCT, which works at the regional level, for North Yorkshire or any other region by clicking on the area you're interested in on the main map at https://www.pct.bike.
+If you know the URL of the region you're interested in, you can navigate straight there, in this case by typing in on clicking on the link https://www.pct.bike/m/?r=north-yorkshire.
+
+From there you will see a map showing the region.
+Before you download and use PCT data, it is worth exploring it on the PCT web app.
+
+### Exercise: explore the current level and distribution of cycling
+
+- Explore different data layers contained in the PCT by selecting different options from the dropdown menus on the right.
+- Look at the different types of Cycling Flows options and consider: which visualisation layer is most useful?
+
+<!-- It depends -->
+- Bonus: find the areas that would benefit from improved cycling provision on Clifton bridge, 1 km northwest from central York over the River Ouse (see result in Figure \@ref(fig:clifton))^[
+Hint: Select the Fast Routes option from the Cycling Flows menu, zoom into the Bridge, and then click on the Freeze Lines checkbox to prevent the selected routes from moving when you zoom back out.
+]
+
+```{r clifton, fig.cap="Areas that may benefit from improved cycle provision on Clifton Bridge, according to the PCT."}
+knitr::include_graphics("https://user-images.githubusercontent.com/1825120/130370123-5b8885de-4aed-43b4-8a49-b2f875ffff1b.png")
+```
+
+
 ## Visualising PCT data in QGIS
 
 ## Comparing PCT data with transport network data
