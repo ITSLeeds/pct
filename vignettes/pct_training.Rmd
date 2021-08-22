@@ -3,8 +3,6 @@ title: "Propensity to Cycle Tool Advanced Workshop"
 output:
   bookdown::html_document2:
     number_sections: true
-    # toc_float: true
-    theme: cosmo
 vignette: >
   %\VignetteIndexEntry{Propensity to Cycle Tool Advanced Workshop}
   %\VignetteEngine{knitr::rmarkdown}
