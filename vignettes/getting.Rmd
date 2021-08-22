@@ -21,7 +21,7 @@ editor_options:
 
 If you are following this guide as part of the [Cycle City Active City 2021](https://hopin.com/events/cycle-active-city-2021) conference, the workshops are scheduled at the following times:
 
--   Propensity to Cycle Tool: getting and using the data, based on section \@ref(getting-pct-data) 11:30 - 12:30
+-   Propensity to Cycle Tool: getting and using the data, based on section \@ref(getting-and-exploring-pct-data) 11:30 - 12:30
 
 -   Propensity to Cycle Tool: build your own scenarios, based on section \@ref(modelling-change) 13:30 - 14:30
 
