@@ -8,7 +8,7 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
   %\VignetteDepends{tmap} 
-bibliography: getting-using.bib
+bibliography: refs_training.bib
 pkgdown:
   as_is: true
   set_null_theme: false
@@ -93,29 +93,30 @@ In it you will:
 
 ## PCT scenarios
 
--   S1: Generate a 'Go Dutch' scenario for the Isle of Wight using the function `uptake_pct_godutch()` (hint: the following code chunk will create a 'Government Target' scenario):
+-   S1: Generate a 'Go Dutch' scenario for the North Yorkshire using the function `uptake_pct_godutch()` (hint: the following code chunk will create a 'Government Target' scenario):
 
 ```{r}
-l_msoa$euclidean_distance = as.numeric(sf::st_length(l_msoa))
-l_msoa$pcycle_govtarget = uptake_pct_govtarget_2020(
-  distance = l_msoa$rf_dist_km,
-  gradient = l_msoa$rf_avslope_perc
-  ) * 100 + l_msoa$pcycle
+lines_all$pcycle = lines_all$bicycle / lines_all$all
+lines_all$euclidean_distance = as.numeric(sf::st_length(lines_all))
+lines_all$pcycle_govtarget = uptake_pct_govtarget_2020(
+  distance = lines_all$rf_dist_km,
+  gradient = lines_all$rf_avslope_perc
+  ) * 100 + lines_all$pcycle
 ```
 
 ```{r change, echo=FALSE}
-l_msoa$pcycle_dutch = uptake_pct_godutch_2020(
-  distance = l_msoa$rf_dist_km,
-  gradient = l_msoa$rf_avslope_perc
-  ) * 100 + l_msoa$pcycle
+lines_all$pcycle_dutch = uptake_pct_godutch_2020(
+  distance = lines_all$rf_dist_km,
+  gradient = lines_all$rf_avslope_perc
+  ) * 100 + lines_all$pcycle
 ```
 
 ```{r dutch_pcycle, echo=FALSE, warning=FALSE, fig.show='hold', fig.cap="Percent cycling currently (left) and under a 'Go Dutch' scenario (right) in the Isle of Wight."}
-plot(l_msoa["pcycle"], lwd = l_msoa$all / mean(l_msoa$all), breaks = c(0, 5, 10, 20, 50))
-plot(l_msoa["pcycle_dutch"], lwd = l_msoa$all / mean(l_msoa$all), breaks = c(0, 5, 10, 20, 50))
-# cor(l_original_msoa$dutch_slc / l_original_msoa$all, l_msoa$pcycle_dutch)
-# cor(l_original_msoa$govtarget_slc / l_original_msoa$all, l_msoa$pcycle_govtarget)
-# plot(l_original_msoa$dutch_slc / l_original_msoa$all, l_msoa$pcycle_dutch)
+plot(lines_all["pcycle"], lwd = lines_all$all / mean(lines_all$all), breaks = c(0, 5, 10, 20, 50))
+plot(lines_all["pcycle_dutch"], lwd = lines_all$all / mean(lines_all$all), breaks = c(0, 5, 10, 20, 50))
+# cor(l_originalines_all$dutch_slc / l_originalines_all$all, lines_all$pcycle_dutch)
+# cor(l_originalines_all$govtarget_slc / l_originalines_all$all, lines_all$pcycle_govtarget)
+# plot(l_originalines_all$dutch_slc / l_originalines_all$all, lines_all$pcycle_dutch)
 ```
 
 -   S2: Think of alternative scenarios that would be useful for your work
