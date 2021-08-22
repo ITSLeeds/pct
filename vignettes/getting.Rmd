@@ -1,0 +1,127 @@
+---
+title: "Getting and using data from the PCT"
+output:
+  bookdown::html_document2:
+    number_sections: true
+vignette: >
+  %\VignetteIndexEntry{Propensity to Cycle Tool Advanced Workshop}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteDepends{tmap} 
+bibliography: getting-using.bib
+pkgdown:
+  as_is: true
+  set_null_theme: false
+# Reformatted the Rmd doc
+editor_options:
+  markdown:
+    wrap: sentence
+---
+
+
+If you are following this guide as part of the [Cycle City Active City 2021](https://hopin.com/events/cycle-active-city-2021) conference, the workshops are scheduled at the following times:
+
+-   Propensity to Cycle Tool: getting and using the data, based on section \@ref(getting-pct-data) 11:30 - 12:30
+
+-   Propensity to Cycle Tool: build your own scenarios, based on section \@ref(modelling-change) 13:30 - 14:30
+
+# Getting and exploring PCT data
+
+<!-- From ccac 2021 -->
+
+In this section you will learn about the open datasets provided by the PCT project and how to use them.
+While the most common use of the PCT is via the interactive web application hosted at www.pct.bike, there is much value in downloading the data, e.g. to identify existing cycling infrastructure in close proximity to routes with high potential, and to help identify roads in need of interventions from a safety perspective, using data from the constantly evolving and community-driven global geographic database OpenStreetMap (OSM) [@barrington-leigh_world_2017].
+
+In this session, which assumes you know how to have experience using QGIS, or R, you will learn how to:
+
+-   Find data on travel behaviour from the 2011 Census and from the School Census
+-   How to download and import data from the PCT into QGIS
+-   How to process the data alongside infrastructure data, to help find gaps in the network
+
+## Getting PCT data from the PCT website
+
+## Visualising PCT data in QGIS
+
+## Comparing PCT data with transport network data
+
+## Identifying gaps in the network
+
+## Getting PCT data with R
+
+We will get PCT data at the MSOA level and plot the result in a simple map.
+
+-   G1: The first stage is to load packages we will use:
+
+```{r}
+library(pct)
+library(sf)      # key package for working with spatial vector data
+library(dplyr)   # in the tidyverse
+library(tmap)    # installed alongside mapview
+```
+
+-   G2: After setting the region name (to avoid re-typing it many times) run the following commands to download data at the four main levels used in the PCT:
+
+```{r}
+region_name = "north-yorkshire"
+zones_all = get_pct_zones(region_name, geography = "msoa")
+lines_all = get_pct_lines(region_name, geography = "msoa")
+routes_all = get_pct_routes_fast(region_name, geography = "msoa")
+rnet_all = get_pct_rnet(region_name)
+```
+
+-   G3: Check the downloads worked by plotting the result as follows:
+
+```{r plotall, out.width="70%"}
+plot(zones_all$geometry)
+plot(lines_all$geometry, col = "blue", add = TRUE)
+plot(routes_all$geometry, col = "green", add = TRUE)
+plot(rnet_all$geometry, col = "red", lwd = sqrt(rnet_all$bicycle), add = TRUE)
+```
+
+
+# Modelling change
+
+<!-- From ccag 2021 -->
+
+This section is designed for people with experience with the PCT and cycling uptake estimates who want to learn more about how uptake models work and how to generate new scenarios of change.
+Reproducible and open R code will be used to demonstrate the concepts so knowledge of R or other programming languages is recommended but not essential, as there will be conceptual exercises covering the factors linked to mode shift.
+In it you will:
+
+-   Learn about the uptake model underlying the Propensity to Cycle Tool scenarios
+-   Develop your own uptake model in conceptual terms, e.g., to represent the government's target for 50% of all trips in cities to be made by walking and cycling by 2030
+-   Learn how to train uptake models against data, to build evidence-based uptake models
+
+## PCT scenarios
+
+-   S1: Generate a 'Go Dutch' scenario for the Isle of Wight using the function `uptake_pct_godutch()` (hint: the following code chunk will create a 'Government Target' scenario):
+
+```{r}
+l_msoa$euclidean_distance = as.numeric(sf::st_length(l_msoa))
+l_msoa$pcycle_govtarget = uptake_pct_govtarget_2020(
+  distance = l_msoa$rf_dist_km,
+  gradient = l_msoa$rf_avslope_perc
+  ) * 100 + l_msoa$pcycle
+```
+
+```{r change, echo=FALSE}
+l_msoa$pcycle_dutch = uptake_pct_godutch_2020(
+  distance = l_msoa$rf_dist_km,
+  gradient = l_msoa$rf_avslope_perc
+  ) * 100 + l_msoa$pcycle
+```
+
+```{r dutch_pcycle, echo=FALSE, warning=FALSE, fig.show='hold', fig.cap="Percent cycling currently (left) and under a 'Go Dutch' scenario (right) in the Isle of Wight."}
+plot(l_msoa["pcycle"], lwd = l_msoa$all / mean(l_msoa$all), breaks = c(0, 5, 10, 20, 50))
+plot(l_msoa["pcycle_dutch"], lwd = l_msoa$all / mean(l_msoa$all), breaks = c(0, 5, 10, 20, 50))
+# cor(l_original_msoa$dutch_slc / l_original_msoa$all, l_msoa$pcycle_dutch)
+# cor(l_original_msoa$govtarget_slc / l_original_msoa$all, l_msoa$pcycle_govtarget)
+# plot(l_original_msoa$dutch_slc / l_original_msoa$all, l_msoa$pcycle_dutch)
+```
+
+-   S2: Think of alternative scenarios that would be useful for your work
+-   S3 (bonus): look inside the function [`pct_uptake_godutch()`](https://github.com/ITSLeeds/pct/blob/master/R/uptake.R#L36) - how could it be modified?
+
+## Developing new scenarios of change
+
+
+## Training uptake models against new datasets

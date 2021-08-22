@@ -27,8 +27,8 @@ knitr::opts_chunk$set(
 
 # pct
 
-
-The goal of pct is to increase the accessibility and reproducibility of the data produced by the Propensity to Cycle Tool (PCT), a research project and web application hosted at [www.pct.bike](https://www.pct.bike/).
+The goal of pct is to make the data produced by the Propensity to Cycle Tool (PCT) easier to access and reproduce.
+The PCT a research project and web application hosted at [www.pct.bike](https://www.pct.bike/).
 For an overview of the data provided by the PCT, clicking on the previous link and trying it out is a great place to start.
 An academic [paper](https://www.jtlu.org/index.php/jtlu/article/view/862) on the PCT provides detail on the motivations for and methods underlying the project.
 
@@ -62,12 +62,13 @@ library(pct)
 
 Probably the best place to get further information on the PCT is from the package's website at https://itsleeds.github.io/pct/
 
-There you will find the following vignettes:
+There you will find the following vignettes, which we recommend reading, and reproducing and experimenting with the code contained within to deepen your understanding of the code, in the following order:
 
-- An introduction to the PCT and associated R package: https://itsleeds.github.io/pct/articles/pct.html
-- A [vignette](https://itsleeds.github.io/pct/articles/cycling-potential-uk.html) explaining how the package estimates cycling uptake in UK cities
-- A [vignette](https://itsleeds.github.io/pct/articles/pct-international.html) demonstrating the international applicability of the PCT method, with help from this and other R packages
-- A [training vignette](https://itsleeds.github.io/pct/articles/pct_training.html) for getting started with the PCT
+1. A 'get started' introduction to the PCT and associated R package: https://itsleeds.github.io/pct/articles/pct.html
+1. Getting and using PCT data, an [article](https://itsleeds.github.io/pct/articles/getting.html) showing how to get and use data from the PCT, based on a case study from North Yorkshire
+1. A [training vignette](https://itsleeds.github.io/pct/articles/pct_training.html) providing more detailed guidance on data provided by the PCT package, with interactive exercises based on a case study of the Isle of Wight
+1. A [vignette](https://itsleeds.github.io/pct/articles/cycling-potential-uk.html) show how to use the data provided by the package to estimate cycling uptake in UK cities
+1. A [vignette](https://itsleeds.github.io/pct/articles/pct-international.html) demonstrating the international applicability of the PCT method, with help from this and other R packages
 
 You will also find there documentation for each of the functions at [itsleeds.github.io/pct/reference/](https://itsleeds.github.io/pct/reference/index.html).
 Below we describe some of the basics.
@@ -288,9 +289,10 @@ mapview::mapview(rnet, zcol = "bicycle_govtarget", lwd = lwd * 2)
 * This package currently does not estimate cycling uptake associated with intrazonal flows and people with no fixed job data
 * This package currently does not estimate health benefits
 
-## Next steps and further resources (work in progress)
+Commented out as we have now immidiate plans to work on these
+<!-- ## Next steps and further resources -->
 
-- Add additional scenarios of cycling uptake from different places (e.g. goCambridge)
-- Add additional distance decay functions
-- Make it easy to use data from other cities around the world
-- Show how to create raster tiles of cycling uptake
+<!-- - Add additional scenarios of cycling uptake from different places (e.g. goCambridge) -->
+<!-- - Add additional distance decay functions -->
+<!-- - Make it easy to use data from other cities around the world -->
+<!-- - Show how to create raster tiles of cycling uptake -->

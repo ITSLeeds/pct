@@ -16,12 +16,11 @@ status](https://codecov.io/gh/ITSLeeds/pct/branch/master/graph/badge.svg)](https
 
 # pct
 
-The goal of pct is to increase the accessibility and reproducibility of
-the data produced by the Propensity to Cycle Tool (PCT), a research
-project and web application hosted at
-[www.pct.bike](https://www.pct.bike/). For an overview of the data
-provided by the PCT, clicking on the previous link and trying it out is
-a great place to start. An academic
+The goal of pct is to make the data produced by the Propensity to Cycle
+Tool (PCT) easier to access and reproduce. The PCT a research project
+and web application hosted at [www.pct.bike](https://www.pct.bike/). For
+an overview of the data provided by the PCT, clicking on the previous
+link and trying it out is a great place to start. An academic
 [paper](https://www.jtlu.org/index.php/jtlu/article/view/862) on the PCT
 provides detail on the motivations for and methods underlying the
 project.
@@ -67,20 +66,29 @@ library(pct)
 Probably the best place to get further information on the PCT is from
 the package’s website at <https://itsleeds.github.io/pct/>
 
-There you will find the following vignettes:
+There you will find the following vignettes, which we recommend reading,
+and reproducing and experimenting with the code contained within to
+deepen your understanding of the code, in the following order:
 
--   An introduction to the PCT and associated R package:
+1.  A ‘get started’ introduction to the PCT and associated R package:
     <https://itsleeds.github.io/pct/articles/pct.html>
--   A
+2.  Getting and using PCT data, an
+    [article](https://itsleeds.github.io/pct/articles/getting.html)
+    showing how to get and use data from the PCT, based on a case study
+    from North Yorkshire
+3.  A [training
+    vignette](https://itsleeds.github.io/pct/articles/pct_training.html)
+    providing more detailed guidance on data provided by the PCT
+    package, with interactive exercises based on a case study of the
+    Isle of Wight
+4.  A
     [vignette](https://itsleeds.github.io/pct/articles/cycling-potential-uk.html)
-    explaining how the package estimates cycling uptake in UK cities
--   A
+    show how to use the data provided by the package to estimate cycling
+    uptake in UK cities
+5.  A
     [vignette](https://itsleeds.github.io/pct/articles/pct-international.html)
     demonstrating the international applicability of the PCT method,
     with help from this and other R packages
--   A [training
-    vignette](https://itsleeds.github.io/pct/articles/pct_training.html)
-    for getting started with the PCT
 
 You will also find there documentation for each of the functions at
 [itsleeds.github.io/pct/reference/](https://itsleeds.github.io/pct/reference/index.html).
@@ -244,7 +252,7 @@ zone data):
 class(od_leeds)
 #> [1] "tbl_df"     "tbl"        "data.frame"
 od_leeds[c(1:3, 12)]
-#> # A tibble: 10 x 4
+#> # A tibble: 10 × 4
 #>    area_of_residence area_of_workplace   all bicycle
 #>    <chr>             <chr>             <dbl>   <dbl>
 #>  1 E02002363         E02006875           922      43
@@ -260,6 +268,8 @@ od_leeds[c(1:3, 12)]
 class(zones_leeds)
 #> [1] "sf"         "data.frame"
 zones_leeds[1:3, ]
+#> old-style crs object detected; please recreate object with a recent sf::st_crs()
+#> old-style crs object detected; please recreate object with a recent sf::st_crs()
 #> Simple feature collection with 3 features and 6 fields
 #> Geometry type: MULTIPOLYGON
 #> Dimension:     XY
@@ -283,6 +293,12 @@ library(sf)
 #> Linking to GEOS 3.9.0, GDAL 3.2.1, PROJ 7.2.1
 desire_lines = stplanr::od2line(flow = od_leeds, zones = zones_leeds[2])
 #> Creating centroids representing desire line start and end points.
+#> old-style crs object detected; please recreate object with a recent sf::st_crs()
+#> old-style crs object detected; please recreate object with a recent sf::st_crs()
+#> old-style crs object detected; please recreate object with a recent sf::st_crs()
+#> old-style crs object detected; please recreate object with a recent sf::st_crs()
+#> old-style crs object detected; please recreate object with a recent sf::st_crs()
+#> old-style crs object detected; please recreate object with a recent sf::st_crs()
 plot(desire_lines[c(1:3, 12)])
 ```
 
@@ -293,6 +309,7 @@ e.g.:
 
 ``` r
 segments_fast = stplanr::route(l = desire_lines, route_fun = cyclestreets::journey)
+#> NA values detected
 #> Most common output is sf
 ```
 
@@ -318,16 +335,6 @@ routes_fast = segments_fast %>%
     av_incline = mean(gradient_smooth) * 100
   ) 
 #> `summarise()` has grouped output by 'area_of_residence'. You can override using the `.groups` argument.
-#> although coordinates are longitude/latitude, st_union assumes that they are planar
-#> although coordinates are longitude/latitude, st_union assumes that they are planar
-#> although coordinates are longitude/latitude, st_union assumes that they are planar
-#> although coordinates are longitude/latitude, st_union assumes that they are planar
-#> although coordinates are longitude/latitude, st_union assumes that they are planar
-#> although coordinates are longitude/latitude, st_union assumes that they are planar
-#> although coordinates are longitude/latitude, st_union assumes that they are planar
-#> although coordinates are longitude/latitude, st_union assumes that they are planar
-#> although coordinates are longitude/latitude, st_union assumes that they are planar
-#> although coordinates are longitude/latitude, st_union assumes that they are planar
 ```
 
 The results at the route level are as follows:
@@ -350,7 +357,7 @@ Let’s see how many people started cycling:
 
 ``` r
 sum(routes_fast$bicycle_govtarget) - sum(routes_fast$bicycle)
-#> [1] 400
+#> [1] 379
 ```
 
 Nearly 1000 more people cycling to work, just in 10 desire is not bad!
@@ -358,7 +365,7 @@ What % cycling is this, for those routes?
 
 ``` r
 sum(routes_fast$bicycle_govtarget) / sum(routes_fast$all)
-#> [1] 0.07906931
+#> [1] 0.07699892
 sum(routes_fast$bicycle) / sum(routes_fast$all)
 #> [1] 0.03963324
 ```
@@ -370,8 +377,6 @@ Now: where to prioritise that infrastructure and those policies?
 
 ``` r
 routes_fast_linestrings = sf::st_cast(routes_fast, "LINESTRING")
-#> Warning in st_cast.sf(routes_fast, "LINESTRING"): repeating attributes for all
-#> sub-geometries for which they may not be constant
 rnet = stplanr::overline(routes_fast_linestrings, attrib = c("bicycle", "bicycle_govtarget"))
 lwd = rnet$bicycle_govtarget / mean(rnet$bicycle_govtarget)
 plot(rnet["bicycle_govtarget"], lwd = lwd)
@@ -395,10 +400,10 @@ mapview::mapview(rnet, zcol = "bicycle_govtarget", lwd = lwd * 2)
     with intrazonal flows and people with no fixed job data
 -   This package currently does not estimate health benefits
 
-## Next steps and further resources (work in progress)
+Commented out as we have now immidiate plans to work on these
+<!-- ## Next steps and further resources -->
 
--   Add additional scenarios of cycling uptake from different places
-    (e.g. goCambridge)
--   Add additional distance decay functions
--   Make it easy to use data from other cities around the world
--   Show how to create raster tiles of cycling uptake
+<!-- - Add additional scenarios of cycling uptake from different places (e.g. goCambridge) -->
+<!-- - Add additional distance decay functions -->
+<!-- - Make it easy to use data from other cities around the world -->
+<!-- - Show how to create raster tiles of cycling uptake -->

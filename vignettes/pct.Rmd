@@ -54,7 +54,6 @@ Before demonstrating some of the package's key functions, it's worth providing a
 The Propensity to Cycle Tool was commissioned by the UK's Department for Transport to help planners and others prioritise investment and policies to get people cycling, as outlined in the Government report [National propensity to cycle: full report with annexes](https://www.gov.uk/government/publications/national-propensity-to-cycle-first-phase-development-study) [@department_for_transport_national_2016].
 However, the academic team leading the project had a wider sub-aim: of making transport evidence more accessible, encouraging evidence-based transport policies, and encouraging a more democratic transport planning process, and that means open transport data and open source transport modelling tools [@lovelace_propensity_2017].
 
-
 The code base underlying the PCT is publicly available (see [github.com/npct](https://github.com/npct/)).
 However, the code hosted there is not easy to run or reproduce, which is where this package comes in: it provides quick access to the data underlying the PCT and enables some of the key results to be reproduced quickly.
 It was developed primarily for educational purposes (including for upcoming PCT training courses) but it may be useful for people to build on the the methods, for example to create a scenario of cycling uptake in their town/city/region.

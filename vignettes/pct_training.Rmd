@@ -19,7 +19,6 @@ editor_options:
 ---
 
 ```{r, eval=FALSE, echo=FALSE}
-
 header-includes:
 - \usepackage{fancyhdr}
 - \pagestyle{fancy}
@@ -49,7 +48,7 @@ rbbt::bbt_update_bib(path_rmd = "vignettes/pct_training.Rmd")
 This guide supports workshops on advanced usage and development of the Propensity to Cycle Tool (PCT).
 Beginner and intermediate PCT events focus on using the PCT via the web application hosted at [www.pct.bike](https://www.pct.bike/) and the data provided by the PCT in [QGIS](https://www.qgis.org/en/site/).
 
-The focus here is on analysing cycling potential in the open source statistical programming language R, although we will also look at the data in QGIS.
+The focus here is on analysing cycling potential in the open source statistical programming language R.
 We use R because the PCT was developed in, and can be extended with, R code.
 Using open source software with a command-line interface reduces barriers to entry, enabling the development of [open access transport models](https://doi.org/10.1016/j.tranpol.2020.06.015) for more citizen-led and participatory transport planning, including integration with the [A/B Street](https://github.com/a-b-street/abstreet) city simulation and editing software [@lovelace_open_2021].
 
@@ -60,7 +59,7 @@ The guide covers:
 -   How the code underlying the PCT works
 -   How to generate new scenarios of cycling uptake
 
-## Preparing for the training event
+## Preparation
 
 <!-- There will be 2 courses: -->
 
@@ -214,14 +213,6 @@ If you have any questions before the workshop, feel free to ask a question on th
 
 <!-- - Networking and 'ideas with beers' 🍻🍻🍻 (17:20 - 18:00) -->
 
-If you are following this guide as part of the [Cycle City Active City 2021](https://hopin.com/events/cycle-active-city-2021) conference, the workshops are scheduled at the following times:
-
--   Propensity to Cycle Tool: getting and using the data, based on section \@ref(getting-pct-data) 11:30 - 12:30
-
--   Propensity to Cycle Tool: build your own scenarios, based on section \@ref(modelling-change) 13:30 - 14:30
-
-<!-- # Exercises -->
-
 # How the PCT works and what you can use it for
 
 -   Take a look at the image below from [@woodcock_health_2021a] and shown in Figure \@ref(fig:flow), which builds on an earlier diagram in @lovelace_propensity_2017. Which parts of the process are of most interest for your work?
@@ -295,7 +286,7 @@ library(tmap)    # installed alongside mapview
 -   G2: After setting the region name (to avoid re-typing it many times) run the following commands to download data at the four main levels used in the PCT:
 
 ```{r}
-region_name = "north-yorkshire"
+region_name = "isle-of-wight"
 zones_all = get_pct_zones(region_name, geography = "msoa")
 lines_all = get_pct_lines(region_name, geography = "msoa")
 routes_all = get_pct_routes_fast(region_name, geography = "msoa")
@@ -501,21 +492,9 @@ plot(l_less_than_10km %>% filter(bicycle > 5) %>% select(bicycle))
 plot(l_less_than_10km %>% filter(car_driver > 5) %>% select(car_driver))
 ```
 
-## Finding gaps in the network
+This section is designed for people with experience with the PCT and cycling uptake estimates who want to learn more about how uptake models work.
 
-# Modelling change
-
-<!-- From ccag 2021 -->
-
-This section is designed for people with experience with the PCT and cycling uptake estimates who want to learn more about how uptake models work and how to generate new scenarios of change.
-Reproducible and open R code will be used to demonstrate the concepts so knowledge of R or other programming languages is recommended but not essential, as there will be conceptual exercises covering the factors linked to mode shift.
-In it you will:
-
--   Learn about the uptake model underlying the Propensity to Cycle Tool scenarios
--   Develop your own uptake model in conceptual terms, e.g., to represent the government's target for 50% of all trips in cities to be made by walking and cycling by 2030
--   Learn how to train uptake models against data, to build evidence-based uptake models
-
-## PCT scenarios
+# PCT scenarios
 
 -   S1: Generate a 'Go Dutch' scenario for the Isle of Wight using the function `uptake_pct_godutch()` (hint: the following code chunk will create a 'Government Target' scenario):
 
@@ -544,13 +523,6 @@ plot(l_msoa["pcycle_dutch"], lwd = l_msoa$all / mean(l_msoa$all), breaks = c(0, 
 
 -   S2: Think of alternative scenarios that would be useful for your work
 -   S3 (bonus): look inside the function [`pct_uptake_godutch()`](https://github.com/ITSLeeds/pct/blob/master/R/uptake.R#L36) - how could it be modified?
-
-## Developing new scenarios of change
-
-
-## Training uptake models against new datasets
-
-<!-- Idea: go York -->
 
 # Routing and route networks
 
