@@ -136,6 +136,22 @@ What is the difference between the route data shown in QGIS in Figure \@ref(fig:
 
 ## Identifying gaps in the network
 
+```{r, echo=FALSE, eval=FALSE}
+cycle_infra = osminfra::oi_get(place = "north yorkshire", infra_type = "cycle_infrastructure")
+cycle_infra_projected = sf::st_transform(cycle_infra, 27700)
+sf::write_sf(cycle_infra, "pctqgis/cycle_infra.gpkg")
+sf::write_sf(cycle_infra_projected, "pctqgis/cycle_infra_projected.gpkg")
+```
+
+This section assumes you have data on the regional cycle network.
+For the purposes of this worked example, we used a broad definition of 'cycle infrastructure' based on [research](http://k1z.blog.uni-heidelberg.de/2020/10/02/how-to-become-ohsome-part-8-complex-analysis-with-the-magical-filter-parameter/) undertaken at the University of Heidelberg.
+Using this definition, a cycle infrastructure layer was extracted from OSM using R.
+The data was exported from R into the `cycle_infra_projected.gpkg`, which is provided in the `pctqgis.zip` file mentioned in the previous sections.
+
+In this section we will load the cycle infrastructure layer, buffer it, and undertake a geographic operation to identify places where there are gaps in the network.
+<!-- Todo: identify existing cycle infrastructures that are important -->
+
+
 ## Getting PCT data with R
 
 We will get PCT data at the MSOA level and plot the result in a simple map.
