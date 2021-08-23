@@ -134,6 +134,13 @@ knitr::include_graphics("https://user-images.githubusercontent.com/1825120/13037
 
 What is the difference between the route data shown in QGIS in Figure \@ref(fig:cliftonbuffer) and the route data shown in the PCT web app in Figure \@ref(fig:clifton)?
 
+Bonus: How many km of cycling per day could improvement to Clifton Bridge benefit?
+
+Advanced: What interventions would you recommend on Clifton Bridge?
+Your answer can be based on the analysis presented above, StreetView (see the bridge at [goo.gl/maps/Zeq76RnZ9ENRWCsE6](https://goo.gl/maps/Zeq76RnZ9ENRWCsE6)) local knowledge and other factors.
+
+Feel free to post any answers/questions about this question in the open access 'Issue Tracker' where these materials were developed (requires a GitHub account): https://github.com/ITSLeeds/pct/issues
+
 ## Identifying gaps in the network
 
 ```{r, echo=FALSE, eval=FALSE}
