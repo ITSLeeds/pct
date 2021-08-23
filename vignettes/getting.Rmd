@@ -151,6 +151,15 @@ The data was exported from R into the `cycle_infra_projected.gpkg`, which is pro
 In this section we will load the cycle infrastructure layer, buffer it, and undertake a geographic operation to identify places where there are gaps in the network.
 <!-- Todo: identify existing cycle infrastructures that are important -->
 
+- Load the `cycle_infra_projected.gpkg` dataset
+- Buffer it to 100 m 
+- Clip the route network layer to include only areas outside the buffer
+
+```{r}
+knitr::include_graphics("https://user-images.githubusercontent.com/1825120/130415597-e7bcb8a1-4792-48de-ba83-118c082584cb.png")
+```
+
+
 
 ## Getting PCT data with R
 
