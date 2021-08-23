@@ -166,13 +166,11 @@ In this section we will load the cycle infrastructure layer, buffer it, and unde
 knitr::include_graphics("https://user-images.githubusercontent.com/1825120/130415597-e7bcb8a1-4792-48de-ba83-118c082584cb.png")
 ```
 
-
-
 ## Getting PCT data with R
 
-We will get PCT data at the MSOA level and plot the result in a simple map.
+We will get the same PCT datasets as in previous sections but using the R interface.
 
--   G1: The first stage is to load packages we will use:
+- The first stage is to load packages we will use:
 
 ```{r}
 library(pct)
@@ -181,17 +179,17 @@ library(dplyr)   # in the tidyverse
 library(tmap)    # installed alongside mapview
 ```
 
--   G2: After setting the region name (to avoid re-typing it many times) run the following commands to download data at the four main levels used in the PCT:
+- After setting the region name (to avoid re-typing it many times) run the following commands to download data at the four main levels used in the PCT:
 
 ```{r}
 region_name = "north-yorkshire"
-zones_all = get_pct_zones(region_name, geography = "msoa")
-lines_all = get_pct_lines(region_name, geography = "msoa")
-routes_all = get_pct_routes_fast(region_name, geography = "msoa")
+zones_all = get_pct_zones(region_name)
+lines_all = get_pct_lines(region_name)
+routes_all = get_pct_routes_fast(region_name)
 rnet_all = get_pct_rnet(region_name)
 ```
 
--   G3: Check the downloads worked by plotting the result as follows:
+- Check the downloads worked by plotting:
 
 ```{r plotall, out.width="70%"}
 plot(zones_all$geometry)
@@ -215,7 +213,7 @@ In it you will:
 
 ## PCT scenarios
 
--   S1: Generate a 'Go Dutch' scenario for the North Yorkshire using the function `uptake_pct_godutch()` (hint: the following code chunk will create a 'Government Target' scenario):
+- Generate a 'Go Dutch' scenario for the North Yorkshire using the function `uptake_pct_godutch()` (hint: the following code chunk will create a 'Government Target' scenario):
 
 ```{r}
 lines_all$pcycle = lines_all$bicycle / lines_all$all
@@ -241,8 +239,8 @@ plot(lines_all["pcycle_dutch"], lwd = lines_all$all / mean(lines_all$all), break
 # plot(l_originalines_all$dutch_slc / l_originalines_all$all, lines_all$pcycle_dutch)
 ```
 
--   S2: Think of alternative scenarios that would be useful for your work
--   S3 (bonus): look inside the function [`pct_uptake_godutch()`](https://github.com/ITSLeeds/pct/blob/master/R/uptake.R#L36) - how could it be modified?
+- Think of alternative scenarios that would be useful for your work
+- S3 (bonus): look inside the function [`pct_uptake_godutch()`](https://github.com/ITSLeeds/pct/blob/master/R/uptake.R#L36) - how could it be modified?
 
 ## Developing new scenarios of change
 
