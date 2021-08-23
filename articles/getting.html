@@ -185,17 +185,38 @@ Figure 1.2: The Region data tab in the PCT.
 <p>In this section we assume you have a recent version of QGIS installed and have some experience using this popular and powerful free and open source desktop GIS software.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>
 Open QGIS and create a new <a href="https://docs.qgis.org/3.16/en/docs/user_manual/introduction/project_files.html">project</a> and name it pctdemo.</p>
 <p>Once in the project, open the three layers you downloaded in the previous section.
-You should see something resembling the screenshot shown in Figure <a href="#fig:pctqgis1">1.3</a>.</p>
+You should see something resembling the screenshot shown in Figure <a href="#fig:pctqgis1">1.3</a>.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
 <div class="figure">
 <span style="display:block;" id="fig:pctqgis1"></span>
 <img src="https://user-images.githubusercontent.com/1825120/130372558-629b7fb5-452c-4a44-80bb-2d88a0492be9.png" alt="Three PCT layers visualised in QGIS."><p class="caption">
 Figure 1.3: Three PCT layers visualised in QGIS.
 </p>
 </div>
+<p>After you have the data in QGIS as shown in Figure <a href="#fig:pctqgis1">1.3</a> a wide range of analysis options are opened up.
+We can only cover a few of these in here, due to space and time constraints, and it is worth being guided by local policy priorities rather than the technology to ensure useful (not just attractive or eye-catching) results.
+One major issue that is apparent in Figure <a href="#fig:pctqgis1">1.3</a> is that the zones seem squashed.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>
+We can deal with this by changing the coordinate reference system (CRS) of the map visualisation.
+It may also be worth reprojecting the data, to the official projected CRS in the UK: EPSG:27700.
+Undertake these tasks in the exercises below:</p>
+<ul>
+<li>Change the CRS of the map to EPSG:27700 by clicking on the CRS button in the bottom right of the map, just to the right of the Render text in the figures above</li>
+<li>Save each of the layers in this same CRS by right clicking on the layer, selecting Export, and setting the CRS there (take care to export the data into the same folder that the project is in)</li>
+</ul>
 </div>
 <div id="comparing-pct-data-with-transport-network-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#comparing-pct-data-with-transport-network-data" class="anchor"></a><span class="header-section-number">1.4</span> Comparing PCT data with transport network data</h2>
+<p>Find all the fast routes that intersect with a 10 m buffer surrounding Clifton Bridge (note: this is a time consuming task).<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a></p>
+<p>Don’t worry if you do not have time to complete each of the steps needed to find the result.
+You can see how it works by opening the project pctqgis3.qgz in the <a href="https://github.com/ITSLeeds/pct/releases/download/0.8.0/pctqgis.zip">pctqgis.zip</a> file.
+The result should look something like the screenshot shown in Figure <a href="#fig:cliftonbuffer">1.4</a>.</p>
+<div class="figure">
+<span style="display:block;" id="fig:cliftonbuffer"></span>
+<img src="https://user-images.githubusercontent.com/1825120/130374644-549c6de7-97fb-4fff-8356-fa59aa7d481e.png" alt="All fast routes that intersect with Clifton Bridge in QGIS."><p class="caption">
+Figure 1.4: All fast routes that intersect with Clifton Bridge in QGIS.
+</p>
+</div>
+<p>What is the difference between the route data shown in QGIS in Figure <a href="#fig:cliftonbuffer">1.4</a> and the route data shown in the PCT web app in Figure <a href="#fig:clifton">1.1</a>?</p>
 </div>
 <div id="identifying-gaps-in-the-network" class="section level2">
 <h2 class="hasAnchor">
@@ -302,6 +323,15 @@ Hint: Select the Fast Routes option from the Cycling Flows menu, zoom into the B
 This tutorial was tested on QGIS version 3.20 but it should work fine on other versions, including the Long Term Support version (3.16 at the time of writing in summer 2021).
 To install the latest version of QGIS see <a href="https://qgis.org/en/site/forusers/download.html">qgis.org</a>.
 If you are new to QGIS, it is worth taking a look at the User Guide at <a href="https://docs.qgis.org/3.16/en/docs/user_manual/">docs.qgis.org</a> and, for a transport-oriented introduction, the <a href="https://itsleeds.github.io/QGIS-intro/">QGIS for Transport Research</a> resource developed by the University of Leeds.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>
+A great thing about QGIS projects is that, like RStudio projects, they make organising and sharing your work easier.
+You should be able to see exactly the same project state as that shown in the figure by downloading the zip file at <a href="https://github.com/ITSLeeds/pct/releases/download/0.8.0/pctqgis.zip" class="uri">https://github.com/ITSLeeds/pct/releases/download/0.8.0/pctqgis.zip</a> and opening the pctqgis1.qgz file in QGIS.<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p>
+This is because QGIS, unlike R’s spatial packages, shows geographic (longitude/latitude) coordinates as if they were projected, which makes maps seem squashed at high latitudes far from the equator.<a href="#fnref4" class="footnote-back">↩︎</a></p></li>
+<li id="fn5"><p>
+Hint: installing the QuickOSM and QuickMapServices plugins may help.
+You will need to transform the bridge before finding a buffer around it.
+You will need to use the Select by Location Vector Research tool.<a href="#fnref5" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
   </div>
