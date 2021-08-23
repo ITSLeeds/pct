@@ -243,9 +243,9 @@ The data was exported from R into the <code>cycle_infra_projected.gpkg</code>, w
 <div id="getting-pct-data-with-r" class="section level2">
 <h2 class="hasAnchor">
 <a href="#getting-pct-data-with-r" class="anchor"></a><span class="header-section-number">1.6</span> Getting PCT data with R</h2>
-<p>We will get PCT data at the MSOA level and plot the result in a simple map.</p>
+<p>We will get the same PCT datasets as in previous sections but using the R interface.</p>
 <ul>
-<li>G1: The first stage is to load packages we will use:</li>
+<li>The first stage is to load packages we will use:</li>
 </ul>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://itsleeds.github.io/pct/">pct</a></span><span class="op">)</span>
@@ -264,16 +264,16 @@ The data was exported from R into the <code>cycle_infra_projected.gpkg</code>, w
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mtennekes/tmap">tmap</a></span><span class="op">)</span>    <span class="co"># installed alongside mapview</span></code></pre></div>
 <ul>
-<li>G2: After setting the region name (to avoid re-typing it many times) run the following commands to download data at the four main levels used in the PCT:</li>
+<li>After setting the region name (to avoid re-typing it many times) run the following commands to download data at the four main levels used in the PCT:</li>
 </ul>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">region_name</span> <span class="op">=</span> <span class="st">"north-yorkshire"</span>
-<span class="va">zones_all</span> <span class="op">=</span> <span class="fu"><a href="../reference/get_pct_zones.html">get_pct_zones</a></span><span class="op">(</span><span class="va">region_name</span>, geography <span class="op">=</span> <span class="st">"msoa"</span><span class="op">)</span>
-<span class="va">lines_all</span> <span class="op">=</span> <span class="fu"><a href="../reference/get_pct_lines.html">get_pct_lines</a></span><span class="op">(</span><span class="va">region_name</span>, geography <span class="op">=</span> <span class="st">"msoa"</span><span class="op">)</span>
-<span class="va">routes_all</span> <span class="op">=</span> <span class="fu"><a href="../reference/get_pct_routes_fast.html">get_pct_routes_fast</a></span><span class="op">(</span><span class="va">region_name</span>, geography <span class="op">=</span> <span class="st">"msoa"</span><span class="op">)</span>
+<span class="va">zones_all</span> <span class="op">=</span> <span class="fu"><a href="../reference/get_pct_zones.html">get_pct_zones</a></span><span class="op">(</span><span class="va">region_name</span><span class="op">)</span>
+<span class="va">lines_all</span> <span class="op">=</span> <span class="fu"><a href="../reference/get_pct_lines.html">get_pct_lines</a></span><span class="op">(</span><span class="va">region_name</span><span class="op">)</span>
+<span class="va">routes_all</span> <span class="op">=</span> <span class="fu"><a href="../reference/get_pct_routes_fast.html">get_pct_routes_fast</a></span><span class="op">(</span><span class="va">region_name</span><span class="op">)</span>
 <span class="va">rnet_all</span> <span class="op">=</span> <span class="fu"><a href="../reference/get_pct_rnet.html">get_pct_rnet</a></span><span class="op">(</span><span class="va">region_name</span><span class="op">)</span></code></pre></div>
 <ul>
-<li>G3: Check the downloads worked by plotting the result as follows:</li>
+<li>Check the downloads worked by plotting:</li>
 </ul>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">zones_all</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span>
@@ -299,7 +299,7 @@ In it you will:</p>
 <h2 class="hasAnchor">
 <a href="#pct-scenarios" class="anchor"></a><span class="header-section-number">2.1</span> PCT scenarios</h2>
 <ul>
-<li>S1: Generate a ‘Go Dutch’ scenario for the North Yorkshire using the function <code><a href="../reference/uptake_pct_godutch.html">uptake_pct_godutch()</a></code> (hint: the following code chunk will create a ‘Government Target’ scenario):</li>
+<li>Generate a ‘Go Dutch’ scenario for the North Yorkshire using the function <code><a href="../reference/uptake_pct_godutch.html">uptake_pct_godutch()</a></code> (hint: the following code chunk will create a ‘Government Target’ scenario):</li>
 </ul>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">lines_all</span><span class="op">$</span><span class="va">pcycle</span> <span class="op">=</span> <span class="va">lines_all</span><span class="op">$</span><span class="va">bicycle</span> <span class="op">/</span> <span class="va">lines_all</span><span class="op">$</span><span class="va">all</span>
@@ -314,7 +314,7 @@ In it you will:</p>
 </p>
 </div>
 <ul>
-<li>S2: Think of alternative scenarios that would be useful for your work</li>
+<li>Think of alternative scenarios that would be useful for your work</li>
 <li>S3 (bonus): look inside the function <a href="https://github.com/ITSLeeds/pct/blob/master/R/uptake.R#L36"><code>pct_uptake_godutch()</code></a> - how could it be modified?</li>
 </ul>
 </div>
