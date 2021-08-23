@@ -35,7 +35,7 @@ If you are following this guide as part of the [Cycle City Active City 2021](htt
 In this section you will learn about the open datasets provided by the PCT project and how to use them.
 While the most common use of the PCT is via the interactive web application hosted at www.pct.bike, there is much value in downloading the data, e.g. to identify existing cycling infrastructure in close proximity to routes with high potential, and to help identify roads in need of interventions from a safety perspective, using data from the constantly evolving and community-driven global geographic database OpenStreetMap (OSM) [@barrington-leigh_world_2017].
 
-In this session, which assumes you know how to have experience using QGIS, or R, you will learn how to:
+In this session, which assumes you have experience using QGIS or R, you will learn how to:
 
 -   Find data on travel behaviour from the 2011 Census and from the School Census
 -   How to download and import data from the PCT into QGIS
@@ -74,8 +74,8 @@ knitr::include_graphics("https://user-images.githubusercontent.com/1825120/13037
 ```
 
 - Download the Zones (LSOA) dataset in geojson format
-- Download the Route network layer in [geojson](https://npttile.vs.mythic-beasts.com/pct-outputs-regional-notR/commute/lsoa/north-yorkshire/rnet_full.geojson) format
-- Download the Fast routes in [geojson](https://npttile.vs.mythic-beasts.com/pct-outputs-regional-notR/commute/lsoa/north-yorkshire/rf.geojson) format (warning: this file is nearly 100 MB in size so may take some time to download)
+- Download the Route network layer (LSOA) in [geojson](https://npttile.vs.mythic-beasts.com/pct-outputs-regional-notR/commute/lsoa/north-yorkshire/rnet_full.geojson) format
+- Download the Fast routes (LSOA) in [geojson](https://npttile.vs.mythic-beasts.com/pct-outputs-regional-notR/commute/lsoa/north-yorkshire/rf.geojson) format (warning: this file is nearly 100 MB in size so may take some time to download)
 
 ## Visualising PCT data in QGIS
 
@@ -203,7 +203,7 @@ Reproducible and open R code will be used to demonstrate the concepts so knowled
 In it you will:
 
 -   Learn about the uptake model underlying the Propensity to Cycle Tool scenarios
--   Develop your own uptake model in conceptual terms, e.g., to represent the government's target for 50% of all trips in cities to be made by walking and cycling by 2030
+-   Develop your own uptake model in conceptual terms, e.g., to represent the government's target for 50% of all trips in towns and cities to be made by walking and cycling by 2030
 -   Learn how to train uptake models against data, to build evidence-based uptake models
 
 ## PCT scenarios
