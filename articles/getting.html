@@ -221,6 +221,12 @@ Figure 1.4: All fast routes that intersect with Clifton Bridge in QGIS.
 <div id="identifying-gaps-in-the-network" class="section level2">
 <h2 class="hasAnchor">
 <a href="#identifying-gaps-in-the-network" class="anchor"></a><span class="header-section-number">1.5</span> Identifying gaps in the network</h2>
+<p>This section assumes you have data on the regional cycle network.
+For the purposes of this worked example, we used a broad definition of ‘cycle infrastructure’ based on <a href="http://k1z.blog.uni-heidelberg.de/2020/10/02/how-to-become-ohsome-part-8-complex-analysis-with-the-magical-filter-parameter/">research</a> undertaken at the University of Heidelberg.
+Using this definition, a cycle infrastructure layer was extracted from OSM using R.
+The data was exported from R into the <code>cycle_infra_projected.gpkg</code>, which is provided in the <code>pctqgis.zip</code> file mentioned in the previous sections.</p>
+<p>In this section we will load the cycle infrastructure layer, buffer it, and undertake a geographic operation to identify places where there are gaps in the network.
+<!-- Todo: identify existing cycle infrastructures that are important --></p>
 </div>
 <div id="getting-pct-data-with-r" class="section level2">
 <h2 class="hasAnchor">
