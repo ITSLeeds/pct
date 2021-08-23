@@ -87,16 +87,52 @@ If you are new to QGIS, it is worth taking a look at the User Guide at [docs.qgi
 Open QGIS and create a new [project](https://docs.qgis.org/3.16/en/docs/user_manual/introduction/project_files.html) and name it pctdemo.
 
 Once in the project, open the three layers you downloaded in the previous section.
-You should see something resembling the screenshot shown in Figure \@ref(fig:pctqgis1).
+You should see something resembling the screenshot shown in Figure \@ref(fig:pctqgis1).^[
+A great thing about QGIS projects is that, like RStudio projects, they make organising and sharing your work easier.
+You should be able to see exactly the same project state as that shown in the figure by downloading the zip file at https://github.com/ITSLeeds/pct/releases/download/0.8.0/pctqgis.zip and opening the pctqgis1.qgz file in QGIS.
+]
 
 ```{r pctqgis1, echo=FALSE, fig.cap="Three PCT layers visualised in QGIS."}
 knitr::include_graphics("https://user-images.githubusercontent.com/1825120/130372558-629b7fb5-452c-4a44-80bb-2d88a0492be9.png")
 ```
 
+```{r, echo=FALSE, eval=FALSE}
+# zip and upload qgis folder to share
+zip(zipfile = "pctqgis.zip", files = "pctqgis")
+piggyback::pb_upload("pctqgis.zip")
+piggyback::pb_download_url("pctqgis.zip")
+# https://github.com/ITSLeeds/pct/releases/download/0.8.0/pctqgis.zip
+```
 
+After you have the data in QGIS as shown in Figure \@ref(fig:pctqgis1) a wide range of analysis options are opened up.
+We can only cover a few of these in here, due to space and time constraints, and it is worth being guided by local policy priorities rather than the technology to ensure useful (not just attractive or eye-catching) results.
+One major issue that is apparent in Figure \@ref(fig:pctqgis1) is that the zones seem squashed.^[
+This is because QGIS, unlike R's spatial packages, shows geographic (longitude/latitude) coordinates as if they were projected, which makes maps seem squashed at high latitudes far from the equator.
+]
+We can deal with this by changing the coordinate reference system (CRS) of the map visualisation.
+It may also be worth reprojecting the data, to the official projected CRS in the UK: EPSG:27700.
+Undertake these tasks in the exercises below:
 
+- Change the CRS of the map to EPSG:27700 by clicking on the CRS button in the bottom right of the map, just to the right of the Render text in the figures above
+- Save each of the layers in this same CRS by right clicking on the layer, selecting Export, and setting the CRS there (take care to export the data into the same folder that the project is in)
 
 ## Comparing PCT data with transport network data
+
+Find all the fast routes that intersect with a 10 m buffer surrounding Clifton Bridge (note: this is a time consuming task).^[
+Hint: installing the QuickOSM and QuickMapServices plugins may help.
+You will need to transform the bridge before finding a buffer around it.
+You will need to use the Select by Location Vector Research tool.
+]
+
+Don't worry if you do not have time to complete each of the steps needed to find the result.
+You can see how it works by opening the project pctqgis3.qgz in the [pctqgis.zip](https://github.com/ITSLeeds/pct/releases/download/0.8.0/pctqgis.zip) file.
+The result should look something like the screenshot shown in Figure \@ref(fig:cliftonbuffer).
+
+```{r cliftonbuffer, echo=FALSE, fig.cap="All fast routes that intersect with Clifton Bridge in QGIS."}
+knitr::include_graphics("https://user-images.githubusercontent.com/1825120/130374644-549c6de7-97fb-4fff-8356-fa59aa7d481e.png")
+```
+
+What is the difference between the route data shown in QGIS in Figure \@ref(fig:cliftonbuffer) and the route data shown in the PCT web app in Figure \@ref(fig:clifton)?
 
 ## Identifying gaps in the network
 
