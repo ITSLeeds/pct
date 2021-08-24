@@ -256,24 +256,13 @@ If you have not already done so, you will need to install the R packages we will
 </ul>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://itsleeds.github.io/pct/">pct</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span>      <span class="co"># key package for working with spatial vector data</span></code></pre></div>
-<pre><code>## Linking to GEOS 3.8.1, GDAL 3.2.1, PROJ 7.2.1</code></pre>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>   <span class="co"># in the tidyverse</span></code></pre></div>
-<pre><code>## 
-## Attaching package: 'dplyr'</code></pre>
-<pre><code>## The following objects are masked from 'package:stats':
-## 
-##     filter, lag</code></pre>
-<pre><code>## The following objects are masked from 'package:base':
-## 
-##     intersect, setdiff, setequal, union</code></pre>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mtennekes/tmap">tmap</a></span><span class="op">)</span>    <span class="co"># installed alongside mapview</span></code></pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span>      <span class="co"># key package for working with spatial vector data</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>   <span class="co"># in the tidyverse</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mtennekes/tmap">tmap</a></span><span class="op">)</span>    <span class="co"># installed alongside mapview</span></code></pre></div>
 <ul>
 <li>After setting the region name (to avoid re-typing it many times) run the following commands to download data at the four main levels used in the PCT:</li>
 </ul>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">region_name</span> <span class="op">=</span> <span class="st">"north-yorkshire"</span>
 <span class="va">zones_all</span> <span class="op">=</span> <span class="fu"><a href="../reference/get_pct_zones.html">get_pct_zones</a></span><span class="op">(</span><span class="va">region_name</span><span class="op">)</span>
 <span class="va">lines_all</span> <span class="op">=</span> <span class="fu"><a href="../reference/get_pct_lines.html">get_pct_lines</a></span><span class="op">(</span><span class="va">region_name</span><span class="op">)</span>
@@ -282,7 +271,7 @@ If you have not already done so, you will need to install the R packages we will
 <ul>
 <li>Check the downloads worked by plotting:</li>
 </ul>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">zones_all</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span>
 <span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">lines_all</span><span class="op">$</span><span class="va">geometry</span>, col <span class="op">=</span> <span class="st">"blue"</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">routes_all</span><span class="op">$</span><span class="va">geometry</span>, col <span class="op">=</span> <span class="st">"green"</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
@@ -302,9 +291,12 @@ In it you will:</p>
 <li>Develop your own uptake model in conceptual terms, e.g., to represent the <a href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1009448/decarbonising-transport-a-better-greener-britain.pdf">government’s aim</a> for 50% of all trips in towns and cities to be made by walking and cycling by 2030</li>
 <li>Learn how to train uptake models against data, to build evidence-based uptake models</li>
 </ul>
-<div id="install" class="section level2">
+<div id="set-up" class="section level2">
 <h2 class="hasAnchor">
-<a href="#install" class="anchor"></a><span class="header-section-number">2.1</span> Install</h2>
+<a href="#set-up" class="anchor"></a><span class="header-section-number">2.1</span> Set-up</h2>
+<p>To undertaken the exercises in this section you need to have R and RStudio installed, as outlined <a href="https://itsleeds.github.io/pct/articles/pct_training.html#preparation">here</a>.
+Load the packages by running each of the lines of code in the code chunk beginning with <code><a href="https://itsleeds.github.io/pct/">library(pct)</a></code> (which loads the <code>pct</code> R package, making its functions available) in the previous section <a href="#getting-pct-data-with-r">1.6</a>.</p>
+<p>To complete the exercises in this workshop your also need to have imported PCT data into your R session, by running each line of code in the code chunk beginning <code>region_name = "north-yorkshire"</code> in the previous section.</p>
 </div>
 <div id="pct-scenarios" class="section level2">
 <h2 class="hasAnchor">
@@ -312,7 +304,7 @@ In it you will:</p>
 <ul>
 <li>Generate a ‘Go Dutch’ scenario for the North Yorkshire using the function <code><a href="../reference/uptake_pct_godutch.html">uptake_pct_godutch()</a></code> (hint: the following code chunk will create a ‘Government Target’ scenario):</li>
 </ul>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">lines_all</span><span class="op">$</span><span class="va">pcycle</span> <span class="op">=</span> <span class="va">lines_all</span><span class="op">$</span><span class="va">bicycle</span> <span class="op">/</span> <span class="va">lines_all</span><span class="op">$</span><span class="va">all</span>
 <span class="va">lines_all</span><span class="op">$</span><span class="va">euclidean_distance</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_measures.html">st_length</a></span><span class="op">(</span><span class="va">lines_all</span><span class="op">)</span><span class="op">)</span>
 <span class="va">lines_all</span><span class="op">$</span><span class="va">pcycle_govtarget</span> <span class="op">=</span> <span class="fu"><a href="../reference/uptake_pct_govtarget.html">uptake_pct_govtarget_2020</a></span><span class="op">(</span>
