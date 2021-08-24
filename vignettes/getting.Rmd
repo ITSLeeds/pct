@@ -165,7 +165,7 @@ In this section we will load the cycle infrastructure layer, buffer it, and unde
 - Buffer it to 100 m 
 - Clip the route network layer to include only areas outside the buffer
 
-```{r}
+```{r buffer, echo=FALSE, fig.cap="Route network layer and buffer representing cycle infrastructure, to identify gaps in the network."}
 knitr::include_graphics("https://user-images.githubusercontent.com/1825120/130415597-e7bcb8a1-4792-48de-ba83-118c082584cb.png")
 ```
 
@@ -189,6 +189,7 @@ library(tmap)    # installed alongside mapview
 region_name = "north-yorkshire"
 zones_all = get_pct_zones(region_name)
 lines_all = get_pct_lines(region_name)
+# note: the next command may take a few seconds
 routes_all = get_pct_routes_fast(region_name)
 rnet_all = get_pct_rnet(region_name)
 ```
@@ -242,7 +243,7 @@ lines_all$pcycle_dutch = uptake_pct_godutch_2020(
   ) * 100 + lines_all$pcycle
 ```
 
-```{r dutch_pcycle, echo=FALSE, warning=FALSE, fig.show='hold', fig.cap="Percent cycling currently (left) and under a 'Go Dutch' scenario (right) in the Isle of Wight."}
+```{r dutch_pcycle, echo=FALSE, warning=FALSE, fig.show='hold', fig.cap="Percent cycling currently (left) and under a 'Go Dutch' scenario (right) in the North Yorkshire."}
 plot(lines_all["pcycle"], lwd = lines_all$all / mean(lines_all$all), breaks = c(0, 5, 10, 20, 50))
 plot(lines_all["pcycle_dutch"], lwd = lines_all$all / mean(lines_all$all), breaks = c(0, 5, 10, 20, 50))
 # cor(l_originalines_all$dutch_slc / l_originalines_all$all, lines_all$pcycle_dutch)
