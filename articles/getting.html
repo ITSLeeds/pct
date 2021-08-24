@@ -151,15 +151,21 @@ Before you download and use PCT data, it is worth exploring it on the PCT web ap
 <li>Explore different data layers contained in the PCT by selecting different options from the dropdown menus on the right.</li>
 <li>Look at the different types of Cycling Flows options and consider: which visualisation layer is most useful?</li>
 </ul>
-<!-- It depends --><ul>
-<li>Bonus: find the areas that would benefit from improved cycling provision on Clifton bridge, 1 km northwest from central York over the River Ouse (see result in Figure <a href="#fig:clifton">1.1</a>)<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>
-</li>
+<div id="using-freeze-lines-to-find-areas-that-would-benefit-from-improvements-in-a-specific-place" class="section level3">
+<h3 class="hasAnchor">
+<a href="#using-freeze-lines-to-find-areas-that-would-benefit-from-improvements-in-a-specific-place" class="anchor"></a><span class="header-section-number">1.1.1</span> Using ‘Freeze Lines’ to find areas that would benefit from improvements in a specific place</h3>
+<!-- It depends -->
+<p>The PCT can be used to identify the zone origin and destinations of trips that would use improvements in a particular place.
+You can do this by selecting the Fast Routes option from the Cycling Flows menu, zooming into the area of interest Bridge, and then clicking on the Freeze Lines checkbox to prevent the selected routes from moving when you zoom back out.</p>
+<ul>
+<li>Use this technique to find the areas that would benefit from improved cycling provision on Clifton bridge, 1 km northwest from central York over the River Ouse (see result in Figure <a href="#fig:clifton">1.1</a>)</li>
 </ul>
 <div class="figure">
 <span style="display:block;" id="fig:clifton"></span>
 <img src="https://user-images.githubusercontent.com/1825120/130370123-5b8885de-4aed-43b4-8a49-b2f875ffff1b.png" alt="Areas that may benefit from improved cycle provision on Clifton Bridge, according to the PCT."><p class="caption">
 Figure 1.1: Areas that may benefit from improved cycle provision on Clifton Bridge, according to the PCT.
 </p>
+</div>
 </div>
 </div>
 <div id="downloading-data-from-the-pct-in-geojson-form" class="section level2">
@@ -182,10 +188,10 @@ Figure 1.2: The Region data tab in the PCT.
 <div id="visualising-pct-data-in-qgis" class="section level2">
 <h2 class="hasAnchor">
 <a href="#visualising-pct-data-in-qgis" class="anchor"></a><span class="header-section-number">1.3</span> Visualising PCT data in QGIS</h2>
-<p>In this section we assume you have a recent version of QGIS installed and have some experience using this popular and powerful free and open source desktop GIS software.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>
+<p>In this section we assume you have a recent version of QGIS installed and have some experience using this popular and powerful free and open source desktop GIS software.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>
 Open QGIS and create a new <a href="https://docs.qgis.org/3.16/en/docs/user_manual/introduction/project_files.html">project</a> and name it pctdemo.</p>
 <p>Once in the project, open the three layers you downloaded in the previous section.
-You should see something resembling the screenshot shown in Figure <a href="#fig:pctqgis1">1.3</a>.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
+You should see something resembling the screenshot shown in Figure <a href="#fig:pctqgis1">1.3</a>.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
 <div class="figure">
 <span style="display:block;" id="fig:pctqgis1"></span>
 <img src="https://user-images.githubusercontent.com/1825120/130372558-629b7fb5-452c-4a44-80bb-2d88a0492be9.png" alt="Three PCT layers visualised in QGIS."><p class="caption">
@@ -194,7 +200,7 @@ Figure 1.3: Three PCT layers visualised in QGIS.
 </div>
 <p>After you have the data in QGIS as shown in Figure <a href="#fig:pctqgis1">1.3</a> a wide range of analysis options are opened up.
 We can only cover a few of these in here, due to space and time constraints, and it is worth being guided by local policy priorities rather than the technology to ensure useful (not just attractive or eye-catching) results.
-One major issue that is apparent in Figure <a href="#fig:pctqgis1">1.3</a> is that the zones seem squashed.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>
+One major issue that is apparent in Figure <a href="#fig:pctqgis1">1.3</a> is that the zones seem squashed.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>
 We can deal with this by changing the coordinate reference system (CRS) of the map visualisation.
 It may also be worth reprojecting the data, to the official projected CRS in the UK: EPSG:27700.
 Undertake these tasks in the exercises below:</p>
@@ -206,7 +212,7 @@ Undertake these tasks in the exercises below:</p>
 <div id="comparing-pct-data-with-transport-network-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#comparing-pct-data-with-transport-network-data" class="anchor"></a><span class="header-section-number">1.4</span> Comparing PCT data with transport network data</h2>
-<p>Find all the fast routes that intersect with a 10 m buffer surrounding Clifton Bridge (note: this is a time consuming task).<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a></p>
+<p>Find all the fast routes that intersect with a 10 m buffer surrounding Clifton Bridge (note: this is a time consuming task).<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a></p>
 <p>Don’t worry if you do not have time to complete each of the steps needed to find the result.
 You can see how it works by opening the project pctqgis3.qgz in the <a href="https://github.com/ITSLeeds/pct/releases/download/0.8.0/pctqgis.zip">pctqgis.zip</a> file.
 The result should look something like the screenshot shown in Figure <a href="#fig:cliftonbuffer">1.4</a>.</p>
@@ -243,9 +249,10 @@ The data was exported from R into the <code>cycle_infra_projected.gpkg</code>, w
 <div id="getting-pct-data-with-r" class="section level2">
 <h2 class="hasAnchor">
 <a href="#getting-pct-data-with-r" class="anchor"></a><span class="header-section-number">1.6</span> Getting PCT data with R</h2>
-<p>We will get the same PCT datasets as in previous sections but using the R interface.</p>
+<p>We will get the same PCT datasets as in previous sections but using the R interface.
+If you have not already done so, you will need to install the R packages we will use for this section (and the next) by typing and executing the following command in the R console: <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages("pct", "sf", "dplyr", "tmap")</a></code>.</p>
 <ul>
-<li>The first stage is to load packages we will use:</li>
+<li>After you have the necessary packages installed, the first stage is to load packages we will use:</li>
 </ul>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://itsleeds.github.io/pct/">pct</a></span><span class="op">)</span>
@@ -295,9 +302,13 @@ In it you will:</p>
 <li>Develop your own uptake model in conceptual terms, e.g., to represent the <a href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1009448/decarbonising-transport-a-better-greener-britain.pdf">government’s aim</a> for 50% of all trips in towns and cities to be made by walking and cycling by 2030</li>
 <li>Learn how to train uptake models against data, to build evidence-based uptake models</li>
 </ul>
+<div id="install" class="section level2">
+<h2 class="hasAnchor">
+<a href="#install" class="anchor"></a><span class="header-section-number">2.1</span> Install</h2>
+</div>
 <div id="pct-scenarios" class="section level2">
 <h2 class="hasAnchor">
-<a href="#pct-scenarios" class="anchor"></a><span class="header-section-number">2.1</span> PCT scenarios</h2>
+<a href="#pct-scenarios" class="anchor"></a><span class="header-section-number">2.2</span> PCT scenarios</h2>
 <ul>
 <li>Generate a ‘Go Dutch’ scenario for the North Yorkshire using the function <code><a href="../reference/uptake_pct_godutch.html">uptake_pct_godutch()</a></code> (hint: the following code chunk will create a ‘Government Target’ scenario):</li>
 </ul>
@@ -320,7 +331,7 @@ In it you will:</p>
 </div>
 <div id="developing-new-scenarios-of-change" class="section level2">
 <h2 class="hasAnchor">
-<a href="#developing-new-scenarios-of-change" class="anchor"></a><span class="header-section-number">2.2</span> Developing new scenarios of change</h2>
+<a href="#developing-new-scenarios-of-change" class="anchor"></a><span class="header-section-number">2.3</span> Developing new scenarios of change</h2>
 </div>
 <div id="training-uptake-models-against-new-datasets" class="section level2 unnumbered">
 <h2 class="hasAnchor">
@@ -336,20 +347,18 @@ In it you will:</p>
 <hr>
 <ol>
 <li id="fn1"><p>
-Hint: Select the Fast Routes option from the Cycling Flows menu, zoom into the Bridge, and then click on the Freeze Lines checkbox to prevent the selected routes from moving when you zoom back out.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
-<li id="fn2"><p>
 This tutorial was tested on QGIS version 3.20 but it should work fine on other versions, including the Long Term Support version (3.16 at the time of writing in summer 2021).
 To install the latest version of QGIS see <a href="https://qgis.org/en/site/forusers/download.html">qgis.org</a>.
-If you are new to QGIS, it is worth taking a look at the User Guide at <a href="https://docs.qgis.org/3.16/en/docs/user_manual/">docs.qgis.org</a> and, for a transport-oriented introduction, the <a href="https://itsleeds.github.io/QGIS-intro/">QGIS for Transport Research</a> resource developed by the University of Leeds.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
-<li id="fn3"><p>
+If you are new to QGIS, it is worth taking a look at the User Guide at <a href="https://docs.qgis.org/3.16/en/docs/user_manual/">docs.qgis.org</a> and, for a transport-oriented introduction, the <a href="https://itsleeds.github.io/QGIS-intro/">QGIS for Transport Research</a> resource developed by the University of Leeds.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>
 A great thing about QGIS projects is that, like RStudio projects, they make organising and sharing your work easier.
-You should be able to see exactly the same project state as that shown in the figure by downloading the zip file at <a href="https://github.com/ITSLeeds/pct/releases/download/0.8.0/pctqgis.zip" class="uri">https://github.com/ITSLeeds/pct/releases/download/0.8.0/pctqgis.zip</a> and opening the pctqgis1.qgz file in QGIS.<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
+You should be able to see exactly the same project state as that shown in the figure by downloading the zip file at <a href="https://github.com/ITSLeeds/pct/releases/download/0.8.0/pctqgis.zip" class="uri">https://github.com/ITSLeeds/pct/releases/download/0.8.0/pctqgis.zip</a> and opening the pctqgis1.qgz file in QGIS.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>
+This is because QGIS, unlike R’s spatial packages, shows geographic (longitude/latitude) coordinates as if they were projected, which makes maps seem squashed at high latitudes far from the equator.<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
 <li id="fn4"><p>
-This is because QGIS, unlike R’s spatial packages, shows geographic (longitude/latitude) coordinates as if they were projected, which makes maps seem squashed at high latitudes far from the equator.<a href="#fnref4" class="footnote-back">↩︎</a></p></li>
-<li id="fn5"><p>
 Hint: installing the QuickOSM and QuickMapServices plugins may help.
 You will need to transform the bridge before finding a buffer around it.
-You will need to use the Select by Location Vector Research tool.<a href="#fnref5" class="footnote-back">↩︎</a></p></li>
+You will need to use the Select by Location Vector Research tool.<a href="#fnref4" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
   </div>
