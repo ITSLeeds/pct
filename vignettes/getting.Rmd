@@ -227,6 +227,14 @@ In it you will:
 -   Develop your own uptake model in conceptual terms, e.g., to represent the [government's aim](https://www.gov.uk/government/publications/transport-decarbonisation-plan) for 50% of all trips in towns and cities to be made by walking and cycling by 2030
 -   Learn how to train uptake models against data, to build evidence-based uptake models
 
+<!-- Timings for CCA conference: -->
+<!-- Intro: 5 minutes -->
+<!-- Set-up: 15 minutes, all working together -->
+<!-- Demo of PCT scenarios: 15 minutes -->
+<!-- Scenarios of change 15 minutes -->
+<!-- Training an update models 5 minutes + questions -->
+<!-- Link to further resources (Nathanael) -->
+
 ## Set-up
 
 To undertake the exercises in this section you need to have R and RStudio installed, as outlined [here](https://itsleeds.github.io/pct/articles/pct_training.html#preparation).
@@ -240,7 +248,6 @@ Finally, we will use these additional packages, which you must have installed on
 library(ggplot2)
 library(tmap)
 ```
-
 
 ## PCT scenarios
 
