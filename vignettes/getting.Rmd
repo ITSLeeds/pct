@@ -336,6 +336,30 @@ round(sum(routes_towns$foot + routes_towns$bicycle) / sum(routes_towns$all) * 10
 Currently, only around 34% of commute trips in the region are made by walking and cycling.
 We explore this in more detail by looking at the relationship between trip distance and mode share.
 
+```{r distmode, echo=FALSE, fig.cap="Relationship between distance (x axis) and mode share (y axis) in towns and cities in North Yorkshire."}
+col_modes = c("#457b9d", "#90be6d", "#ffd166", "grey", "#fe5f55")
+col_modes = rev(col_modes)
+old_theme = theme_set(theme_bw())
+routes_towns_recode = routes_towns %>% 
+  mutate(public_transport = train_tube + bus,
+         car = car_driver + car_passenger,
+         other = taxi_other + motorbike 
+         ) %>% 
+  dplyr::select(-car_driver, -car_passenger, -train_tube, -bus)
+routes_towns_recode$dist_bands = cut(x = routes_towns_recode$rf_dist_km, breaks = c(0, 1, 3, 6, 10, 15, 20, 30, 1000), include.lowest = TRUE)
+base_results = routes_towns_recode %>%
+  sf::st_drop_geometry() %>% 
+  dplyr::select(dist_bands, car, other, public_transport, bicycle, foot) %>% 
+  tidyr::pivot_longer(cols = matches("car|other|publ|cy|foot"), names_to = "mode") %>% 
+  mutate(mode = factor(mode, levels = c("car", "other", "public_transport", "bicycle", "foot"), ordered = TRUE)) %>% 
+  group_by(dist_bands, mode) %>% 
+  summarise(Trips = sum(value))
+g1 = ggplot(base_results) +
+  geom_col(aes(dist_bands, Trips, fill = mode)) +
+  scale_fill_manual(values = col_modes) + ylab("Trips")
+g1
+```
+
 
 ## Training uptake models against new datasets
 
