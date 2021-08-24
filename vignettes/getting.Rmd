@@ -222,12 +222,19 @@ The PCT provides a school route network layer that can be especially important w
 Due to the sensitive nature of school data, we cannot make route or OD data level data available.
 However, the PCT provides travel to school data at zone and route network levels, as shown in Figure \@ref(fig:school1).
 (Note: to get this data from the PCT website you must select School travel in the Trip purpose menu before clicking on Region data.)
-As we will see in Section \@ref(joining), combining school and commute network data can result in a more comprehensive network.
 
-```{r school1, fig.cap="Open access data on cycling to school potential from the PCT, at zone (left) and route network (right) levels. These datasets can support planning interventions, especially 'safe routes to school' and interventions in residential areas.", out.width="49%", fig.show='hold'}
+- Get schools data from the PCT with the following commands
+
+```{r}
 zones_school = get_pct_zones(region = region_name, purpose = "school")
 rnet_school = get_pct_rnet(region = region_name, purpose = "school")
-plot(zones_school["dutch_slc"], border = NA)
+```
+
+As we will see in Section \@ref(joining), combining school and commute network data can result in a more comprehensive network.
+
+```{r school1, fig.cap="Open access data on cycling to school potential from the PCT, at zone (left) and route network (right) levels. These datasets can support planning interventions, especially 'safe routes to school' and interventions in residential areas. To see the source code that generates these plots, see the 'source' link at the top of the page.", out.width="49%", fig.show='hold', echo=FALSE}
+zones_school$dutch_sic[is.na(zones_school$dutch_sic)] = 1.5
+qtm(zones_school, "dutch_slc")
 plot(rnet_school["dutch_slc"])
 ```
 
