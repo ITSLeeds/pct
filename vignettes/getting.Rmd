@@ -1,8 +1,10 @@
 ---
 title: "Getting and using data from the PCT"
+author: Robin Lovelace, Joey Talbot and Nathanel Sheehan
 output:
   bookdown::html_document2:
     number_sections: true
+    # code_folding: hide
 vignette: >
   %\VignetteIndexEntry{Getting and using data from the PCT}
   %\VignetteEngine{knitr::rmarkdown}
@@ -19,6 +21,7 @@ editor_options:
 ---
 
 ```{r, include=FALSE}
+# knitr::opts_chunk$set(cache = TRUE, class.source = "fold-show")
 knitr::opts_chunk$set(cache = TRUE)
 ```
 
@@ -214,34 +217,22 @@ plot(routes_all$geometry, col = "green", add = TRUE)
 plot(rnet_all$geometry, col = "red", lwd = sqrt(rnet_all$bicycle), add = TRUE)
 ```
 
-## Joining commute and school data
+## Getting school route network data
 
-PCT is not limited to commuter data only, PCT also provides a range of school data for each region in England and Wales to be downloaded with relative ease. In the example below, we add a `purpose` to the `get_pct_rnet()` function of `school`, this allows us to get the road network for school trips rather than commuter trips. We can then join this to our commute road network to build a more detailed road network of our study region.
+The PCT provides a school route network layer that can be especially important when planning cycling interventions in residential areas.
+Due to the sensitive nature of school data, we cannot make route or OD data level data available.
+However, the PCT provides travel to school data at zone and route network levels, as shown in Figure \@ref(fig:school1) (note: to get this data from the PCT website you must select School travel in the Trip purpose menu before clicking on Region data).
+As we will see in Section \@ref(joining), combining school and commute network data can result in a more comprehensive network.
 
-```{r, message=FALSE, warning=FALSE}
-# get pct rnet data for schools
+```{r school1, fig.cap="Open access data on cycling to school potential from the PCT, at zone (left) and route network (right) levels. These datasets can support planning interventions, especially 'safe routes to school' and interventions in residential areas.", out.width="49%"}
+zones_school = get_pct_zones(region = region_name, purpose = "school")
 rnet_school = get_pct_rnet(region = region_name, purpose = "school")
-rnet_school = subset(rnet_school, select = -c(`cambridge_slc`)) # subset columns for bind
-rnet_all = subset(rnet_all, select = -c(`ebike_slc`,`gendereq_slc`,`govnearmkt_slc`)) # subset columns for bind 
-
-rnet_school_commute = rbind(rnet_all,rnet_school) # bind commute and schools rnet data
-rnet_school_commute$duplicated_geometries = duplicated(rnet_school_commute$geometry) # find duplicated geometries
-rnet_school_commute$geometry_txt = sf::st_as_text(rnet_school_commute$geometry)
-
-rnet_combined = rnet_school_commute %>% 
-  group_by(geometry_txt) %>% # group by geometry
-  summarise_if(is.numeric, .funs = sum) # and summaries route network which is not a duplicate
-
+plot(zones_school["dutch_slc"], border = NA)
+plot(rnet_school["dutch_slc"])
 ```
 
-Now lets see how this changes our original plot...
 
-```{r}
-plot(zones_all$geometry)
-plot(lines_all$geometry, col = "blue", add = TRUE)
-plot(routes_all$geometry, col = "green", add = TRUE)
-plot(rnet_combined$geometry, col = "red", lwd = sqrt(rnet_all$bicycle), add = TRUE)
-```
+<!-- representing estimates of current (2010/2011) levels of cycling to school, and potential under scenarios of change,  -->
 
 # Modelling change
 
@@ -346,5 +337,43 @@ We explore this in more detail by looking at the relationship between trip dista
 
 
 ## Training uptake models against new datasets
+
+
+# Joining commute and school data {#joining}
+
+PCT is not limited to commuter data only, PCT also provides a range of school data for each region in England and Wales to be downloaded with relative ease. In the example below, we add a `purpose` to the `get_pct_rnet()` function of `school`.
+This allows us to get estimates of cycling potential on the road network for school trips, commuter trips, and school and commuter trips combined.
+Note in the figure below that the combined route network provides a more comprehensive (yet still incomplete) overview of cycling potential in the study region.
+
+
+```{r, message=FALSE, warning=FALSE, eval=FALSE, class.source=NULL}
+# get pct rnet data for schools
+rnet_school = get_pct_rnet(region = region_name, purpose = "school")
+rnet_school = subset(rnet_school, select = -c(`cambridge_slc`)) # subset columns for bind
+rnet_all = subset(rnet_all, select = -c(`ebike_slc`,`gendereq_slc`,`govnearmkt_slc`)) # subset columns for bind 
+
+rnet_school_commute = rbind(rnet_all,rnet_school) # bind commute and schools rnet data
+rnet_school_commute$duplicated_geometries = duplicated(rnet_school_commute$geometry) # find duplicated geometries
+rnet_school_commute$geometry_txt = sf::st_as_text(rnet_school_commute$geometry)
+
+rnet_combined = rnet_school_commute %>% 
+  group_by(geometry_txt) %>% # group by geometry
+  summarise(across(bicycle:dutch_slc, sum, na.rm = TRUE)) # and summaries route network which is not a duplicate
+```
+
+```{r, eval=FALSE, echo=FALSE}
+brks = c(0, 10, 100, 1000, 5000)
+tmap_arrange(nrow = 1,
+  tm_shape(rnet_all %>% arrange(dutch_slc)) + tm_lines("dutch_slc", palette = "-viridis", breaks = brks) + tm_layout(title = "Trips to work"),
+  tm_shape(rnet_school %>% arrange(dutch_slc)) + tm_lines("dutch_slc", palette = "-viridis", breaks = brks) + tm_layout(title = "Trips to school"),
+  tm_shape(rnet_combined %>% arrange(dutch_slc)) + tm_lines("dutch_slc", palette = "-viridis", breaks = brks) + tm_layout(title = "Trips to work and school")
+)
+```
+
+```{r combined, fig.cap="Comparison of commute, school, and combined commute *and* school route networkworks, under the Go Dutch scenario.", fig.show='hold', out.width="100%", echo=FALSE}
+# https://github.com/ITSLeeds/pct/issues/103#issuecomment-904990639
+knitr::include_graphics("https://user-images.githubusercontent.com/1825120/130692688-65a958a9-8586-4196-982d-872d236becdb.png")
+```
+
 
 # References
