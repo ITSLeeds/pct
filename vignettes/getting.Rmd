@@ -215,7 +215,7 @@ Reproducible and open R code will be used to demonstrate the concepts so knowled
 In it you will:
 
 -   Learn about the uptake model underlying the Propensity to Cycle Tool scenarios
--   Develop your own uptake model in conceptual terms, e.g., to represent the [government's aim](https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1009448/decarbonising-transport-a-better-greener-britain.pdf) for 50% of all trips in towns and cities to be made by walking and cycling by 2030
+-   Develop your own uptake model in conceptual terms, e.g., to represent the [government's aim](https://www.gov.uk/government/publications/transport-decarbonisation-plan) for 50% of all trips in towns and cities to be made by walking and cycling by 2030
 -   Learn how to train uptake models against data, to build evidence-based uptake models
 
 ## Set-up
@@ -254,9 +254,10 @@ plot(lines_all["pcycle_dutch"], lwd = lines_all$all / mean(lines_all$all), break
 ```
 
 - Think of alternative scenarios that would be useful for your work
-- S3 (bonus): look inside the function [`pct_uptake_godutch()`](https://github.com/ITSLeeds/pct/blob/master/R/uptake.R#L36) - how could it be modified?
+- Advanced: look at the source code of the function [`pct_uptake_godutch()`](https://github.com/ITSLeeds/pct/blob/master/R/uptake.R#L36) - how could it be modified?
 
 ## Developing new scenarios of change
 
+Let's develop a simple model representing the government's [aim](https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1009448/decarbonising-transport-a-better-greener-britain.pdf), that "half of all journeys in towns and cities [will be] cycled or walked" by 2030. 
 
 ## Training uptake models against new datasets
