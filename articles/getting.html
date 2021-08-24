@@ -294,7 +294,7 @@ Reproducible and open R code will be used to demonstrate the concepts so knowled
 In it you will:</p>
 <ul>
 <li>Learn about the uptake model underlying the Propensity to Cycle Tool scenarios</li>
-<li>Develop your own uptake model in conceptual terms, e.g., to represent the <a href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1009448/decarbonising-transport-a-better-greener-britain.pdf">government’s aim</a> for 50% of all trips in towns and cities to be made by walking and cycling by 2030</li>
+<li>Develop your own uptake model in conceptual terms, e.g., to represent the <a href="https://www.gov.uk/government/publications/transport-decarbonisation-plan">government’s aim</a> for 50% of all trips in towns and cities to be made by walking and cycling by 2030</li>
 <li>Learn how to train uptake models against data, to build evidence-based uptake models</li>
 </ul>
 <div id="set-up" class="section level2">
@@ -324,12 +324,13 @@ Load the packages by running each of the lines of code in the code chunk beginni
 </div>
 <ul>
 <li>Think of alternative scenarios that would be useful for your work</li>
-<li>S3 (bonus): look inside the function <a href="https://github.com/ITSLeeds/pct/blob/master/R/uptake.R#L36"><code>pct_uptake_godutch()</code></a> - how could it be modified?</li>
+<li>Advanced: look at the source code of the function <a href="https://github.com/ITSLeeds/pct/blob/master/R/uptake.R#L36"><code>pct_uptake_godutch()</code></a> - how could it be modified?</li>
 </ul>
 </div>
 <div id="developing-new-scenarios-of-change" class="section level2">
 <h2 class="hasAnchor">
 <a href="#developing-new-scenarios-of-change" class="anchor"></a><span class="header-section-number">2.3</span> Developing new scenarios of change</h2>
+<p>Let’s develop a simple model representing the government’s <a href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1009448/decarbonising-transport-a-better-greener-britain.pdf">aim</a>, that “half of all journeys in towns and cities [will be] cycled or walked” by 2030.</p>
 </div>
 <div id="training-uptake-models-against-new-datasets" class="section level2 unnumbered">
 <h2 class="hasAnchor">
