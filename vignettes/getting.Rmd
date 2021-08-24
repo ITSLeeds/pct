@@ -290,6 +290,16 @@ tm_shape(zones_all_joined) +
   tm_polygons("citytownclassification")
 ```
 
+After the classification dataset has been joined, the proportion of trips made by walking and cycling in towns and cities across North Yorkshire can be calculated as follows.
+
+```{r}
+routes_towns = routes_all_joined %>% 
+  filter(grepl(pattern = "Town|City", x = citytownclassification))
+round(sum(routes_towns$foot + routes_towns$bicycle) / sum(routes_towns$all) * 100)
+```
+
+Currently, only around 34% of commute trips in the region are made by walking and cycling.
+We explore this in more detail by looking at the relationship between trip distance and mode share.
 
 
 ## Training uptake models against new datasets
