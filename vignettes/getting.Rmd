@@ -33,7 +33,6 @@ If you are following this guide as part of the [Cycle City Active City 2021](htt
 # Getting and exploring PCT data
 
 <!-- From ccac 2021 -->
-
 In this section you will learn about the open datasets provided by the PCT project and how to use them.
 While the most common use of the PCT is via the interactive web application hosted at www.pct.bike, there is much value in downloading the data, e.g. to identify existing cycling infrastructure in close proximity to routes with high potential, and to help identify roads in need of interventions from a safety perspective, using data from the constantly evolving and community-driven global geographic database OpenStreetMap (OSM) [@barrington-leigh_world_2017].
 
@@ -42,6 +41,16 @@ In this session, which assumes you have experience using QGIS or R, you will lea
 -   Find data on travel behaviour from the 2011 Census and from the School Census
 -   How to download and import data from the PCT into QGIS
 -   How to process the data alongside infrastructure data, to help find gaps in the network
+
+<!-- Preliminary timings: -->
+<!-- Intro to the workshop and team: 5 minutes -->
+<!-- Demo of PCT web app: 10 -->
+<!-- Working together: downloading PCT data and opening in QGIS (Section 1.2): 15 minutes -->
+<!-- Live demo of doing analysis (1.3 and 1.4) 10 minutes -->
+<!-- Working together: downloading and opening the zip to see QGIS project (1.4 and 1.5) -->
+<!-- Discussion of definition of cycle infrastructure (Joey 5 minutes, 1.5) -->
+<!-- Discussion of schools data and merging school and commute route networks (Nathanael 5 minutes) -->
+<!-- Any questions -->
 
 ## Getting PCT data from the PCT website
 
@@ -220,7 +229,7 @@ In it you will:
 
 ## Set-up
 
-To undertaken the exercises in this section you need to have R and RStudio installed, as outlined [here](https://itsleeds.github.io/pct/articles/pct_training.html#preparation).
+To undertake the exercises in this section you need to have R and RStudio installed, as outlined [here](https://itsleeds.github.io/pct/articles/pct_training.html#preparation).
 Load the packages by running each of the lines of code in the code chunk beginning with `library(pct)` (which loads the `pct` R package, making its functions available) in the previous section \@ref(getting-pct-data-with-r).
 
 To complete the exercises in this workshop your also need to have imported PCT data into your R session, by running each line of code in the code chunk beginning `region_name = "north-yorkshire"` in the previous section.
@@ -274,7 +283,6 @@ The first stage is to identify urban areas in North Yorkshire.
 We use data from the House of Commons Research [Briefing](https://commonslibrary.parliament.uk/research-briefings/cbp-8322/) on City and Town Classifications to define areas based on their town/city status.
 The code chunk below shows the benefits of R in terms of being able to get and join data onto the route data we have been using:
 
-
 ```{r cities, out.width="45%", fig.show='hold', fig.cap="Classification of areas in Great Britain (left) and North Yorkshire (right)."}
 urban_rural = readr::read_csv("https://researchbriefings.files.parliament.uk/documents/CBP-8322/oa-classification-csv.csv")
 ggplot(urban_rural) +
@@ -303,3 +311,5 @@ We explore this in more detail by looking at the relationship between trip dista
 
 
 ## Training uptake models against new datasets
+
+# References
