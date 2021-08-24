@@ -112,6 +112,7 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Getting and using data from the PCT</h1>
+                        <h4 class="author">Robin Lovelace, Joey Talbot and Nathanel Sheehan</h4>
             
       
       <small class="dont-index">Source: <a href="https://github.com/ITSLeeds/pct/blob/master/vignettes/getting.Rmd"><code>vignettes/getting.Rmd</code></a></small>
@@ -284,30 +285,32 @@ If you have not already done so, you will need to install the R packages we will
 <span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">rnet_all</span><span class="op">$</span><span class="va">geometry</span>, col <span class="op">=</span> <span class="st">"red"</span>, lwd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">rnet_all</span><span class="op">$</span><span class="va">bicycle</span><span class="op">)</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p><img src="getting_files/figure-html/plotall-1.png" width="70%"></p>
 </div>
-<div id="joining-commute-and-school-data" class="section level2">
+<div id="getting-school-route-network-data" class="section level2">
 <h2 class="hasAnchor">
-<a href="#joining-commute-and-school-data" class="anchor"></a><span class="header-section-number">1.7</span> Joining commute and school data</h2>
-<p>PCT is not limited to commuter data only, PCT also provides a range of school data for each region in England and Wales to be downloaded with relative ease. In the example below, we add a <code>purpose</code> to the <code><a href="../reference/get_pct_rnet.html">get_pct_rnet()</a></code> function of <code>school</code>, this allows us to get the road network for school trips rather than commuter trips. We can then join this to our commute road network to build a more detailed road network of our study region.</p>
+<a href="#getting-school-route-network-data" class="anchor"></a><span class="header-section-number">1.7</span> Getting school route network data</h2>
+<p>The PCT provides a school route network layer that can be especially important when planning cycling interventions in residential areas.
+Due to the sensitive nature of school data, we cannot make route or OD data level data available.
+However, the PCT provides travel to school data at zone and route network levels, as shown in Figure <a href="#fig:school1"><strong>??</strong></a> (note: to get this data from the PCT website you must select School travel in the Trip purpose menu before clicking on Region data).
+As we will see in Section <a href="#joining">3</a>, combining school and commute network data can result in a more comprehensive network.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># get pct rnet data for schools</span>
+<code class="sourceCode R"><span class="va">zones_school</span> <span class="op">=</span> <span class="fu"><a href="../reference/get_pct_zones.html">get_pct_zones</a></span><span class="op">(</span>region <span class="op">=</span> <span class="va">region_name</span>, purpose <span class="op">=</span> <span class="st">"school"</span><span class="op">)</span>
 <span class="va">rnet_school</span> <span class="op">=</span> <span class="fu"><a href="../reference/get_pct_rnet.html">get_pct_rnet</a></span><span class="op">(</span>region <span class="op">=</span> <span class="va">region_name</span>, purpose <span class="op">=</span> <span class="st">"school"</span><span class="op">)</span>
-<span class="va">rnet_school</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">rnet_school</span>, select <span class="op">=</span> <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">`cambridge_slc`</span><span class="op">)</span><span class="op">)</span> <span class="co"># subset columns for bind</span>
-<span class="va">rnet_all</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">rnet_all</span>, select <span class="op">=</span> <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">`ebike_slc`</span>,<span class="va">`gendereq_slc`</span>,<span class="va">`govnearmkt_slc`</span><span class="op">)</span><span class="op">)</span> <span class="co"># subset columns for bind </span>
-
-<span class="va">rnet_school_commute</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="va">rnet_all</span>,<span class="va">rnet_school</span><span class="op">)</span> <span class="co"># bind commute and schools rnet data</span>
-<span class="va">rnet_school_commute</span><span class="op">$</span><span class="va">duplicated_geometries</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/duplicated.html">duplicated</a></span><span class="op">(</span><span class="va">rnet_school_commute</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span> <span class="co"># find duplicated geometries</span>
-<span class="va">rnet_school_commute</span><span class="op">$</span><span class="va">geometry_txt</span> <span class="op">=</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_text.html">st_as_text</a></span><span class="op">(</span><span class="va">rnet_school_commute</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span>
-
-<span class="va">rnet_combined</span> <span class="op">=</span> <span class="va">rnet_school_commute</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">geometry_txt</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="co"># group by geometry</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise_all.html">summarise_if</a></span><span class="op">(</span><span class="va">is.numeric</span>, .funs <span class="op">=</span> <span class="va">sum</span><span class="op">)</span> <span class="co"># and summaries route network which is not a duplicate</span></code></pre></div>
-<p>Now lets see how this changes our original plot…</p>
+<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">zones_school</span><span class="op">[</span><span class="st">"dutch_slc"</span><span class="op">]</span>, border <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></code></pre></div>
+<div class="figure">
+<span style="display:block;" id="fig:school1-1"></span>
+<img src="getting_files/figure-html/school1-1.png" alt="Open access data on cycling to school potential from the PCT, at zone (left) and route network (right) levels. These datasets can support planning interventions, especially 'safe routes to school' and interventions in residential areas." width="49%"><p class="caption">
+Figure 1.6: Open access data on cycling to school potential from the PCT, at zone (left) and route network (right) levels. These datasets can support planning interventions, especially ‘safe routes to school’ and interventions in residential areas.
+</p>
+</div>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">zones_all</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span>
-<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">lines_all</span><span class="op">$</span><span class="va">geometry</span>, col <span class="op">=</span> <span class="st">"blue"</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">routes_all</span><span class="op">$</span><span class="va">geometry</span>, col <span class="op">=</span> <span class="st">"green"</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">rnet_combined</span><span class="op">$</span><span class="va">geometry</span>, col <span class="op">=</span> <span class="st">"red"</span>, lwd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">rnet_all</span><span class="op">$</span><span class="va">bicycle</span><span class="op">)</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<p><img src="getting_files/figure-html/unnamed-chunk-7-1.png" width="672"></p>
+<code class="sourceCode R"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">rnet_school</span><span class="op">[</span><span class="st">"dutch_slc"</span><span class="op">]</span><span class="op">)</span></code></pre></div>
+<div class="figure">
+<span style="display:block;" id="fig:school1-2"></span>
+<img src="getting_files/figure-html/school1-2.png" alt="Open access data on cycling to school potential from the PCT, at zone (left) and route network (right) levels. These datasets can support planning interventions, especially 'safe routes to school' and interventions in residential areas." width="49%"><p class="caption">
+Figure 1.7: Open access data on cycling to school potential from the PCT, at zone (left) and route network (right) levels. These datasets can support planning interventions, especially ‘safe routes to school’ and interventions in residential areas.
+</p>
+</div>
+<!-- representing estimates of current (2010/2011) levels of cycling to school, and potential under scenarios of change,  -->
 </div>
 </div>
 <div id="modelling-change" class="section level1">
@@ -411,6 +414,32 @@ We explore this in more detail by looking at the relationship between trip dista
 <div id="training-uptake-models-against-new-datasets" class="section level2">
 <h2 class="hasAnchor">
 <a href="#training-uptake-models-against-new-datasets" class="anchor"></a><span class="header-section-number">2.4</span> Training uptake models against new datasets</h2>
+</div>
+</div>
+<div id="joining" class="section level1">
+<h1 class="hasAnchor">
+<a href="#joining" class="anchor"></a><span class="header-section-number">3</span> Joining commute and school data</h1>
+<p>PCT is not limited to commuter data only, PCT also provides a range of school data for each region in England and Wales to be downloaded with relative ease. In the example below, we add a <code>purpose</code> to the <code><a href="../reference/get_pct_rnet.html">get_pct_rnet()</a></code> function of <code>school</code>.
+This allows us to get estimates of cycling potential on the road network for school trips, commuter trips, and school and commuter trips combined.
+Note in the figure below that the combined route network provides a more comprehensive (yet still incomplete) overview of cycling potential in the study region.</p>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># get pct rnet data for schools</span>
+<span class="va">rnet_school</span> <span class="op">=</span> <span class="fu"><a href="../reference/get_pct_rnet.html">get_pct_rnet</a></span><span class="op">(</span>region <span class="op">=</span> <span class="va">region_name</span>, purpose <span class="op">=</span> <span class="st">"school"</span><span class="op">)</span>
+<span class="va">rnet_school</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">rnet_school</span>, select <span class="op">=</span> <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">`cambridge_slc`</span><span class="op">)</span><span class="op">)</span> <span class="co"># subset columns for bind</span>
+<span class="va">rnet_all</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">rnet_all</span>, select <span class="op">=</span> <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">`ebike_slc`</span>,<span class="va">`gendereq_slc`</span>,<span class="va">`govnearmkt_slc`</span><span class="op">)</span><span class="op">)</span> <span class="co"># subset columns for bind </span>
+
+<span class="va">rnet_school_commute</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="va">rnet_all</span>,<span class="va">rnet_school</span><span class="op">)</span> <span class="co"># bind commute and schools rnet data</span>
+<span class="va">rnet_school_commute</span><span class="op">$</span><span class="va">duplicated_geometries</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/duplicated.html">duplicated</a></span><span class="op">(</span><span class="va">rnet_school_commute</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span> <span class="co"># find duplicated geometries</span>
+<span class="va">rnet_school_commute</span><span class="op">$</span><span class="va">geometry_txt</span> <span class="op">=</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_text.html">st_as_text</a></span><span class="op">(</span><span class="va">rnet_school_commute</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span>
+
+<span class="va">rnet_combined</span> <span class="op">=</span> <span class="va">rnet_school_commute</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">geometry_txt</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="co"># group by geometry</span>
+  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/tidyverse.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="va">bicycle</span><span class="op">:</span><span class="va">dutch_slc</span>, <span class="va">sum</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="co"># and summaries route network which is not a duplicate</span></code></pre></div>
+<div class="figure">
+<span style="display:block;" id="fig:combined"></span>
+<img src="https://user-images.githubusercontent.com/1825120/130692688-65a958a9-8586-4196-982d-872d236becdb.png" alt="Comparison of commute, school, and combined commute *and* school route networkworks, under the Go Dutch scenario." width="100%"><p class="caption">
+Figure 3.1: Comparison of commute, school, and combined commute <em>and</em> school route networkworks, under the Go Dutch scenario.
+</p>
 </div>
 </div>
 <div id="references" class="section level1 unnumbered">
