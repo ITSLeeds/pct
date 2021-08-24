@@ -242,9 +242,12 @@ The data was exported from R into the <code>cycle_infra_projected.gpkg</code>, w
 <li>Buffer it to 100 m</li>
 <li>Clip the route network layer to include only areas outside the buffer</li>
 </ul>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/include_graphics.html">include_graphics</a></span><span class="op">(</span><span class="st">"https://user-images.githubusercontent.com/1825120/130415597-e7bcb8a1-4792-48de-ba83-118c082584cb.png"</span><span class="op">)</span></code></pre></div>
-<p><img src="https://user-images.githubusercontent.com/1825120/130415597-e7bcb8a1-4792-48de-ba83-118c082584cb.png"><!-- --></p>
+<div class="figure">
+<span style="display:block;" id="fig:buffer"></span>
+<img src="https://user-images.githubusercontent.com/1825120/130415597-e7bcb8a1-4792-48de-ba83-118c082584cb.png" alt="Route network layer and buffer representing cycle infrastructure, to identify gaps in the network."><p class="caption">
+Figure 1.5: Route network layer and buffer representing cycle infrastructure, to identify gaps in the network.
+</p>
+</div>
 </div>
 <div id="getting-pct-data-with-r" class="section level2">
 <h2 class="hasAnchor">
@@ -254,7 +257,7 @@ If you have not already done so, you will need to install the R packages we will
 <ul>
 <li>After you have the necessary packages installed, the first stage is to load packages we will use:</li>
 </ul>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://itsleeds.github.io/pct/">pct</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span>      <span class="co"># key package for working with spatial vector data</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>   <span class="co"># in the tidyverse</span>
@@ -262,16 +265,17 @@ If you have not already done so, you will need to install the R packages we will
 <ul>
 <li>After setting the region name (to avoid re-typing it many times) run the following commands to download data at the four main levels used in the PCT:</li>
 </ul>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">region_name</span> <span class="op">=</span> <span class="st">"north-yorkshire"</span>
 <span class="va">zones_all</span> <span class="op">=</span> <span class="fu"><a href="../reference/get_pct_zones.html">get_pct_zones</a></span><span class="op">(</span><span class="va">region_name</span><span class="op">)</span>
 <span class="va">lines_all</span> <span class="op">=</span> <span class="fu"><a href="../reference/get_pct_lines.html">get_pct_lines</a></span><span class="op">(</span><span class="va">region_name</span><span class="op">)</span>
+<span class="co"># note: the next command may take a few seconds</span>
 <span class="va">routes_all</span> <span class="op">=</span> <span class="fu"><a href="../reference/get_pct_routes_fast.html">get_pct_routes_fast</a></span><span class="op">(</span><span class="va">region_name</span><span class="op">)</span>
 <span class="va">rnet_all</span> <span class="op">=</span> <span class="fu"><a href="../reference/get_pct_rnet.html">get_pct_rnet</a></span><span class="op">(</span><span class="va">region_name</span><span class="op">)</span></code></pre></div>
 <ul>
 <li>Check the downloads worked by plotting:</li>
 </ul>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">zones_all</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span>
 <span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">lines_all</span><span class="op">$</span><span class="va">geometry</span>, col <span class="op">=</span> <span class="st">"blue"</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">routes_all</span><span class="op">$</span><span class="va">geometry</span>, col <span class="op">=</span> <span class="st">"green"</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
@@ -304,7 +308,7 @@ Load the packages by running each of the lines of code in the code chunk beginni
 <ul>
 <li>Generate a ‘Go Dutch’ scenario for the North Yorkshire using the function <code><a href="../reference/uptake_pct_godutch.html">uptake_pct_godutch()</a></code> (hint: the following code chunk will create a ‘Government Target’ scenario):</li>
 </ul>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">lines_all</span><span class="op">$</span><span class="va">pcycle</span> <span class="op">=</span> <span class="va">lines_all</span><span class="op">$</span><span class="va">bicycle</span> <span class="op">/</span> <span class="va">lines_all</span><span class="op">$</span><span class="va">all</span>
 <span class="va">lines_all</span><span class="op">$</span><span class="va">euclidean_distance</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_measures.html">st_length</a></span><span class="op">(</span><span class="va">lines_all</span><span class="op">)</span><span class="op">)</span>
 <span class="va">lines_all</span><span class="op">$</span><span class="va">pcycle_govtarget</span> <span class="op">=</span> <span class="fu"><a href="../reference/uptake_pct_govtarget.html">uptake_pct_govtarget_2020</a></span><span class="op">(</span>
@@ -312,8 +316,8 @@ Load the packages by running each of the lines of code in the code chunk beginni
   gradient <span class="op">=</span> <span class="va">lines_all</span><span class="op">$</span><span class="va">rf_avslope_perc</span>
   <span class="op">)</span> <span class="op">*</span> <span class="fl">100</span> <span class="op">+</span> <span class="va">lines_all</span><span class="op">$</span><span class="va">pcycle</span></code></pre></div>
 <div class="figure">
-<img src="getting_files/figure-html/dutch_pcycle-1.png" alt="Percent cycling currently (left) and under a 'Go Dutch' scenario (right) in the Isle of Wight." width="672"><img src="getting_files/figure-html/dutch_pcycle-2.png" alt="Percent cycling currently (left) and under a 'Go Dutch' scenario (right) in the Isle of Wight." width="672"><p class="caption">
-(#fig:dutch_pcycle)Percent cycling currently (left) and under a ‘Go Dutch’ scenario (right) in the Isle of Wight.
+<img src="getting_files/figure-html/dutch_pcycle-1.png" alt="Percent cycling currently (left) and under a 'Go Dutch' scenario (right) in the North Yorkshire." width="40%"><img src="getting_files/figure-html/dutch_pcycle-2.png" alt="Percent cycling currently (left) and under a 'Go Dutch' scenario (right) in the North Yorkshire." width="40%"><p class="caption">
+(#fig:dutch_pcycle)Percent cycling currently (left) and under a ‘Go Dutch’ scenario (right) in the North Yorkshire.
 </p>
 </div>
 <ul>
