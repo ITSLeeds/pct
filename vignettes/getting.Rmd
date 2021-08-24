@@ -137,10 +137,10 @@ What is the difference between the route data shown in QGIS in Figure \@ref(fig:
 ## Identifying gaps in the network
 
 ```{r, echo=FALSE, eval=FALSE}
-cycle_infra = osminfra::oi_get(place = "north yorkshire", infra_type = "cycle_infrastructure")
+cycle_infra = osminfra::oi_get(place = "north yorkshire", infra_type = "cycle_lane")
 cycle_infra_projected = sf::st_transform(cycle_infra, 27700)
-sf::write_sf(cycle_infra, "pctqgis/cycle_infra.gpkg")
-sf::write_sf(cycle_infra_projected, "pctqgis/cycle_infra_projected.gpkg")
+sf::write_sf(cycle_infra, "pctqgis/cycle_infra.shp")
+sf::write_sf(cycle_infra_projected, "pctqgis/cycle_infra_projected.shp")
 ```
 
 This section assumes you have data on the existing regional cycle network.
