@@ -190,7 +190,7 @@ If you have not already done so, you will need to install the R packages we will
 ```{r, message=FALSE}
 library(pct)
 library(sf)      # key package for working with spatial vector data
-library(dplyr)   # in the tidyverse
+library(tidyverse)   # in the tidyverse
 library(tmap)    # installed alongside mapview
 ```
 
@@ -214,6 +214,34 @@ plot(routes_all$geometry, col = "green", add = TRUE)
 plot(rnet_all$geometry, col = "red", lwd = sqrt(rnet_all$bicycle), add = TRUE)
 ```
 
+## Joining commute and school data
+
+PCT is not limited to commuter data only, PCT also provides a range of school data for each region in England and Wales to be downloaded with relative ease. In the example below, we add a `purpose` to the `get_pct_rnet()` function of `school`, this allows us to get the road network for school trips rather than commuter trips. We can then join this to our commute road network to build a more detailed road network of our study region.
+
+```{r, message=FALSE, warning=FALSE}
+# get pct rnet data for schools
+rnet_school = get_pct_rnet(region = region_name, purpose = "school")
+rnet_school = subset(rnet_school, select = -c(`cambridge_slc`)) # subset columns for bind
+rnet_all = subset(rnet_all, select = -c(`ebike_slc`,`gendereq_slc`,`govnearmkt_slc`)) # subset columns for bind 
+
+rnet_school_commute = rbind(rnet_all,rnet_school) # bind commute and schools rnet data
+rnet_school_commute$duplicated_geometries = duplicated(rnet_school_commute$geometry) # find duplicated geometries
+rnet_school_commute$geometry_txt = sf::st_as_text(rnet_school_commute$geometry)
+
+rnet_combined = rnet_school_commute %>% 
+  group_by(geometry_txt) %>% # group by geometry
+  summarise_if(is.numeric, .funs = sum) # and summaries route network which is not a duplicate
+
+```
+
+Now lets see how this changes our original plot...
+
+```{r}
+plot(zones_all$geometry)
+plot(lines_all$geometry, col = "blue", add = TRUE)
+plot(routes_all$geometry, col = "green", add = TRUE)
+plot(rnet_combined$geometry, col = "red", lwd = sqrt(rnet_all$bicycle), add = TRUE)
+```
 
 # Modelling change
 
