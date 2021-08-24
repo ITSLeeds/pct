@@ -55,10 +55,13 @@ Before you download and use PCT data, it is worth exploring it on the PCT web ap
 - Explore different data layers contained in the PCT by selecting different options from the dropdown menus on the right.
 - Look at the different types of Cycling Flows options and consider: which visualisation layer is most useful?
 
+### Using 'Freeze Lines' to find areas that would benefit from improvements in a specific place
+
 <!-- It depends -->
-- Bonus: find the areas that would benefit from improved cycling provision on Clifton bridge, 1 km northwest from central York over the River Ouse (see result in Figure \@ref(fig:clifton))^[
-Hint: Select the Fast Routes option from the Cycling Flows menu, zoom into the Bridge, and then click on the Freeze Lines checkbox to prevent the selected routes from moving when you zoom back out.
-]
+The PCT can be used to identify the zone origin and destinations of trips that would use improvements in a particular place.
+You can do this by selecting the Fast Routes option from the Cycling Flows menu, zooming into the area of interest Bridge, and then clicking on the Freeze Lines checkbox to prevent the selected routes from moving when you zoom back out.
+
+- Use this technique to find the areas that would benefit from improved cycling provision on Clifton bridge, 1 km northwest from central York over the River Ouse (see result in Figure \@ref(fig:clifton))
 
 ```{r clifton, echo=FALSE, fig.cap="Areas that may benefit from improved cycle provision on Clifton Bridge, according to the PCT."}
 knitr::include_graphics("https://user-images.githubusercontent.com/1825120/130370123-5b8885de-4aed-43b4-8a49-b2f875ffff1b.png")
