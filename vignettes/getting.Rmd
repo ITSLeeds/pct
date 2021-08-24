@@ -191,9 +191,9 @@ If you have not already done so, you will need to install the R packages we will
 
 ```{r, message=FALSE}
 library(pct)
-library(sf)      # key package for working with spatial vector data
+library(sf)          # key package for working with spatial vector data
 library(tidyverse)   # in the tidyverse
-library(tmap)    # installed alongside mapview
+library(tmap)        # installed alongside mapview
 ```
 
 - After setting the region name (to avoid re-typing it many times) run the following commands to download data at the four main levels used in the PCT:
@@ -233,11 +233,10 @@ rnet_school = get_pct_rnet(region = region_name, purpose = "school")
 As we will see in Section \@ref(joining), combining school and commute network data can result in a more comprehensive network.
 
 ```{r school1, fig.cap="Open access data on cycling to school potential from the PCT, at zone (left) and route network (right) levels. These datasets can support planning interventions, especially 'safe routes to school' and interventions in residential areas. To see the source code that generates these plots, see the 'source' link at the top of the page.", out.width="49%", fig.show='hold', echo=FALSE}
-zones_school$dutch_sic[is.na(zones_school$dutch_sic)] = 1.5
-qtm(zones_school, "dutch_slc")
+zones_school$dutch_slc[is.na(zones_school$dutch_slc)] = 1.5
+qtm(zones_school, "dutch_slc", fill.palette = "-viridis")
 plot(rnet_school["dutch_slc"])
 ```
-
 
 <!-- representing estimates of current (2010/2011) levels of cycling to school, and potential under scenarios of change,  -->
 
@@ -269,11 +268,6 @@ Load the packages by running each of the lines of code in the code chunk beginni
 To complete the exercises in this workshop your also need to have imported PCT data into your R session, by running each line of code in the code chunk beginning `region_name = "north-yorkshire"` in the previous section.
 
 Finally, we will use these additional packages, which you must have installed on your computer for the code below to work:
-
-```{r}
-library(ggplot2)
-library(tmap)
-```
 
 ## PCT scenarios
 
