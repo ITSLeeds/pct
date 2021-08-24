@@ -125,7 +125,7 @@ You will need to use the Select by Location Vector Research tool.
 ]
 
 Don't worry if you do not have time to complete each of the steps needed to find the result.
-You can see how it works by opening the project pctqgis3.qgz in the [pctqgis.zip](https://github.com/ITSLeeds/pct/releases/download/0.8.0/pctqgis.zip) file.
+You can see how it works by opening the project pctqgis3.qgz in the [pctqgis.zip](https://github.com/ITSLeeds/pct/releases/download/0.8.1/pctqgis.zip) file.
 The result should look something like the screenshot shown in Figure \@ref(fig:cliftonbuffer).
 
 ```{r cliftonbuffer, echo=FALSE, fig.cap="All fast routes that intersect with Clifton Bridge in QGIS."}
@@ -143,20 +143,21 @@ sf::write_sf(cycle_infra, "pctqgis/cycle_infra.gpkg")
 sf::write_sf(cycle_infra_projected, "pctqgis/cycle_infra_projected.gpkg")
 ```
 
-This section assumes you have data on the regional cycle network.
-For the purposes of this worked example, we used a broad definition of 'cycle infrastructure' based on [research](http://k1z.blog.uni-heidelberg.de/2020/10/02/how-to-become-ohsome-part-8-complex-analysis-with-the-magical-filter-parameter/) undertaken at the University of Heidelberg.
-Using this definition, a cycle infrastructure layer was extracted from OSM using R.
-The data was exported from R into the `cycle_infra_projected.gpkg`, which is provided in the `pctqgis.zip` file mentioned in the previous sections.
+This section assumes you have data on the existing regional cycle network.
+Cycle infrastructure can be classified into various categories, such as cycle lanes, traffic free cycleways and shared paths.
+For the purposes of this worked example, we extracted on-road cycle lanes, using an OSM definition based on research undertaken at Leeds and at the [University of Heidelberg](http://k1z.blog.uni-heidelberg.de/2020/10/02/how-to-become-ohsome-part-8-complex-analysis-with-the-magical-filter-parameter/).
+Using this definition, cycle lanes were extracted from OSM using R.
+The data was exported from R into `cycle_infra_projected.shp`, which is provided in the `pctqgis.zip` file mentioned in the previous sections.
 
 In this section we will load the cycle infrastructure layer, buffer it, and undertake a geographic operation to identify places where there are gaps in the network.
 <!-- Todo: identify existing cycle infrastructures that are important -->
 
-- Load the `cycle_infra_projected.gpkg` dataset
-- Buffer it to 100 m 
+- Load the `cycle_infra_projected.shp` dataset
+- Buffer it to 20 m 
 - Clip the route network layer to include only areas outside the buffer
 
-```{r}
-knitr::include_graphics("https://user-images.githubusercontent.com/1825120/130415597-e7bcb8a1-4792-48de-ba83-118c082584cb.png")
+```{r, echo=FALSE}
+knitr::include_graphics("https://user-images.githubusercontent.com/52210872/130649292-c59f57a7-a24f-4cbd-8d2d-334834cefbcb.png")
 ```
 
 
