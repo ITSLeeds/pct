@@ -172,8 +172,9 @@ knitr::include_graphics("https://user-images.githubusercontent.com/1825120/13041
 ## Getting PCT data with R
 
 We will get the same PCT datasets as in previous sections but using the R interface.
+If you have not already done so, you will need to install the R packages we will use for this section (and the next) by typing and executing the following command in the R console: `install.packages("pct", "sf", "dplyr", "tmap")`.
 
-- The first stage is to load packages we will use:
+- After you have the necessary packages installed, the first stage is to load packages we will use:
 
 ```{r}
 library(pct)
@@ -213,6 +214,8 @@ In it you will:
 -   Learn about the uptake model underlying the Propensity to Cycle Tool scenarios
 -   Develop your own uptake model in conceptual terms, e.g., to represent the [government's aim](https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1009448/decarbonising-transport-a-better-greener-britain.pdf) for 50% of all trips in towns and cities to be made by walking and cycling by 2030
 -   Learn how to train uptake models against data, to build evidence-based uptake models
+
+## Install
 
 ## PCT scenarios
 
