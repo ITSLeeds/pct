@@ -243,7 +243,7 @@ lines_all$pcycle_dutch = uptake_pct_godutch_2020(
   ) * 100 + lines_all$pcycle
 ```
 
-```{r dutch_pcycle, echo=FALSE, warning=FALSE, fig.show='hold', fig.cap="Percent cycling currently (left) and under a 'Go Dutch' scenario (right) in the North Yorkshire."}
+```{r dutch_pcycle, echo=FALSE, warning=FALSE, fig.show='hold', fig.cap="Percent cycling currently (left) and under a 'Go Dutch' scenario (right) in the North Yorkshire.", out.width="40%"}
 plot(lines_all["pcycle"], lwd = lines_all$all / mean(lines_all$all), breaks = c(0, 5, 10, 20, 50))
 plot(lines_all["pcycle_dutch"], lwd = lines_all$all / mean(lines_all$all), breaks = c(0, 5, 10, 20, 50))
 # cor(l_originalines_all$dutch_slc / l_originalines_all$all, lines_all$pcycle_dutch)
