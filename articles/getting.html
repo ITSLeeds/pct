@@ -140,7 +140,7 @@ While the most common use of the PCT is via the interactive web application host
 <li>How to download and import data from the PCT into QGIS</li>
 <li>How to process the data alongside infrastructure data, to help find gaps in the network</li>
 </ul>
-<div id="getting-pct-data-from-the-pct-website" class="section level2">
+<!-- Preliminary timings: --><!-- Intro to the workshop and team: 5 minutes --><!-- Demo of PCT web app: 10 --><!-- Working together: downloading PCT data and opening in QGIS (Section 1.2): 15 minutes --><!-- Live demo of doing analysis (1.3 and 1.4) 10 minutes --><!-- Working together: downloading and opening the zip to see QGIS project (1.4 and 1.5) --><!-- Discussion of definition of cycle infrastructure (Joey 5 minutes, 1.5) --><!-- Discussion of schools data and merging school and commute route networks (Nathanael 5 minutes) --><!-- Any questions --><div id="getting-pct-data-from-the-pct-website" class="section level2">
 <h2 class="hasAnchor">
 <a href="#getting-pct-data-from-the-pct-website" class="anchor"></a><span class="header-section-number">1.1</span> Getting PCT data from the PCT website</h2>
 <p>In this example we will use data from North Yorkshire, an area with urban areas surrounding York and many rural areas.
@@ -297,10 +297,10 @@ In it you will:</p>
 <li>Develop your own uptake model in conceptual terms, e.g., to represent the <a href="https://www.gov.uk/government/publications/transport-decarbonisation-plan">government’s aim</a> for 50% of all trips in towns and cities to be made by walking and cycling by 2030</li>
 <li>Learn how to train uptake models against data, to build evidence-based uptake models</li>
 </ul>
-<div id="set-up" class="section level2">
+<!-- Timings for CCA conference: --><!-- Intro: 5 minutes --><!-- Set-up: 15 minutes, all working together --><!-- Demo of PCT scenarios: 15 minutes --><!-- Scenarios of change 15 minutes --><!-- Training an update models 5 minutes + questions --><!-- Link to further resources (Nathanael) --><div id="set-up" class="section level2">
 <h2 class="hasAnchor">
 <a href="#set-up" class="anchor"></a><span class="header-section-number">2.1</span> Set-up</h2>
-<p>To undertaken the exercises in this section you need to have R and RStudio installed, as outlined <a href="https://itsleeds.github.io/pct/articles/pct_training.html#preparation">here</a>.
+<p>To undertake the exercises in this section you need to have R and RStudio installed, as outlined <a href="https://itsleeds.github.io/pct/articles/pct_training.html#preparation">here</a>.
 Load the packages by running each of the lines of code in the code chunk beginning with <code><a href="https://itsleeds.github.io/pct/">library(pct)</a></code> (which loads the <code>pct</code> R package, making its functions available) in the previous section <a href="#getting-pct-data-with-r">1.6</a>.</p>
 <p>To complete the exercises in this workshop your also need to have imported PCT data into your R session, by running each line of code in the code chunk beginning <code>region_name = "north-yorkshire"</code> in the previous section.</p>
 <p>Finally, we will use these additional packages, which you must have installed on your computer for the code below to work:</p>
@@ -383,13 +383,17 @@ Figure 2.1: Classification of areas in Great Britain (left) and North Yorkshire 
 <p>Currently, only around 34% of commute trips in the region are made by walking and cycling.
 We explore this in more detail by looking at the relationship between trip distance and mode share.</p>
 </div>
-<div id="training-uptake-models-against-new-datasets" class="section level2 unnumbered">
+<div id="training-uptake-models-against-new-datasets" class="section level2">
 <h2 class="hasAnchor">
-<a href="#training-uptake-models-against-new-datasets" class="anchor"></a>Training uptake models against new datasets</h2>
+<a href="#training-uptake-models-against-new-datasets" class="anchor"></a><span class="header-section-number">2.4</span> Training uptake models against new datasets</h2>
+</div>
+</div>
+<div id="references" class="section level1 unnumbered">
+<h1 class="hasAnchor">
+<a href="#references" class="anchor"></a>References</h1>
 <div id="refs" class="references">
 <div id="ref-barrington-leigh_world_2017">
 <p>Barrington-Leigh, Christopher, and Adam Millard-Ball. 2017. “The World’s User-Generated Road Map Is More Than 80% Complete.” <em>PLOS ONE</em> 12 (8): e0180698. <a href="https://doi.org/10.1371/journal.pone.0180698">https://doi.org/10.1371/journal.pone.0180698</a>.</p>
-</div>
 </div>
 </div>
 </div>
