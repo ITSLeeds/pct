@@ -176,7 +176,7 @@ If you have not already done so, you will need to install the R packages we will
 
 - After you have the necessary packages installed, the first stage is to load packages we will use:
 
-```{r}
+```{r, message=FALSE}
 library(pct)
 library(sf)      # key package for working with spatial vector data
 library(dplyr)   # in the tidyverse
@@ -215,7 +215,12 @@ In it you will:
 -   Develop your own uptake model in conceptual terms, e.g., to represent the [government's aim](https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1009448/decarbonising-transport-a-better-greener-britain.pdf) for 50% of all trips in towns and cities to be made by walking and cycling by 2030
 -   Learn how to train uptake models against data, to build evidence-based uptake models
 
-## Install
+## Set-up
+
+To undertaken the exercises in this section you need to have R and RStudio installed, as outlined [here](https://itsleeds.github.io/pct/articles/pct_training.html#preparation).
+Load the packages by running each of the lines of code in the code chunk beginning with `library(pct)` (which loads the `pct` R package, making its functions available) in the previous section \@ref(getting-pct-data-with-r).
+
+To complete the exercises in this workshop your also need to have imported PCT data into your R session, by running each line of code in the code chunk beginning `region_name = "north-yorkshire"` in the previous section.
 
 ## PCT scenarios
 
