@@ -69,10 +69,9 @@ Before you download and use PCT data, it is worth exploring it on the PCT web ap
 - Explore different data layers contained in the PCT by selecting different options from the dropdown menus on the right.
 - Look at the different types of Cycling Flows options and consider: which visualisation layer is most useful?
 
-### Using 'Freeze Lines' to find areas that would benefit from improvements in a specific place
+### Using 'Freeze Lines' 
 
-<!-- It depends -->
-The PCT can be used to identify the zone origin and destinations of trips that would use improvements in a particular place.
+You can use the little-known 'Freeze Lines' functionality in the PCT's web app to identify the zone origin and destinations of trips that would use improvements in a particular place.
 You can do this by selecting the Fast Routes option from the Cycling Flows menu, zooming into the area of interest Bridge, and then clicking on the Freeze Lines checkbox to prevent the selected routes from moving when you zoom back out.
 
 - Use this technique to find the areas that would benefit from improved cycling provision on Clifton bridge, 1 km northwest from central York over the River Ouse (see result in Figure \@ref(fig:clifton))
@@ -221,10 +220,11 @@ plot(rnet_all$geometry, col = "red", lwd = sqrt(rnet_all$bicycle), add = TRUE)
 
 The PCT provides a school route network layer that can be especially important when planning cycling interventions in residential areas.
 Due to the sensitive nature of school data, we cannot make route or OD data level data available.
-However, the PCT provides travel to school data at zone and route network levels, as shown in Figure \@ref(fig:school1) (note: to get this data from the PCT website you must select School travel in the Trip purpose menu before clicking on Region data).
+However, the PCT provides travel to school data at zone and route network levels, as shown in Figure \@ref(fig:school1).
+(Note: to get this data from the PCT website you must select School travel in the Trip purpose menu before clicking on Region data.)
 As we will see in Section \@ref(joining), combining school and commute network data can result in a more comprehensive network.
 
-```{r school1, fig.cap="Open access data on cycling to school potential from the PCT, at zone (left) and route network (right) levels. These datasets can support planning interventions, especially 'safe routes to school' and interventions in residential areas.", out.width="49%"}
+```{r school1, fig.cap="Open access data on cycling to school potential from the PCT, at zone (left) and route network (right) levels. These datasets can support planning interventions, especially 'safe routes to school' and interventions in residential areas.", out.width="49%", fig.show='hold'}
 zones_school = get_pct_zones(region = region_name, purpose = "school")
 rnet_school = get_pct_rnet(region = region_name, purpose = "school")
 plot(zones_school["dutch_slc"], border = NA)
