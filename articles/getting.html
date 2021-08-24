@@ -262,7 +262,7 @@ If you have not already done so, you will need to install the R packages we will
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://itsleeds.github.io/pct/">pct</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span>      <span class="co"># key package for working with spatial vector data</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>   <span class="co"># in the tidyverse</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>   <span class="co"># in the tidyverse</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mtennekes/tmap">tmap</a></span><span class="op">)</span>    <span class="co"># installed alongside mapview</span></code></pre></div>
 <ul>
 <li>After setting the region name (to avoid re-typing it many times) run the following commands to download data at the four main levels used in the PCT:</li>
@@ -284,6 +284,31 @@ If you have not already done so, you will need to install the R packages we will
 <span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">rnet_all</span><span class="op">$</span><span class="va">geometry</span>, col <span class="op">=</span> <span class="st">"red"</span>, lwd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">rnet_all</span><span class="op">$</span><span class="va">bicycle</span><span class="op">)</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p><img src="getting_files/figure-html/plotall-1.png" width="70%"></p>
 </div>
+<div id="joining-commute-and-school-data" class="section level2">
+<h2 class="hasAnchor">
+<a href="#joining-commute-and-school-data" class="anchor"></a><span class="header-section-number">1.7</span> Joining commute and school data</h2>
+<p>PCT is not limited to commuter data only, PCT also provides a range of school data for each region in England and Wales to be downloaded with relative ease. In the example below, we add a <code>purpose</code> to the <code><a href="../reference/get_pct_rnet.html">get_pct_rnet()</a></code> function of <code>school</code>, this allows us to get the road network for school trips rather than commuter trips. We can then join this to our commute road network to build a more detailed road network of our study region.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># get pct rnet data for schools</span>
+<span class="va">rnet_school</span> <span class="op">=</span> <span class="fu"><a href="../reference/get_pct_rnet.html">get_pct_rnet</a></span><span class="op">(</span>region <span class="op">=</span> <span class="va">region_name</span>, purpose <span class="op">=</span> <span class="st">"school"</span><span class="op">)</span>
+<span class="va">rnet_school</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">rnet_school</span>, select <span class="op">=</span> <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">`cambridge_slc`</span><span class="op">)</span><span class="op">)</span> <span class="co"># subset columns for bind</span>
+<span class="va">rnet_all</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">rnet_all</span>, select <span class="op">=</span> <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">`ebike_slc`</span>,<span class="va">`gendereq_slc`</span>,<span class="va">`govnearmkt_slc`</span><span class="op">)</span><span class="op">)</span> <span class="co"># subset columns for bind </span>
+
+<span class="va">rnet_school_commute</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="va">rnet_all</span>,<span class="va">rnet_school</span><span class="op">)</span> <span class="co"># bind commute and schools rnet data</span>
+<span class="va">rnet_school_commute</span><span class="op">$</span><span class="va">duplicated_geometries</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/duplicated.html">duplicated</a></span><span class="op">(</span><span class="va">rnet_school_commute</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span> <span class="co"># find duplicated geometries</span>
+<span class="va">rnet_school_commute</span><span class="op">$</span><span class="va">geometry_txt</span> <span class="op">=</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_text.html">st_as_text</a></span><span class="op">(</span><span class="va">rnet_school_commute</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span>
+
+<span class="va">rnet_combined</span> <span class="op">=</span> <span class="va">rnet_school_commute</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">geometry_txt</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="co"># group by geometry</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise_all.html">summarise_if</a></span><span class="op">(</span><span class="va">is.numeric</span>, .funs <span class="op">=</span> <span class="va">sum</span><span class="op">)</span> <span class="co"># and summaries route network which is not a duplicate</span></code></pre></div>
+<p>Now lets see how this changes our original plot…</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">zones_all</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span>
+<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">lines_all</span><span class="op">$</span><span class="va">geometry</span>, col <span class="op">=</span> <span class="st">"blue"</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">routes_all</span><span class="op">$</span><span class="va">geometry</span>, col <span class="op">=</span> <span class="st">"green"</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">rnet_combined</span><span class="op">$</span><span class="va">geometry</span>, col <span class="op">=</span> <span class="st">"red"</span>, lwd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">rnet_all</span><span class="op">$</span><span class="va">bicycle</span><span class="op">)</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<p><img src="getting_files/figure-html/unnamed-chunk-7-1.png" width="672"></p>
+</div>
 </div>
 <div id="modelling-change" class="section level1">
 <h1 class="hasAnchor">
@@ -304,7 +329,7 @@ In it you will:</p>
 Load the packages by running each of the lines of code in the code chunk beginning with <code><a href="https://itsleeds.github.io/pct/">library(pct)</a></code> (which loads the <code>pct</code> R package, making its functions available) in the previous section <a href="#getting-pct-data-with-r">1.6</a>.</p>
 <p>To complete the exercises in this workshop your also need to have imported PCT data into your R session, by running each line of code in the code chunk beginning <code>region_name = "north-yorkshire"</code> in the previous section.</p>
 <p>Finally, we will use these additional packages, which you must have installed on your computer for the code below to work:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mtennekes/tmap">tmap</a></span><span class="op">)</span></code></pre></div>
 </div>
@@ -314,7 +339,7 @@ Load the packages by running each of the lines of code in the code chunk beginni
 <ul>
 <li>Generate a ‘Go Dutch’ scenario for the North Yorkshire using the function <code><a href="../reference/uptake_pct_godutch.html">uptake_pct_godutch()</a></code> (hint: the following code chunk will create a ‘Government Target’ scenario):</li>
 </ul>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">lines_all</span><span class="op">$</span><span class="va">pcycle</span> <span class="op">=</span> <span class="va">lines_all</span><span class="op">$</span><span class="va">bicycle</span> <span class="op">/</span> <span class="va">lines_all</span><span class="op">$</span><span class="va">all</span>
 <span class="va">lines_all</span><span class="op">$</span><span class="va">euclidean_distance</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_measures.html">st_length</a></span><span class="op">(</span><span class="va">lines_all</span><span class="op">)</span><span class="op">)</span>
 <span class="va">lines_all</span><span class="op">$</span><span class="va">pcycle_govtarget</span> <span class="op">=</span> <span class="fu"><a href="../reference/uptake_pct_govtarget.html">uptake_pct_govtarget_2020</a></span><span class="op">(</span>
@@ -340,7 +365,7 @@ We only have commute data in the data we downloaded, but this is a good proxy fo
 <p>The first stage is to identify urban areas in North Yorkshire.
 We use data from the House of Commons Research <a href="https://commonslibrary.parliament.uk/research-briefings/cbp-8322/">Briefing</a> on City and Town Classifications to define areas based on their town/city status.
 The code chunk below shows the benefits of R in terms of being able to get and join data onto the route data we have been using:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">urban_rural</span> <span class="op">=</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://researchbriefings.files.parliament.uk/documents/CBP-8322/oa-classification-csv.csv"</span><span class="op">)</span></code></pre></div>
 <pre><code>## Rows: 188384 Columns: 12</code></pre>
 <pre><code>## ── Column specification ────────────────────────────────────────────────────────
@@ -350,7 +375,7 @@ The code chunk below shows the benefits of R in terms of being able to get and j
 <pre><code>## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">urban_rural</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">citytownclassification</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html">coord_flip</a></span><span class="op">(</span><span class="op">)</span>
@@ -358,11 +383,11 @@ The code chunk below shows the benefits of R in terms of being able to get and j
 <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">routes_all</span><span class="op">$</span><span class="va">geo_code1</span> <span class="op">%in%</span> <span class="va">urban_rural</span><span class="op">$</span><span class="va">lsoa_code</span><span class="op">)</span></code></pre></div>
 <pre><code>##    Mode    TRUE 
 ## logical   10288</code></pre>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">urban_rural</span> <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span><span class="va">urban_rural</span>, geo_code <span class="op">=</span> <span class="va">lsoa_code</span><span class="op">)</span>
 <span class="va">zones_all_joined</span> <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">zones_all</span>, <span class="va">urban_rural</span><span class="op">)</span></code></pre></div>
 <pre><code>## Joining, by = "geo_code"</code></pre>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">routes_all_joined</span> <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">routes_all</span>, <span class="va">urban_rural</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"geo_code1"</span> <span class="op">=</span> <span class="st">"geo_code"</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tmap_options.html">tmap_options</a></span><span class="op">(</span>check.and.fix <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">zones_all_joined</span><span class="op">)</span> <span class="op">+</span>
@@ -375,7 +400,7 @@ Figure 2.1: Classification of areas in Great Britain (left) and North Yorkshire 
 </p>
 </div>
 <p>After the classification dataset has been joined, the proportion of trips made by walking and cycling in towns and cities across North Yorkshire can be calculated as follows.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">routes_towns</span> <span class="op">=</span> <span class="va">routes_all_joined</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"Town|City"</span>, x <span class="op">=</span> <span class="va">citytownclassification</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">routes_towns</span><span class="op">$</span><span class="va">foot</span> <span class="op">+</span> <span class="va">routes_towns</span><span class="op">$</span><span class="va">bicycle</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">routes_towns</span><span class="op">$</span><span class="va">all</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span></code></pre></div>
