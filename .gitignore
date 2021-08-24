@@ -21,3 +21,4 @@ libs
 *_files
 *.geojson
 docs
+pctqgis*
