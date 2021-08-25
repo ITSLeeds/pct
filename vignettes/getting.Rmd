@@ -229,7 +229,7 @@ rnet_school = get_pct_rnet(region = region_name, purpose = "school")
 
 As we will see in Section \@ref(joining), combining school and commute network data can result in a more comprehensive network.
 
-```{r school1, fig.cap="Open access data on cycling to school potential from the PCT, at zone (left) and route network (right) levels. These datasets can support planning interventions, especially 'safe routes to school' and interventions in residential areas. To see the source code that generates these plots, see the 'source' link at the top of the page.", out.width="49%", fig.show='hold', echo=FALSE}
+```{r school1, fig.cap="Open access data on cycling to school potential from the PCT, at zone (left) and route network (right) levels. These datasets can support planning interventions, especially 'safe routes to school' and interventions in residential areas. To see the source code that generates these plots, see the 'source' link at the top of the page.", out.width="49%", fig.show='hold', echo=FALSE, warning=FALSE}
 zones_school$dutch_slc[is.na(zones_school$dutch_slc)] = 1.5
 qtm(zones_school, "dutch_slc", fill.palette = "-viridis")
 plot(rnet_school["dutch_slc"])
