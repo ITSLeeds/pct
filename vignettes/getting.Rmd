@@ -421,12 +421,52 @@ plot(rnet_all["dutch_slc"])
 
 ## Training uptake models against new datasets
 
-```{r york, fig.cap="Zones in York with colours representing cycling mode share (left) and urban functional classification (right)", echo=FALSE}
+In this section we will create a new scenario called Go York, representing what would happen if people were as likely to cycle as people in York are, for a given trip distance and hilliness.
+The first step is to subset zones and OD pairs originating in York.^[
+Technically, the analysis does not show where OD pairs originate because the PCT OD data aggregates trips going in both directions into a single desire line.
+Instead we will use just `geo_code1` as a proxy for trip origin.
+For real world applications, you should start with the original OD data.
+]
+
+```{r}
 zones_york = zones_all_joined %>%
   filter(lad_name == "York") %>% 
-  transmute(pcycle = bicycle / all, citytownclassification)
+  mutate(pcycle = bicycle / all)
+routes_york = routes_all %>% 
+  filter(lad_name1 == "York") %>% 
+  mutate(pcycle = bicycle / all)
+```
+
+
+```{r york, fig.cap="Zones in York with colours representing cycling mode share (left) and urban functional classification (right)", echo=FALSE}
 tm_shape(zones_york) +
-  tm_polygons(c("pcycle", "citytownclassification"), palette = list("viridis", "Set3"))
+  tm_polygons(c("pcycle", "citytownclassification"), palette = list("-viridis", "Set3")) +
+  tm_shape(routes_york %>% filter(bicycle > 3)) + tm_lines()
+```
+
+We can train an uptake model based on this subset of the routes as follows:
+
+```{r}
+pcycle_model_york = model_pcycle_pct_2020(
+  pcycle = routes_york$pcycle,
+  distance = routes_york$rq_dist_km,
+  gradient = routes_york$rf_avslope_perc,
+  weights = routes_york$all
+)
+summary(pcycle_model_york)
+```
+
+We can then use this model to project cycling levels across the whole region.
+
+```{r}
+routes_all_renamed = routes_all %>% 
+  rename(distance = rf_dist_km, gradient = rf_avslope_perc)
+pcycle_go_york_model = boot::inv.logit(predict(pcycle_model_york, newdata = routes_all_renamed))
+routes_all$york_slc = routes_all$all * pcycle_go_york_model
+sum(routes_all$bicycle) / sum(routes_all$all)
+sum(routes_all$govtarget_slc) / sum(routes_all$all)
+sum(routes_all$dutch_slc) / sum(routes_all$all)
+sum(routes_all$york_slc) / sum(routes_all$all)
 ```
 
 
