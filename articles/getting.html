@@ -411,6 +411,13 @@ Figure 2.3: Illustration of route network based on car trips that could be repla
 <div id="training-uptake-models-against-new-datasets" class="section level2">
 <h2 class="hasAnchor">
 <a href="#training-uptake-models-against-new-datasets" class="anchor"></a><span class="header-section-number">2.4</span> Training uptake models against new datasets</h2>
+<pre><code>## Some legend labels were too wide. These labels have been resized to 0.52. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.</code></pre>
+<div class="figure">
+<span style="display:block;" id="fig:york"></span>
+<img src="getting_files/figure-html/york-1.png" alt="Zones in York with colours representing cycling mode share (left) and urban functional classification (right)" width="672"><p class="caption">
+Figure 2.4: Zones in York with colours representing cycling mode share (left) and urban functional classification (right)
+</p>
+</div>
 <!-- Todo: get data for York -->
 <!-- Train the model -->
 <!-- Apply to the region -->
@@ -422,7 +429,7 @@ Figure 2.3: Illustration of route network based on car trips that could be repla
 <p>PCT is not limited to commuter data only, PCT also provides a range of school data for each region in England and Wales to be downloaded with relative ease. In the example below, we add a <code>purpose</code> to the <code><a href="../reference/get_pct_rnet.html">get_pct_rnet()</a></code> function of <code>school</code>.
 This allows us to get estimates of cycling potential on the road network for school trips, commuter trips, and school and commuter trips combined.
 Note in the figure below that the combined route network provides a more comprehensive (yet still incomplete) overview of cycling potential in the study region.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># get pct rnet data for schools</span>
 <span class="va">rnet_school</span> <span class="op">=</span> <span class="fu"><a href="../reference/get_pct_rnet.html">get_pct_rnet</a></span><span class="op">(</span>region <span class="op">=</span> <span class="va">region_name</span>, purpose <span class="op">=</span> <span class="st">"school"</span><span class="op">)</span>
 <span class="va">rnet_school</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">rnet_school</span>, select <span class="op">=</span> <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">`cambridge_slc`</span><span class="op">)</span><span class="op">)</span> <span class="co"># subset columns for bind</span>
