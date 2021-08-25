@@ -419,11 +419,14 @@ plot(rnet_shortcar)
 plot(rnet_all["dutch_slc"])
 ```
 
-
 ## Training uptake models against new datasets
 
-```{r}
-
+```{r york, fig.cap="Zones in York with colours representing cycling mode share (left) and urban functional classification (right)", echo=FALSE}
+zones_york = zones_all_joined %>%
+  filter(lad_name == "York") %>% 
+  transmute(pcycle = bicycle / all, citytownclassification)
+tm_shape(zones_york) +
+  tm_polygons(c("pcycle", "citytownclassification"), palette = list("viridis", "Set3"))
 ```
 
 
