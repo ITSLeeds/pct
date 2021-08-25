@@ -416,11 +416,16 @@ However, it is still useful to see where there is greatest potential for car tri
 ```{r shortcar, echo=FALSE, fig.cap="Illustration of route network based on car trips that could be replaced by bicycle trips, based on Census data on car trips to work and the Go Dutch uptake function used in the PCT.", message=FALSE, fig.show='hold', out.width="49%"}
 rnet_shortcar = stplanr::overline(routes_towns_recode_go_active, "car_reduction")
 plot(rnet_shortcar)
-plot(plot(rnet_all["dutch_slc"]))
+plot(rnet_all["dutch_slc"])
 ```
 
 
-<!-- ## Training uptake models against new datasets -->
+## Training uptake models against new datasets
+
+```{r}
+
+```
+
 
 <!-- Todo: get data for York -->
 
