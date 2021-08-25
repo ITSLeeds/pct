@@ -411,6 +411,15 @@ Figure 2.3: Illustration of route network based on car trips that could be repla
 <div id="training-uptake-models-against-new-datasets" class="section level2">
 <h2 class="hasAnchor">
 <a href="#training-uptake-models-against-new-datasets" class="anchor"></a><span class="header-section-number">2.4</span> Training uptake models against new datasets</h2>
+<p>In this section we will create a new scenario called Go York, representing what would happen if people were as likely to cycle as people in York are, for a given trip distance and hilliness.
+The first step is to subset zones and OD pairs originating in York.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a></p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">zones_york</span> <span class="op">=</span> <span class="va">zones_all_joined</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">lad_name</span> <span class="op">==</span> <span class="st">"York"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>pcycle <span class="op">=</span> <span class="va">bicycle</span> <span class="op">/</span> <span class="va">all</span><span class="op">)</span>
+<span class="va">routes_york</span> <span class="op">=</span> <span class="va">routes_all</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">lad_name1</span> <span class="op">==</span> <span class="st">"York"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>pcycle <span class="op">=</span> <span class="va">bicycle</span> <span class="op">/</span> <span class="va">all</span><span class="op">)</span></code></pre></div>
 <pre><code>## Some legend labels were too wide. These labels have been resized to 0.52. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.</code></pre>
 <div class="figure">
 <span style="display:block;" id="fig:york"></span>
@@ -418,6 +427,61 @@ Figure 2.3: Illustration of route network based on car trips that could be repla
 Figure 2.4: Zones in York with colours representing cycling mode share (left) and urban functional classification (right)
 </p>
 </div>
+<p>We can train an uptake model based on this subset of the routes as follows:</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pcycle_model_york</span> <span class="op">=</span> <span class="fu"><a href="../reference/model_pcycle_pct_2020.html">model_pcycle_pct_2020</a></span><span class="op">(</span>
+  pcycle <span class="op">=</span> <span class="va">routes_york</span><span class="op">$</span><span class="va">pcycle</span>,
+  distance <span class="op">=</span> <span class="va">routes_york</span><span class="op">$</span><span class="va">rq_dist_km</span>,
+  gradient <span class="op">=</span> <span class="va">routes_york</span><span class="op">$</span><span class="va">rf_avslope_perc</span>,
+  weights <span class="op">=</span> <span class="va">routes_york</span><span class="op">$</span><span class="va">all</span>
+<span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">pcycle_model_york</span><span class="op">)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## stats::glm(formula = pcycle ~ distance + sqrt(distance) + I(distance^2) + 
+##     gradient + distance * gradient + sqrt(distance) * gradient, 
+##     family = "quasibinomial", weights = weights)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -5.5128  -1.0194  -0.3506   0.6731   6.2125  
+## 
+## Coefficients:
+##                          Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)             -3.342265   0.243422 -13.730  &lt; 2e-16 ***
+## distance                -1.052107   0.083389 -12.617  &lt; 2e-16 ***
+## sqrt(distance)           2.797373   0.284059   9.848  &lt; 2e-16 ***
+## I(distance^2)            0.018713   0.001516  12.347  &lt; 2e-16 ***
+## gradient                -1.356153   0.222618  -6.092 1.24e-09 ***
+## distance:gradient       -0.136630   0.060429  -2.261   0.0238 *  
+## sqrt(distance):gradient  1.100716   0.236224   4.660 3.29e-06 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for quasibinomial family taken to be 1.477246)
+## 
+##     Null deviance: 6635.3  on 3388  degrees of freedom
+## Residual deviance: 4938.1  on 3382  degrees of freedom
+## AIC: NA
+## 
+## Number of Fisher Scoring iterations: 5</code></pre>
+<p>We can then use this model to project cycling levels across the whole region.</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">routes_all_renamed</span> <span class="op">=</span> <span class="va">routes_all</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>distance <span class="op">=</span> <span class="va">rf_dist_km</span>, gradient <span class="op">=</span> <span class="va">rf_avslope_perc</span><span class="op">)</span>
+<span class="va">pcycle_go_york_model</span> <span class="op">=</span> <span class="fu">boot</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/boot/man/inv.logit.html">inv.logit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">pcycle_model_york</span>, newdata <span class="op">=</span> <span class="va">routes_all_renamed</span><span class="op">)</span><span class="op">)</span>
+<span class="va">routes_all</span><span class="op">$</span><span class="va">york_slc</span> <span class="op">=</span> <span class="va">routes_all</span><span class="op">$</span><span class="va">all</span> <span class="op">*</span> <span class="va">pcycle_go_york_model</span>
+<span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">routes_all</span><span class="op">$</span><span class="va">bicycle</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">routes_all</span><span class="op">$</span><span class="va">all</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] 0.07062867</code></pre>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">routes_all</span><span class="op">$</span><span class="va">govtarget_slc</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">routes_all</span><span class="op">$</span><span class="va">all</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] 0.1145299</code></pre>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">routes_all</span><span class="op">$</span><span class="va">dutch_slc</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">routes_all</span><span class="op">$</span><span class="va">all</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] 0.2828958</code></pre>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">routes_all</span><span class="op">$</span><span class="va">york_slc</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">routes_all</span><span class="op">$</span><span class="va">all</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] 0.172178</code></pre>
 <!-- Todo: get data for York -->
 <!-- Train the model -->
 <!-- Apply to the region -->
@@ -429,7 +493,7 @@ Figure 2.4: Zones in York with colours representing cycling mode share (left) an
 <p>PCT is not limited to commuter data only, PCT also provides a range of school data for each region in England and Wales to be downloaded with relative ease. In the example below, we add a <code>purpose</code> to the <code><a href="../reference/get_pct_rnet.html">get_pct_rnet()</a></code> function of <code>school</code>.
 This allows us to get estimates of cycling potential on the road network for school trips, commuter trips, and school and commuter trips combined.
 Note in the figure below that the combined route network provides a more comprehensive (yet still incomplete) overview of cycling potential in the study region.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># get pct rnet data for schools</span>
 <span class="va">rnet_school</span> <span class="op">=</span> <span class="fu"><a href="../reference/get_pct_rnet.html">get_pct_rnet</a></span><span class="op">(</span>region <span class="op">=</span> <span class="va">region_name</span>, purpose <span class="op">=</span> <span class="st">"school"</span><span class="op">)</span>
 <span class="va">rnet_school</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">rnet_school</span>, select <span class="op">=</span> <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">`cambridge_slc`</span><span class="op">)</span><span class="op">)</span> <span class="co"># subset columns for bind</span>
@@ -474,6 +538,10 @@ This is because QGIS, unlike R’s spatial packages, shows geographic (longitude
 Hint: installing the QuickOSM and QuickMapServices plugins may help.
 You will need to transform the bridge before finding a buffer around it.
 You will need to use the Select by Location Vector Research tool.<a href="#fnref4" class="footnote-back">↩︎</a></p></li>
+<li id="fn5"><p>
+Technically, the analysis does not show where OD pairs originate because the PCT OD data aggregates trips going in both directions into a single desire line.
+Instead we will use just <code>geo_code1</code> as a proxy for trip origin.
+For real world applications, you should start with the original OD data.<a href="#fnref5" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
   </div>
