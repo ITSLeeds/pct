@@ -122,7 +122,7 @@
 
     
     
-<p>The PCT is not only a web tool, it is a research and open data project that has resulted in many megabytes of valuable data.
+<p>The PCT is not only a web tool, it is a research and open data project that has resulted in many megabytes of valuable data <span class="citation">(Lovelace et al. 2017)</span>.
 This guide was put together to show how to download and use these open datasets, originally for the Cycle Active City 2021 conference, although it may be of use to anyone interested in data driven planning for sustainable and active travel futures.
 If you are following this guide as part of the <a href="https://hopin.com/events/cycle-active-city-2021">Cycle City Active City 2021</a> conference, the workshops are scheduled at the following times:</p>
 <ul>
@@ -288,7 +288,7 @@ If you have not already done so, you will need to install the R packages we will
 <div id="getting-school-route-network-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#getting-school-route-network-data" class="anchor"></a><span class="header-section-number">1.7</span> Getting school route network data</h2>
-<p>The PCT provides a school route network layer that can be especially important when planning cycling interventions in residential areas.
+<p>The PCT provides a school route network layer that can be especially important when planning cycling interventions in residential areas <span class="citation">(Goodman et al. 2019)</span>.
 Due to the sensitive nature of school data, we cannot make route or OD data level data available.
 However, the PCT provides travel to school data at zone and route network levels, as shown in Figure <a href="#fig:school1">1.6</a>.
 (Note: to get this data from the PCT website you must select School travel in the Trip purpose menu before clicking on Region data.)</p>
@@ -355,7 +355,7 @@ Load the packages by running each of the lines of code in the code chunk beginni
 <div id="developing-new-scenarios-of-change" class="section level2">
 <h2 class="hasAnchor">
 <a href="#developing-new-scenarios-of-change" class="anchor"></a><span class="header-section-number">2.3</span> Developing new scenarios of change</h2>
-<p>Let’s develop a simple model representing the government’s <a href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1009448/decarbonising-transport-a-better-greener-britain.pdf">aim</a>, that “half of all journeys in towns and cities [will be] cycled or walked” by 2030.
+<p>Let’s develop a simple model representing the government’s <a href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1009448/decarbonising-transport-a-better-greener-britain.pdf">aim</a>, that “half of all journeys in towns and cities <span class="math display">\[will be\]</span> cycled or walked” by 2030.
 We will assume that this means that all journeys made <strong>in urban areas</strong>, as defined by the Office for National Statistics, will be made by these active modes.
 We only have commute data in the data we downloaded, but this is a good proxy for mode share overall.</p>
 <p>The first stage is to identify urban areas in North Yorkshire.
@@ -420,7 +420,6 @@ The first step is to subset zones and OD pairs originating in York.<a href="#fn5
 <span class="va">routes_york</span> <span class="op">=</span> <span class="va">routes_all</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">lad_name1</span> <span class="op">==</span> <span class="st">"York"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>pcycle <span class="op">=</span> <span class="va">bicycle</span> <span class="op">/</span> <span class="va">all</span><span class="op">)</span></code></pre></div>
-<pre><code>## Some legend labels were too wide. These labels have been resized to 0.52. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.</code></pre>
 <div class="figure">
 <span style="display:block;" id="fig:york"></span>
 <img src="getting_files/figure-html/york-1.png" alt="Zones in York with colours representing cycling mode share (left) and urban functional classification (right)" width="672"><p class="caption">
@@ -428,7 +427,7 @@ Figure 2.4: Zones in York with colours representing cycling mode share (left) an
 </p>
 </div>
 <p>We can train an uptake model based on this subset of the routes as follows:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pcycle_model_york</span> <span class="op">=</span> <span class="fu"><a href="../reference/model_pcycle_pct_2020.html">model_pcycle_pct_2020</a></span><span class="op">(</span>
   pcycle <span class="op">=</span> <span class="va">routes_york</span><span class="op">$</span><span class="va">pcycle</span>,
   distance <span class="op">=</span> <span class="va">routes_york</span><span class="op">$</span><span class="va">rq_dist_km</span>,
@@ -466,20 +465,20 @@ Figure 2.4: Zones in York with colours representing cycling mode share (left) an
 ## 
 ## Number of Fisher Scoring iterations: 5</code></pre>
 <p>We can then use this model to project cycling levels across the whole region.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">routes_all_renamed</span> <span class="op">=</span> <span class="va">routes_all</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>distance <span class="op">=</span> <span class="va">rf_dist_km</span>, gradient <span class="op">=</span> <span class="va">rf_avslope_perc</span><span class="op">)</span>
 <span class="va">pcycle_go_york_model</span> <span class="op">=</span> <span class="fu">boot</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/boot/man/inv.logit.html">inv.logit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">pcycle_model_york</span>, newdata <span class="op">=</span> <span class="va">routes_all_renamed</span><span class="op">)</span><span class="op">)</span>
 <span class="va">routes_all</span><span class="op">$</span><span class="va">york_slc</span> <span class="op">=</span> <span class="va">routes_all</span><span class="op">$</span><span class="va">all</span> <span class="op">*</span> <span class="va">pcycle_go_york_model</span>
 <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">routes_all</span><span class="op">$</span><span class="va">bicycle</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">routes_all</span><span class="op">$</span><span class="va">all</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 0.07062867</code></pre>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">routes_all</span><span class="op">$</span><span class="va">govtarget_slc</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">routes_all</span><span class="op">$</span><span class="va">all</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 0.1145299</code></pre>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">routes_all</span><span class="op">$</span><span class="va">dutch_slc</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">routes_all</span><span class="op">$</span><span class="va">all</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 0.2828958</code></pre>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">routes_all</span><span class="op">$</span><span class="va">york_slc</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">routes_all</span><span class="op">$</span><span class="va">all</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 0.172178</code></pre>
 <!-- Todo: get data for York -->
@@ -490,10 +489,11 @@ Figure 2.4: Zones in York with colours representing cycling mode share (left) an
 <div id="joining" class="section level1">
 <h1 class="hasAnchor">
 <a href="#joining" class="anchor"></a><span class="header-section-number">3</span> Joining commute and school data</h1>
-<p>PCT is not limited to commuter data only, PCT also provides a range of school data for each region in England and Wales to be downloaded with relative ease. In the example below, we add a <code>purpose</code> to the <code><a href="../reference/get_pct_rnet.html">get_pct_rnet()</a></code> function of <code>school</code>.
+<p>PCT is not limited to commuter data only, PCT also provides a range of school data for each region in England and Wales to be downloaded with relative ease.
+In the example below, we add a <code>purpose</code> to the <code><a href="../reference/get_pct_rnet.html">get_pct_rnet()</a></code> function of <code>school</code>.
 This allows us to get estimates of cycling potential on the road network for school trips, commuter trips, and school and commuter trips combined.
 Note in the figure below that the combined route network provides a more comprehensive (yet still incomplete) overview of cycling potential in the study region.</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># get pct rnet data for schools</span>
 <span class="va">rnet_school</span> <span class="op">=</span> <span class="fu"><a href="../reference/get_pct_rnet.html">get_pct_rnet</a></span><span class="op">(</span>region <span class="op">=</span> <span class="va">region_name</span>, purpose <span class="op">=</span> <span class="st">"school"</span><span class="op">)</span>
 <span class="va">rnet_school</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">rnet_school</span>, select <span class="op">=</span> <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">`cambridge_slc`</span><span class="op">)</span><span class="op">)</span> <span class="co"># subset columns for bind</span>
@@ -520,26 +520,27 @@ Figure 3.1: Comparison of commute, school, and combined commute <em>and</em> sch
 <div id="ref-barrington-leigh_world_2017">
 <p>Barrington-Leigh, Christopher, and Adam Millard-Ball. 2017. “The World’s User-Generated Road Map Is More Than 80% Complete.” <em>PLOS ONE</em> 12 (8): e0180698. <a href="https://doi.org/10.1371/journal.pone.0180698">https://doi.org/10.1371/journal.pone.0180698</a>.</p>
 </div>
+<div id="ref-goodman_scenarios_2019">
+<p>Goodman, Anna, Ilan Fridman Rojas, James Woodcock, Rachel Aldred, Nikolai Berkoff, Malcolm Morgan, Ali Abbas, and Robin Lovelace. 2019. “Scenarios of Cycling to School in England, and Associated Health and Carbon Impacts: Application of the ‘Propensity to Cycle Tool’.” <em>Journal of Transport &amp; Health</em> 12 (March): 263–78. <a href="https://doi.org/10.1016/j.jth.2019.01.008">https://doi.org/10.1016/j.jth.2019.01.008</a>.</p>
+</div>
+<div id="ref-lovelace_propensity_2017">
+<p>Lovelace, Robin, Anna Goodman, Rachel Aldred, Nikolai Berkoff, Ali Abbas, and James Woodcock. 2017. “The Propensity to Cycle Tool: An Open Source Online System for Sustainable Transport Planning.” <em>Journal of Transport and Land Use</em> 10 (1). <a href="https://doi.org/10.5198/jtlu.2016.862">https://doi.org/10.5198/jtlu.2016.862</a>.</p>
+</div>
 </div>
 </div>
 <div class="footnotes">
 <hr>
 <ol>
-<li id="fn1"><p>
-This tutorial was tested on QGIS version 3.20 but it should work fine on other versions, including the Long Term Support version (3.16 at the time of writing in summer 2021).
+<li id="fn1"><p>This tutorial was tested on QGIS version 3.20 but it should work fine on other versions, including the Long Term Support version (3.16 at the time of writing in summer 2021).
 To install the latest version of QGIS see <a href="https://qgis.org/en/site/forusers/download.html">qgis.org</a>.
 If you are new to QGIS, it is worth taking a look at the User Guide at <a href="https://docs.qgis.org/3.16/en/docs/user_manual/">docs.qgis.org</a> and, for a transport-oriented introduction, the <a href="https://itsleeds.github.io/QGIS-intro/">QGIS for Transport Research</a> resource developed by the University of Leeds.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
-<li id="fn2"><p>
-A great thing about QGIS projects is that, like RStudio projects, they make organising and sharing your work easier.
+<li id="fn2"><p>A great thing about QGIS projects is that, like RStudio projects, they make organising and sharing your work easier.
 You should be able to see exactly the same project state as that shown in the figure by downloading the zip file at <a href="https://github.com/ITSLeeds/pct/releases/download/0.8.0/pctqgis.zip" class="uri">https://github.com/ITSLeeds/pct/releases/download/0.8.0/pctqgis.zip</a> and opening the pctqgis1.qgz file in QGIS.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
-<li id="fn3"><p>
-This is because QGIS, unlike R’s spatial packages, shows geographic (longitude/latitude) coordinates as if they were projected, which makes maps seem squashed at high latitudes far from the equator.<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
-<li id="fn4"><p>
-Hint: installing the QuickOSM and QuickMapServices plugins may help.
+<li id="fn3"><p>This is because QGIS, unlike R’s spatial packages, shows geographic (longitude/latitude) coordinates as if they were projected, which makes maps seem squashed at high latitudes far from the equator.<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p>Hint: installing the QuickOSM and QuickMapServices plugins may help.
 You will need to transform the bridge before finding a buffer around it.
 You will need to use the Select by Location Vector Research tool.<a href="#fnref4" class="footnote-back">↩︎</a></p></li>
-<li id="fn5"><p>
-Technically, the analysis does not show where OD pairs originate because the PCT OD data aggregates trips going in both directions into a single desire line.
+<li id="fn5"><p>Technically, the analysis does not show where OD pairs originate because the PCT OD data aggregates trips going in both directions into a single desire line.
 Instead we will use just <code>geo_code1</code> as a proxy for trip origin.
 For real world applications, you should start with the original OD data.<a href="#fnref5" class="footnote-back">↩︎</a></p></li>
 </ol>
