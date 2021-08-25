@@ -261,9 +261,10 @@ If you have not already done so, you will need to install the R packages we will
 </ul>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://itsleeds.github.io/pct/">pct</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span>      <span class="co"># key package for working with spatial vector data</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span>          <span class="co"># key package for working with spatial vector data</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>   <span class="co"># in the tidyverse</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mtennekes/tmap">tmap</a></span><span class="op">)</span>    <span class="co"># installed alongside mapview</span></code></pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mtennekes/tmap">tmap</a></span><span class="op">)</span>        <span class="co"># installed alongside mapview</span>
+<span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tmap_options.html">tmap_options</a></span><span class="op">(</span>check.and.fix <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># tmap setting</span></code></pre></div>
 <ul>
 <li>After setting the region name (to avoid re-typing it many times) run the following commands to download data at the four main levels used in the PCT:</li>
 </ul>
@@ -290,17 +291,19 @@ If you have not already done so, you will need to install the R packages we will
 <p>The PCT provides a school route network layer that can be especially important when planning cycling interventions in residential areas.
 Due to the sensitive nature of school data, we cannot make route or OD data level data available.
 However, the PCT provides travel to school data at zone and route network levels, as shown in Figure <a href="#fig:school1">1.6</a>.
-(Note: to get this data from the PCT website you must select School travel in the Trip purpose menu before clicking on Region data.)
-As we will see in Section <a href="#joining">3</a>, combining school and commute network data can result in a more comprehensive network.</p>
+(Note: to get this data from the PCT website you must select School travel in the Trip purpose menu before clicking on Region data.)</p>
+<ul>
+<li>Get schools data from the PCT with the following commands</li>
+</ul>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">zones_school</span> <span class="op">=</span> <span class="fu"><a href="../reference/get_pct_zones.html">get_pct_zones</a></span><span class="op">(</span>region <span class="op">=</span> <span class="va">region_name</span>, purpose <span class="op">=</span> <span class="st">"school"</span><span class="op">)</span>
-<span class="va">rnet_school</span> <span class="op">=</span> <span class="fu"><a href="../reference/get_pct_rnet.html">get_pct_rnet</a></span><span class="op">(</span>region <span class="op">=</span> <span class="va">region_name</span>, purpose <span class="op">=</span> <span class="st">"school"</span><span class="op">)</span>
-<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">zones_school</span><span class="op">[</span><span class="st">"dutch_slc"</span><span class="op">]</span>, border <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span>
-<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">rnet_school</span><span class="op">[</span><span class="st">"dutch_slc"</span><span class="op">]</span><span class="op">)</span></code></pre></div>
+<span class="va">rnet_school</span> <span class="op">=</span> <span class="fu"><a href="../reference/get_pct_rnet.html">get_pct_rnet</a></span><span class="op">(</span>region <span class="op">=</span> <span class="va">region_name</span>, purpose <span class="op">=</span> <span class="st">"school"</span><span class="op">)</span></code></pre></div>
+<p>As we will see in Section <a href="#joining">3</a>, combining school and commute network data can result in a more comprehensive network.</p>
+<pre><code>## Warning: The shape zones_school is invalid. See sf::st_is_valid</code></pre>
 <div class="figure">
 <span style="display:block;" id="fig:school1"></span>
-<img src="getting_files/figure-html/school1-1.png" alt="Open access data on cycling to school potential from the PCT, at zone (left) and route network (right) levels. These datasets can support planning interventions, especially 'safe routes to school' and interventions in residential areas." width="49%"><img src="getting_files/figure-html/school1-2.png" alt="Open access data on cycling to school potential from the PCT, at zone (left) and route network (right) levels. These datasets can support planning interventions, especially 'safe routes to school' and interventions in residential areas." width="49%"><p class="caption">
-Figure 1.6: Open access data on cycling to school potential from the PCT, at zone (left) and route network (right) levels. These datasets can support planning interventions, especially ‘safe routes to school’ and interventions in residential areas.
+<img src="getting_files/figure-html/school1-1.png" alt="Open access data on cycling to school potential from the PCT, at zone (left) and route network (right) levels. These datasets can support planning interventions, especially 'safe routes to school' and interventions in residential areas. To see the source code that generates these plots, see the 'source' link at the top of the page." width="49%"><img src="getting_files/figure-html/school1-2.png" alt="Open access data on cycling to school potential from the PCT, at zone (left) and route network (right) levels. These datasets can support planning interventions, especially 'safe routes to school' and interventions in residential areas. To see the source code that generates these plots, see the 'source' link at the top of the page." width="49%"><p class="caption">
+Figure 1.6: Open access data on cycling to school potential from the PCT, at zone (left) and route network (right) levels. These datasets can support planning interventions, especially ‘safe routes to school’ and interventions in residential areas. To see the source code that generates these plots, see the ‘source’ link at the top of the page.
 </p>
 </div>
 <!-- representing estimates of current (2010/2011) levels of cycling to school, and potential under scenarios of change,  -->
@@ -325,9 +328,6 @@ In it you will:</p>
 Load the packages by running each of the lines of code in the code chunk beginning with <code><a href="https://itsleeds.github.io/pct/">library(pct)</a></code> (which loads the <code>pct</code> R package, making its functions available) in the previous section <a href="#getting-pct-data-with-r">1.6</a>.</p>
 <p>To complete the exercises in this workshop your also need to have imported PCT data into your R session, by running each line of code in the code chunk beginning <code>region_name = "north-yorkshire"</code> in the previous section.</p>
 <p>Finally, we will use these additional packages, which you must have installed on your computer for the code below to work:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mtennekes/tmap">tmap</a></span><span class="op">)</span></code></pre></div>
 </div>
 <div id="pct-scenarios" class="section level2">
 <h2 class="hasAnchor">
@@ -385,7 +385,6 @@ The code chunk below shows the benefits of R in terms of being able to get and j
 <pre><code>## Joining, by = "geo_code"</code></pre>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">routes_all_joined</span> <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">routes_all</span>, <span class="va">urban_rural</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"geo_code1"</span> <span class="op">=</span> <span class="st">"geo_code"</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tmap_options.html">tmap_options</a></span><span class="op">(</span>check.and.fix <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">zones_all_joined</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_polygons.html">tm_polygons</a></span><span class="op">(</span><span class="st">"citytownclassification"</span><span class="op">)</span></code></pre></div>
 <pre><code>## Warning: The shape zones_all_joined is invalid. See sf::st_is_valid</code></pre>
@@ -402,7 +401,16 @@ Figure 2.1: Classification of areas in Great Britain (left) and North Yorkshire 
 <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">routes_towns</span><span class="op">$</span><span class="va">foot</span> <span class="op">+</span> <span class="va">routes_towns</span><span class="op">$</span><span class="va">bicycle</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">routes_towns</span><span class="op">$</span><span class="va">all</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 34</code></pre>
 <p>Currently, only around 34% of commute trips in the region are made by walking and cycling.
-We explore this in more detail by looking at the relationship between trip distance and mode share.</p>
+We explore this in more detail by looking at the relationship between trip distance and mode share, in Figure <a href="#fig:distmode">2.2</a> (left).
+We will create a scenario representing the outcome of policies that incentivise people to replace car trips with walking and cycling, focussing on the red boxes in Figure <a href="#fig:distmode">2.2</a>.
+The scenario will replace 50% of car trips of less than 1 km with walking and 10% of trips between 1 km and 2 km in distance.
+The remaining car trips will be replaced by cycling, with the percentages of trips that switch for each OD determined by the uptake function in the Go Dutch Scenario of the PCT, resulting in the right graphic shown in Figure <a href="#fig:distmode">2.2</a>.</p>
+<div class="figure">
+<span style="display:block;" id="fig:distmode"></span>
+<img src="getting_files/figure-html/distmode-1.png" alt="Relationship between distance (x axis) and mode share (y axis) in towns and cities in North Yorkshire." width="49%"><img src="getting_files/figure-html/distmode-2.png" alt="Relationship between distance (x axis) and mode share (y axis) in towns and cities in North Yorkshire." width="49%"><p class="caption">
+Figure 2.2: Relationship between distance (x axis) and mode share (y axis) in towns and cities in North Yorkshire.
+</p>
+</div>
 </div>
 <div id="training-uptake-models-against-new-datasets" class="section level2">
 <h2 class="hasAnchor">
