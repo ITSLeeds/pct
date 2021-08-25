@@ -290,6 +290,7 @@ lines_all$pcycle_dutch = uptake_pct_godutch_2020(
   distance = lines_all$rf_dist_km,
   gradient = lines_all$rf_avslope_perc
   ) * 100 + lines_all$pcycle
+summary(lines_all$pcycle_dutch)
 ```
 
 ```{r dutch_pcycle, echo=FALSE, warning=FALSE, fig.show='hold', fig.cap="Percent cycling currently (left) and under a 'Go Dutch' scenario (right) in the North Yorkshire.", out.width="40%"}

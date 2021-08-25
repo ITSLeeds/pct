@@ -94,7 +94,7 @@ Photo: demo of the PCT to Secretary of State for Transport ([March 2017](https:/
 
 ---
 
-## The PCT in 2020
+## The PCT in 2021
 
 - Now the go-to tool for strategic cycle network planning in England and Wales, used by most local authorities with cycling plans ([source](https://npct.github.io/pct-shiny/regions_www/www/static/03d_other_reports/2019-use-of-pct-report.pdf)).
 
@@ -116,6 +116,12 @@ Photo: demo of the PCT to Secretary of State for Transport ([March 2017](https:/
 See these levels at [www.pct.bike](https://www.pct.bike)
 
 ]
+
+---
+
+### City simulation layer
+
+<iframe width="900" height="550" src="https://www.youtube.com/embed/nNYroA16JEQ?start=132" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ---
 
@@ -241,7 +247,9 @@ Training an update model + questions 10 minutes
 
 ---
 
-# Additional info
+# The workbook
+
+See https://www.robinlovelace.net/presentations/pct-slides-cac-2021.html#1
 
 
 ---
