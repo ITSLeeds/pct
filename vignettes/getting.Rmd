@@ -311,13 +311,13 @@ The first stage is to identify urban areas in North Yorkshire.
 We use data from the House of Commons Research [Briefing](https://commonslibrary.parliament.uk/research-briefings/cbp-8322/) on City and Town Classifications to define areas based on their town/city status.
 The code chunk below shows the benefits of R in terms of being able to get and join data onto the route data we have been using:
 
-```{r cities, out.width="45%", fig.show='hold', fig.cap="Classification of areas in Great Britain (left) and North Yorkshire (right)."}
+```{r cities, out.width="45%", fig.show='hold', fig.cap="Classification of areas in Great Britain (left) and North Yorkshire (right).", message=FALSE, warning=FALSE}
 urban_rural = readr::read_csv("https://researchbriefings.files.parliament.uk/documents/CBP-8322/oa-classification-csv.csv")
 ggplot(urban_rural) +
   geom_bar(aes(citytownclassification)) +
   coord_flip()
 
-summary(routes_all$geo_code1 %in% urban_rural$lsoa_code)
+# summary(routes_all$geo_code1 %in% urban_rural$lsoa_code)
 urban_rural = rename(urban_rural, geo_code = lsoa_code)
 zones_all_joined = left_join(zones_all, urban_rural)
 routes_all_joined = left_join(routes_all, urban_rural, by = c("geo_code1" = "geo_code"))
@@ -333,7 +333,7 @@ routes_towns = routes_all_joined %>%
 round(sum(routes_towns$foot + routes_towns$bicycle) / sum(routes_towns$all) * 100)
 ```
 
-Currently, only around 34% of commute trips in the region are made by walking and cycling.
+Currently, only around 34% of commute trips in the region's 'town' areas are made by walking and cycling (27% across all zones in North Yorkshire, and a much lower proportion in terms of distance).
 We explore this in more detail by looking at the relationship between trip distance and mode share, in Figure \@ref(fig:distmode) (left).
 We will create a scenario representing the outcome of policies that incentivise people to replace car trips with walking and cycling, focussing on the red boxes in Figure \@ref(fig:distmode).
 The scenario will replace 50% of car trips of less than 1 km with walking and 10% of trips between 1 km and 2 km in distance.
@@ -386,11 +386,47 @@ g2
 
 ```
 
+```{r, echo=FALSE, eval=FALSE}
+# % active under go active scenario
+round(sum(routes_towns_recode$foot + routes_towns_recode$bicycle) / sum(routes_towns_recode_go_active$all) * 100)
+round(sum(routes_towns_recode_go_active$foot + routes_towns_recode_go_active$bicycle) / sum(routes_towns_recode_go_active$all) * 100)
+round(sum(routes_all_joined$foot + routes_all_joined$bicycle) / sum(routes_all_joined$all) * 100)
+round(
+  sum(routes_towns_recode_go_active$car * routes_towns_recode_go_active$rf_dist_km) /
+    sum(routes_towns_recode$car * routes_towns_recode$rf_dist_km) * 100
+)
+round(
+  sum(routes_towns_recode_go_active$bicycle * routes_towns_recode_go_active$rf_dist_km) /
+    sum(routes_towns_recode$bicycle * routes_towns_recode$rf_dist_km) * 100
+)
+round(
+  sum(routes_towns_recode_go_active$foot * routes_towns_recode_go_active$rf_dist_km) /
+    sum(routes_towns_recode$foot * routes_towns_recode$rf_dist_km) * 100
+)
+    
+```
+
+The scenario outlined above may sound ambitious, but it only just meets the government's aim for walking and cycling to account for 50% of trips in Town and Cities, at least when looking exclusively at single stage commutes in a single region.
+Furthermore, while the scenario represents a ~200% (3 fold) increase in the total distance travelled by active modes, it only results in a 17% reduction in car km driven *in towns*.
+The overall impact on energy use, resource consumption and emissions is much lower for the region overall, including rural areas.
+
+In the context of the government's aim of fully decarbonising the economy by 2050, the analysis above suggests that more stringent measures focussing on long distance trips, which account for the majority of emissions, may be needed.
+However, it is still useful to see where there is greatest potential for car trips to be replaced by walking and cycling, as shown in Figure \@ref(fig:shortcar).
+
+```{r shortcar, echo=FALSE, fig.cap="Illustration of route network based on car trips that could be replaced by bicycle trips, based on Census data on car trips to work and the Go Dutch uptake function used in the PCT.", message=FALSE, fig.show='hold', out.width="49%"}
+rnet_shortcar = stplanr::overline(routes_towns_recode_go_active, "car_reduction")
+plot(rnet_shortcar)
+plot(plot(rnet_all["dutch_slc"]))
+```
 
 
+<!-- ## Training uptake models against new datasets -->
 
-## Training uptake models against new datasets
+<!-- Todo: get data for York -->
 
+<!-- Train the model -->
+
+<!-- Apply to the region -->
 
 # Joining commute and school data {#joining}
 
