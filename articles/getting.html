@@ -362,32 +362,17 @@ We only have commute data in the data we downloaded, but this is a good proxy fo
 We use data from the House of Commons Research <a href="https://commonslibrary.parliament.uk/research-briefings/cbp-8322/">Briefing</a> on City and Town Classifications to define areas based on their town/city status.
 The code chunk below shows the benefits of R in terms of being able to get and join data onto the route data we have been using:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">urban_rural</span> <span class="op">=</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://researchbriefings.files.parliament.uk/documents/CBP-8322/oa-classification-csv.csv"</span><span class="op">)</span></code></pre></div>
-<pre><code>## Rows: 188384 Columns: 12</code></pre>
-<pre><code>## ── Column specification ────────────────────────────────────────────────────────
-## Delimiter: ","
-## chr (11): outputarea_code, lsoa_code, msoa_code, la_code, la_name, region_na...
-## dbl  (1): population</code></pre>
-<pre><code>## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">urban_rural</span><span class="op">)</span> <span class="op">+</span>
+<code class="sourceCode R"><span class="va">urban_rural</span> <span class="op">=</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://researchbriefings.files.parliament.uk/documents/CBP-8322/oa-classification-csv.csv"</span><span class="op">)</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">urban_rural</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">citytownclassification</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html">coord_flip</a></span><span class="op">(</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">routes_all</span><span class="op">$</span><span class="va">geo_code1</span> <span class="op">%in%</span> <span class="va">urban_rural</span><span class="op">$</span><span class="va">lsoa_code</span><span class="op">)</span></code></pre></div>
-<pre><code>##    Mode    TRUE 
-## logical   10288</code></pre>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">urban_rural</span> <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span><span class="va">urban_rural</span>, geo_code <span class="op">=</span> <span class="va">lsoa_code</span><span class="op">)</span>
-<span class="va">zones_all_joined</span> <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">zones_all</span>, <span class="va">urban_rural</span><span class="op">)</span></code></pre></div>
-<pre><code>## Joining, by = "geo_code"</code></pre>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">routes_all_joined</span> <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">routes_all</span>, <span class="va">urban_rural</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"geo_code1"</span> <span class="op">=</span> <span class="st">"geo_code"</span><span class="op">)</span><span class="op">)</span>
+<span class="co"># summary(routes_all$geo_code1 %in% urban_rural$lsoa_code)</span>
+<span class="va">urban_rural</span> <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span><span class="va">urban_rural</span>, geo_code <span class="op">=</span> <span class="va">lsoa_code</span><span class="op">)</span>
+<span class="va">zones_all_joined</span> <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">zones_all</span>, <span class="va">urban_rural</span><span class="op">)</span>
+<span class="va">routes_all_joined</span> <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">routes_all</span>, <span class="va">urban_rural</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"geo_code1"</span> <span class="op">=</span> <span class="st">"geo_code"</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">zones_all_joined</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_polygons.html">tm_polygons</a></span><span class="op">(</span><span class="st">"citytownclassification"</span><span class="op">)</span></code></pre></div>
-<pre><code>## Warning: The shape zones_all_joined is invalid. See sf::st_is_valid</code></pre>
 <div class="figure">
 <span style="display:block;" id="fig:cities"></span>
 <img src="getting_files/figure-html/cities-1.png" alt="Classification of areas in Great Britain (left) and North Yorkshire (right)." width="45%"><img src="getting_files/figure-html/cities-2.png" alt="Classification of areas in Great Britain (left) and North Yorkshire (right)." width="45%"><p class="caption">
@@ -395,12 +380,12 @@ Figure 2.1: Classification of areas in Great Britain (left) and North Yorkshire 
 </p>
 </div>
 <p>After the classification dataset has been joined, the proportion of trips made by walking and cycling in towns and cities across North Yorkshire can be calculated as follows.</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">routes_towns</span> <span class="op">=</span> <span class="va">routes_all_joined</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"Town|City"</span>, x <span class="op">=</span> <span class="va">citytownclassification</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">routes_towns</span><span class="op">$</span><span class="va">foot</span> <span class="op">+</span> <span class="va">routes_towns</span><span class="op">$</span><span class="va">bicycle</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">routes_towns</span><span class="op">$</span><span class="va">all</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 34</code></pre>
-<p>Currently, only around 34% of commute trips in the region are made by walking and cycling.
+<p>Currently, only around 34% of commute trips in the region’s ‘town’ areas are made by walking and cycling (27% across all zones in North Yorkshire, and a much lower proportion in terms of distance).
 We explore this in more detail by looking at the relationship between trip distance and mode share, in Figure <a href="#fig:distmode">2.2</a> (left).
 We will create a scenario representing the outcome of policies that incentivise people to replace car trips with walking and cycling, focussing on the red boxes in Figure <a href="#fig:distmode">2.2</a>.
 The scenario will replace 50% of car trips of less than 1 km with walking and 10% of trips between 1 km and 2 km in distance.
@@ -411,10 +396,24 @@ The remaining car trips will be replaced by cycling, with the percentages of tri
 Figure 2.2: Relationship between distance (x axis) and mode share (y axis) in towns and cities in North Yorkshire.
 </p>
 </div>
+<p>The scenario outlined above may sound ambitious, but it only just meets the government’s aim for walking and cycling to account for 50% of trips in Town and Cities, at least when looking exclusively at single stage commutes in a single region.
+Furthermore, while the scenario represents a ~200% (3 fold) increase in the total distance travelled by active modes, it only results in a 17% reduction in car km driven <em>in towns</em>.
+The overall impact on energy use, resource consumption and emissions is much lower for the region overall, including rural areas.</p>
+<p>In the context of the government’s aim of fully decarbonising the economy by 2050, the analysis above suggests that more stringent measures focussing on long distance trips, which account for the majority of emissions, may be needed.
+However, it is still useful to see where there is greatest potential for car trips to be replaced by walking and cycling, as shown in Figure <a href="#fig:shortcar">2.3</a>.</p>
+<div class="figure">
+<span style="display:block;" id="fig:shortcar"></span>
+<img src="getting_files/figure-html/shortcar-1.png" alt="Illustration of route network based on car trips that could be replaced by bicycle trips, based on Census data on car trips to work and the Go Dutch uptake function used in the PCT." width="49%"><img src="getting_files/figure-html/shortcar-2.png" alt="Illustration of route network based on car trips that could be replaced by bicycle trips, based on Census data on car trips to work and the Go Dutch uptake function used in the PCT." width="49%"><p class="caption">
+Figure 2.3: Illustration of route network based on car trips that could be replaced by bicycle trips, based on Census data on car trips to work and the Go Dutch uptake function used in the PCT.
+</p>
+</div>
 </div>
 <div id="training-uptake-models-against-new-datasets" class="section level2">
 <h2 class="hasAnchor">
 <a href="#training-uptake-models-against-new-datasets" class="anchor"></a><span class="header-section-number">2.4</span> Training uptake models against new datasets</h2>
+<!-- Todo: get data for York -->
+<!-- Train the model -->
+<!-- Apply to the region -->
 </div>
 </div>
 <div id="joining" class="section level1">
@@ -423,7 +422,7 @@ Figure 2.2: Relationship between distance (x axis) and mode share (y axis) in to
 <p>PCT is not limited to commuter data only, PCT also provides a range of school data for each region in England and Wales to be downloaded with relative ease. In the example below, we add a <code>purpose</code> to the <code><a href="../reference/get_pct_rnet.html">get_pct_rnet()</a></code> function of <code>school</code>.
 This allows us to get estimates of cycling potential on the road network for school trips, commuter trips, and school and commuter trips combined.
 Note in the figure below that the combined route network provides a more comprehensive (yet still incomplete) overview of cycling potential in the study region.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># get pct rnet data for schools</span>
 <span class="va">rnet_school</span> <span class="op">=</span> <span class="fu"><a href="../reference/get_pct_rnet.html">get_pct_rnet</a></span><span class="op">(</span>region <span class="op">=</span> <span class="va">region_name</span>, purpose <span class="op">=</span> <span class="st">"school"</span><span class="op">)</span>
 <span class="va">rnet_school</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">rnet_school</span>, select <span class="op">=</span> <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">`cambridge_slc`</span><span class="op">)</span><span class="op">)</span> <span class="co"># subset columns for bind</span>
