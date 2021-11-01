@@ -97,7 +97,7 @@
 
       
 
-      </header><script src="getting_files/jquery-1.11.3/jquery.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1">
+      </header><script src="getting_files/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="getting_files/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet">
 <script src="getting_files/bootstrap-3.3.5/js/bootstrap.min.js"></script><script src="getting_files/bootstrap-3.3.5/shim/html5shiv.min.js"></script><script src="getting_files/bootstrap-3.3.5/shim/respond.min.js"></script><style>h1 {font-size: 34px;}
        h1.title {font-size: 38px;}
@@ -216,7 +216,7 @@ Undertake these tasks in the exercises below:</p>
 <a href="#comparing-pct-data-with-transport-network-data" class="anchor"></a><span class="header-section-number">1.4</span> Comparing PCT data with transport network data</h2>
 <p>Find all the fast routes that intersect with a 10 m buffer surrounding Clifton Bridge (note: this is a time consuming task).<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a></p>
 <p>Don’t worry if you do not have time to complete each of the steps needed to find the result.
-You can see how it works by opening the project pctqgis3.qgz in the <a href="https://github.com/ITSLeeds/pct/releases/download/0.8.0/pctqgis.zip">pctqgis.zip</a> file.
+You can see how it works by opening the project pctqgis3.qgz in the <a href="https://github.com/ITSLeeds/pct/releases/download/0.8.0/">pctqgis.zip</a> file.
 The result should look something like the screenshot shown in Figure <a href="#fig:cliftonbuffer">1.4</a>.</p>
 <div class="figure">
 <span style="display:block;" id="fig:cliftonbuffer"></span>
@@ -255,7 +255,7 @@ Figure 1.5: Route network layer and buffer representing cycle infrastructure, to
 <h2 class="hasAnchor">
 <a href="#getting-pct-data-with-r" class="anchor"></a><span class="header-section-number">1.6</span> Getting PCT data with R</h2>
 <p>We will get the same PCT datasets as in previous sections but using the R interface.
-If you have not already done so, you will need to install the R packages we will use for this section (and the next) by typing and executing the following command in the R console: <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages("pct", "sf", "dplyr", "tmap")</a></code>.</p>
+If you have not already done so, you will need to install the R packages we will use for this section (and the next) by typing and executing the following command in the R console: <code>install.packages("pct", "sf", "dplyr", "tmap")</code>.</p>
 <ul>
 <li>After you have the necessary packages installed, the first stage is to load packages we will use:</li>
 </ul>
@@ -382,7 +382,7 @@ Figure 2.1: Classification of areas in Great Britain (left) and North Yorkshire 
 </div>
 <p>After the classification dataset has been joined, the proportion of trips made by walking and cycling in towns and cities across North Yorkshire can be calculated as follows.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">routes_towns</span> <span class="op">=</span> <span class="va">routes_all_joined</span> <span class="op">%&gt;%</span> 
+<code class="sourceCode R"><span class="va">routes_towns</span> <span class="op">=</span> <span class="va">routes_all_joined</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"Town|City"</span>, x <span class="op">=</span> <span class="va">citytownclassification</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">routes_towns</span><span class="op">$</span><span class="va">foot</span> <span class="op">+</span> <span class="va">routes_towns</span><span class="op">$</span><span class="va">bicycle</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">routes_towns</span><span class="op">$</span><span class="va">all</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 34</code></pre>
@@ -415,11 +415,11 @@ Figure 2.3: Illustration of route network based on car trips that could be repla
 <p>In this section we will create a new scenario called Go York, representing what would happen if people were as likely to cycle as people in York are, for a given trip distance and hilliness.
 The first step is to subset zones and OD pairs originating in York.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a></p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">zones_york</span> <span class="op">=</span> <span class="va">zones_all_joined</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">lad_name</span> <span class="op">==</span> <span class="st">"York"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+<code class="sourceCode R"><span class="va">zones_york</span> <span class="op">=</span> <span class="va">zones_all_joined</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">lad_name</span> <span class="op">==</span> <span class="st">"York"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>pcycle <span class="op">=</span> <span class="va">bicycle</span> <span class="op">/</span> <span class="va">all</span><span class="op">)</span>
-<span class="va">routes_york</span> <span class="op">=</span> <span class="va">routes_all</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">lad_name1</span> <span class="op">==</span> <span class="st">"York"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+<span class="va">routes_york</span> <span class="op">=</span> <span class="va">routes_all</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">lad_name1</span> <span class="op">==</span> <span class="st">"York"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>pcycle <span class="op">=</span> <span class="va">bicycle</span> <span class="op">/</span> <span class="va">all</span><span class="op">)</span></code></pre></div>
 <div class="figure">
 <span style="display:block;" id="fig:york"></span>
@@ -467,7 +467,7 @@ Figure 2.4: Zones in York with colours representing cycling mode share (left) an
 ## Number of Fisher Scoring iterations: 5</code></pre>
 <p>We can then use this model to project cycling levels across the whole region.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">routes_all_renamed</span> <span class="op">=</span> <span class="va">routes_all</span> <span class="op">%&gt;%</span> 
+<code class="sourceCode R"><span class="va">routes_all_renamed</span> <span class="op">=</span> <span class="va">routes_all</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>distance <span class="op">=</span> <span class="va">rf_dist_km</span>, gradient <span class="op">=</span> <span class="va">rf_avslope_perc</span><span class="op">)</span>
 <span class="va">pcycle_go_york_model</span> <span class="op">=</span> <span class="fu">boot</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/boot/man/inv.logit.html">inv.logit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">pcycle_model_york</span>, newdata <span class="op">=</span> <span class="va">routes_all_renamed</span><span class="op">)</span><span class="op">)</span>
 <span class="va">routes_all</span><span class="op">$</span><span class="va">york_slc</span> <span class="op">=</span> <span class="va">routes_all</span><span class="op">$</span><span class="va">all</span> <span class="op">*</span> <span class="va">pcycle_go_york_model</span>
@@ -504,8 +504,8 @@ Note in the figure below that the combined route network provides a more compreh
 <span class="va">rnet_school_commute</span><span class="op">$</span><span class="va">duplicated_geometries</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/duplicated.html">duplicated</a></span><span class="op">(</span><span class="va">rnet_school_commute</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span> <span class="co"># find duplicated geometries</span>
 <span class="va">rnet_school_commute</span><span class="op">$</span><span class="va">geometry_txt</span> <span class="op">=</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_text.html">st_as_text</a></span><span class="op">(</span><span class="va">rnet_school_commute</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span>
 
-<span class="va">rnet_combined</span> <span class="op">=</span> <span class="va">rnet_school_commute</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">geometry_txt</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="co"># group by geometry</span>
+<span class="va">rnet_combined</span> <span class="op">=</span> <span class="va">rnet_school_commute</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">geometry_txt</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="co"># group by geometry</span>
   <span class="fu"><a href="https://r-spatial.github.io/sf/reference/tidyverse.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="va">bicycle</span><span class="op">:</span><span class="va">dutch_slc</span>, <span class="va">sum</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="co"># and summaries route network which is not a duplicate</span></code></pre></div>
 <div class="figure">
 <span style="display:block;" id="fig:combined"></span>
@@ -536,7 +536,7 @@ Figure 3.1: Comparison of commute, school, and combined commute <em>and</em> sch
 To install the latest version of QGIS see <a href="https://qgis.org/en/site/forusers/download.html">qgis.org</a>.
 If you are new to QGIS, it is worth taking a look at the User Guide at <a href="https://docs.qgis.org/3.16/en/docs/user_manual/">docs.qgis.org</a> and, for a transport-oriented introduction, the <a href="https://itsleeds.github.io/QGIS-intro/">QGIS for Transport Research</a> resource developed by the University of Leeds.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
 <li id="fn2"><p>A great thing about QGIS projects is that, like RStudio projects, they make organising and sharing your work easier.
-You should be able to see exactly the same project state as that shown in the figure by downloading the zip file at <a href="https://github.com/ITSLeeds/pct/releases/download/0.8.0/pctqgis.zip" class="uri">https://github.com/ITSLeeds/pct/releases/download/0.8.0/pctqgis.zip</a> and opening the pctqgis1.qgz file in QGIS.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+You should be able to see exactly the same project state as that shown in the figure by downloading the zip file at <a href="https://github.com/ITSLeeds/pct/releases/download/0.8.0/" class="uri">https://github.com/ITSLeeds/pct/releases/download/0.8.0/</a> and opening the pctqgis1.qgz file in QGIS.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
 <li id="fn3"><p>This is because QGIS, unlike R’s spatial packages, shows geographic (longitude/latitude) coordinates as if they were projected, which makes maps seem squashed at high latitudes far from the equator.<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
 <li id="fn4"><p>Hint: installing the QuickOSM and QuickMapServices plugins may help.
 You will need to transform the bridge before finding a buffer around it.

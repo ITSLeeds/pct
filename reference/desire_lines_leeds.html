@@ -154,41 +154,48 @@
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># see data-raw folder for generation code</span>
-<span class='va'>desire_lines_leeds</span>
-</div><div class='output co'>#&gt;    area_of_residence area_of_workplace  all home metro train bus taxi
-#&gt; 1          E02002363         E02006875  922    0     0     5 356    7
-#&gt; 2          E02002373         E02006875 1037    0     5   111 424   20
-#&gt; 3          E02002384         E02006875  966    0     3    14 153   14
-#&gt; 4          E02002385         E02006875  958    0     4   121 334   19
-#&gt; 5          E02002392         E02006875  753    0     0    10  91   21
-#&gt; 6          E02002404         E02006875 1145    0     0     6 174   17
-#&gt; 7          E02002411         E02006875  929    0     0     8 200    4
-#&gt; 8          E02006852         E02006875 1221    0     4    14 509   13
-#&gt; 9          E02006861         E02006875 1177    0     3    43 400   30
-#&gt; 10         E02006876         E02006875 1035    0     1    11 132    6
-#&gt;    motorcycle drive passenger bicycle on_foot other
-#&gt; 1           7   375        76      43      53     0
-#&gt; 2           5   155        30      73     214     0
-#&gt; 3           1    69        18      13     679     2
-#&gt; 4           2   118        25      52     283     0
-#&gt; 5           0    33         7      19     571     1
-#&gt; 6           3    96        38      10     798     3
-#&gt; 7           2   103        19      27     564     2
-#&gt; 8          13   401        50      99     118     0
-#&gt; 9           2   123        28      56     492     0
-#&gt; 10          3    97        24      10     749     2
-#&gt;                                      geometry
-#&gt; 1  -1.534957, -1.545708, 53.828587, 53.795934
-#&gt; 2  -1.581773, -1.545708, 53.818605, 53.795934
-#&gt; 3  -1.545094, -1.545708, 53.809254, 53.795934
-#&gt; 4  -1.582412, -1.545708, 53.808164, 53.795934
-#&gt; 5  -1.561249, -1.545708, 53.804696, 53.795934
-#&gt; 6  -1.518911, -1.545708, 53.792296, 53.795934
-#&gt; 7  -1.561448, -1.545708, 53.785004, 53.795934
-#&gt; 8  -1.586323, -1.545708, 53.832799, 53.795934
-#&gt; 9  -1.564659, -1.545708, 53.817665, 53.795934
-#&gt; 10 -1.517420, -1.545708, 53.774934, 53.795934</div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'># see data-raw folder for generation code</span></span>
+<span class='r-in'><span class='va'>desire_lines_leeds</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Simple feature collection with 10 features and 14 fields</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Geometry type: LINESTRING</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Dimension:     XY</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Bounding box:  xmin: -1.586323 ymin: 53.77493 xmax: -1.51742 ymax: 53.8328</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Geodetic CRS:  WGS 84</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    area_of_residence area_of_workplace  all home metro train bus taxi</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1          E02002363         E02006875  922    0     0     5 356    7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2          E02002373         E02006875 1037    0     5   111 424   20</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3          E02002384         E02006875  966    0     3    14 153   14</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4          E02002385         E02006875  958    0     4   121 334   19</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5          E02002392         E02006875  753    0     0    10  91   21</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6          E02002404         E02006875 1145    0     0     6 174   17</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7          E02002411         E02006875  929    0     0     8 200    4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8          E02006852         E02006875 1221    0     4    14 509   13</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9          E02006861         E02006875 1177    0     3    43 400   30</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10         E02006876         E02006875 1035    0     1    11 132    6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    motorcycle drive passenger bicycle on_foot other</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1           7   375        76      43      53     0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2           5   155        30      73     214     0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3           1    69        18      13     679     2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4           2   118        25      52     283     0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5           0    33         7      19     571     1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6           3    96        38      10     798     3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7           2   103        19      27     564     2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8          13   401        50      99     118     0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9           2   123        28      56     492     0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10          3    97        24      10     749     2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                          geometry</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1  LINESTRING (-1.534957 53.82...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2  LINESTRING (-1.581773 53.81...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3  LINESTRING (-1.545094 53.80...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4  LINESTRING (-1.582412 53.80...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5  LINESTRING (-1.561249 53.80...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6  LINESTRING (-1.518911 53.79...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7  LINESTRING (-1.561448 53.78...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8  LINESTRING (-1.586323 53.83...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9  LINESTRING (-1.564659 53.81...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10 LINESTRING (-1.51742 53.774...</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

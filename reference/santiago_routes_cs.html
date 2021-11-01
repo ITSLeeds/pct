@@ -158,38 +158,85 @@ International application of the PCT methods
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>santiago_routes_cs</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  [1] "plan"        "start"       "finish"      "length"      "time"       
-#&gt;  [6] "waypoint"    "cum_hill"    "change_elev" "dif_max_min" "up_tot"     
-#&gt; [11] "down_tot"    "av_incline"  "co2_saving"  "calories"    "busyness"   
-#&gt; [16] "error"       "id"          "geometry"   </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>santiago_routes_cs</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='output co'>#&gt; Simple feature collection with 6 features and 17 fields
-#&gt; Geometry type: LINESTRING
-#&gt; Dimension:     XY
-#&gt; Bounding box:  xmin: -70.66615 ymin: -33.46904 xmax: -70.64454 ymax: -33.43019
-#&gt; Geodetic CRS:  WGS 84
-#&gt;   plan start finish length time waypoint cum_hill change_elev dif_max_min
-#&gt; 1    1     1      1   4920 1347       68       88         -34          45
-#&gt; 2    1     1      1   1130  526       22       41           7          13
-#&gt; 3    1     1      1   1508  574       28       52          -8          15
-#&gt; 4    1     1      1    904  268       12        8           4           5
-#&gt; 5    1     1      1   1455  343       19       12          -4           7
-#&gt; 6    1     1      1   3220 1082       64       83         -15          31
-#&gt;   up_tot down_tot  av_incline co2_saving calories busyness error id
-#&gt; 1     27       61 0.017886179        917       66    10118  &lt;NA&gt;  1
-#&gt; 2     24       17 0.036283186        211       30     4042  &lt;NA&gt;  2
-#&gt; 3     22       30 0.034482759        281       35     4341  &lt;NA&gt;  3
-#&gt; 4      6        2 0.008849558        169       16     1510  &lt;NA&gt;  4
-#&gt; 5      4        8 0.008247423        271       16     2161  &lt;NA&gt;  5
-#&gt; 6     34       49 0.025776398        600       56    14130  &lt;NA&gt;  6
-#&gt;                         geometry
-#&gt; 1 LINESTRING (-70.65033 -33.4...
-#&gt; 2 LINESTRING (-70.64946 -33.4...
-#&gt; 3 LINESTRING (-70.64535 -33.4...
-#&gt; 4 LINESTRING (-70.64582 -33.4...
-#&gt; 5 LINESTRING (-70.64665 -33.4...
-#&gt; 6 LINESTRING (-70.64813 -33.4...</div><div class='input'><span class='fu'><a href='https://r-spatial.github.io/sf/reference/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>santiago_routes_cs</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='output co'>#&gt; <span class='warning'>Warning: plotting the first 9 out of 17 attributes; use max.plot = 17 to plot all</span></div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='img'><img src='santiago_routes_cs-1.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>santiago_routes_cs</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1] "plan"        "start"       "finish"      "length"      "time"       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [6] "waypoint"    "cum_hill"    "change_elev" "dif_max_min" "up_tot"     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [11] "down_tot"    "av_incline"  "co2_saving"  "calories"    "busyness"   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [16] "error"       "id"          "geometry"   </span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>santiago_routes_cs</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Simple feature collection with 6 features and 17 fields</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Geometry type: LINESTRING</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Dimension:     XY</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Bounding box:  xmin: -70.66615 ymin: -33.46904 xmax: -70.64454 ymax: -33.43019</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Geodetic CRS:  WGS 84</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   plan start finish length time waypoint cum_hill change_elev dif_max_min</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1    1     1      1   4920 1347       68       88         -34          45</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2    1     1      1   1130  526       22       41           7          13</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3    1     1      1   1508  574       28       52          -8          15</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4    1     1      1    904  268       12        8           4           5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5    1     1      1   1455  343       19       12          -4           7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6    1     1      1   3220 1082       64       83         -15          31</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   up_tot down_tot  av_incline co2_saving calories busyness error id</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1     27       61 0.017886179        917       66    10118  &lt;NA&gt;  1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2     24       17 0.036283186        211       30     4042  &lt;NA&gt;  2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3     22       30 0.034482759        281       35     4341  &lt;NA&gt;  3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4      6        2 0.008849558        169       16     1510  &lt;NA&gt;  4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5      4        8 0.008247423        271       16     2161  &lt;NA&gt;  5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6     34       49 0.025776398        600       56    14130  &lt;NA&gt;  6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                         geometry</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 LINESTRING (-70.65033 -33.4...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 LINESTRING (-70.64946 -33.4...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3 LINESTRING (-70.64535 -33.4...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4 LINESTRING (-70.64582 -33.4...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5 LINESTRING (-70.64665 -33.4...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6 LINESTRING (-70.64813 -33.4...</span>
+<span class='r-in'><span class='fu'><a href='https://r-spatial.github.io/sf/reference/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>santiago_routes_cs</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>plotting the first 9 out of 17 attributes; use max.plot = 17 to plot all</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-plt img'><img src='santiago_routes_cs-1.png' alt='' width='700' height='433' /></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

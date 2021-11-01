@@ -162,7 +162,7 @@ can get the top <code>n</code>.</p>
     <tr>
       <th>region</th>
       <td><p>The PCT region or local authority to download data from (e.g. <code>west-yorkshire</code> or <code>Leeds</code>).
-See <code><a href='https://rdrr.io/r/utils/View.html'>View(pct_regions_lookup)</a></code> for a full list of possible region names.</p></td>
+See <code>View(pct_regions_lookup)</code> for a full list of possible region names.</p></td>
     </tr>
     <tr>
       <th>n</th>
@@ -178,28 +178,43 @@ within the <code>region</code>.</p></td>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
-<span class='va'>desire_lines</span> <span class='op'>=</span> <span class='fu'>get_desire_lines</span><span class='op'>(</span><span class='st'>"wight"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'><span style='font-weight: bold;'>Rows: </span><span style='color: #0000BB;'>2402201</span> <span style='font-weight: bold;'>Columns: </span><span style='color: #0000BB;'>14</span></span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span></span>
-#&gt; <span class='message'><span style='font-weight: bold;'>Delimiter:</span> ","</span>
-#&gt; <span class='message'><span style='color: #BB0000;'>chr</span>  (2): Area of residence, Area of workplace</span>
-#&gt; <span class='message'><span style='color: #00BB00;'>dbl</span> (12): All categories: Method of travel to work, Work mainly at or from h...</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Use <span style='color: #262626; background-color: #DADADA;'>`spec()`</span> to retrieve the full column specification for this data.</span>
-#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Specify the column types or set <span style='color: #262626; background-color: #DADADA;'>`show_col_types = FALSE`</span> to quiet this message.</span></div><div class='output co'>#&gt; <span class='message'><span style='font-weight: bold;'>Rows: </span><span style='color: #0000BB;'>7201</span> <span style='font-weight: bold;'>Columns: </span><span style='color: #0000BB;'>6</span></span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span></span>
-#&gt; <span class='message'><span style='font-weight: bold;'>Delimiter:</span> ","</span>
-#&gt; <span class='message'><span style='color: #BB0000;'>chr</span> (2): MSOA11CD, MSOA11NM</span>
-#&gt; <span class='message'><span style='color: #00BB00;'>dbl</span> (4): BNGEAST, BNGNORTH, LONGITUDE, LATITUDE</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Use <span style='color: #262626; background-color: #DADADA;'>`spec()`</span> to retrieve the full column specification for this data.</span>
-#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Specify the column types or set <span style='color: #262626; background-color: #DADADA;'>`show_col_types = FALSE`</span> to quiet this message.</span></div><div class='output co'>#&gt; <span class='message'>Downloading population weighted centroids</span></div><div class='output co'>#&gt; <span class='message'><span style='font-weight: bold;'>Rows: </span><span style='color: #0000BB;'>7201</span> <span style='font-weight: bold;'>Columns: </span><span style='color: #0000BB;'>6</span></span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span></span>
-#&gt; <span class='message'><span style='font-weight: bold;'>Delimiter:</span> ","</span>
-#&gt; <span class='message'><span style='color: #BB0000;'>chr</span> (2): MSOA11CD, MSOA11NM</span>
-#&gt; <span class='message'><span style='color: #00BB00;'>dbl</span> (4): BNGEAST, BNGNORTH, LONGITUDE, LATITUDE</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Use <span style='color: #262626; background-color: #DADADA;'>`spec()`</span> to retrieve the full column specification for this data.</span>
-#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Specify the column types or set <span style='color: #262626; background-color: #DADADA;'>`show_col_types = FALSE`</span> to quiet this message.</span></div><div class='output co'>#&gt; <span class='message'>Not all flows origins have ID in centroids, removing 2527 OD pairs.</span></div><div class='input'><span class='fu'><a href='https://r-spatial.github.io/sf/reference/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>desire_lines</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: plotting the first 10 out of 18 attributes; use max.plot = 18 to plot all</span></div><div class='img'><img src='get_desire_lines-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>intra_zonal</span> <span class='op'>=</span> <span class='va'>desire_lines</span><span class='op'>$</span><span class='va'>geo_code1</span> <span class='op'>==</span> <span class='va'>desire_lines</span><span class='op'>$</span><span class='va'>geo_code2</span>
-<span class='fu'><a href='https://r-spatial.github.io/sf/reference/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>desire_lines</span><span class='op'>[</span><span class='va'>intra_zonal</span>, <span class='op'>]</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: plotting the first 10 out of 18 attributes; use max.plot = 18 to plot all</span></div><div class='img'><img src='get_desire_lines-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'># \donttest{</span></span>
+<span class='r-in'><span class='va'>desire_lines</span> <span class='op'>=</span> <span class='fu'>get_desire_lines</span><span class='op'>(</span><span class='st'>"wight"</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='font-weight: bold;'>Rows: </span><span style='color: #0000BB;'>2402201</span> <span style='font-weight: bold;'>Columns: </span><span style='color: #0000BB;'>14</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='font-weight: bold;'>Delimiter:</span> ","</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #BB0000;'>chr</span>  (2): Area of residence, Area of workplace</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BB00;'>dbl</span> (12): All categories: Method of travel to work, Work mainly at or from h...</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>ℹ</span> Use <span style='color: #262626; background-color: #DADADA;'>`spec()`</span> to retrieve the full column specification for this data.</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>ℹ</span> Specify the column types or set <span style='color: #262626; background-color: #DADADA;'>`show_col_types = FALSE`</span> to quiet this message.</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='font-weight: bold;'>Rows: </span><span style='color: #0000BB;'>7201</span> <span style='font-weight: bold;'>Columns: </span><span style='color: #0000BB;'>6</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='font-weight: bold;'>Delimiter:</span> ","</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #BB0000;'>chr</span> (2): MSOA11CD, MSOA11NM</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BB00;'>dbl</span> (4): BNGEAST, BNGNORTH, LONGITUDE, LATITUDE</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>ℹ</span> Use <span style='color: #262626; background-color: #DADADA;'>`spec()`</span> to retrieve the full column specification for this data.</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>ℹ</span> Specify the column types or set <span style='color: #262626; background-color: #DADADA;'>`show_col_types = FALSE`</span> to quiet this message.</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Downloading population weighted centroids</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='font-weight: bold;'>Rows: </span><span style='color: #0000BB;'>7201</span> <span style='font-weight: bold;'>Columns: </span><span style='color: #0000BB;'>6</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>Column specification</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='font-weight: bold;'>Delimiter:</span> ","</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #BB0000;'>chr</span> (2): MSOA11CD, MSOA11NM</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BB00;'>dbl</span> (4): BNGEAST, BNGNORTH, LONGITUDE, LATITUDE</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>ℹ</span> Use <span style='color: #262626; background-color: #DADADA;'>`spec()`</span> to retrieve the full column specification for this data.</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>ℹ</span> Specify the column types or set <span style='color: #262626; background-color: #DADADA;'>`show_col_types = FALSE`</span> to quiet this message.</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Not all flows origins have ID in centroids, removing 2527 OD pairs.</span>
+<span class='r-in'><span class='fu'><a href='https://r-spatial.github.io/sf/reference/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>desire_lines</span><span class='op'>)</span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>plotting the first 10 out of 18 attributes; use max.plot = 18 to plot all</span>
+<span class='r-plt img'><img src='get_desire_lines-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='va'>intra_zonal</span> <span class='op'>=</span> <span class='va'>desire_lines</span><span class='op'>$</span><span class='va'>geo_code1</span> <span class='op'>==</span> <span class='va'>desire_lines</span><span class='op'>$</span><span class='va'>geo_code2</span></span>
+<span class='r-in'><span class='fu'><a href='https://r-spatial.github.io/sf/reference/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>desire_lines</span><span class='op'>[</span><span class='va'>intra_zonal</span>, <span class='op'>]</span><span class='op'>)</span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>plotting the first 10 out of 18 attributes; use max.plot = 18 to plot all</span>
+<span class='r-plt img'><img src='get_desire_lines-2.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='co'># }</span></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

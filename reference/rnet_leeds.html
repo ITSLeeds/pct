@@ -154,32 +154,37 @@
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># see data-raw folder for generation code</span>
-<span class='va'>rnet_leeds</span>
-</div><div class='output co'>#&gt; Simple feature collection with 17 features and 2 fields
-#&gt; Geometry type: LINESTRING
-#&gt; Dimension:     XY
-#&gt; Bounding box:  xmin: -1.58925 ymin: 53.77429 xmax: -1.51484 ymax: 53.83321</div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='output co'>#&gt; Geodetic CRS:  WGS 84</div><div class='output co'>#&gt; <span class='message'>old-style crs object detected; please recreate object with a recent sf::st_crs()</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 17 × 3</span>
-#&gt; <span style='color: #949494;'># Groups:   bicycle [16]</span>
-#&gt;    bicycle scenario_1                                                   geometry
-#&gt;      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>                                           <span style='color: #949494; font-style: italic;'>&lt;LINESTRING [°]&gt;</span>
-#&gt; <span style='color: #BCBCBC;'> 1</span>      10       57.0 (-1.54254 53.79602, -1.54238 53.79602, -1.54235 53.79602,…
-#&gt; <span style='color: #BCBCBC;'> 2</span>      10      101.  (-1.54254 53.79602, -1.54254 53.79592, -1.54254 53.79571,…
-#&gt; <span style='color: #BCBCBC;'> 3</span>      13       28.5 (-1.54874 53.80689, -1.54871 53.80699, -1.54862 53.80715,…
-#&gt; <span style='color: #BCBCBC;'> 4</span>      19       19.8 (-1.56106 53.80471, -1.56107 53.80455, -1.56107 53.80441,…
-#&gt; <span style='color: #BCBCBC;'> 5</span>      20      158.  (-1.54576 53.79585, -1.54557 53.79581, -1.54507 53.79577,…
-#&gt; <span style='color: #BCBCBC;'> 6</span>      27       37.2 (-1.56132 53.785, -1.56132 53.78529, -1.56098 53.78526, -…
-#&gt; <span style='color: #BCBCBC;'> 7</span>      43      115.  (-1.54594 53.80275, -1.5457 53.80282, -1.54546 53.80289, …
-#&gt; <span style='color: #BCBCBC;'> 8</span>      52       80.3 (-1.5824 53.8082, -1.58267 53.80826, -1.58265 53.80828, -…
-#&gt; <span style='color: #BCBCBC;'> 9</span>      56       81.0 (-1.56531 53.81599, -1.56511 53.81651, -1.56485 53.8172, …
-#&gt; <span style='color: #BCBCBC;'>10</span>      71      100.  (-1.54732 53.79661, -1.54729 53.79639, -1.54719 53.79631,…
-#&gt; <span style='color: #BCBCBC;'>11</span>      73      112.  (-1.58131 53.81896, -1.58014 53.81843, -1.5787 53.81778, …
-#&gt; <span style='color: #BCBCBC;'>12</span>      99      172.  (-1.58715 53.8331, -1.58733 53.83294, -1.58738 53.83292, …
-#&gt; <span style='color: #BCBCBC;'>13</span>     172      284.  (-1.57407 53.81815, -1.57399 53.81808, -1.57385 53.81799,…
-#&gt; <span style='color: #BCBCBC;'>14</span>     228      365.  (-1.56531 53.81599, -1.56471 53.81582, -1.56413 53.81564,…
-#&gt; <span style='color: #BCBCBC;'>15</span>     241      394.  (-1.54874 53.80689, -1.54852 53.80677, -1.5481 53.80651, …
-#&gt; <span style='color: #BCBCBC;'>16</span>     284      509.  (-1.54624 53.79597, -1.54624 53.79614, -1.54626 53.79632,…
-#&gt; <span style='color: #BCBCBC;'>17</span>     382      646.   (-1.54624 53.79597, -1.54603 53.79591, -1.54576 53.79585)</div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'># see data-raw folder for generation code</span></span>
+<span class='r-in'><span class='va'>rnet_leeds</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Simple feature collection with 17 features and 2 fields</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Geometry type: LINESTRING</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Dimension:     XY</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Bounding box:  xmin: -1.58925 ymin: 53.77429 xmax: -1.51484 ymax: 53.83321</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Geodetic CRS:  WGS 84</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 17 × 3</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># Groups:   bicycle [16]</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    bicycle scenario_1                                                   geometry</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>                                           <span style='color: #949494; font-style: italic;'>&lt;LINESTRING [°]&gt;</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 1</span>      10       57.0 (-1.54254 53.79602, -1.54238 53.79602, -1.54235 53.79602,…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 2</span>      10      101.  (-1.54254 53.79602, -1.54254 53.79592, -1.54254 53.79571,…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 3</span>      13       28.5 (-1.54874 53.80689, -1.54871 53.80699, -1.54862 53.80715,…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 4</span>      19       19.8 (-1.56106 53.80471, -1.56107 53.80455, -1.56107 53.80441,…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 5</span>      20      158.  (-1.54576 53.79585, -1.54557 53.79581, -1.54507 53.79577,…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 6</span>      27       37.2 (-1.56132 53.785, -1.56132 53.78529, -1.56098 53.78526, -…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 7</span>      43      115.  (-1.54594 53.80275, -1.5457 53.80282, -1.54546 53.80289, …</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 8</span>      52       80.3 (-1.5824 53.8082, -1.58267 53.80826, -1.58265 53.80828, -…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 9</span>      56       81.0 (-1.56531 53.81599, -1.56511 53.81651, -1.56485 53.8172, …</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>10</span>      71      100.  (-1.54732 53.79661, -1.54729 53.79639, -1.54719 53.79631,…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>11</span>      73      112.  (-1.58131 53.81896, -1.58014 53.81843, -1.5787 53.81778, …</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>12</span>      99      172.  (-1.58715 53.8331, -1.58733 53.83294, -1.58738 53.83292, …</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>13</span>     172      284.  (-1.57407 53.81815, -1.57399 53.81808, -1.57385 53.81799,…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>14</span>     228      365.  (-1.56531 53.81599, -1.56471 53.81582, -1.56413 53.81564,…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>15</span>     241      394.  (-1.54874 53.80689, -1.54852 53.80677, -1.5481 53.80651, …</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>16</span>     284      509.  (-1.54624 53.79597, -1.54624 53.79614, -1.54626 53.79632,…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>17</span>     382      646.   (-1.54624 53.79597, -1.54603 53.79591, -1.54576 53.79585)</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
