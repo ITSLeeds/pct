@@ -66,12 +66,19 @@ The guide covers:
 <!-- # Prerequisites -->
 
 <!-- This is an advanced training course with specific pre-requisites. -->
+
 <!-- Please only register if you: -->
+
 <!-- - Have experience analysing geographic area and route data of the type used in the PCT -->
+
 <!-- - Have experience using software for geographic data, including working knowledge of the statistical programming language R -->
+
 <!-- - Can bring a laptop that has up-to-date versions of R, RStudio and the necessary R packages installed (see next section) -->
+
 <!-- In addition, if you want to do routing on your computer:  -->
+
 <!-- - Register for a CycleStreets.net API key from: https://www.cyclestreets.net/api/ -->
+
 <!-- If you are new to R this course may not be appropriate for you. -->
 
 If you are new to R, you should install R and RStudio before the course.
@@ -185,7 +192,15 @@ If you have any questions before the workshop, feel free to ask a question on th
 
 <!--   <!-- I will write an adapted version based on: https://github.com/ITSLeeds/pct/blob/master/data-raw/test-setup2.R -->
 
-<!--   - Questions, break and debugging the test code in breakout rooms  (14:40 - 15:00) --> <!--      - Room 1: technical questions and debugging code (Joey) --> <!--      - Room 2: methodological questions about the PCT (Robin) --> <!--      - Room 3: applying the PCT in new contexts (Rosa) --> <!--      - Room 4: networking  -->
+<!--   - Questions, break and debugging the test code in breakout rooms  (14:40 - 15:00) -->
+
+<!--      - Room 1: technical questions and debugging code (Joey) -->
+
+<!--      - Room 2: methodological questions about the PCT (Robin) -->
+
+<!--      - Room 3: applying the PCT in new contexts (Rosa) -->
+
+<!--      - Room 4: networking  -->
 
 <!-- Part 2: Co-coding session: getting started with transport data in R: 'we do' -->
 
@@ -683,7 +698,7 @@ leaflet(data = car_dependent) %>%
 
 These links may be useful when working through the exercises:
 
--   The codebook describing each variable in the PCT route: [od_l_rf_codebook.csv](https://github.com/npct/pct-shiny/blob/master/regions_www/www/static/02_codebooks/commute/od_l_rf_codebook.csv)
+-   The codebook describing each variable in the PCT route: [od_l\_rf_codebook.csv](https://github.com/npct/pct-shiny/blob/master/regions_www/www/static/02_codebooks/commute/od_l_rf_codebook.csv)
 -   Folder containing all [codebooks, including variables in zone, line and centroid datasets](https://github.com/npct/pct-shiny/tree/master/regions_www/www/static/02_codebooks)
 -   The PCT tool itself, which can be used to cross-compare results from the analysis steps below: [www.pct.bike](https://www.pct.bike/)
 

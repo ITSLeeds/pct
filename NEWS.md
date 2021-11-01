@@ -1,6 +1,10 @@
-# pct 0.9.3
+# pct 0.9.3 (November 2021)
+
+- Updated URLs to comply with CRAN policies
 
 # pct 0.9.2
+
+- New vignette on getting and modelling PCT data
 
 # pct 0.9.1
 
