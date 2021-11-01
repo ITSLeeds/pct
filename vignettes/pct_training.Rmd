@@ -125,7 +125,7 @@ To test your computer is ready to work with PCT data in R, you can also try runn
 source("https://github.com/ITSLeeds/pct/raw/master/inst/test-setup.R") 
 ```
 
-If you have any questions before the workshop, feel free to ask a question on the package's issue tracker (requires a GitHub login): <https://github.com/itsleeds/slopes/issues>
+If you have any questions before the workshop, feel free to ask a question on the package's issue tracker (requires a GitHub login): <https://github.com/ropensci/slopes/issues>
 
 <!-- \newpage -->
 

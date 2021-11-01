@@ -137,7 +137,7 @@ Undertake these tasks in the exercises below:
 Find all the fast routes that intersect with a 10 m buffer surrounding Clifton Bridge (note: this is a time consuming task).[^4]
 
 Don't worry if you do not have time to complete each of the steps needed to find the result.
-You can see how it works by opening the project pctqgis3.qgz in the [pctqgis.zip](https://github.com/ITSLeeds/pct/releases/download/0.8.0/pctqgis.zip) file.
+You can see how it works by opening the project pctqgis3.qgz in the [pctqgis.zip](https://github.com/ITSLeeds/pct/releases/download/0.8.0/) file.
 The result should look something like the screenshot shown in Figure \@ref(fig:cliftonbuffer).
 
 ```{r cliftonbuffer, echo=FALSE, fig.cap="All fast routes that intersect with Clifton Bridge in QGIS."}
@@ -516,7 +516,7 @@ knitr::include_graphics("https://user-images.githubusercontent.com/1825120/13069
     If you are new to QGIS, it is worth taking a look at the User Guide at [docs.qgis.org](https://docs.qgis.org/3.16/en/docs/user_manual/) and, for a transport-oriented introduction, the [QGIS for Transport Research](https://itsleeds.github.io/QGIS-intro/) resource developed by the University of Leeds.
 
 [^2]:  A great thing about QGIS projects is that, like RStudio projects, they make organising and sharing your work easier.
-    You should be able to see exactly the same project state as that shown in the figure by downloading the zip file at <https://github.com/ITSLeeds/pct/releases/download/0.8.0/pctqgis.zip> and opening the pctqgis1.qgz file in QGIS.
+    You should be able to see exactly the same project state as that shown in the figure by downloading the zip file at <https://github.com/ITSLeeds/pct/releases/download/0.8.0/> and opening the pctqgis1.qgz file in QGIS.
 
 [^3]:  This is because QGIS, unlike R's spatial packages, shows geographic (longitude/latitude) coordinates as if they were projected, which makes maps seem squashed at high latitudes far from the equator.
 

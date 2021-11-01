@@ -43,7 +43,7 @@ By default it returns national data, but
 local authority or region.
 }
 \details{
-OD datasets available include \href{https://www.statistics.digitalresources.jisc.ac.uk/}{wu03uk_v3}
+OD datasets available include \href{https://statistics.ukdataservice.ac.uk/}{wu03uk_v3}
 and others listed on the Wicid website.
 }
 \examples{
