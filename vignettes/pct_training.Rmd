@@ -35,7 +35,8 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   out.width = "50%",
-  cache = TRUE
+  cache = TRUE,
+  eval = FALSE
 )
 ```
 
@@ -58,6 +59,8 @@ The guide covers:
 -   How to compare PCT data with cycle infrastructure data to identify gaps in the network
 -   How the code underlying the PCT works
 -   How to generate new scenarios of cycling uptake
+
+See the marked-up version of this vignette online at the URL [`https://github.com/ITSLeeds/pct/releases/download/0.8.1/Propensity.to.Cycle.Tool.Advanced.Workshop.html`](https://github.com/ITSLeeds/pct/releases/download/0.8.1/Propensity.to.Cycle.Tool.Advanced.Workshop.html).
 
 ## Preparation
 
@@ -703,3 +706,4 @@ These links may be useful when working through the exercises:
 -   The PCT tool itself, which can be used to cross-compare results from the analysis steps below: [www.pct.bike](https://www.pct.bike/)
 
 # References
+

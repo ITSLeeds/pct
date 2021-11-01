@@ -1,6 +1,7 @@
 # pct 0.9.3 (November 2021)
 
 - Updated URLs to comply with CRAN policies
+- Make package tests quicker
 
 # pct 0.9.2
 
