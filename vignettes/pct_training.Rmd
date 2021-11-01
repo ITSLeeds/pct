@@ -90,7 +90,7 @@ For instructions on that, see the download links at [cran.r-project.org](https:/
 R is a powerful statistical programming language for data science and a wide range of other applications and, like any language, takes time to learn.
 To get started we recommend the following free resources:
 
--   Beginner: A free online course such as [DataCamp](https://www.datacamp.com/courses/free-introduction-to-r) or those listed at [education.rstudio.com](https://education.rstudio.com/learn/beginner/)
+-   Beginner: A free online course such as those provided by DataCamp or those listed at [education.rstudio.com](https://education.rstudio.com/learn/beginner/)
 -   Recommended for people with knowledge of transport and road safety data: getting started with R in the context of road safety data, a tutorial hosted at <https://itsleeds.github.io/rrsrr/>
 -   For people interested in geographic data, which is at the heart of the PCT: [Chapter 2 of the open source book *Geocomputation with R*](https://geocompr.robinlovelace.net/spatial-class.html).
 
@@ -706,4 +706,3 @@ These links may be useful when working through the exercises:
 -   The PCT tool itself, which can be used to cross-compare results from the analysis steps below: [www.pct.bike](https://www.pct.bike/)
 
 # References
-
