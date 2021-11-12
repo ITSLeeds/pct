@@ -22,7 +22,7 @@ editor_options:
 
 ```{r, include=FALSE}
 # knitr::opts_chunk$set(cache = TRUE, class.source = "fold-show")
-knitr::opts_chunk$set(cache = TRUE, eval = FALSE)
+knitr::opts_chunk$set(cache = TRUE, eval = TRUE)
 ```
 
 The PCT is not only a web tool, it is a research and open data project that has resulted in many megabytes of valuable data [@lovelace_propensity_2017].
@@ -69,9 +69,9 @@ In this session, which assumes you have experience using QGIS or R, you will lea
 
 ## Getting PCT data from the PCT website
 
-In this example we will use data from North Yorkshire, an area with urban areas surrounding York and many rural areas.
+In this example we will use data from North Yorkshire, a mixed region containing urban areas such as York and many rural areas.
 You can use the PCT, which works at the regional level, for North Yorkshire or any other region by clicking on the area you're interested in on the main map at <https://www.pct.bike>.
-If you know the URL of the region you're interested in, you can navigate straight there, in this case by typing in on clicking on the link <https://www.pct.bike/m/?r=north-yorkshire>.
+If you know the URL of the region you're interested in, you can navigate straight there, in this case by typing in or clicking on the link <https://www.pct.bike/m/?r=north-yorkshire>.
 
 From there you will see a map showing the region.
 Before you download and use PCT data, it is worth exploring it on the PCT web app.
@@ -84,7 +84,7 @@ Before you download and use PCT data, it is worth exploring it on the PCT web ap
 ### Using 'Freeze Lines'
 
 You can use the little-known 'Freeze Lines' functionality in the PCT's web app to identify the zone origin and destinations of trips that would use improvements in a particular place.
-You can do this by selecting the Fast Routes option from the Cycling Flows menu, zooming into the area of interest Bridge, and then clicking on the Freeze Lines checkbox to prevent the selected routes from moving when you zoom back out.
+You can do this by selecting the Fast Routes option from the Cycling Flows menu, zooming into the area of interest, and then clicking on the Freeze Lines checkbox to prevent the selected routes from moving when you zoom back out.
 
 -   Use this technique to find the areas that would benefit from improved cycling provision on Clifton bridge, 1 km northwest from central York over the River Ouse (see result in Figure \@ref(fig:clifton))
 
@@ -340,12 +340,12 @@ round(sum(routes_towns$foot + routes_towns$bicycle) / sum(routes_towns$all) * 10
 ```
 
 Currently, only around 34% of commute trips in the region's 'town' areas are made by walking and cycling (27% across all zones in North Yorkshire, and a much lower proportion in terms of distance).
-We explore this in more detail by looking at the relationship between trip distance and mode share, in Figure \@ref(fig:distmode) (left).
+We explore this in more detail by looking at the relationship between trip distance and mode share, as shown in Figure \@ref(fig:distmode) (a).
 We will create a scenario representing the outcome of policies that incentivise people to replace car trips with walking and cycling, focussing on the red boxes in Figure \@ref(fig:distmode).
 The scenario will replace 50% of car trips of less than 1 km with walking and 10% of trips between 1 km and 2 km in distance.
-The remaining car trips will be replaced by cycling, with the percentages of trips that switch for each OD determined by the uptake function in the Go Dutch Scenario of the PCT, resulting in the right graphic shown in Figure \@ref(fig:distmode).
+The remaining car trips will be replaced by cycling, with the percentages of trips that switch for each OD determined by the uptake function in the Go Dutch Scenario of the PCT, resulting in the graphic shown in Figure \@ref(fig:distmode) (b).
 
-```{r distmode, echo=FALSE, fig.cap="Relationship between distance (x axis) and mode share (y axis) in towns and cities in North Yorkshire.", out.width="49%", fig.show='hold', message=FALSE}
+```{r distmode, echo=FALSE, fig.cap="Relationship between distance (x axis) and mode share (y axis) in towns and cities in North Yorkshire. (a) left: existing mode shares; (b) right: mode shares under high active travel uptake scenario.", out.width="49%", fig.show='hold', message=FALSE}
 col_modes = c("#457b9d", "#90be6d", "#ffd166", "grey", "#fe5f55")
 col_modes = rev(col_modes)
 old_theme = theme_set(theme_bw())
