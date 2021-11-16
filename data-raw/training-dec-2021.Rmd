@@ -198,7 +198,7 @@ tmap_options(check.and.fix = TRUE) # tmap setting
 The `pct` package has been developed specifically for use with PCT data. 
 To learn more about this package, see https://itsleeds.github.io/pct/.
 
--   We are now ready to use R to download PCT data. The following commands set the name of the region we are interested in (to avoid re-typing it many times) and download data for this region, in the four main forms used in the PCT:
+-   We are now ready to use R to download PCT data. The following commands set the name of the region we are interested in (to avoid re-typing it many times) and download commute data for this region, in the four main forms used in the PCT:
 
 ```{r}
 region_name = "north-yorkshire"
@@ -319,12 +319,13 @@ We use data from the House of Commons Research [Briefing](https://commonslibrary
 The code chunk below shows the benefits of R in terms of being able to get and join data onto the route data we have been using:
 
 ```{r cities, out.width="45%", fig.show='hold', fig.cap="Classification of areas in Great Britain (left) and North Yorkshire (right).", message=FALSE, warning=FALSE}
+# Get data on the urban_rural status of LSOA zones
 urban_rural = readr::read_csv("https://researchbriefings.files.parliament.uk/documents/CBP-8322/oa-classification-csv.csv")
 ggplot(urban_rural) +
   geom_bar(aes(citytownclassification)) +
   coord_flip()
 
-# summary(routes_all$geo_code1 %in% urban_rural$lsoa_code)
+# Join this with the PCT commute data that we previously downloaded
 urban_rural = rename(urban_rural, geo_code = lsoa_code)
 zones_all_joined = left_join(zones_all, urban_rural)
 routes_all_joined = left_join(routes_all, urban_rural, by = c("geo_code1" = "geo_code"))
@@ -336,27 +337,35 @@ After the classification dataset has been joined, the proportion of trips made b
 
 ```{r}
 routes_towns = routes_all_joined %>% 
-  filter(grepl(pattern = "Town|City", x = citytownclassification))
+  filter(grepl(pattern = "Town|City", x = citytownclassification)) # Select only the zones for which the field `citytownclassification` contains the word "Town" or "City"
 round(sum(routes_towns$foot + routes_towns$bicycle) / sum(routes_towns$all) * 100)
 ```
 
 Currently, only around 34% of commute trips in the region's 'town' areas are made by walking and cycling (27% across all zones in North Yorkshire, and a much lower proportion in terms of distance).
-We explore this in more detail by looking at the relationship between trip distance and mode share, as shown in Figure \@ref(fig:distmode) (a).
-We will create a scenario representing the outcome of policies that incentivise people to replace car trips with walking and cycling, focussing on the red boxes in Figure \@ref(fig:distmode).
-The scenario will replace 50% of car trips of less than 1 km with walking and 10% of trips between 1 km and 2 km in distance.
-The remaining car trips will be replaced by cycling, with the percentages of trips that switch for each OD determined by the uptake function in the Go Dutch Scenario of the PCT, resulting in the graphic shown in Figure \@ref(fig:distmode) (b).
+We explore this in more detail by looking at the relationship between trip distance and mode share for existing commuter journeys, as shown in Figure \@ref(fig:distmode) (a).
 
-```{r distmode, echo=FALSE, fig.cap="Relationship between distance (x axis) and mode share (y axis) in towns and cities in North Yorkshire. (a) left: existing mode shares; (b) right: mode shares under high active travel uptake scenario.", out.width="49%", fig.show='hold', message=FALSE}
-col_modes = c("#457b9d", "#90be6d", "#ffd166", "grey", "#fe5f55")
-col_modes = rev(col_modes)
-old_theme = theme_set(theme_bw())
+We will create a scenario representing the outcome of policies that incentivise people to replace car trips with walking and cycling. 
+This focuses on the red boxes in Figure \@ref(fig:distmode).
+In this scenario, we replace 50% of car trips of less than 1 km with walking, and replace 10% of car trips of 1-2 km length with walking.
+Many of the remaining car trips will be replaced by cycling, with the percentages of trips that switch for each OD determined by the uptake function in the Go Dutch Scenario of the PCT.
+The results of this scenario are shown in Figure \@ref(fig:distmode) (b).
+
+```{r distmode, fig.cap="Relationship between distance (x axis) and mode share (y axis) in towns and cities in North Yorkshire. (a) left: existing mode shares; (b) right: mode shares under high active travel uptake scenario.", out.width="49%", fig.show='hold', message=FALSE}
+# Reduce the number of transport mode categories 
 routes_towns_recode = routes_towns %>% 
   mutate(public_transport = train_tube + bus,
          car = car_driver + car_passenger,
          other = taxi_other + motorbike 
          ) %>% 
   dplyr::select(-car_driver, -car_passenger, -train_tube, -bus) 
+
+# Set distance bands to use in the bar charts
 routes_towns_recode$dist_bands = cut(x = routes_towns_recode$rf_dist_km, breaks = c(0, 1, 3, 6, 10, 15, 20, 30, 1000), include.lowest = TRUE)
+
+# Set the colours to use in the bar charts
+col_modes = c("#fe5f55", "grey", "#ffd166", "#90be6d", "#457b9d") 
+
+# Plot bar chart showing modal share by distance band for existing journeys 
 base_results = routes_towns_recode %>%
   sf::st_drop_geometry() %>% 
   dplyr::select(dist_bands, car, other, public_transport, bicycle, foot) %>% 
@@ -368,10 +377,16 @@ g1 = ggplot(base_results) +
   geom_col(aes(dist_bands, Trips, fill = mode)) +
   scale_fill_manual(values = col_modes) + ylab("Trips")
 g1
+
+# Create the new scenario (first replace some car journeys with journeys by foot, then replace some of the remaining car journeys with journeys by bicycle)
 routes_towns_recode_go_active = routes_towns_recode %>% 
   mutate(
-    foot_increase_proportion = case_when(rf_dist_km < 1 ~ 0.5, rf_dist_km >= 1 & rf_dist_km < 2 ~ 0.1, TRUE ~ 0),
-    bicycle_increase_proportion = uptake_pct_godutch_2020(distance = rf_dist_km, gradient = rf_avslope_perc),
+    foot_increase_proportion = case_when(
+      rf_dist_km < 1 ~ 0.5, # specifies that 50% of car journeys <1km in length will be replaced with walking
+      rf_dist_km >= 1 & rf_dist_km < 2 ~ 0.1, # specifies that 10% of car journeys 1-2km in length will be replaced with walking
+      TRUE ~ 0
+      ),
+    bicycle_increase_proportion = uptake_pct_godutch_2020(distance = rf_dist_km, gradient = rf_avslope_perc), # Specify the Go Dutch scenario that we will use to replace remaining car trips with cycle trips
     car_reduction = car * foot_increase_proportion,
     car = car - car_reduction,
     foot = foot + car_reduction,
@@ -379,6 +394,8 @@ routes_towns_recode_go_active = routes_towns_recode %>%
     car = car - car_reduction,
     bicycle = bicycle + car_reduction
     )
+
+# Plot bar chart showing how modal share has changed in our new scenario
 active_results = routes_towns_recode_go_active %>%
   sf::st_drop_geometry() %>% 
   dplyr::select(dist_bands, car, other, public_transport, bicycle, foot) %>% 
@@ -392,6 +409,8 @@ g2 = ggplot(active_results) +
 g2
 
 ```
+
+**Exercise: Instead of a scenario in which all types of car journey (i.e. both car drivers and car passengers) are replaced by walking or cycling, can you create a scenario in which solely journeys by car drivers are replaced by walking or cycling?** 
 
 ```{r, echo=FALSE, eval=FALSE}
 # % active under go active scenario
@@ -429,7 +448,7 @@ plot(rnet_all["dutch_slc"])
 
 # Joining commute and school data {#joining}
 
-PCT is not limited to commuter data only, PCT also provides a range of school data for each region in England and Wales to be downloaded with relative ease.
+The PCT is not limited to commuter data only, it also provides a range of school data for each region in England and Wales to be downloaded with relative ease.
 In the example below, we add a `purpose` to the `get_pct_rnet()` function of `school`.
 This allows us to get estimates of cycling potential on the road network for school trips, commuter trips, and school and commuter trips combined.
 Note in the figure below that the combined route network provides a more comprehensive (yet still incomplete) overview of cycling potential in the study region.
@@ -446,7 +465,7 @@ rnet_school_commute$geometry_txt = sf::st_as_text(rnet_school_commute$geometry)
 
 rnet_combined = rnet_school_commute %>% 
   group_by(geometry_txt) %>% # group by geometry
-  summarise(across(bicycle:dutch_slc, sum, na.rm = TRUE)) # and summaries route network which is not a duplicate
+  summarise(across(bicycle:dutch_slc, sum, na.rm = TRUE)) # and summarise route network which is not a duplicate
 ```
 
 ```{r, eval=FALSE, echo=FALSE}
@@ -463,13 +482,13 @@ tmap_arrange(nrow = 1,
 knitr::include_graphics("https://user-images.githubusercontent.com/1825120/130692688-65a958a9-8586-4196-982d-872d236becdb.png")
 ```
 
-<!-- # Useful links -->
+# Useful links
 
-<!-- These links may be useful when working through the exercises: -->
+These links may be useful when working through the exercises:
 
-<!-- -   The codebook describing each variable in the PCT route: [od_l\_rf_codebook.csv](https://github.com/npct/pct-shiny/blob/master/regions_www/www/static/02_codebooks/commute/od_l_rf_codebook.csv) -->
-<!-- -   Folder containing all [codebooks, including variables in zone, line and centroid datasets](https://github.com/npct/pct-shiny/tree/master/regions_www/www/static/02_codebooks) -->
-<!-- -   The PCT tool itself, which can be used to cross-compare results from the analysis steps below: [www.pct.bike](https://www.pct.bike/) -->
+-   The codebook describing each variable in the PCT route: [od_l\_rf_codebook.csv](https://github.com/npct/pct-shiny/blob/master/regions_www/www/static/02_codebooks/commute/od_l_rf_codebook.csv)
+-   Folder containing all [codebooks, including variables in zone, line and centroid datasets](https://github.com/npct/pct-shiny/tree/master/regions_www/www/static/02_codebooks)
+-   The PCT tool itself, which can be used to cross-compare results from the analysis steps below: [www.pct.bike](https://www.pct.bike/)
 
 # References
 
