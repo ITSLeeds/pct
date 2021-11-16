@@ -101,7 +101,9 @@ If you have any questions before the workshop, feel free to ask a question on th
 
 The guide covers:
 
--   How to download and get data from the PCT
+-   How to download data from the PCT using the web interface
+-   How to access PCT data on travel to work and travel to school, using R
+
 -   How to compare PCT data with cycle infrastructure data to identify gaps in the network
 -   How the code underlying the PCT works
 -   How to generate new scenarios of cycling uptake
@@ -136,11 +138,7 @@ In this session, which assumes you have experience using QGIS or R, you will lea
 
 <!-- Live demo of doing analysis (1.3 and 1.4) 10 minutes -->
 
-<!-- Working together: downloading and opening the zip to see QGIS project (1.4 and 1.5) -->
-
 <!-- Discussion of definition of cycle infrastructure (Joey 5 minutes, 1.5) -->
-
-<!-- Discussion of schools data and merging school and commute route networks (Nathanael 5 minutes) -->
 
 <!-- Any questions -->
 
@@ -169,7 +167,7 @@ You can do this by selecting the Fast Routes option from the Cycling Flows menu,
 knitr::include_graphics("https://user-images.githubusercontent.com/1825120/130370123-5b8885de-4aed-43b4-8a49-b2f875ffff1b.png")
 ```
 
-## Downloading data from the PCT in GeoJSON form
+### Downloading data from the PCT in GeoJSON form
 
 On the PCT web app Click on the Region data tab, shown in the top of Figure \@ref(fig:clifton), just beneath the 'north' in the URL.
 You should see a web page like that shown in Figure \@ref(fig:downloads), which highlights the Region data table alongside the Map, Region stats, National Data, Manual, and About page links.
@@ -179,91 +177,16 @@ knitr::include_graphics("https://user-images.githubusercontent.com/1825120/13037
 ```
 
 -   Download the Zones (LSOA) dataset in geojson format
--   Download the Route network layer (LSOA) in [geojson](https://npttile.vs.mythic-beasts.com/pct-outputs-regional-notR/commute/lsoa/north-yorkshire/rnet_full.geojson) format
--   Download the Fast routes (LSOA) in [geojson](https://npttile.vs.mythic-beasts.com/pct-outputs-regional-notR/commute/lsoa/north-yorkshire/rf.geojson) format (warning: this file is nearly 100 MB in size so may take some time to download)
 
-## Visualising PCT data in QGIS
-
-In this section we assume you have a recent version of QGIS installed and have some experience using this popular and powerful free and open source desktop GIS software.[^1]
-Open QGIS and create a new [project](https://docs.qgis.org/3.16/en/docs/user_manual/introduction/project_files.html) and name it pctdemo.
-
-Once in the project, open the three layers you downloaded in the previous section.
-You should see something resembling the screenshot shown in Figure \@ref(fig:pctqgis1).[^2]
-
-```{r pctqgis1, echo=FALSE, fig.cap="Three PCT layers visualised in QGIS."}
-knitr::include_graphics("https://user-images.githubusercontent.com/1825120/130372558-629b7fb5-452c-4a44-80bb-2d88a0492be9.png")
-```
-
-```{r, echo=FALSE, eval=FALSE}
-# zip and upload qgis folder to share
-zip(zipfile = "pctqgis.zip", files = "pctqgis")
-piggyback::pb_upload("pctqgis.zip")
-piggyback::pb_download_url("pctqgis.zip")
-# https://github.com/ITSLeeds/pct/releases/download/0.8.0/pctqgis.zip
-```
-
-After you have the data in QGIS as shown in Figure \@ref(fig:pctqgis1) a wide range of analysis options are opened up.
-We can only cover a few of these in here, due to space and time constraints, and it is worth being guided by local policy priorities rather than the technology to ensure useful (not just attractive or eye-catching) results.
-One major issue that is apparent in Figure \@ref(fig:pctqgis1) is that the zones seem squashed.[^3]
-We can deal with this by changing the coordinate reference system (CRS) of the map visualisation.
-It may also be worth reprojecting the data, to the official projected CRS in the UK: EPSG:27700.
-Undertake these tasks in the exercises below:
-
--   Change the CRS of the map to EPSG:27700 by clicking on the CRS button in the bottom right of the map, just to the right of the Render text in the figures above
--   Save each of the layers in this same CRS by right clicking on the layer, selecting Export, and setting the CRS there (take care to export the data into the same folder that the project is in)
-
-## Comparing PCT data with transport network data
-
-Find all the fast routes that intersect with a 10 m buffer surrounding Clifton Bridge (note: this is a time consuming task).[^4]
-
-Don't worry if you do not have time to complete each of the steps needed to find the result.
-You can see how it works by opening the project pctqgis3.qgz in the `pctqgis.zip` file from `https://github.com/ITSLeeds/pct/releases/download/0.8.0/pctqgis.zip`.
-The result should look something like the screenshot shown in Figure \@ref(fig:cliftonbuffer).
-
-```{r cliftonbuffer, echo=FALSE, fig.cap="All fast routes that intersect with Clifton Bridge in QGIS."}
-knitr::include_graphics("https://user-images.githubusercontent.com/1825120/130374644-549c6de7-97fb-4fff-8356-fa59aa7d481e.png")
-```
-
-What is the difference between the route data shown in QGIS in Figure \@ref(fig:cliftonbuffer) and the route data shown in the PCT web app in Figure \@ref(fig:clifton)?
-
-Bonus: How many km of cycling per day could improvement to Clifton Bridge benefit?
-
-Advanced: What interventions would you recommend on Clifton Bridge?
-Your answer can be based on the analysis presented above, StreetView (see the bridge at [goo.gl/maps/Zeq76RnZ9ENRWCsE6](https://goo.gl/maps/Zeq76RnZ9ENRWCsE6)) local knowledge and other factors.
-
-Feel free to post any answers/questions about this question in the open access 'Issue Tracker' where these materials were developed (requires a GitHub account): <https://github.com/ITSLeeds/pct/issues>
-
-## Identifying gaps in the network
-
-```{r, echo=FALSE, eval=FALSE}
-cycle_infra = osminfra::oi_get(place = "north yorkshire", infra_type = "cycle_infrastructure")
-cycle_infra_projected = sf::st_transform(cycle_infra, 27700)
-sf::write_sf(cycle_infra, "pctqgis/cycle_infra.gpkg")
-sf::write_sf(cycle_infra_projected, "pctqgis/cycle_infra_projected.gpkg")
-```
-
-This section assumes you have data on the regional cycle network.
-For the purposes of this worked example, we used a broad definition of 'cycle infrastructure' based on [research](http://k1z.blog.uni-heidelberg.de/2020/10/02/how-to-become-ohsome-part-8-complex-analysis-with-the-magical-filter-parameter/) undertaken at the University of Heidelberg.
-Using this definition, a cycle infrastructure layer was extracted from OSM using R.
-The data was exported from R into the `cycle_infra_projected.gpkg`, which is provided in the `pctqgis.zip` file mentioned in the previous sections.
-
-In this section we will load the cycle infrastructure layer, buffer it, and undertake a geographic operation to identify places where there are gaps in the network.
-<!-- Todo: identify existing cycle infrastructures that are important -->
-
--   Load the `cycle_infra_projected.gpkg` dataset
--   Buffer it to 100 m
--   Clip the route network layer to include only areas outside the buffer
-
-```{r buffer, echo=FALSE, fig.cap="Route network layer and buffer representing cycle infrastructure, to identify gaps in the network."}
-knitr::include_graphics("https://user-images.githubusercontent.com/1825120/130415597-e7bcb8a1-4792-48de-ba83-118c082584cb.png")
-```
+Data downloaded in this way could be imported into GIS software such as QGIS, for further analysis.
+However, the PCT was built in R, and in the rest of this training session we will focus on learning how to use R to access and analyse PCT data. 
 
 ## Getting PCT data with R
 
 We will get the same PCT datasets as in previous sections but using the R interface.
 If you have not already done so, you will need to install the R packages we will use for this section (and the next) by typing and executing the following command in the R console: `install.packages("pct", "sf", "dplyr", "tmap")`.
 
--   After you have the necessary packages installed, the first stage is to load packages we will use:
+-   After you have the necessary packages installed, the first stage is to load the packages we will use:
 
 ```{r, message=FALSE}
 library(pct)
@@ -273,7 +196,7 @@ library(tmap)        # installed alongside mapview
 tmap_options(check.and.fix = TRUE) # tmap setting
 ```
 
--   After setting the region name (to avoid re-typing it many times) run the following commands to download data at the four main levels used in the PCT:
+-   We are now ready to use R to download PCT data. The following commands set the name of the region we are interested in (to avoid re-typing it many times) and download data for this region, in the four main forms used in the PCT:
 
 ```{r}
 region_name = "north-yorkshire"
@@ -284,7 +207,7 @@ routes_all = get_pct_routes_fast(region_name)
 rnet_all = get_pct_rnet(region_name)
 ```
 
--   Check the downloads worked by plotting:
+-   Check the downloads worked by plotting them:
 
 ```{r plotall, out.width="70%"}
 plot(zones_all$geometry)
@@ -342,15 +265,6 @@ In it you will:
 <!-- Training an update models 5 minutes + questions -->
 
 <!-- Link to further resources (Nathanael) -->
-
-## Set-up
-
-To undertake the exercises in this section you need to have R and RStudio installed, as outlined [here](https://itsleeds.github.io/pct/articles/pct_training.html#preparation).
-Load the packages by running each of the lines of code in the code chunk beginning with `library(pct)` (which loads the `pct` R package, making its functions available) in the previous section \@ref(getting-pct-data-with-r).
-
-To complete the exercises in this workshop your also need to have imported PCT data into your R session, by running each line of code in the code chunk beginning `region_name = "north-yorkshire"` in the previous section.
-
-Finally, we will use these additional packages, which you must have installed on your computer for the code below to work:
 
 ## PCT scenarios
 
