@@ -166,8 +166,9 @@ knitr::include_graphics("https://user-images.githubusercontent.com/1825120/13037
 
 -   Download the Zones (LSOA) dataset in geojson format
 
-Data downloaded in this way could be imported into GIS software such as QGIS, for further analysis.
-However, the PCT was built in R, and in the rest of this training session we will focus on learning how to use R to access and analyse PCT data. 
+Data downloaded in this way can be imported into GIS software such as QGIS, for analysis and visualisation.
+However, the PCT was built in R so the best way to understand and modify the results is using R, or a similar language for data analysis.
+The subsequent sections demonstrate using R to access, analyse, visualise and model datasets provided by the `pct` package. 
 
 ## Getting PCT data with R
 
