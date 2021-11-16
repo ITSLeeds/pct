@@ -1,0 +1,617 @@
+---
+title: "PCT Advanced Training Session December 2021"
+author: Robin Lovelace and Joey Talbot
+output:
+  bookdown::html_document2:
+    number_sections: true
+    # code_folding: hide
+bibliography: refs_training.bib
+pkgdown:
+  as_is: true
+  set_null_theme: false
+# Reformatted the Rmd doc
+editor_options:
+  markdown:
+    wrap: sentence
+---
+
+```{r, include=FALSE}
+# knitr::opts_chunk$set(cache = TRUE, class.source = "fold-show")
+knitr::opts_chunk$set(cache = TRUE, eval = TRUE)
+```
+
+# Introduction
+
+The PCT is not only a web tool, it is a research and open data project that has resulted in many megabytes of valuable data [@lovelace_propensity_2017].
+In this training session we hope you will learn how to download and use these open datasets.
+This may be of use to anyone interested in data driven planning for sustainable and active travel futures.
+
+This guide supports workshops on advanced usage and development of the Propensity to Cycle Tool (PCT).
+
+Beginner and intermediate PCT events focus on using the PCT via the web application hosted at [www.pct.bike](https://www.pct.bike/) and the data provided by the PCT in [QGIS](https://www.qgis.org/en/site/).
+
+The focus here is on analysing cycling potential in the open source statistical programming language R.
+We use R because the PCT was developed in, and can be extended with, R code.
+Using open source software with a command-line interface reduces barriers to entry, enabling the development of [open access transport models](https://doi.org/10.1016/j.tranpol.2020.06.015) for more citizen-led and participatory transport planning, including integration with the [A/B Street](https://github.com/a-b-street/abstreet) city simulation and editing software [@lovelace_open_2021].
+
+
+To view a video of our previous advanced training workshop at the [Cycle Active City 2021 Conference](https://hopin.com/events/cycle-active-city-2021), see https://www.youtube.com/watch?v=OiLzjrBMQmU.
+
+To see the 'marked up' contents of the vignette (with results evaluated) see 
+<!-- add RPubs link to marked-up doc -->
+
+# Preparation
+
+If you are new to R, you should install R and RStudio before the course.
+For instructions on that, see the download links at [cran.r-project.org](https://cran.r-project.org/) and [RStudio.com](https://www.rstudio.com/products/rstudio/download/#download).
+
+R is a powerful statistical programming language for data science and a wide range of other applications and, like any language, takes time to learn.
+To get started we recommend the following free resources:
+
+-   Beginner: A free online course such as those provided by DataCamp or those listed at [education.rstudio.com](https://education.rstudio.com/learn/beginner/)
+-   Recommended for people with knowledge of transport and road safety data: getting started with R in the context of road safety data, a tutorial hosted at <https://itsleeds.github.io/rrsrr/>
+-   For people interested in geographic data, which is at the heart of the PCT: [Chapter 2 of the open source book *Geocomputation with R*](https://geocompr.robinlovelace.net/spatial-class.html).
+
+If you want to calculate cycle routes from within R, you are recommended to sign-up for a CycleStreets API key.
+See [here](https://www.cyclestreets.net/api/apply/) to apply and see [here](https://rpackage.cyclestreets.net/reference/journey.html#details) for instructions on creating a 'environment variable' (recommended for experienced R users only).
+
+It may also be worth taking a read about the PCT if you're not familiar with it before the course starts.
+
+## Prior reading
+
+In addition to computer hardware (a laptop) and software (an up-to-date R set-up and experience using R) pre-requisites, you should have read, or at least have working knowledge of the contents of, the following publications, all of which are freely available online:
+
+-   The original paper on the Propensity to Cycle Tool [@lovelace_propensity_2017]
+-   The transport chapter ([12](https://geocompr.robinlovelace.net/transport.html)) in the open source book [*Geocomputation with R*](https://geocompr.robinlovelace.net/) [@lovelace_geocomputation_2019]
+-   The vignette that describes the pct R package, which can be found here: <https://itsleeds.github.io/pct/articles/pct.html>
+
+## Prerequisites
+
+**To ensure your computer is ready for the course, you should be able to run the following lines of R code on your computer:**
+
+```{r, eval=FALSE}
+install.packages("remotes")
+pkgs = c(
+  "cyclestreets",
+  "mapview",
+  "pct",
+  "sf",
+  "stats19",
+  "stplanr",
+  "tidyverse",
+  "devtools"
+)
+remotes::install_cran(pkgs)
+# remotes::install_github("ITSLeeds/pct")
+```
+
+To test your computer is ready to work with PCT data in R, you can also try running the code hosted at <https://raw.githubusercontent.com/ITSLeeds/pct/master/inst/test-setup.R> to check everything is working:
+
+<!-- method for helping people set up their computers. Type this single line into the console and follow the instructions.  -->
+
+```{r testcode, eval = FALSE }
+source("https://github.com/ITSLeeds/pct/raw/master/inst/test-setup.R") 
+```
+
+If you have any questions before the workshop, feel free to ask a question on the package's issue tracker (requires a GitHub login): <https://github.com/ropensci/slopes/issues>
+
+# Agenda
+
+<!-- Add agenda -->
+
+The guide covers:
+
+-   How to download and get data from the PCT
+-   How to compare PCT data with cycle infrastructure data to identify gaps in the network
+-   How the code underlying the PCT works
+-   How to generate new scenarios of cycling uptake
+
+
+This guide is divided into the following two main components, which take around an hour each to work through (longer if you're not experienced with spatial data with R):
+
+-   Propensity to Cycle Tool: getting and using the data, based on section \@ref(getting-and-exploring-pct-data) 
+
+-   Propensity to Cycle Tool: build your own scenarios, based on section \@ref(modelling-change) 
+
+# Getting and exploring PCT data
+
+<!-- From ccac 2021 -->
+
+In this section you will learn about the open datasets provided by the PCT project and how to use them.
+While the most common use of the PCT is via the interactive web application hosted at www.pct.bike, there is much value in downloading the data, e.g. to identify existing cycling infrastructure in close proximity to routes with high potential, and to help identify roads in need of interventions from a safety perspective, using data from the constantly evolving and community-driven global geographic database OpenStreetMap (OSM) [@barrington-leigh_world_2017].
+
+In this session, which assumes you have experience using QGIS or R, you will learn how to:
+
+-   Find data on travel behaviour from the 2011 Census and from the School Census
+-   How to download and import data from the PCT into QGIS
+-   How to process the data alongside infrastructure data, to help find gaps in the network
+
+<!-- Preliminary timings: -->
+
+<!-- Intro to the workshop and team: 5 minutes -->
+
+<!-- Demo of PCT web app: 10 -->
+
+<!-- Working together: downloading PCT data and opening in QGIS (Section 1.2): 15 minutes -->
+
+<!-- Live demo of doing analysis (1.3 and 1.4) 10 minutes -->
+
+<!-- Working together: downloading and opening the zip to see QGIS project (1.4 and 1.5) -->
+
+<!-- Discussion of definition of cycle infrastructure (Joey 5 minutes, 1.5) -->
+
+<!-- Discussion of schools data and merging school and commute route networks (Nathanael 5 minutes) -->
+
+<!-- Any questions -->
+
+## Getting PCT data from the PCT website
+
+In this example we will use data from North Yorkshire, a mixed region containing urban areas such as York and many rural areas.
+You can use the PCT, which works at the regional level, for North Yorkshire or any other region by clicking on the area you're interested in on the main map at <https://www.pct.bike>.
+If you know the URL of the region you're interested in, you can navigate straight there, in this case by typing in or clicking on the link <https://www.pct.bike/m/?r=north-yorkshire>.
+
+From there you will see a map showing the region.
+Before you download and use PCT data, it is worth exploring it on the PCT web app.
+
+**Exercise: explore the current level and distribution of cycling:**
+
+-   Explore different data layers contained in the PCT by selecting different options from the dropdown menus on the right.
+-   Look at the different types of Cycling Flows options and consider: which visualisation layer is most useful?
+
+### Using 'Freeze Lines'
+
+You can use the little-known 'Freeze Lines' functionality in the PCT's web app to identify the zone origin and destinations of trips that would use improvements in a particular place.
+You can do this by selecting the Fast Routes option from the Cycling Flows menu, zooming into the area of interest, and then clicking on the Freeze Lines checkbox to prevent the selected routes from moving when you zoom back out.
+
+-   Use this technique to find the areas that would benefit from improved cycling provision on Clifton bridge, 1 km northwest from central York over the River Ouse (see result in Figure \@ref(fig:clifton))
+
+```{r clifton, echo=FALSE, fig.cap="Areas that may benefit from improved cycle provision on Clifton Bridge, according to the PCT."}
+knitr::include_graphics("https://user-images.githubusercontent.com/1825120/130370123-5b8885de-4aed-43b4-8a49-b2f875ffff1b.png")
+```
+
+## Downloading data from the PCT in GeoJSON form
+
+On the PCT web app Click on the Region data tab, shown in the top of Figure \@ref(fig:clifton), just beneath the 'north' in the URL.
+You should see a web page like that shown in Figure \@ref(fig:downloads), which highlights the Region data table alongside the Map, Region stats, National Data, Manual, and About page links.
+
+```{r downloads, echo=FALSE, fig.cap="The Region data tab in the PCT."}
+knitr::include_graphics("https://user-images.githubusercontent.com/1825120/130371496-bd0d22ba-c969-4634-904a-0bd0dd924516.png")
+```
+
+-   Download the Zones (LSOA) dataset in geojson format
+-   Download the Route network layer (LSOA) in [geojson](https://npttile.vs.mythic-beasts.com/pct-outputs-regional-notR/commute/lsoa/north-yorkshire/rnet_full.geojson) format
+-   Download the Fast routes (LSOA) in [geojson](https://npttile.vs.mythic-beasts.com/pct-outputs-regional-notR/commute/lsoa/north-yorkshire/rf.geojson) format (warning: this file is nearly 100 MB in size so may take some time to download)
+
+## Visualising PCT data in QGIS
+
+In this section we assume you have a recent version of QGIS installed and have some experience using this popular and powerful free and open source desktop GIS software.[^1]
+Open QGIS and create a new [project](https://docs.qgis.org/3.16/en/docs/user_manual/introduction/project_files.html) and name it pctdemo.
+
+Once in the project, open the three layers you downloaded in the previous section.
+You should see something resembling the screenshot shown in Figure \@ref(fig:pctqgis1).[^2]
+
+```{r pctqgis1, echo=FALSE, fig.cap="Three PCT layers visualised in QGIS."}
+knitr::include_graphics("https://user-images.githubusercontent.com/1825120/130372558-629b7fb5-452c-4a44-80bb-2d88a0492be9.png")
+```
+
+```{r, echo=FALSE, eval=FALSE}
+# zip and upload qgis folder to share
+zip(zipfile = "pctqgis.zip", files = "pctqgis")
+piggyback::pb_upload("pctqgis.zip")
+piggyback::pb_download_url("pctqgis.zip")
+# https://github.com/ITSLeeds/pct/releases/download/0.8.0/pctqgis.zip
+```
+
+After you have the data in QGIS as shown in Figure \@ref(fig:pctqgis1) a wide range of analysis options are opened up.
+We can only cover a few of these in here, due to space and time constraints, and it is worth being guided by local policy priorities rather than the technology to ensure useful (not just attractive or eye-catching) results.
+One major issue that is apparent in Figure \@ref(fig:pctqgis1) is that the zones seem squashed.[^3]
+We can deal with this by changing the coordinate reference system (CRS) of the map visualisation.
+It may also be worth reprojecting the data, to the official projected CRS in the UK: EPSG:27700.
+Undertake these tasks in the exercises below:
+
+-   Change the CRS of the map to EPSG:27700 by clicking on the CRS button in the bottom right of the map, just to the right of the Render text in the figures above
+-   Save each of the layers in this same CRS by right clicking on the layer, selecting Export, and setting the CRS there (take care to export the data into the same folder that the project is in)
+
+## Comparing PCT data with transport network data
+
+Find all the fast routes that intersect with a 10 m buffer surrounding Clifton Bridge (note: this is a time consuming task).[^4]
+
+Don't worry if you do not have time to complete each of the steps needed to find the result.
+You can see how it works by opening the project pctqgis3.qgz in the `pctqgis.zip` file from `https://github.com/ITSLeeds/pct/releases/download/0.8.0/pctqgis.zip`.
+The result should look something like the screenshot shown in Figure \@ref(fig:cliftonbuffer).
+
+```{r cliftonbuffer, echo=FALSE, fig.cap="All fast routes that intersect with Clifton Bridge in QGIS."}
+knitr::include_graphics("https://user-images.githubusercontent.com/1825120/130374644-549c6de7-97fb-4fff-8356-fa59aa7d481e.png")
+```
+
+What is the difference between the route data shown in QGIS in Figure \@ref(fig:cliftonbuffer) and the route data shown in the PCT web app in Figure \@ref(fig:clifton)?
+
+Bonus: How many km of cycling per day could improvement to Clifton Bridge benefit?
+
+Advanced: What interventions would you recommend on Clifton Bridge?
+Your answer can be based on the analysis presented above, StreetView (see the bridge at [goo.gl/maps/Zeq76RnZ9ENRWCsE6](https://goo.gl/maps/Zeq76RnZ9ENRWCsE6)) local knowledge and other factors.
+
+Feel free to post any answers/questions about this question in the open access 'Issue Tracker' where these materials were developed (requires a GitHub account): <https://github.com/ITSLeeds/pct/issues>
+
+## Identifying gaps in the network
+
+```{r, echo=FALSE, eval=FALSE}
+cycle_infra = osminfra::oi_get(place = "north yorkshire", infra_type = "cycle_infrastructure")
+cycle_infra_projected = sf::st_transform(cycle_infra, 27700)
+sf::write_sf(cycle_infra, "pctqgis/cycle_infra.gpkg")
+sf::write_sf(cycle_infra_projected, "pctqgis/cycle_infra_projected.gpkg")
+```
+
+This section assumes you have data on the regional cycle network.
+For the purposes of this worked example, we used a broad definition of 'cycle infrastructure' based on [research](http://k1z.blog.uni-heidelberg.de/2020/10/02/how-to-become-ohsome-part-8-complex-analysis-with-the-magical-filter-parameter/) undertaken at the University of Heidelberg.
+Using this definition, a cycle infrastructure layer was extracted from OSM using R.
+The data was exported from R into the `cycle_infra_projected.gpkg`, which is provided in the `pctqgis.zip` file mentioned in the previous sections.
+
+In this section we will load the cycle infrastructure layer, buffer it, and undertake a geographic operation to identify places where there are gaps in the network.
+<!-- Todo: identify existing cycle infrastructures that are important -->
+
+-   Load the `cycle_infra_projected.gpkg` dataset
+-   Buffer it to 100 m
+-   Clip the route network layer to include only areas outside the buffer
+
+```{r buffer, echo=FALSE, fig.cap="Route network layer and buffer representing cycle infrastructure, to identify gaps in the network."}
+knitr::include_graphics("https://user-images.githubusercontent.com/1825120/130415597-e7bcb8a1-4792-48de-ba83-118c082584cb.png")
+```
+
+## Getting PCT data with R
+
+We will get the same PCT datasets as in previous sections but using the R interface.
+If you have not already done so, you will need to install the R packages we will use for this section (and the next) by typing and executing the following command in the R console: `install.packages("pct", "sf", "dplyr", "tmap")`.
+
+-   After you have the necessary packages installed, the first stage is to load packages we will use:
+
+```{r, message=FALSE}
+library(pct)
+library(sf)          # key package for working with spatial vector data
+library(tidyverse)   # in the tidyverse
+library(tmap)        # installed alongside mapview
+tmap_options(check.and.fix = TRUE) # tmap setting
+```
+
+-   After setting the region name (to avoid re-typing it many times) run the following commands to download data at the four main levels used in the PCT:
+
+```{r}
+region_name = "north-yorkshire"
+zones_all = get_pct_zones(region_name)
+lines_all = get_pct_lines(region_name)
+# note: the next command may take a few seconds
+routes_all = get_pct_routes_fast(region_name)
+rnet_all = get_pct_rnet(region_name)
+```
+
+-   Check the downloads worked by plotting:
+
+```{r plotall, out.width="70%"}
+plot(zones_all$geometry)
+plot(lines_all$geometry, col = "blue", add = TRUE)
+plot(routes_all$geometry, col = "green", add = TRUE)
+plot(rnet_all$geometry, col = "red", lwd = sqrt(rnet_all$bicycle), add = TRUE)
+```
+
+## Getting school route network data
+
+The PCT provides a school route network layer that can be especially important when planning cycling interventions in residential areas [@goodman_scenarios_2019].
+Due to the sensitive nature of school data, we cannot make route or OD data level data available.
+However, the PCT provides travel to school data at zone and route network levels, as shown in Figure \@ref(fig:school1).
+(Note: to get this data from the PCT website you must select School travel in the Trip purpose menu before clicking on Region data.)
+
+-   Get schools data from the PCT with the following commands
+
+```{r}
+zones_school = get_pct_zones(region = region_name, purpose = "school")
+rnet_school = get_pct_rnet(region = region_name, purpose = "school")
+```
+
+As we will see in Section \@ref(joining), combining school and commute network data can result in a more comprehensive network.
+
+```{r school1, fig.cap="Open access data on cycling to school potential from the PCT, at zone (left) and route network (right) levels. These datasets can support planning interventions, especially 'safe routes to school' and interventions in residential areas. To see the source code that generates these plots, see the 'source' link at the top of the page.", out.width="49%", fig.show='hold', echo=FALSE, warning=FALSE}
+zones_school$dutch_slc[is.na(zones_school$dutch_slc)] = 1.5
+qtm(zones_school, "dutch_slc", fill.palette = "-viridis")
+plot(rnet_school["dutch_slc"])
+```
+
+<!-- representing estimates of current (2010/2011) levels of cycling to school, and potential under scenarios of change,  -->
+
+# Modelling change
+
+<!-- From ccag 2021 -->
+
+This section is designed for people with experience with the PCT and cycling uptake estimates who want to learn more about how uptake models work and how to generate new scenarios of change.
+Reproducible and open R code will be used to demonstrate the concepts so knowledge of R or other programming languages is recommended but not essential, as there will be conceptual exercises covering the factors linked to mode shift.
+In it you will:
+
+-   Learn about the uptake model underlying the Propensity to Cycle Tool scenarios
+-   Develop your own uptake model in conceptual terms, e.g., to represent the [government's aim](https://www.gov.uk/government/publications/transport-decarbonisation-plan) for 50% of all trips in towns and cities to be made by walking and cycling by 2030
+-   Learn how to train uptake models against data, to build evidence-based uptake models
+
+<!-- Timings for CCA conference: -->
+
+<!-- Intro: 5 minutes -->
+
+<!-- Set-up: 15 minutes, all working together -->
+
+<!-- Demo of PCT scenarios: 15 minutes -->
+
+<!-- Scenarios of change 15 minutes -->
+
+<!-- Training an update models 5 minutes + questions -->
+
+<!-- Link to further resources (Nathanael) -->
+
+## Set-up
+
+To undertake the exercises in this section you need to have R and RStudio installed, as outlined [here](https://itsleeds.github.io/pct/articles/pct_training.html#preparation).
+Load the packages by running each of the lines of code in the code chunk beginning with `library(pct)` (which loads the `pct` R package, making its functions available) in the previous section \@ref(getting-pct-data-with-r).
+
+To complete the exercises in this workshop your also need to have imported PCT data into your R session, by running each line of code in the code chunk beginning `region_name = "north-yorkshire"` in the previous section.
+
+Finally, we will use these additional packages, which you must have installed on your computer for the code below to work:
+
+## PCT scenarios
+
+-   Generate a 'Go Dutch' scenario for the North Yorkshire using the function `uptake_pct_godutch()` (hint: the following code chunk will create a 'Government Target' scenario):
+
+```{r}
+lines_all$pcycle = lines_all$bicycle / lines_all$all
+lines_all$euclidean_distance = as.numeric(sf::st_length(lines_all))
+lines_all$pcycle_govtarget = uptake_pct_govtarget_2020(
+  distance = lines_all$rf_dist_km,
+  gradient = lines_all$rf_avslope_perc
+  ) * 100 + lines_all$pcycle
+```
+
+```{r change, echo=FALSE}
+lines_all$pcycle_dutch = uptake_pct_godutch_2020(
+  distance = lines_all$rf_dist_km,
+  gradient = lines_all$rf_avslope_perc
+  ) * 100 + lines_all$pcycle
+summary(lines_all$pcycle_dutch)
+```
+
+```{r dutch_pcycle, echo=FALSE, warning=FALSE, fig.show='hold', fig.cap="Percent cycling currently (left) and under a 'Go Dutch' scenario (right) in the North Yorkshire.", out.width="40%"}
+plot(lines_all["pcycle"], lwd = lines_all$all / mean(lines_all$all), breaks = c(0, 5, 10, 20, 50))
+plot(lines_all["pcycle_dutch"], lwd = lines_all$all / mean(lines_all$all), breaks = c(0, 5, 10, 20, 50))
+# cor(l_originalines_all$dutch_slc / l_originalines_all$all, lines_all$pcycle_dutch)
+# cor(l_originalines_all$govtarget_slc / l_originalines_all$all, lines_all$pcycle_govtarget)
+# plot(l_originalines_all$dutch_slc / l_originalines_all$all, lines_all$pcycle_dutch)
+```
+
+-   Think of alternative scenarios that would be useful for your work
+-   Advanced: look at the source code of the function [`pct_uptake_godutch()`](https://github.com/ITSLeeds/pct/blob/master/R/uptake.R#L36) - how could it be modified?
+
+## Developing new scenarios of change
+
+Let's develop a simple model representing the government's [aim](https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1009448/decarbonising-transport-a-better-greener-britain.pdf), that "half of all journeys in towns and cities \[will be\] cycled or walked" by 2030.
+We will assume that this means that all journeys made **in urban areas**, as defined by the Office for National Statistics, will be made by these active modes.
+We only have commute data in the data we downloaded, but this is a good proxy for mode share overall.
+
+The first stage is to identify urban areas in North Yorkshire.
+We use data from the House of Commons Research [Briefing](https://commonslibrary.parliament.uk/research-briefings/cbp-8322/) on City and Town Classifications to define areas based on their town/city status.
+The code chunk below shows the benefits of R in terms of being able to get and join data onto the route data we have been using:
+
+```{r cities, out.width="45%", fig.show='hold', fig.cap="Classification of areas in Great Britain (left) and North Yorkshire (right).", message=FALSE, warning=FALSE}
+urban_rural = readr::read_csv("https://researchbriefings.files.parliament.uk/documents/CBP-8322/oa-classification-csv.csv")
+ggplot(urban_rural) +
+  geom_bar(aes(citytownclassification)) +
+  coord_flip()
+
+# summary(routes_all$geo_code1 %in% urban_rural$lsoa_code)
+urban_rural = rename(urban_rural, geo_code = lsoa_code)
+zones_all_joined = left_join(zones_all, urban_rural)
+routes_all_joined = left_join(routes_all, urban_rural, by = c("geo_code1" = "geo_code"))
+tm_shape(zones_all_joined) +
+  tm_polygons("citytownclassification")
+```
+
+After the classification dataset has been joined, the proportion of trips made by walking and cycling in towns and cities across North Yorkshire can be calculated as follows.
+
+```{r}
+routes_towns = routes_all_joined %>% 
+  filter(grepl(pattern = "Town|City", x = citytownclassification))
+round(sum(routes_towns$foot + routes_towns$bicycle) / sum(routes_towns$all) * 100)
+```
+
+Currently, only around 34% of commute trips in the region's 'town' areas are made by walking and cycling (27% across all zones in North Yorkshire, and a much lower proportion in terms of distance).
+We explore this in more detail by looking at the relationship between trip distance and mode share, as shown in Figure \@ref(fig:distmode) (a).
+We will create a scenario representing the outcome of policies that incentivise people to replace car trips with walking and cycling, focussing on the red boxes in Figure \@ref(fig:distmode).
+The scenario will replace 50% of car trips of less than 1 km with walking and 10% of trips between 1 km and 2 km in distance.
+The remaining car trips will be replaced by cycling, with the percentages of trips that switch for each OD determined by the uptake function in the Go Dutch Scenario of the PCT, resulting in the graphic shown in Figure \@ref(fig:distmode) (b).
+
+```{r distmode, echo=FALSE, fig.cap="Relationship between distance (x axis) and mode share (y axis) in towns and cities in North Yorkshire. (a) left: existing mode shares; (b) right: mode shares under high active travel uptake scenario.", out.width="49%", fig.show='hold', message=FALSE}
+col_modes = c("#457b9d", "#90be6d", "#ffd166", "grey", "#fe5f55")
+col_modes = rev(col_modes)
+old_theme = theme_set(theme_bw())
+routes_towns_recode = routes_towns %>% 
+  mutate(public_transport = train_tube + bus,
+         car = car_driver + car_passenger,
+         other = taxi_other + motorbike 
+         ) %>% 
+  dplyr::select(-car_driver, -car_passenger, -train_tube, -bus) 
+routes_towns_recode$dist_bands = cut(x = routes_towns_recode$rf_dist_km, breaks = c(0, 1, 3, 6, 10, 15, 20, 30, 1000), include.lowest = TRUE)
+base_results = routes_towns_recode %>%
+  sf::st_drop_geometry() %>% 
+  dplyr::select(dist_bands, car, other, public_transport, bicycle, foot) %>% 
+  tidyr::pivot_longer(cols = matches("car|other|publ|cy|foot"), names_to = "mode") %>% 
+  mutate(mode = factor(mode, levels = c("car", "other", "public_transport", "bicycle", "foot"), ordered = TRUE)) %>% 
+  group_by(dist_bands, mode) %>% 
+  summarise(Trips = sum(value))
+g1 = ggplot(base_results) +
+  geom_col(aes(dist_bands, Trips, fill = mode)) +
+  scale_fill_manual(values = col_modes) + ylab("Trips")
+g1
+routes_towns_recode_go_active = routes_towns_recode %>% 
+  mutate(
+    foot_increase_proportion = case_when(rf_dist_km < 1 ~ 0.5, rf_dist_km >= 1 & rf_dist_km < 2 ~ 0.1, TRUE ~ 0),
+    bicycle_increase_proportion = uptake_pct_godutch_2020(distance = rf_dist_km, gradient = rf_avslope_perc),
+    car_reduction = car * foot_increase_proportion,
+    car = car - car_reduction,
+    foot = foot + car_reduction,
+    car_reduction = car * bicycle_increase_proportion,
+    car = car - car_reduction,
+    bicycle = bicycle + car_reduction
+    )
+active_results = routes_towns_recode_go_active %>%
+  sf::st_drop_geometry() %>% 
+  dplyr::select(dist_bands, car, other, public_transport, bicycle, foot) %>% 
+  tidyr::pivot_longer(cols = matches("car|other|publ|cy|foot"), names_to = "mode") %>% 
+  mutate(mode = factor(mode, levels = c("car", "other", "public_transport", "bicycle", "foot"), ordered = TRUE)) %>% 
+  group_by(dist_bands, mode) %>% 
+  summarise(Trips = sum(value))
+g2 = ggplot(active_results) +
+  geom_col(aes(dist_bands, Trips, fill = mode)) +
+  scale_fill_manual(values = col_modes) + ylab("Trips")
+g2
+
+```
+
+```{r, echo=FALSE, eval=FALSE}
+# % active under go active scenario
+round(sum(routes_towns_recode$foot + routes_towns_recode$bicycle) / sum(routes_towns_recode_go_active$all) * 100)
+round(sum(routes_towns_recode_go_active$foot + routes_towns_recode_go_active$bicycle) / sum(routes_towns_recode_go_active$all) * 100)
+round(sum(routes_all_joined$foot + routes_all_joined$bicycle) / sum(routes_all_joined$all) * 100)
+round(
+  sum(routes_towns_recode_go_active$car * routes_towns_recode_go_active$rf_dist_km) /
+    sum(routes_towns_recode$car * routes_towns_recode$rf_dist_km) * 100
+)
+round(
+  sum(routes_towns_recode_go_active$bicycle * routes_towns_recode_go_active$rf_dist_km) /
+    sum(routes_towns_recode$bicycle * routes_towns_recode$rf_dist_km) * 100
+)
+round(
+  sum(routes_towns_recode_go_active$foot * routes_towns_recode_go_active$rf_dist_km) /
+    sum(routes_towns_recode$foot * routes_towns_recode$rf_dist_km) * 100
+)
+    
+```
+
+The scenario outlined above may sound ambitious, but it only just meets the government's aim for walking and cycling to account for 50% of trips in Town and Cities, at least when looking exclusively at single stage commutes in a single region.
+Furthermore, while the scenario represents a \~200% (3 fold) increase in the total distance travelled by active modes, it only results in a 17% reduction in car km driven *in towns*.
+The overall impact on energy use, resource consumption and emissions is much lower for the region overall, including rural areas.
+
+In the context of the government's aim of fully decarbonising the economy by 2050, the analysis above suggests that more stringent measures focussing on long distance trips, which account for the majority of emissions, may be needed.
+However, it is still useful to see where there is greatest potential for car trips to be replaced by walking and cycling, as shown in Figure \@ref(fig:shortcar).
+
+```{r shortcar, echo=FALSE, fig.cap="Illustration of route network based on car trips that could be replaced by bicycle trips, based on Census data on car trips to work and the Go Dutch uptake function used in the PCT.", message=FALSE, fig.show='hold', out.width="49%"}
+rnet_shortcar = stplanr::overline(routes_towns_recode_go_active, "car_reduction")
+plot(rnet_shortcar)
+plot(rnet_all["dutch_slc"])
+```
+
+## Training uptake models against new datasets
+
+In this section we will create a new scenario called Go York, representing what would happen if people were as likely to cycle as people in York are, for a given trip distance and hilliness.
+The first step is to subset zones and OD pairs originating in York.[^5]
+
+```{r}
+zones_york = zones_all_joined %>%
+  filter(lad_name == "York") %>% 
+  mutate(pcycle = bicycle / all)
+routes_york = routes_all %>% 
+  filter(lad_name1 == "York") %>% 
+  mutate(pcycle = bicycle / all)
+```
+
+```{r york, fig.cap="Zones in York with colours representing cycling mode share (left) and urban functional classification (right)", echo=FALSE, message=FALSE}
+tm_shape(zones_york) +
+  tm_polygons(c("pcycle", "citytownclassification"), palette = list("-viridis", "Set3")) +
+  tm_shape(routes_york %>% filter(bicycle > 3)) + tm_lines()
+```
+
+We can train an uptake model based on this subset of the routes as follows:
+
+```{r}
+pcycle_model_york = model_pcycle_pct_2020(
+  pcycle = routes_york$pcycle,
+  distance = routes_york$rq_dist_km,
+  gradient = routes_york$rf_avslope_perc,
+  weights = routes_york$all
+)
+summary(pcycle_model_york)
+```
+
+We can then use this model to project cycling levels across the whole region.
+
+```{r}
+routes_all_renamed = routes_all %>% 
+  rename(distance = rf_dist_km, gradient = rf_avslope_perc)
+pcycle_go_york_model = boot::inv.logit(predict(pcycle_model_york, newdata = routes_all_renamed))
+routes_all$york_slc = routes_all$all * pcycle_go_york_model
+sum(routes_all$bicycle) / sum(routes_all$all)
+sum(routes_all$govtarget_slc) / sum(routes_all$all)
+sum(routes_all$dutch_slc) / sum(routes_all$all)
+sum(routes_all$york_slc) / sum(routes_all$all)
+```
+
+<!-- Todo: get data for York -->
+
+<!-- Train the model -->
+
+<!-- Apply to the region -->
+
+# Joining commute and school data {#joining}
+
+PCT is not limited to commuter data only, PCT also provides a range of school data for each region in England and Wales to be downloaded with relative ease.
+In the example below, we add a `purpose` to the `get_pct_rnet()` function of `school`.
+This allows us to get estimates of cycling potential on the road network for school trips, commuter trips, and school and commuter trips combined.
+Note in the figure below that the combined route network provides a more comprehensive (yet still incomplete) overview of cycling potential in the study region.
+
+```{r, message=FALSE, warning=FALSE, eval=FALSE, class.source=NULL}
+# get pct rnet data for schools
+rnet_school = get_pct_rnet(region = region_name, purpose = "school")
+rnet_school = subset(rnet_school, select = -c(`cambridge_slc`)) # subset columns for bind
+rnet_all = subset(rnet_all, select = -c(`ebike_slc`,`gendereq_slc`,`govnearmkt_slc`)) # subset columns for bind 
+
+rnet_school_commute = rbind(rnet_all,rnet_school) # bind commute and schools rnet data
+rnet_school_commute$duplicated_geometries = duplicated(rnet_school_commute$geometry) # find duplicated geometries
+rnet_school_commute$geometry_txt = sf::st_as_text(rnet_school_commute$geometry)
+
+rnet_combined = rnet_school_commute %>% 
+  group_by(geometry_txt) %>% # group by geometry
+  summarise(across(bicycle:dutch_slc, sum, na.rm = TRUE)) # and summaries route network which is not a duplicate
+```
+
+```{r, eval=FALSE, echo=FALSE}
+brks = c(0, 10, 100, 1000, 5000)
+tmap_arrange(nrow = 1,
+  tm_shape(rnet_all %>% arrange(dutch_slc)) + tm_lines("dutch_slc", palette = "-viridis", breaks = brks) + tm_layout(title = "Trips to work"),
+  tm_shape(rnet_school %>% arrange(dutch_slc)) + tm_lines("dutch_slc", palette = "-viridis", breaks = brks) + tm_layout(title = "Trips to school"),
+  tm_shape(rnet_combined %>% arrange(dutch_slc)) + tm_lines("dutch_slc", palette = "-viridis", breaks = brks) + tm_layout(title = "Trips to work and school")
+)
+```
+
+```{r combined, fig.cap="Comparison of commute, school, and combined commute *and* school route networkworks, under the Go Dutch scenario.", fig.show='hold', out.width="100%", echo=FALSE}
+# https://github.com/ITSLeeds/pct/issues/103#issuecomment-904990639
+knitr::include_graphics("https://user-images.githubusercontent.com/1825120/130692688-65a958a9-8586-4196-982d-872d236becdb.png")
+```
+
+<!-- # Useful links -->
+
+<!-- These links may be useful when working through the exercises: -->
+
+<!-- -   The codebook describing each variable in the PCT route: [od_l\_rf_codebook.csv](https://github.com/npct/pct-shiny/blob/master/regions_www/www/static/02_codebooks/commute/od_l_rf_codebook.csv) -->
+<!-- -   Folder containing all [codebooks, including variables in zone, line and centroid datasets](https://github.com/npct/pct-shiny/tree/master/regions_www/www/static/02_codebooks) -->
+<!-- -   The PCT tool itself, which can be used to cross-compare results from the analysis steps below: [www.pct.bike](https://www.pct.bike/) -->
+
+# References
+
+[^1]:  This tutorial was tested on QGIS version 3.20 but it should work fine on other versions, including the Long Term Support version (3.16 at the time of writing in summer 2021).
+    To install the latest version of QGIS see [qgis.org](https://qgis.org/en/site/forusers/download.html).
+    If you are new to QGIS, it is worth taking a look at the User Guide at [docs.qgis.org](https://docs.qgis.org/3.16/en/docs/user_manual/) and, for a transport-oriented introduction, the [QGIS for Transport Research](https://itsleeds.github.io/QGIS-intro/) resource developed by the University of Leeds.
+
+[^2]:  A great thing about QGIS projects is that, like RStudio projects, they make organising and sharing your work easier.
+    You should be able to see exactly the same project state as that shown in the figure by downloading the zip file at `https://github.com/ITSLeeds/pct/releases/download/0.8.0/pctqgis.zip` and opening the pctqgis1.qgz file in QGIS.
+
+[^3]:  This is because QGIS, unlike R's spatial packages, shows geographic (longitude/latitude) coordinates as if they were projected, which makes maps seem squashed at high latitudes far from the equator.
+
+[^4]:  Hint: installing the QuickOSM and QuickMapServices plugins may help.
+    You will need to transform the bridge before finding a buffer around it.
+    You will need to use the Select by Location Vector Research tool.
+
+[^5]:  Technically, the analysis does not show where OD pairs originate because the PCT OD data aggregates trips going in both directions into a single desire line.
+    Instead we will use just `geo_code1` as a proxy for trip origin.
+    For real world applications, you should start with the original OD data.
