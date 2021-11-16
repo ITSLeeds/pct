@@ -186,7 +186,7 @@ knitr::include_graphics("https://user-images.githubusercontent.com/1825120/13041
 We will get the same PCT datasets as in previous sections but using the R interface.
 If you have not already done so, you will need to install the R packages we will use for this section (and the next) by typing and executing the following command in the R console: `install.packages("pct", "sf", "dplyr", "tmap")`.
 
--   After you have the necessary packages installed, the first stage is to load packages we will use:
+-   After you have the necessary packages installed, the first stage is to load the packages we will use:
 
 ```{r, message=FALSE}
 library(pct)
