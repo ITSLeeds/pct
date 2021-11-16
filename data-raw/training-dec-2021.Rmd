@@ -97,21 +97,19 @@ If you have any questions before the workshop, feel free to ask a question on th
 
 # Agenda
 
-<!-- Add agenda -->
+Preliminary timings:
 
-<!-- Preliminary timings: -->
+- Intro to the workshop and team: 5 minutes
 
-<!-- Intro to the workshop and team: 5 minutes -->
+- Demo of PCT web app: 10 minutes
 
-<!-- Demo of PCT web app: 5 minutes -->
+- Working together: Section 1 - downloading PCT data from the website and downloading PCT data in R (Section 1.2): 25 minutes
 
-<!-- Working together: Section 1 - downloading PCT data from the website and downloading PCT data in R (Section 1.2): 20 minutes -->
+- Break: 10 minutes
 
-<!-- Break: 10 minutes -->
+- Section 2 - Cycling uptake scenarios and joining commute and school data: 70 minutes
 
-<!-- Section 2 - Cycling uptake scenarios and joining commute and school data: 70 minutes -->
-
-<!-- Any questions -->
+- Questions and solo work: 15 minutes
 
 The guide covers:
 
@@ -120,13 +118,6 @@ The guide covers:
 -   How to recreate existing PCT scenarios of cycling uptake
 -   How to create your own scenarios of cycling uptake
 -   How to join together commute and school travel data
-
-
-This guide is divided into the following two main components, which take around an hour each to work through (longer if you're not experienced with spatial data with R):
-
--   Propensity to Cycle Tool: getting and using the data, based on section \@ref(getting-and-exploring-pct-data) 
-
--   Propensity to Cycle Tool: build your own scenarios, based on section \@ref(modelling-change) 
 
 # Getting and exploring PCT data
 
@@ -378,7 +369,7 @@ g1 = ggplot(base_results) +
   scale_fill_manual(values = col_modes) + ylab("Trips")
 g1
 
-# Create the new scenario (first replace some car journeys with journeys by foot, then replace some of the remaining car journeys with journeys by bicycle)
+# Create the new scenario (first we replace some car journeys with journeys by foot, then we replace some of the remaining car journeys with journeys by bicycle)
 routes_towns_recode_go_active = routes_towns_recode %>% 
   mutate(
     foot_increase_proportion = case_when(
