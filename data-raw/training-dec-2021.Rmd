@@ -98,19 +98,19 @@ If you have any questions before the workshop, feel free to ask a question on th
 # Agenda
 
 Preliminary timings:
-
+<!-- Assuming it starts at 2pm... -->
 - Intro to the workshop and team: 5 minutes
 
 - Demo of PCT web app: 10 minutes
-
+<!-- 14:15 -->
 - Working together: Section 1 - downloading PCT data from the website and downloading PCT data in R (Section 1.2): 25 minutes
-
+<!-- 14:40 -->
 - Break: 10 minutes
-
+<!-- 14:50 -->
 - Section 2 - Cycling uptake scenarios and joining commute and school data: 70 minutes
-
+<!-- 16:00 -->
 - Questions and solo work: 15 minutes
-
+<!-- 16:15 -->
 The guide covers:
 
 -   How to download data from the PCT using the web interface
