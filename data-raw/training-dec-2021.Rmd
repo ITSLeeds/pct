@@ -103,9 +103,7 @@ The guide covers:
 
 -   How to download data from the PCT using the web interface
 -   How to access PCT data on travel to work and travel to school, using R
-
--   How to compare PCT data with cycle infrastructure data to identify gaps in the network
--   How the code underlying the PCT works
+-   How to recreate existing PCT scenarios of cycling uptake
 -   How to generate new scenarios of cycling uptake
 
 
@@ -167,7 +165,7 @@ You can do this by selecting the Fast Routes option from the Cycling Flows menu,
 knitr::include_graphics("https://user-images.githubusercontent.com/1825120/130370123-5b8885de-4aed-43b4-8a49-b2f875ffff1b.png")
 ```
 
-### Downloading data from the PCT in GeoJSON form
+## Downloading data from the PCT in GeoJSON form
 
 On the PCT web app Click on the Region data tab, shown in the top of Figure \@ref(fig:clifton), just beneath the 'north' in the URL.
 You should see a web page like that shown in Figure \@ref(fig:downloads), which highlights the Region data table alongside the Map, Region stats, National Data, Manual, and About page links.
@@ -268,7 +266,13 @@ In it you will:
 
 ## PCT scenarios
 
--   Generate a 'Go Dutch' scenario for the North Yorkshire using the function `uptake_pct_godutch()` (hint: the following code chunk will create a 'Government Target' scenario):
+One of the benefits of the PCT is its ability to generate scenarios that model where people might cycle in future. 
+Several cycling uptake scenarios are included on the PCT website.
+We also have R functions for these scenarios.
+For example, the PCT's 'Government Target' scenario allows us to calculate the cycling uptake that would be required to correspond to a scenario in which we meet [the government's aim](https://www.gov.uk/government/publications/cycling-and-walking-investment-strategy) to double cycling levels by 2025, using a 2013 baseline.
+
+The following code chunk uses the R function `uptake_pct_govtarget_2020()` (from the `pct` package) to recreate this 'Government Target' scenario. 
+
 
 ```{r}
 lines_all$pcycle = lines_all$bicycle / lines_all$all
@@ -278,6 +282,8 @@ lines_all$pcycle_govtarget = uptake_pct_govtarget_2020(
   gradient = lines_all$rf_avslope_perc
   ) * 100 + lines_all$pcycle
 ```
+
+-   Exercise: Generate a 'Go Dutch' scenario for North Yorkshire using the function `uptake_pct_godutch()`:
 
 ```{r change, echo=FALSE}
 lines_all$pcycle_dutch = uptake_pct_godutch_2020(
