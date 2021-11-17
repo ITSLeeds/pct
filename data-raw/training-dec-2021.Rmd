@@ -37,8 +37,8 @@ Using open source software with a command-line interface reduces barriers to ent
 
 To view a video of our previous advanced training workshop at the [Cycle Active City 2021 Conference](https://hopin.com/events/cycle-active-city-2021), see https://www.youtube.com/watch?v=OiLzjrBMQmU.
 
-To see the 'marked up' contents of the vignette (with results evaluated) see 
-<!-- add RPubs link to marked-up doc -->
+To see the 'marked up' contents of the vignette (with results evaluated) see [here](https://rpubs.com/RobinLovelace/836583).
+<!-- todo: update RPubs link to marked-up doc -->
 
 # Preparation
 
@@ -93,7 +93,7 @@ To test your computer is ready to work with PCT data in R, you can also try runn
 source("https://github.com/ITSLeeds/pct/raw/master/inst/test-setup.R") 
 ```
 
-If you have any questions before the workshop, feel free to ask a question on the package's issue tracker (requires a GitHub login): <https://github.com/ropensci/slopes/issues>
+If you have any questions before the workshop, feel free to ask a question on the package's issue tracker (requires a GitHub login): <https://github.com/itsleeds/pct/issues>
 
 # Agenda
 
@@ -355,7 +355,8 @@ g1 = ggplot(base_results) +
 g1
 
 # Create the new scenario: 
-# First we replace some car journeys with walking, then replace some of the remaining car journeys with cycling
+# First we replace some car journeys with walking, then replace some of the
+# remaining car journeys with cycling
 routes_towns_recode_go_active = routes_towns_recode %>% 
   mutate(
     foot_increase_proportion = case_when(
@@ -388,7 +389,6 @@ g2 = ggplot(active_results) +
   geom_col(aes(dist_bands, Trips, fill = mode)) +
   scale_fill_manual(values = col_modes) + ylab("Trips")
 g2
-
 ```
 
 **Exercise: Instead of a scenario in which all types of car journey (i.e. both car drivers and car passengers) are replaced by walking or cycling, can you create a scenario in which solely journeys by car drivers are replaced by walking or cycling?** 

@@ -345,17 +345,22 @@ We will create a scenario representing the outcome of policies that incentivise 
 The scenario will replace 50% of car trips of less than 1 km with walking and 10% of trips between 1 km and 2 km in distance.
 The remaining car trips will be replaced by cycling, with the percentages of trips that switch for each OD determined by the uptake function in the Go Dutch Scenario of the PCT, resulting in the graphic shown in Figure \@ref(fig:distmode) (b).
 
-```{r distmode, echo=FALSE, fig.cap="Relationship between distance (x axis) and mode share (y axis) in towns and cities in North Yorkshire. (a) left: existing mode shares; (b) right: mode shares under high active travel uptake scenario.", out.width="49%", fig.show='hold', message=FALSE}
-col_modes = c("#457b9d", "#90be6d", "#ffd166", "grey", "#fe5f55")
-col_modes = rev(col_modes)
-old_theme = theme_set(theme_bw())
+```{r distmode, fig.cap="Relationship between distance (x axis) and mode share (y axis) in towns and cities in North Yorkshire. (a) left: existing mode shares; (b) right: mode shares under high active travel uptake scenario.", out.width="49%", fig.show='hold', message=FALSE}
+# Reduce the number of transport mode categories 
 routes_towns_recode = routes_towns %>% 
   mutate(public_transport = train_tube + bus,
          car = car_driver + car_passenger,
          other = taxi_other + motorbike 
          ) %>% 
   dplyr::select(-car_driver, -car_passenger, -train_tube, -bus) 
+
+# Set distance bands to use in the bar charts
 routes_towns_recode$dist_bands = cut(x = routes_towns_recode$rf_dist_km, breaks = c(0, 1, 3, 6, 10, 15, 20, 30, 1000), include.lowest = TRUE)
+
+# Set the colours to use in the bar charts
+col_modes = c("#fe5f55", "grey", "#ffd166", "#90be6d", "#457b9d") 
+
+# Plot bar chart showing modal share by distance band for existing journeys 
 base_results = routes_towns_recode %>%
   sf::st_drop_geometry() %>% 
   dplyr::select(dist_bands, car, other, public_transport, bicycle, foot) %>% 
@@ -367,10 +372,22 @@ g1 = ggplot(base_results) +
   geom_col(aes(dist_bands, Trips, fill = mode)) +
   scale_fill_manual(values = col_modes) + ylab("Trips")
 g1
+
+# Create the new scenario: 
+# First we replace some car journeys with walking, then replace some of the
+# remaining car journeys with cycling
 routes_towns_recode_go_active = routes_towns_recode %>% 
   mutate(
-    foot_increase_proportion = case_when(rf_dist_km < 1 ~ 0.5, rf_dist_km >= 1 & rf_dist_km < 2 ~ 0.1, TRUE ~ 0),
-    bicycle_increase_proportion = uptake_pct_godutch_2020(distance = rf_dist_km, gradient = rf_avslope_perc),
+    foot_increase_proportion = case_when(
+      # specifies that 50% of car journeys <1km in length will be replaced with walking
+      rf_dist_km < 1 ~ 0.5, 
+      # specifies that 10% of car journeys 1-2km in length will be replaced with walking
+      rf_dist_km >= 1 & rf_dist_km < 2 ~ 0.1, 
+      TRUE ~ 0
+      ),
+    # Specify the Go Dutch scenario we will use to replace remaining car trips with cycling
+    bicycle_increase_proportion = uptake_pct_godutch_2020(distance = rf_dist_km, gradient = rf_avslope_perc), 
+    # Make the changes specified above
     car_reduction = car * foot_increase_proportion,
     car = car - car_reduction,
     foot = foot + car_reduction,
@@ -378,6 +395,8 @@ routes_towns_recode_go_active = routes_towns_recode %>%
     car = car - car_reduction,
     bicycle = bicycle + car_reduction
     )
+
+# Plot bar chart showing how modal share has changed in our new scenario
 active_results = routes_towns_recode_go_active %>%
   sf::st_drop_geometry() %>% 
   dplyr::select(dist_bands, car, other, public_transport, bicycle, foot) %>% 
@@ -389,7 +408,6 @@ g2 = ggplot(active_results) +
   geom_col(aes(dist_bands, Trips, fill = mode)) +
   scale_fill_manual(values = col_modes) + ylab("Trips")
 g2
-
 ```
 
 ```{r, echo=FALSE, eval=FALSE}
