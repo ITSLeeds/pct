@@ -312,8 +312,9 @@ tm_shape(zones_all_joined) +
 After the classification dataset has been joined, the proportion of trips made by walking and cycling in towns and cities across North Yorkshire can be calculated as follows.
 
 ```{r}
+# Select only zones for which the field `citytownclassification` contains the word "Town" or "City"
 routes_towns = routes_all_joined %>% 
-  filter(grepl(pattern = "Town|City", x = citytownclassification)) # Select only the zones for which the field `citytownclassification` contains the word "Town" or "City"
+  filter(grepl(pattern = "Town|City", x = citytownclassification)) 
 round(sum(routes_towns$foot + routes_towns$bicycle) / sum(routes_towns$all) * 100)
 ```
 
@@ -391,7 +392,7 @@ g2 = ggplot(active_results) +
 g2
 ```
 
-**Exercise: Instead of a scenario in which all types of car journey (i.e. both car drivers and car passengers) are replaced by walking or cycling, can you create a scenario in which solely journeys by car drivers are replaced by walking or cycling?** 
+**Exercise: Instead of a scenario in which all types of car journey (i.e. both car drivers and car passengers) are replaced by walking or cycling, can you create a scenario in which solely journeys by car drivers are replaced by walking or cycling? The scenario we just created applies only to urban areas - can you adapt it so that the same changes in walking and cycling uptake are applied across the whole of North Yorkshire, including both urban and rural areas?** 
 
 ```{r, echo=FALSE, eval=FALSE}
 # % active under go active scenario
