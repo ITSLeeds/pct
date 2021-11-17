@@ -99,8 +99,9 @@ If you have any questions before the workshop, feel free to ask a question on th
 
 Preliminary timings:
 <!-- Assuming it starts at 2pm... -->
-- Intro to the workshop and team: 5 minutes
 
+- Intro to the workshop and team: 5 minutes
+<!-- 14:05 -->
 - Demo of PCT web app: 10 minutes
 <!-- 14:15 -->
 - Working together: Section 1 - downloading PCT data from the website and downloading PCT data in R (Section 1.2): 25 minutes
@@ -111,6 +112,7 @@ Preliminary timings:
 <!-- 16:00 -->
 - Questions and solo work: 15 minutes
 <!-- 16:15 -->
+
 The guide covers:
 
 -   How to download data from the PCT using the web interface
@@ -470,7 +472,3 @@ These links may be useful when working through the exercises:
 -   The PCT tool itself, which can be used to cross-compare results from the analysis steps below: [www.pct.bike](https://www.pct.bike/)
 
 # References
-
-[^1]:  Technically, the analysis does not show where OD pairs originate because the PCT OD data aggregates trips going in both directions into a single desire line.
-    Instead we will use just `geo_code1` as a proxy for trip origin.
-    For real world applications, you should start with the original OD data.

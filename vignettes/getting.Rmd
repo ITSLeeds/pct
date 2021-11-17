@@ -196,7 +196,7 @@ library(tmap)        # installed alongside mapview
 tmap_options(check.and.fix = TRUE) # tmap setting
 ```
 
--   After setting the region name (to avoid re-typing it many times) run the following commands to download data at the four main levels used in the PCT:
+-   We are now ready to use R to download PCT data. The following commands set the name of the region we are interested in (to avoid re-typing it many times) and download commute data for this region, in the four main forms used in the PCT:
 
 ```{r}
 region_name = "north-yorkshire"
@@ -207,7 +207,7 @@ routes_all = get_pct_routes_fast(region_name)
 rnet_all = get_pct_rnet(region_name)
 ```
 
--   Check the downloads worked by plotting:
+-   Check the downloads worked by plotting them:
 
 ```{r plotall, out.width="70%"}
 plot(zones_all$geometry)
@@ -309,7 +309,7 @@ plot(lines_all["pcycle_dutch"], lwd = lines_all$all / mean(lines_all$all), break
 
 ## Developing new scenarios of change
 
-Let's develop a simple model representing the government's [aim](https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1009448/decarbonising-transport-a-better-greener-britain.pdf), that "half of all journeys in towns and cities \[will be\] cycled or walked" by 2030.
+Let's develop a simple model representing the government's [aim](https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1009448/decarbonising-transport-a-better-greener-britain.pdf), that "half of all journeys in towns and cities will be cycled or walked" by 2030.
 We will assume that this means that all journeys made **in urban areas**, as defined by the Office for National Statistics, will be made by these active modes.
 We only have commute data in the data we downloaded, but this is a good proxy for mode share overall.
 
