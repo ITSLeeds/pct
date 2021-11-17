@@ -392,7 +392,7 @@ g2
 
 ```
 
-**Exercise: Instead of a scenario in which all types of car journey (i.e. both car drivers and car passengers) are replaced by walking or cycling, can you create a scenario in which solely journeys by car drivers are replaced by walking or cycling?** 
+**Exercise: Instead of a scenario in which all types of car journey (i.e. both car drivers and car passengers) are replaced by walking or cycling, can you create a scenario in which solely journeys by car drivers are replaced by walking or cycling? The scenario we just created applies only to urban areas - can you adapt it so that the same changes in walking and cycling uptake are applied across the whole of North Yorkshire, including both urban and rural areas?** 
 
 ```{r, echo=FALSE, eval=FALSE}
 # % active under go active scenario
