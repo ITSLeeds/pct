@@ -318,12 +318,15 @@ We use data from the House of Commons Research [Briefing](https://commonslibrary
 The code chunk below shows the benefits of R in terms of being able to get and join data onto the route data we have been using:
 
 ```{r cities, out.width="45%", fig.show='hold', fig.cap="Classification of areas in Great Britain (left) and North Yorkshire (right).", message=FALSE, warning=FALSE}
+# Get data on the urban_rural status of LSOA zones
 urban_rural = readr::read_csv("https://researchbriefings.files.parliament.uk/documents/CBP-8322/oa-classification-csv.csv")
 ggplot(urban_rural) +
   geom_bar(aes(citytownclassification)) +
   coord_flip()
 
 # summary(routes_all$geo_code1 %in% urban_rural$lsoa_code)
+
+# Join this with the PCT commute data that we previously downloaded
 urban_rural = rename(urban_rural, geo_code = lsoa_code)
 zones_all_joined = left_join(zones_all, urban_rural)
 routes_all_joined = left_join(routes_all, urban_rural, by = c("geo_code1" = "geo_code"))
@@ -334,6 +337,7 @@ tm_shape(zones_all_joined) +
 After the classification dataset has been joined, the proportion of trips made by walking and cycling in towns and cities across North Yorkshire can be calculated as follows.
 
 ```{r}
+# Select only zones for which the field `citytownclassification` contains the word "Town" or "City"
 routes_towns = routes_all_joined %>% 
   filter(grepl(pattern = "Town|City", x = citytownclassification))
 round(sum(routes_towns$foot + routes_towns$bicycle) / sum(routes_towns$all) * 100)

@@ -312,8 +312,9 @@ tm_shape(zones_all_joined) +
 After the classification dataset has been joined, the proportion of trips made by walking and cycling in towns and cities across North Yorkshire can be calculated as follows.
 
 ```{r}
+# Select only zones for which the field `citytownclassification` contains the word "Town" or "City"
 routes_towns = routes_all_joined %>% 
-  filter(grepl(pattern = "Town|City", x = citytownclassification)) # Select only the zones for which the field `citytownclassification` contains the word "Town" or "City"
+  filter(grepl(pattern = "Town|City", x = citytownclassification)) 
 round(sum(routes_towns$foot + routes_towns$bicycle) / sum(routes_towns$all) * 100)
 ```
 
