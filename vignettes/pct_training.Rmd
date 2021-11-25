@@ -60,7 +60,11 @@ The guide covers:
 -   How the code underlying the PCT works
 -   How to generate new scenarios of cycling uptake
 
-See the marked-up version of this vignette online at the URL [`https://github.com/ITSLeeds/pct/releases/download/0.8.1/Propensity.to.Cycle.Tool.Advanced.Workshop.html`](https://github.com/ITSLeeds/pct/releases/download/0.8.1/Propensity.to.Cycle.Tool.Advanced.Workshop.html).
+See the marked-up version of this vignette online at the following URL:
+
+```
+https://github.com/ITSLeeds/pct/releases/download/0.8.1/Propensity.to.Cycle.Tool.Advanced.Workshop.html
+```
 
 ## Preparation
 
