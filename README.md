@@ -290,7 +290,7 @@ into geographic desire lines as follows:
 
 ``` r
 library(sf)
-#> Linking to GEOS 3.9.0, GDAL 3.2.1, PROJ 7.2.1
+#> Linking to GEOS 3.9.1, GDAL 3.3.2, PROJ 7.2.1
 desire_lines = stplanr::od2line(flow = od_leeds, zones = zones_leeds[2])
 #> Creating centroids representing desire line start and end points.
 #> old-style crs object detected; please recreate object with a recent sf::st_crs()
@@ -309,7 +309,6 @@ e.g.:
 
 ``` r
 segments_fast = stplanr::route(l = desire_lines, route_fun = cyclestreets::journey)
-#> NA values detected
 #> Most common output is sf
 ```
 
@@ -357,7 +356,7 @@ Let’s see how many people started cycling:
 
 ``` r
 sum(routes_fast$bicycle_govtarget) - sum(routes_fast$bicycle)
-#> [1] 379
+#> [1] 404
 ```
 
 Nearly 1000 more people cycling to work, just in 10 desire is not bad!
@@ -365,7 +364,7 @@ What % cycling is this, for those routes?
 
 ``` r
 sum(routes_fast$bicycle_govtarget) / sum(routes_fast$all)
-#> [1] 0.07699892
+#> [1] 0.07946367
 sum(routes_fast$bicycle) / sum(routes_fast$all)
 #> [1] 0.03963324
 ```
@@ -396,13 +395,15 @@ mapview::mapview(rnet, zcol = "bicycle_govtarget", lwd = lwd * 2)
 
 ## Current limitations
 
--   This package currently does not estimate cycling uptake associated
-    with intrazonal flows and people with no fixed job data
--   This package currently does not estimate health benefits
+-   This package does not contain code to estimate cycling uptake
+    associated with intrazonal flows and people with no fixed job data,
+    although the datasets downloaded with the `get_pct_centroids()`
+    functions provide estimated uptake for intrazonal flows.
+-   This package currently does not contiain code to estimate health
+    benefits
 
-Commented out as we have now immidiate plans to work on these
+<!-- Commented out as we have now immediate plans to work on these -->
 <!-- ## Next steps and further resources -->
-
 <!-- - Add additional scenarios of cycling uptake from different places (e.g. goCambridge) -->
 <!-- - Add additional distance decay functions -->
 <!-- - Make it easy to use data from other cities around the world -->

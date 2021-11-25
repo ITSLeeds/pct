@@ -30,7 +30,6 @@ This guide was put together to show how to download and use these open datasets,
 It was presented as a workshop at the [Cycle City Active City 2021](https://hopin.com/events/cycle-active-city-2021) and is divided into the following two main components, which take around an hour each to work through (longer if you're not experienced with spatial data with R):
 
 -   Propensity to Cycle Tool: getting and using the data, based on section \@ref(getting-and-exploring-pct-data) 
-
 -   Propensity to Cycle Tool: build your own scenarios, based on section \@ref(modelling-change) 
 
 To see the workshop and work through it alongside a video demo, see https://www.youtube.com/watch?v=OiLzjrBMQmU.
