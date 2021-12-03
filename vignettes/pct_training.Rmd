@@ -55,7 +55,7 @@ Using open source software with a command-line interface reduces barriers to ent
 
 The guide covers:
 
--   How to download and get data from the PCT
+-   How to download and get data from the PCT (covered in more detail using R and QGIS in the '[getting](https://itsleeds.github.io/pct/articles/getting.html)' vignette)
 -   How to compare PCT data with cycle infrastructure data to identify gaps in the network
 -   How the code underlying the PCT works
 -   How to generate new scenarios of cycling uptake
@@ -708,5 +708,10 @@ These links may be useful when working through the exercises:
 -   The codebook describing each variable in the PCT route: [od_l\_rf_codebook.csv](https://github.com/npct/pct-shiny/blob/master/regions_www/www/static/02_codebooks/commute/od_l_rf_codebook.csv)
 -   Folder containing all [codebooks, including variables in zone, line and centroid datasets](https://github.com/npct/pct-shiny/tree/master/regions_www/www/static/02_codebooks)
 -   The PCT tool itself, which can be used to cross-compare results from the analysis steps below: [www.pct.bike](https://www.pct.bike/)
+- A recent advanced training document that combines content from this tutorial with elements of the '[getting](https://itsleeds.github.io/pct/articles/getting.html)' vignette and some new content: 
+
+```
+https://github.com/ITSLeeds/pct/releases/download/v0.9.4/training-dec-2021.html
+```
 
 # References

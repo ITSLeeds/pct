@@ -4,6 +4,7 @@ author: Robin Lovelace and Joey Talbot
 output:
   bookdown::html_document2:
     number_sections: true
+    self_contained: true
     # code_folding: hide
 bibliography: refs_training.bib
 pkgdown:
@@ -18,6 +19,12 @@ editor_options:
 ```{r, include=FALSE}
 # knitr::opts_chunk$set(cache = TRUE, class.source = "fold-show")
 knitr::opts_chunk$set(cache = TRUE, eval = TRUE)
+```
+
+For the online version of this training document with figures, see: 
+
+```
+https://github.com/ITSLeeds/pct/releases/download/v0.9.4/training-dec-2021.html
 ```
 
 # Introduction
