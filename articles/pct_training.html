@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,18 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pct</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.4</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../articles/pct.html">Get started</a>
 </li>
@@ -82,7 +78,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/ITSLeeds/pct/">
+  <a href="https://github.com/ITSLeeds/pct/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -97,38 +93,28 @@
 
       
 
-      </header><script src="pct_training_files/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="pct_training_files/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet">
-<script src="pct_training_files/bootstrap-3.3.5/js/bootstrap.min.js"></script><script src="pct_training_files/bootstrap-3.3.5/shim/html5shiv.min.js"></script><script src="pct_training_files/bootstrap-3.3.5/shim/respond.min.js"></script><style>h1 {font-size: 34px;}
-       h1.title {font-size: 38px;}
-       h2 {font-size: 30px;}
-       h3 {font-size: 24px;}
-       h4 {font-size: 18px;}
-       h5 {font-size: 16px;}
-       h6 {font-size: 12px;}
-       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
-       pre:not([class]) { background-color: white }</style>
-<script src="pct_training_files/navigation-1.1/tabsets.js"></script><script src="pct_training_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Propensity to Cycle Tool Advanced Workshop</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/ITSLeeds/pct/blob/master/vignettes/pct_training.Rmd"><code>vignettes/pct_training.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/ITSLeeds/pct/blob/HEAD/vignettes/pct_training.Rmd" class="external-link"><code>vignettes/pct_training.Rmd</code></a></small>
       <div class="hidden name"><code>pct_training.Rmd</code></div>
 
     </div>
 
     
     
-<div id="introduction" class="section level1">
-<h1 class="hasAnchor">
-<a href="#introduction" class="anchor"></a><span class="header-section-number">1</span> Introduction</h1>
+<div class="section level1">
+<h1 id="introduction">
+<span class="header-section-number">1</span> Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+</h1>
 <p>This guide supports workshops on advanced usage and development of the Propensity to Cycle Tool (PCT).
-Beginner and intermediate PCT events focus on using the PCT via the web application hosted at <a href="https://www.pct.bike/">www.pct.bike</a> and the data provided by the PCT in <a href="https://www.qgis.org/en/site/">QGIS</a>.</p>
+Beginner and intermediate PCT events focus on using the PCT via the web application hosted at <a href="https://www.pct.bike/" class="external-link">www.pct.bike</a> and the data provided by the PCT in <a href="https://www.qgis.org/en/site/" class="external-link">QGIS</a>.</p>
 <p>The focus here is on analysing cycling potential in the open source statistical programming language R.
 We use R because the PCT was developed in, and can be extended with, R code.
-Using open source software with a command-line interface reduces barriers to entry, enabling the development of <a href="https://doi.org/10.1016/j.tranpol.2020.06.015">open access transport models</a> for more citizen-led and participatory transport planning, including integration with the <a href="https://github.com/a-b-street/abstreet">A/B Street</a> city simulation and editing software <span class="citation">(Lovelace 2021)</span>.</p>
+Using open source software with a command-line interface reduces barriers to entry, enabling the development of <a href="https://doi.org/10.1016/j.tranpol.2020.06.015" class="external-link">open access transport models</a> for more citizen-led and participatory transport planning, including integration with the <a href="https://github.com/a-b-street/abstreet" class="external-link">A/B Street</a> city simulation and editing software <span class="citation">(Lovelace 2021)</span>.</p>
 <p>The guide covers:</p>
 <ul>
 <li>How to download and get data from the PCT</li>
@@ -136,10 +122,12 @@ Using open source software with a command-line interface reduces barriers to ent
 <li>How the code underlying the PCT works</li>
 <li>How to generate new scenarios of cycling uptake</li>
 </ul>
-<p>See the marked-up version of this vignette online at the URL <a href="https://github.com/ITSLeeds/pct/releases/download/0.8.1/Propensity.to.Cycle.Tool.Advanced.Workshop.html"><code>https://github.com/ITSLeeds/pct/releases/download/0.8.1/Propensity.to.Cycle.Tool.Advanced.Workshop.html</code></a>.</p>
-<div id="preparation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#preparation" class="anchor"></a><span class="header-section-number">1.1</span> Preparation</h2>
+<p>See the marked-up version of this vignette online at the following URL:</p>
+<pre><code>https://github.com/ITSLeeds/pct/releases/download/0.8.1/Propensity.to.Cycle.Tool.Advanced.Workshop.html</code></pre>
+<div class="section level2">
+<h2 id="preparation">
+<span class="header-section-number">1.1</span> Preparation<a class="anchor" aria-label="anchor" href="#preparation"></a>
+</h2>
 <!-- There will be 2 courses: -->
 <!-- # Prerequisites -->
 <!-- This is an advanced training course with specific pre-requisites. -->
@@ -151,40 +139,42 @@ Using open source software with a command-line interface reduces barriers to ent
 <!-- - Register for a CycleStreets.net API key from: https://www.cyclestreets.net/api/ -->
 <!-- If you are new to R this course may not be appropriate for you. -->
 <p>If you are new to R, you should install R and RStudio before the course.
-For instructions on that, see the download links at <a href="https://cran.r-project.org/">cran.r-project.org</a> and <a href="https://www.rstudio.com/products/rstudio/download/#download">RStudio.com</a>.</p>
+For instructions on that, see the download links at <a href="https://cran.r-project.org/" class="external-link">cran.r-project.org</a> and <a href="https://www.rstudio.com/products/rstudio/download/#download" class="external-link">RStudio.com</a>.</p>
 <p>R is a powerful statistical programming language for data science and a wide range of other applications and, like any language, takes time to learn.
 To get started we recommend the following free resources:</p>
 <ul>
-<li>Beginner: A free online course such as those provided by DataCamp or those listed at <a href="https://education.rstudio.com/learn/beginner/">education.rstudio.com</a>
+<li>Beginner: A free online course such as those provided by DataCamp or those listed at <a href="https://education.rstudio.com/learn/beginner/" class="external-link">education.rstudio.com</a>
 </li>
-<li>Recommended for people with knowledge of transport and road safety data: getting started with R in the context of road safety data, a tutorial hosted at <a href="https://itsleeds.github.io/rrsrr/" class="uri">https://itsleeds.github.io/rrsrr/</a>
+<li>Recommended for people with knowledge of transport and road safety data: getting started with R in the context of road safety data, a tutorial hosted at <a href="https://itsleeds.github.io/rrsrr/" class="external-link uri">https://itsleeds.github.io/rrsrr/</a>
 </li>
-<li>For people interested in geographic data, which is at the heart of the PCT: <a href="https://geocompr.robinlovelace.net/spatial-class.html">Chapter 2 of the open source book <em>Geocomputation with R</em></a>.</li>
+<li>For people interested in geographic data, which is at the heart of the PCT: <a href="https://geocompr.robinlovelace.net/spatial-class.html" class="external-link">Chapter 2 of the open source book <em>Geocomputation with R</em></a>.</li>
 </ul>
 <p>If you want to calculate cycle routes from within R, you are recommended to sign-up for a CycleStreets API key.
-See <a href="https://www.cyclestreets.net/api/apply/">here</a> to apply and see <a href="https://rpackage.cyclestreets.net/reference/journey.html#details">here</a> for instructions on creating a ‘environment variable’ (recommended for experienced R users only).</p>
+See <a href="https://www.cyclestreets.net/api/apply/" class="external-link">here</a> to apply and see <a href="https://rpackage.cyclestreets.net/reference/journey.html#details" class="external-link">here</a> for instructions on creating a ‘environment variable’ (recommended for experienced R users only).</p>
 <p>It may also be worth taking a read about the PCT if you’re not familiar with it before the course starts.</p>
 </div>
-<div id="prior-reading" class="section level2">
-<h2 class="hasAnchor">
-<a href="#prior-reading" class="anchor"></a><span class="header-section-number">1.2</span> Prior reading</h2>
+<div class="section level2">
+<h2 id="prior-reading">
+<span class="header-section-number">1.2</span> Prior reading<a class="anchor" aria-label="anchor" href="#prior-reading"></a>
+</h2>
 <p>In addition to computer hardware (a laptop) and software (an up-to-date R set-up and experience using R) pre-requisites, you should have read, or at least have working knowledge of the contents of, the following publications, all of which are freely available online:</p>
 <ul>
 <li>The original paper on the Propensity to Cycle Tool <span class="citation">(Lovelace et al. 2017)</span>
 </li>
-<li>The transport chapter (<a href="https://geocompr.robinlovelace.net/transport.html">12</a>) in the open source book <a href="https://geocompr.robinlovelace.net/"><em>Geocomputation with R</em></a> <span class="citation">(Lovelace, Nowosad, and Muenchow 2019)</span>
+<li>The transport chapter (<a href="https://geocompr.robinlovelace.net/transport.html" class="external-link">12</a>) in the open source book <a href="https://geocompr.robinlovelace.net/" class="external-link"><em>Geocomputation with R</em></a> <span class="citation">(Lovelace, Nowosad, and Muenchow 2019)</span>
 </li>
-<li>The vignette that describes the pct R package, which can be found here: <a href="https://itsleeds.github.io/pct/articles/pct.html" class="uri">https://itsleeds.github.io/pct/articles/pct.html</a>
+<li>The vignette that describes the pct R package, which can be found here: <a href="https://itsleeds.github.io/pct/articles/pct.html" class="external-link uri">https://itsleeds.github.io/pct/articles/pct.html</a>
 </li>
 </ul>
 </div>
-<div id="prerequisites" class="section level2">
-<h2 class="hasAnchor">
-<a href="#prerequisites" class="anchor"></a><span class="header-section-number">1.3</span> Prerequisites</h2>
+<div class="section level2">
+<h2 id="prerequisites">
+<span class="header-section-number">1.3</span> Prerequisites<a class="anchor" aria-label="anchor" href="#prerequisites"></a>
+</h2>
 <p><strong>To ensure your computer is ready for the course, you should be able to run the following lines of R code on your computer:</strong></p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span>
-<span class="va">pkgs</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span>
+<span class="va">pkgs</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>
   <span class="st">"cyclestreets"</span>,
   <span class="st">"mapview"</span>,
   <span class="st">"pct"</span>,
@@ -194,13 +184,13 @@ See <a href="https://www.cyclestreets.net/api/apply/">here</a> to apply and see 
   <span class="st">"tidyverse"</span>,
   <span class="st">"devtools"</span>
 <span class="op">)</span>
-<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_cran.html">install_cran</a></span><span class="op">(</span><span class="va">pkgs</span><span class="op">)</span>
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_cran.html" class="external-link">install_cran</a></span><span class="op">(</span><span class="va">pkgs</span><span class="op">)</span>
 <span class="co"># remotes::install_github("ITSLeeds/pct")</span></code></pre></div>
-<p>To test your computer is ready to work with PCT data in R, you can also try running the code hosted at <a href="https://raw.githubusercontent.com/ITSLeeds/pct/master/inst/test-setup.R" class="uri">https://raw.githubusercontent.com/ITSLeeds/pct/master/inst/test-setup.R</a> to check everything is working:</p>
+<p>To test your computer is ready to work with PCT data in R, you can also try running the code hosted at <a href="https://raw.githubusercontent.com/ITSLeeds/pct/master/inst/test-setup.R" class="external-link uri">https://raw.githubusercontent.com/ITSLeeds/pct/master/inst/test-setup.R</a> to check everything is working:</p>
 <!-- method for helping people set up their computers. Type this single line into the console and follow the instructions.  -->
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"https://github.com/ITSLeeds/pct/raw/master/inst/test-setup.R"</span><span class="op">)</span> </code></pre></div>
-<p>If you have any questions before the workshop, feel free to ask a question on the package’s issue tracker (requires a GitHub login): <a href="https://github.com/ropensci/slopes/issues" class="uri">https://github.com/ropensci/slopes/issues</a></p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/source.html" class="external-link">source</a></span><span class="op">(</span><span class="st">"https://github.com/ITSLeeds/pct/raw/master/inst/test-setup.R"</span><span class="op">)</span> </code></pre></div>
+<p>If you have any questions before the workshop, feel free to ask a question on the package’s issue tracker (requires a GitHub login): <a href="https://github.com/itsleeds/pct/issues" class="external-link uri">https://github.com/itsleeds/pct/issues</a></p>
 <!-- \newpage -->
 <!-- # Agenda -->
 <!-- - 09:30 - 10:00: Arrival and set-up -->
@@ -250,9 +240,10 @@ See <a href="https://www.cyclestreets.net/api/apply/">here</a> to apply and see 
 <!-- - Networking and 'ideas with beers' 🍻🍻🍻 (17:20 - 18:00) -->
 </div>
 </div>
-<div id="how-the-pct-works-and-what-you-can-use-it-for" class="section level1">
-<h1 class="hasAnchor">
-<a href="#how-the-pct-works-and-what-you-can-use-it-for" class="anchor"></a><span class="header-section-number">2</span> How the PCT works and what you can use it for</h1>
+<div class="section level1">
+<h1 id="how-the-pct-works-and-what-you-can-use-it-for">
+<span class="header-section-number">2</span> How the PCT works and what you can use it for<a class="anchor" aria-label="anchor" href="#how-the-pct-works-and-what-you-can-use-it-for"></a>
+</h1>
 <ul>
 <li>Take a look at the image below from <span class="citation">(Woodcock et al. 2021)</span> and shown in Figure <a href="#fig:flow"><strong>??</strong></a>, which builds on an earlier diagram in <span class="citation">Lovelace et al. (2017)</span>. Which parts of the process are of most interest for your work?</li>
 </ul>
@@ -269,9 +260,10 @@ See <a href="https://www.cyclestreets.net/api/apply/">here</a> to apply and see 
 </ul>
 <!-- OD data is old -> use new OD data --><!-- Only single stage journeys -> Model travel to rail, for example --><!-- It does not predict future levels of cycling following new infrastructure -> --><!--   Wait until follow-on work building CyIPT is developed -->
 </div>
-<div id="getting-and-exploring-pct-data" class="section level1">
-<h1 class="hasAnchor">
-<a href="#getting-and-exploring-pct-data" class="anchor"></a><span class="header-section-number">3</span> Getting and exploring PCT data</h1>
+<div class="section level1">
+<h1 id="getting-and-exploring-pct-data">
+<span class="header-section-number">3</span> Getting and exploring PCT data<a class="anchor" aria-label="anchor" href="#getting-and-exploring-pct-data"></a>
+</h1>
 <!-- From ccac 2021 -->
 <p>In this section you will learn about the open datasets provided by the PCT project and how to use them.
 While the most common use of the PCT is via the interactive web application hosted at www.pct.bike, there is much value in downloading the data, e.g. to identify existing cycling infrastructure in close proximity to routes with high potential, and to help identify roads in need of interventions from a safety perspective, using data from the constantly evolving and community-driven global geographic database OpenStreetMap (OSM) <span class="citation">(Barrington-Leigh and Millard-Ball 2017)</span>.</p>
@@ -281,22 +273,23 @@ While the most common use of the PCT is via the interactive web application host
 <li>How to download and import data from the PCT into QGIS</li>
 <li>How to process the data alongside infrastructure data, to help find gaps in the network</li>
 </ul>
-<div id="getting-pct-data" class="section level2">
-<h2 class="hasAnchor">
-<a href="#getting-pct-data" class="anchor"></a><span class="header-section-number">3.1</span> Getting PCT data</h2>
+<div class="section level2">
+<h2 id="getting-pct-data">
+<span class="header-section-number">3.1</span> Getting PCT data<a class="anchor" aria-label="anchor" href="#getting-pct-data"></a>
+</h2>
 <p>We will get PCT data at the MSOA level and plot the result in a simple map.</p>
 <ul>
 <li>G1: The first stage is to load packages we will use:</li>
 </ul>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://itsleeds.github.io/pct/">pct</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span>      <span class="co"># key package for working with spatial vector data</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>   <span class="co"># in the tidyverse</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mtennekes/tmap">tmap</a></span><span class="op">)</span>    <span class="co"># installed alongside mapview</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://itsleeds.github.io/pct/" class="external-link">pct</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/" class="external-link">sf</a></span><span class="op">)</span>      <span class="co"># key package for working with spatial vector data</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>   <span class="co"># in the tidyverse</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mtennekes/tmap" class="external-link">tmap</a></span><span class="op">)</span>    <span class="co"># installed alongside mapview</span></code></pre></div>
 <ul>
 <li>G2: After setting the region name (to avoid re-typing it many times) run the following commands to download data at the four main levels used in the PCT:</li>
 </ul>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">region_name</span> <span class="op">=</span> <span class="st">"isle-of-wight"</span>
 <span class="va">zones_all</span> <span class="op">=</span> <span class="fu"><a href="../reference/get_pct_zones.html">get_pct_zones</a></span><span class="op">(</span><span class="va">region_name</span>, geography <span class="op">=</span> <span class="st">"msoa"</span><span class="op">)</span>
 <span class="va">lines_all</span> <span class="op">=</span> <span class="fu"><a href="../reference/get_pct_lines.html">get_pct_lines</a></span><span class="op">(</span><span class="va">region_name</span>, geography <span class="op">=</span> <span class="st">"msoa"</span><span class="op">)</span>
@@ -305,96 +298,99 @@ While the most common use of the PCT is via the interactive web application host
 <ul>
 <li>G3: Check the downloads worked by plotting the result as follows:</li>
 </ul>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">zones_all</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span>
-<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">lines_all</span><span class="op">$</span><span class="va">geometry</span>, col <span class="op">=</span> <span class="st">"blue"</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">routes_all</span><span class="op">$</span><span class="va">geometry</span>, col <span class="op">=</span> <span class="st">"green"</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">rnet_all</span><span class="op">$</span><span class="va">geometry</span>, col <span class="op">=</span> <span class="st">"red"</span>, lwd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">rnet_all</span><span class="op">$</span><span class="va">bicycle</span><span class="op">)</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">zones_all</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span>
+<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">lines_all</span><span class="op">$</span><span class="va">geometry</span>, col <span class="op">=</span> <span class="st">"blue"</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">routes_all</span><span class="op">$</span><span class="va">geometry</span>, col <span class="op">=</span> <span class="st">"green"</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">rnet_all</span><span class="op">$</span><span class="va">geometry</span>, col <span class="op">=</span> <span class="st">"red"</span>, lwd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">rnet_all</span><span class="op">$</span><span class="va">bicycle</span><span class="op">)</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="visualising-pct-data" class="section level2">
-<h2 class="hasAnchor">
-<a href="#visualising-pct-data" class="anchor"></a><span class="header-section-number">3.2</span> Visualising PCT data</h2>
+<div class="section level2">
+<h2 id="visualising-pct-data">
+<span class="header-section-number">3.2</span> Visualising PCT data<a class="anchor" aria-label="anchor" href="#visualising-pct-data"></a>
+</h2>
 <p>At its heart, the PCT is a data visualisation tool.</p>
 <ul>
 <li>V1: Create a static plot showing the route network layer with the <code>tmap</code> package</li>
 </ul>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">rnet_all</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_lines.html">tm_lines</a></span><span class="op">(</span>lwd <span class="op">=</span> <span class="st">"dutch_slc"</span>, scale <span class="op">=</span> <span class="fl">9</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html" class="external-link">tm_shape</a></span><span class="op">(</span><span class="va">rnet_all</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_lines.html" class="external-link">tm_lines</a></span><span class="op">(</span>lwd <span class="op">=</span> <span class="st">"dutch_slc"</span>, scale <span class="op">=</span> <span class="fl">9</span><span class="op">)</span></code></pre></div>
 <ul>
 <li>V2: Create an interactive map showing the route network layer with the <code>tmap</code> package</li>
 </ul>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># interactive plot</span>
-<span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tmap_mode.html">tmap_mode</a></span><span class="op">(</span><span class="st">"view"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">rnet_all</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_lines.html">tm_lines</a></span><span class="op">(</span>lwd <span class="op">=</span> <span class="st">"dutch_slc"</span>, scale <span class="op">=</span> <span class="fl">9</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tmap_mode.html" class="external-link">tmap_mode</a></span><span class="op">(</span><span class="st">"view"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html" class="external-link">tm_shape</a></span><span class="op">(</span><span class="va">rnet_all</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_lines.html" class="external-link">tm_lines</a></span><span class="op">(</span>lwd <span class="op">=</span> <span class="st">"dutch_slc"</span>, scale <span class="op">=</span> <span class="fl">9</span><span class="op">)</span></code></pre></div>
 <ul>
 <li>V3 (Bonus): Run the following command to show the % of short trips in Isle of Wight made by active modes.</li>
 </ul>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># basic plot</span>
 <span class="va">max_distance</span> <span class="op">=</span> <span class="fl">7</span>
 <span class="co"># plot(zones_all$geometry)</span>
 <span class="co"># plot(lines_all$geometry[lines_all$all &gt; 500], col = "red", add = TRUE)</span>
 
 <span class="co"># create 'active' desire lines (less than 5 km)</span>
-<span class="va">active</span> <span class="op">=</span> <span class="va">lines_all</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>`Percent Active` <span class="op">=</span> <span class="op">(</span><span class="va">bicycle</span> <span class="op">+</span> <span class="va">foot</span><span class="op">)</span> <span class="op">/</span> <span class="va">all</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">e_dist_km</span> <span class="op">&lt;</span> <span class="va">max_distance</span><span class="op">)</span>
+<span class="va">active</span> <span class="op">=</span> <span class="va">lines_all</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>`Percent Active` <span class="op">=</span> <span class="op">(</span><span class="va">bicycle</span> <span class="op">+</span> <span class="va">foot</span><span class="op">)</span> <span class="op">/</span> <span class="va">all</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">e_dist_km</span> <span class="op">&lt;</span> <span class="va">max_distance</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">active</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_lines.html">tm_lines</a></span><span class="op">(</span><span class="st">"Percent Active"</span>, palette <span class="op">=</span> <span class="st">"RdYlBu"</span>, lwd <span class="op">=</span> <span class="st">"all"</span>, scale <span class="op">=</span> <span class="fl">9</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html" class="external-link">tm_shape</a></span><span class="op">(</span><span class="va">active</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_lines.html" class="external-link">tm_lines</a></span><span class="op">(</span><span class="st">"Percent Active"</span>, palette <span class="op">=</span> <span class="st">"RdYlBu"</span>, lwd <span class="op">=</span> <span class="st">"all"</span>, scale <span class="op">=</span> <span class="fl">9</span><span class="op">)</span></code></pre></div>
 <ul>
 <li>V4 (Bonus): Use the same technique to to identify short distance trips with a high mode share by car, as follows:</li>
 </ul>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Create car dependent desire lines</span>
-<span class="va">car_dependent</span> <span class="op">=</span> <span class="va">lines_all</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>`Percent Drive` <span class="op">=</span> <span class="op">(</span><span class="va">car_driver</span><span class="op">)</span> <span class="op">/</span> <span class="va">all</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">e_dist_km</span> <span class="op">&lt;</span> <span class="va">max_distance</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">car_dependent</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_lines.html">tm_lines</a></span><span class="op">(</span><span class="st">"Percent Drive"</span>, palette <span class="op">=</span> <span class="st">"-RdYlBu"</span>, lwd <span class="op">=</span> <span class="st">"all"</span>, scale <span class="op">=</span> <span class="fl">9</span><span class="op">)</span></code></pre></div>
-<p>Advanced: visualise the PCT data using a range of visualisation techniques.
-For inspiration, check out the <a href="https://geocompr.robinlovelace.net/adv-map.html">Making maps with R</a> chapter of Geocomputation with R.</p>
-</div>
-<div id="exploring-pct-data" class="section level2">
-<h2 class="hasAnchor">
-<a href="#exploring-pct-data" class="anchor"></a><span class="header-section-number">3.3</span> Exploring PCT data</h2>
-<ul>
-<li><p>E1: Using the PCT’s online interface, hosted at <a href="https://www.pct.bike/m/?r=isle-of-wight">www.pct.bike/m/?r=isle-of-wight</a>, identify the MSOA <strong>zone</strong> that has the highest number of people who cycle to work.</p></li>
-<li><p>E2: Using data downloaded with the command <code><a href="../reference/get_pct_zones.html">get_pct_zones()</a></code>, identify the zone that has highest level of cycling with the function <code><a href="https://dplyr.tidyverse.org/reference/top_n.html">top_n()</a></code> and save the result as an object called <code>z_highest_cycling</code> (hint: you may want to start by ‘cleaning’ the data you have downloaded to include only a few key columns with the function <code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code>, as follows):</p></li>
-</ul>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">z</span> <span class="op">=</span> <span class="va">zones_all</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">geo_code</span>, <span class="va">geo_name</span>, <span class="va">all</span>, <span class="va">foot</span>, <span class="va">bicycle</span>, <span class="va">car_driver</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="co"># Create car dependent desire lines</span>
+<span class="va">car_dependent</span> <span class="op">=</span> <span class="va">lines_all</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>`Percent Drive` <span class="op">=</span> <span class="op">(</span><span class="va">car_driver</span><span class="op">)</span> <span class="op">/</span> <span class="va">all</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">e_dist_km</span> <span class="op">&lt;</span> <span class="va">max_distance</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html" class="external-link">tm_shape</a></span><span class="op">(</span><span class="va">car_dependent</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_lines.html" class="external-link">tm_lines</a></span><span class="op">(</span><span class="st">"Percent Drive"</span>, palette <span class="op">=</span> <span class="st">"-RdYlBu"</span>, lwd <span class="op">=</span> <span class="st">"all"</span>, scale <span class="op">=</span> <span class="fl">9</span><span class="op">)</span></code></pre></div>
+<p>Advanced: visualise the PCT data using a range of visualisation techniques.
+For inspiration, check out the <a href="https://geocompr.robinlovelace.net/adv-map.html" class="external-link">Making maps with R</a> chapter of Geocomputation with R.</p>
+</div>
+<div class="section level2">
+<h2 id="exploring-pct-data">
+<span class="header-section-number">3.3</span> Exploring PCT data<a class="anchor" aria-label="anchor" href="#exploring-pct-data"></a>
+</h2>
 <ul>
-<li><p>E3: Use the <code><a href="https://r-spatial.github.io/sf/reference/plot.html">plot()</a></code> command to visualise where on the Isle of Wight this ‘high cycling’ zone is (hint: you will need to use the <code><a href="https://r-spatial.github.io/sf/reference/plot.html">plot()</a></code> function twice, once to plot <code>z$geometry</code>, and again with the argument <code>add = TRUE</code> and a <code>col</code> argument to add the layer on top of the base layer and give it a colour). The result should look something like something this:</p></li>
+<li><p>E1: Using the PCT’s online interface, hosted at <a href="https://www.pct.bike/m/?r=isle-of-wight" class="external-link">www.pct.bike/m/?r=isle-of-wight</a>, identify the MSOA <strong>zone</strong> that has the highest number of people who cycle to work.</p></li>
+<li><p>E2: Using data downloaded with the command <code><a href="../reference/get_pct_zones.html">get_pct_zones()</a></code>, identify the zone that has highest level of cycling with the function <code><a href="https://dplyr.tidyverse.org/reference/top_n.html" class="external-link">top_n()</a></code> and save the result as an object called <code>z_highest_cycling</code> (hint: you may want to start by ‘cleaning’ the data you have downloaded to include only a few key columns with the function <code><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select()</a></code>, as follows):</p></li>
+</ul>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">z</span> <span class="op">=</span> <span class="va">zones_all</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">geo_code</span>, <span class="va">geo_name</span>, <span class="va">all</span>, <span class="va">foot</span>, <span class="va">bicycle</span>, <span class="va">car_driver</span><span class="op">)</span></code></pre></div>
+<ul>
+<li><p>E3: Use the <code><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot()</a></code> command to visualise where on the Isle of Wight this ‘high cycling’ zone is (hint: you will need to use the <code><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot()</a></code> function twice, once to plot <code>z$geometry</code>, and again with the argument <code>add = TRUE</code> and a <code>col</code> argument to add the layer on top of the base layer and give it a colour). The result should look something like something this:</p></li>
 <li><p>E4: Using the online interface, identify the top 5 MSOA to MSOA <strong>desire lines</strong> that have the highest number of people who cycle to work.</p></li>
 <li>
 <p>E5: Using the function <code>top_n(n = 5, wt = bicycle)</code>, identify the top 5 MSOA to MSOA <strong>desire lines</strong> that have the highest number of people who cycle to work (hint: you might want to start with the code shown below).</p>
 <ul>
-<li>Bonus: also find the 5 desire lines with the highest number of people driving to work. Plot them and find the straight line distance of these lines with the function <code><a href="https://r-spatial.github.io/sf/reference/geos_measures.html">st_length()</a></code>.</li>
+<li>Bonus: also find the 5 desire lines with the highest number of people driving to work. Plot them and find the straight line distance of these lines with the function <code><a href="https://r-spatial.github.io/sf/reference/geos_measures.html" class="external-link">st_length()</a></code>.</li>
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Aim: get top 5 cycle routes</span>
-<span class="va">l_msoa</span> <span class="op">=</span> <span class="va">lines_all</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">geo_code1</span>, <span class="va">geo_code2</span>, <span class="va">all</span>, <span class="va">foot</span>, <span class="va">bicycle</span>, <span class="va">car_driver</span>, <span class="va">rf_avslope_perc</span>, <span class="va">rf_dist_km</span><span class="op">)</span></code></pre></div>
+<span class="va">l_msoa</span> <span class="op">=</span> <span class="va">lines_all</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">geo_code1</span>, <span class="va">geo_code2</span>, <span class="va">all</span>, <span class="va">foot</span>, <span class="va">bicycle</span>, <span class="va">car_driver</span>, <span class="va">rf_avslope_perc</span>, <span class="va">rf_dist_km</span><span class="op">)</span></code></pre></div>
 <ul>
 <li><p>E6 (Bonus): Repeat the exercise but calculate the top 10 LSOA to LSOA desire lines (by setting the argument <code>geography = "lsoa"</code>, remember to change the names of the objects you create). The results should look like this:</p></li>
 <li><p>E7: Why are the results different? What are the advantages and disadvantages of using smaller zones, as represented by the LSOA data above?</p></li>
 </ul>
 <!-- - E8 (bonus): do the same analysis but with the top **30** routes with a  cycled and driven. Hint: set the line width with `lwd = l_top_cycling$bicycle / mean(l_top_cycling$bicycle)` to portray the relative importance of each route. -->
 </div>
-<div id="modifying-pct-data-to-identify-routesroads-of-interest" class="section level2">
-<h2 class="hasAnchor">
-<a href="#modifying-pct-data-to-identify-routesroads-of-interest" class="anchor"></a><span class="header-section-number">3.4</span> Modifying PCT data to identify routes/roads of interest</h2>
+<div class="section level2">
+<h2 id="modifying-pct-data-to-identify-routesroads-of-interest">
+<span class="header-section-number">3.4</span> Modifying PCT data to identify routes/roads of interest<a class="anchor" aria-label="anchor" href="#modifying-pct-data-to-identify-routesroads-of-interest"></a>
+</h2>
 <ul>
 <li>M1: Building on the MSOA examples above, add a new column called <code>pcycle</code> to the object <code>l_msoa</code> that contains the % who cycle to work (hint: you might want to start this by typing <code>l_msoa$pcycle = ...</code>) and plot the results (shown in left hand panel in plot below).</li>
 </ul>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">l_msoa</span><span class="op">$</span><span class="va">pcycle</span> <span class="op">=</span> <span class="va">l_msoa</span><span class="op">$</span><span class="va">bicycle</span> <span class="op">/</span> <span class="va">l_msoa</span><span class="op">$</span><span class="va">all</span> <span class="op">*</span> <span class="fl">100</span>
 <span class="co"># plot(l_msoa["pcycle"], lwd = l_msoa$all / mean(l_msoa$all), breaks = c(0, 5, 10, 20, 50))</span></code></pre></div>
 <ul>
@@ -409,61 +405,65 @@ For inspiration, check out the <a href="https://geocompr.robinlovelace.net/adv-m
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">l_less_than_10km</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">foot</span> <span class="op">&gt;</span> <span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">foot</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">l_less_than_10km</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">bicycle</span> <span class="op">&gt;</span> <span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">bicycle</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">l_less_than_10km</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">car_driver</span> <span class="op">&gt;</span> <span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">car_driver</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">l_less_than_10km</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">foot</span> <span class="op">&gt;</span> <span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">foot</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">l_less_than_10km</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">bicycle</span> <span class="op">&gt;</span> <span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">bicycle</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">l_less_than_10km</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">car_driver</span> <span class="op">&gt;</span> <span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">car_driver</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>This section is designed for people with experience with the PCT and cycling uptake estimates who want to learn more about how uptake models work.</p>
 </div>
 </div>
-<div id="pct-scenarios" class="section level1">
-<h1 class="hasAnchor">
-<a href="#pct-scenarios" class="anchor"></a><span class="header-section-number">4</span> PCT scenarios</h1>
+<div class="section level1">
+<h1 id="pct-scenarios">
+<span class="header-section-number">4</span> PCT scenarios<a class="anchor" aria-label="anchor" href="#pct-scenarios"></a>
+</h1>
 <ul>
 <li>S1: Generate a ‘Go Dutch’ scenario for the Isle of Wight using the function <code><a href="../reference/uptake_pct_godutch.html">uptake_pct_godutch()</a></code> (hint: the following code chunk will create a ‘Government Target’ scenario):</li>
 </ul>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">l_msoa</span><span class="op">$</span><span class="va">euclidean_distance</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_measures.html">st_length</a></span><span class="op">(</span><span class="va">l_msoa</span><span class="op">)</span><span class="op">)</span>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">l_msoa</span><span class="op">$</span><span class="va">euclidean_distance</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_measures.html" class="external-link">st_length</a></span><span class="op">(</span><span class="va">l_msoa</span><span class="op">)</span><span class="op">)</span>
 <span class="va">l_msoa</span><span class="op">$</span><span class="va">pcycle_govtarget</span> <span class="op">=</span> <span class="fu"><a href="../reference/uptake_pct_govtarget.html">uptake_pct_govtarget_2020</a></span><span class="op">(</span>
   distance <span class="op">=</span> <span class="va">l_msoa</span><span class="op">$</span><span class="va">rf_dist_km</span>,
   gradient <span class="op">=</span> <span class="va">l_msoa</span><span class="op">$</span><span class="va">rf_avslope_perc</span>
   <span class="op">)</span> <span class="op">*</span> <span class="fl">100</span> <span class="op">+</span> <span class="va">l_msoa</span><span class="op">$</span><span class="va">pcycle</span></code></pre></div>
 <ul>
 <li>S2: Think of alternative scenarios that would be useful for your work</li>
-<li>S3 (bonus): look inside the function <a href="https://github.com/ITSLeeds/pct/blob/master/R/uptake.R#L36"><code>pct_uptake_godutch()</code></a> - how could it be modified?</li>
+<li>S3 (bonus): look inside the function <a href="https://github.com/ITSLeeds/pct/blob/master/R/uptake.R#L36" class="external-link"><code>pct_uptake_godutch()</code></a> - how could it be modified?</li>
 </ul>
 </div>
-<div id="routing-and-route-networks" class="section level1">
-<h1 class="hasAnchor">
-<a href="#routing-and-route-networks" class="anchor"></a><span class="header-section-number">5</span> Routing and route networks</h1>
+<div class="section level1">
+<h1 id="routing-and-route-networks">
+<span class="header-section-number">5</span> Routing and route networks<a class="anchor" aria-label="anchor" href="#routing-and-route-networks"></a>
+</h1>
 <p>A key aspect of the PCT is routing.
 This section demonstrates how to calculate cycling routes in R, to support evidence-based transport planning.</p>
-<div id="routes" class="section level2">
-<h2 class="hasAnchor">
-<a href="#routes" class="anchor"></a><span class="header-section-number">5.1</span> Routes</h2>
+<div class="section level2">
+<h2 id="routes">
+<span class="header-section-number">5.1</span> Routes<a class="anchor" aria-label="anchor" href="#routes"></a>
+</h2>
 <ul>
-<li>R1: Using the function <code><a href="https://docs.ropensci.org/stplanr/reference/route.html">route()</a></code> find the route associated with the most cycled desire line in the Isle of Wight. If you use the arguments <code>route_fun = osrmRoute</code> <code>returnclass = "sf"</code>, the result should look similar to that displayed in the map below (hint: you may want to start your answer with the following lines of code):</li>
+<li>R1: Using the function <code><a href="https://docs.ropensci.org/stplanr/reference/route.html" class="external-link">route()</a></code> find the route associated with the most cycled desire line in the Isle of Wight. If you use the arguments <code>route_fun = osrmRoute</code> <code>returnclass = "sf"</code>, the result should look similar to that displayed in the map below (hint: you may want to start your answer with the following lines of code):</li>
 </ul>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">l_top</span> <span class="op">=</span> <span class="va">l_msoa</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/top_n.html">top_n</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">1</span>, wt <span class="op">=</span> <span class="va">bicycle</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">l_top</span> <span class="op">=</span> <span class="va">l_msoa</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/top_n.html" class="external-link">top_n</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">1</span>, wt <span class="op">=</span> <span class="va">bicycle</span><span class="op">)</span></code></pre></div>
 <ul>
 <li><p>R2: What are the problems associated with this route from a cycling perspective?
-Take a look at the help page opened by entering <code><a href="https://docs.ropensci.org/stplanr/reference/route.html">?route</a></code> to identify the reason why the route is not particularly useful from a cycling perspective.</p></li>
+Take a look at the help page opened by entering <code><a href="https://docs.ropensci.org/stplanr/reference/route.html" class="external-link">?route</a></code> to identify the reason why the route is not particularly useful from a cycling perspective.</p></li>
 <li><p>R3: Regenerate the route using the following command: <code>route(l = l_top, route_fun = cyclestreets::journey)</code>.
 What is the difference in the length between each route, and what other differences can you spot?
 <strong>Note: this exercise requires an API Key from CycleStreets.net.</strong></p></li>
 <li><p>R4 (bonus): what features of a routing service would be most useful for your work and why?</p></li>
 </ul>
 </div>
-<div id="route-networks" class="section level2">
-<h2 class="hasAnchor">
-<a href="#route-networks" class="anchor"></a><span class="header-section-number">5.2</span> Route networks</h2>
+<div class="section level2">
+<h2 id="route-networks">
+<span class="header-section-number">5.2</span> Route networks<a class="anchor" aria-label="anchor" href="#route-networks"></a>
+</h2>
 <ul>
-<li>RN1: Generate a ‘route network’ showing number of people walking in the top 30 routes in the Isle of Wight, allocated to the transport network (hint: use the <code><a href="https://docs.ropensci.org/stplanr/reference/overline.html">overline()</a></code> function and begin the script as follows, the results should look similar to the results below):</li>
+<li>RN1: Generate a ‘route network’ showing number of people walking in the top 30 routes in the Isle of Wight, allocated to the transport network (hint: use the <code><a href="https://docs.ropensci.org/stplanr/reference/overline.html" class="external-link">overline()</a></code> function and begin the script as follows, the results should look similar to the results below):</li>
 </ul>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">route_data</span> <span class="op">=</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/sf.html">st_sf</a></span><span class="op">(</span><span class="va">wight_lines_30</span>, geometry <span class="op">=</span> <span class="va">wight_routes_30</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">route_data</span> <span class="op">=</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">st_sf</a></span><span class="op">(</span><span class="va">wight_lines_30</span>, geometry <span class="op">=</span> <span class="va">wight_routes_30</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span></code></pre></div>
 <ul>
 <li>
 <p>RN2: Download the travel to school route network and compare the results with the route network created for RN1.</p>
@@ -475,52 +475,54 @@ What is the difference in the length between each route, and what other differen
 </ul>
 </div>
 </div>
-<div id="ideas-for-further-work" class="section level1">
-<h1 class="hasAnchor">
-<a href="#ideas-for-further-work" class="anchor"></a><span class="header-section-number">6</span> Ideas for further work</h1>
+<div class="section level1">
+<h1 id="ideas-for-further-work">
+<span class="header-section-number">6</span> Ideas for further work<a class="anchor" aria-label="anchor" href="#ideas-for-further-work"></a>
+</h1>
 <ul>
 <li>Create a route network reflecting where you would invest if the priority was reducing car trips of less than 5 km</li>
 <li>Design interventions to replace short car trips across London (or another region of your choice) using the PCT methods/data to support your decisions</li>
 <li>Identify quiet routes and design a quiet route network for city/region of your choice, e.g. Westminter</li>
 <li>Import alternative origin-destination datasets and use those as the basis for propensity to cycle analysis for trip purposes other than single stage commutes, encapsulated in the commut layer in the PCT</li>
-<li>Any other layers/scenarios/hacks: welcome! Comments in this repo’s <a href="https://github.com/ITSLeeds/pct/issues">issue tracker</a> also welcome.</li>
+<li>Any other layers/scenarios/hacks: welcome! Comments in this repo’s <a href="https://github.com/ITSLeeds/pct/issues" class="external-link">issue tracker</a> also welcome.</li>
 </ul>
 <!-- - Identify priority routes to improve for bike share users by using OD data from TfL's bike share (if we get time to do this) --><!-- Demonstrate routing with cyclestreets.net -->
 </div>
-<div id="useful-links" class="section level1">
-<h1 class="hasAnchor">
-<a href="#useful-links" class="anchor"></a><span class="header-section-number">7</span> Useful links</h1>
+<div class="section level1">
+<h1 id="useful-links">
+<span class="header-section-number">7</span> Useful links<a class="anchor" aria-label="anchor" href="#useful-links"></a>
+</h1>
 <p>These links may be useful when working through the exercises:</p>
 <ul>
-<li>The codebook describing each variable in the PCT route: <a href="https://github.com/npct/pct-shiny/blob/master/regions_www/www/static/02_codebooks/commute/od_l_rf_codebook.csv">od_l_rf_codebook.csv</a>
+<li>The codebook describing each variable in the PCT route: <a href="https://github.com/npct/pct-shiny/blob/master/regions_www/www/static/02_codebooks/commute/od_l_rf_codebook.csv" class="external-link">od_l_rf_codebook.csv</a>
 </li>
-<li>Folder containing all <a href="https://github.com/npct/pct-shiny/tree/master/regions_www/www/static/02_codebooks">codebooks, including variables in zone, line and centroid datasets</a>
+<li>Folder containing all <a href="https://github.com/npct/pct-shiny/tree/master/regions_www/www/static/02_codebooks" class="external-link">codebooks, including variables in zone, line and centroid datasets</a>
 </li>
-<li>The PCT tool itself, which can be used to cross-compare results from the analysis steps below: <a href="https://www.pct.bike/">www.pct.bike</a>
+<li>The PCT tool itself, which can be used to cross-compare results from the analysis steps below: <a href="https://www.pct.bike/" class="external-link">www.pct.bike</a>
 </li>
 </ul>
 </div>
-<div id="references" class="section level1 unnumbered">
-<h1 class="hasAnchor">
-<a href="#references" class="anchor"></a>References</h1>
+<div class="section level1 unnumbered">
+<h1 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h1>
 <div id="refs" class="references">
 <div id="ref-barrington-leigh_world_2017">
-<p>Barrington-Leigh, Christopher, and Adam Millard-Ball. 2017. “The World’s User-Generated Road Map Is More Than 80% Complete.” <em>PLOS ONE</em> 12 (8): e0180698. <a href="https://doi.org/10.1371/journal.pone.0180698">https://doi.org/10.1371/journal.pone.0180698</a>.</p>
+<p>Barrington-Leigh, Christopher, and Adam Millard-Ball. 2017. “The World’s User-Generated Road Map Is More Than 80% Complete.” <em>PLOS ONE</em> 12 (8): e0180698. <a href="https://doi.org/10.1371/journal.pone.0180698" class="external-link">https://doi.org/10.1371/journal.pone.0180698</a>.</p>
 </div>
 <div id="ref-goodman_scenarios_2019">
-<p>Goodman, Anna, Ilan Fridman Rojas, James Woodcock, Rachel Aldred, Nikolai Berkoff, Malcolm Morgan, Ali Abbas, and Robin Lovelace. 2019. “Scenarios of Cycling to School in England, and Associated Health and Carbon Impacts: Application of the ‘Propensity to Cycle Tool’.” <em>Journal of Transport &amp; Health</em> 12 (March): 263–78. <a href="https://doi.org/10.1016/j.jth.2019.01.008">https://doi.org/10.1016/j.jth.2019.01.008</a>.</p>
+<p>Goodman, Anna, Ilan Fridman Rojas, James Woodcock, Rachel Aldred, Nikolai Berkoff, Malcolm Morgan, Ali Abbas, and Robin Lovelace. 2019. “Scenarios of Cycling to School in England, and Associated Health and Carbon Impacts: Application of the ‘Propensity to Cycle Tool’.” <em>Journal of Transport &amp; Health</em> 12 (March): 263–78. <a href="https://doi.org/10.1016/j.jth.2019.01.008" class="external-link">https://doi.org/10.1016/j.jth.2019.01.008</a>.</p>
 </div>
 <div id="ref-lovelace_open_2021">
-<p>Lovelace, Robin. 2021. “Open Source Tools for Geographic Analysis in Transport Planning.” <em>Journal of Geographical Systems</em>, January. <a href="https://doi.org/10.1007/s10109-020-00342-2">https://doi.org/10.1007/s10109-020-00342-2</a>.</p>
+<p>Lovelace, Robin. 2021. “Open Source Tools for Geographic Analysis in Transport Planning.” <em>Journal of Geographical Systems</em>, January. <a href="https://doi.org/10.1007/s10109-020-00342-2" class="external-link">https://doi.org/10.1007/s10109-020-00342-2</a>.</p>
 </div>
 <div id="ref-lovelace_propensity_2017">
-<p>Lovelace, Robin, Anna Goodman, Rachel Aldred, Nikolai Berkoff, Ali Abbas, and James Woodcock. 2017. “The Propensity to Cycle Tool: An Open Source Online System for Sustainable Transport Planning.” <em>Journal of Transport and Land Use</em> 10 (1). <a href="https://doi.org/10.5198/jtlu.2016.862">https://doi.org/10.5198/jtlu.2016.862</a>.</p>
+<p>Lovelace, Robin, Anna Goodman, Rachel Aldred, Nikolai Berkoff, Ali Abbas, and James Woodcock. 2017. “The Propensity to Cycle Tool: An Open Source Online System for Sustainable Transport Planning.” <em>Journal of Transport and Land Use</em> 10 (1). <a href="https://doi.org/10.5198/jtlu.2016.862" class="external-link">https://doi.org/10.5198/jtlu.2016.862</a>.</p>
 </div>
 <div id="ref-lovelace_geocomputation_2019">
-<p>Lovelace, Robin, Jakub Nowosad, and Jannes Muenchow. 2019. <em>Geocomputation with R</em>. CRC Press. <a href="https://geocompr.robinlovelace.net/">https://geocompr.robinlovelace.net/</a>.</p>
+<p>Lovelace, Robin, Jakub Nowosad, and Jannes Muenchow. 2019. <em>Geocomputation with R</em>. CRC Press. <a href="https://geocompr.robinlovelace.net/" class="external-link">https://geocompr.robinlovelace.net/</a>.</p>
 </div>
 <div id="ref-woodcock_health_2021a">
-<p>Woodcock, James, Rachel Aldred, Robin Lovelace, Tessa Strain, and Anna Goodman. 2021. “Health, Environmental and Distributional Impacts of Cycling Uptake: The Model Underlying the Propensity to Cycle Tool for England and Wales.” <em>Journal of Transport &amp; Health</em> 22 (September): 101066. <a href="https://doi.org/10.1016/j.jth.2021.101066">https://doi.org/10.1016/j.jth.2021.101066</a>.</p>
+<p>Woodcock, James, Rachel Aldred, Robin Lovelace, Tessa Strain, and Anna Goodman. 2021. “Health, Environmental and Distributional Impacts of Cycling Uptake: The Model Underlying the Propensity to Cycle Tool for England and Wales.” <em>Journal of Transport &amp; Health</em> 22 (September): 101066. <a href="https://doi.org/10.1016/j.jth.2021.101066" class="external-link">https://doi.org/10.1016/j.jth.2021.101066</a>.</p>
 </div>
 </div>
 </div>
@@ -535,11 +537,13 @@ What is the difference in the length between each route, and what other differen
 
 
       <footer><div class="copyright">
-  <p>Developed by Robin Lovelace, Layik Hama.</p>
+  <p></p>
+<p>Developed by Robin Lovelace, Layik Hama.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>
@@ -547,6 +551,8 @@ What is the difference in the length between each route, and what other differen
 
   
 
+
+  
 
   </body>
 </html>

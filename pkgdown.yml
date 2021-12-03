@@ -1,5 +1,5 @@
 pandoc: 2.7.3
-pkgdown: 1.6.1
+pkgdown: 2.0.1
 pkgdown_sha: ~
 articles:
   cycling-potential-uk: cycling-potential-uk.html
@@ -9,5 +9,5 @@ articles:
   pct: pct.html
   pct_training: pct_training.html
   uk-cities: uk-cities.html
-last_built: 2021-11-02T08:33Z
+last_built: 2021-12-03T12:05Z
 

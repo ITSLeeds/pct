@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,18 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pct</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.4</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../articles/pct.html">Get started</a>
 </li>
@@ -82,7 +78,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/ITSLeeds/pct/">
+  <a href="https://github.com/ITSLeeds/pct/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -97,25 +93,14 @@
 
       
 
-      </header><script src="getting_files/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="getting_files/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet">
-<script src="getting_files/bootstrap-3.3.5/js/bootstrap.min.js"></script><script src="getting_files/bootstrap-3.3.5/shim/html5shiv.min.js"></script><script src="getting_files/bootstrap-3.3.5/shim/respond.min.js"></script><style>h1 {font-size: 34px;}
-       h1.title {font-size: 38px;}
-       h2 {font-size: 30px;}
-       h3 {font-size: 24px;}
-       h4 {font-size: 18px;}
-       h5 {font-size: 16px;}
-       h6 {font-size: 12px;}
-       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
-       pre:not([class]) { background-color: white }</style>
-<script src="getting_files/navigation-1.1/tabsets.js"></script><script src="getting_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Getting and using data from the PCT</h1>
-                        <h4 class="author">Robin Lovelace, Joey Talbot and Nathanel Sheehan</h4>
+                        <h4 data-toc-skip class="author">Robin Lovelace, Joey Talbot and Nathanel Sheehan</h4>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/ITSLeeds/pct/blob/master/vignettes/getting.Rmd"><code>vignettes/getting.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/ITSLeeds/pct/blob/HEAD/vignettes/getting.Rmd" class="external-link"><code>vignettes/getting.Rmd</code></a></small>
       <div class="hidden name"><code>getting.Rmd</code></div>
 
     </div>
@@ -124,16 +109,19 @@
     
 <p>The PCT is not only a web tool, it is a research and open data project that has resulted in many megabytes of valuable data <span class="citation">(Lovelace et al. 2017)</span>.
 This guide was put together to show how to download and use these open datasets, originally for the Cycle Active City 2021 conference, although it may be of use to anyone interested in data driven planning for sustainable and active travel futures.
-It was presented as a workshop at the <a href="https://hopin.com/events/cycle-active-city-2021">Cycle City Active City 2021</a> and is divided into the following two main components, which take around an hour each to work through (longer if you’re not experienced with spatial data with R):</p>
+It was presented as a workshop at the <a href="https://hopin.com/events/cycle-active-city-2021" class="external-link">Cycle City Active City 2021</a> and is divided into the following two main components, which take around an hour each to work through (longer if you’re not experienced with spatial data with R):</p>
 <ul>
-<li><p>Propensity to Cycle Tool: getting and using the data, based on section <a href="#getting-and-exploring-pct-data">1</a></p></li>
-<li><p>Propensity to Cycle Tool: build your own scenarios, based on section <a href="#modelling-change">2</a></p></li>
+<li>Propensity to Cycle Tool: getting and using the data, based on section <a href="#getting-and-exploring-pct-data">1</a>
+</li>
+<li>Propensity to Cycle Tool: build your own scenarios, based on section <a href="#modelling-change">2</a>
+</li>
 </ul>
-<p>To see the workshop and work through it alongside a video demo, see <a href="https://www.youtube.com/watch?v=OiLzjrBMQmU" class="uri">https://www.youtube.com/watch?v=OiLzjrBMQmU</a>.
-To see the ‘marked up’ contents of the vignette (with results evaluated) see <a href="https://rpubs.com/RobinLovelace/829902" class="uri">https://rpubs.com/RobinLovelace/829902</a>.</p>
-<div id="getting-and-exploring-pct-data" class="section level1">
-<h1 class="hasAnchor">
-<a href="#getting-and-exploring-pct-data" class="anchor"></a><span class="header-section-number">1</span> Getting and exploring PCT data</h1>
+<p>To see the workshop and work through it alongside a video demo, see <a href="https://www.youtube.com/watch?v=OiLzjrBMQmU" class="external-link uri">https://www.youtube.com/watch?v=OiLzjrBMQmU</a>.
+To see the ‘marked up’ contents of the vignette (with results evaluated) see <a href="https://rpubs.com/RobinLovelace/829902" class="external-link uri">https://rpubs.com/RobinLovelace/829902</a>.</p>
+<div class="section level1">
+<h1 id="getting-and-exploring-pct-data">
+<span class="header-section-number">1</span> Getting and exploring PCT data<a class="anchor" aria-label="anchor" href="#getting-and-exploring-pct-data"></a>
+</h1>
 <!-- From ccac 2021 -->
 <p>In this section you will learn about the open datasets provided by the PCT project and how to use them.
 While the most common use of the PCT is via the interactive web application hosted at www.pct.bike, there is much value in downloading the data, e.g. to identify existing cycling infrastructure in close proximity to routes with high potential, and to help identify roads in need of interventions from a safety perspective, using data from the constantly evolving and community-driven global geographic database OpenStreetMap (OSM) <span class="citation">(Barrington-Leigh and Millard-Ball 2017)</span>.</p>
@@ -143,12 +131,13 @@ While the most common use of the PCT is via the interactive web application host
 <li>How to download and import data from the PCT into QGIS</li>
 <li>How to process the data alongside infrastructure data, to help find gaps in the network</li>
 </ul>
-<!-- Preliminary timings: --><!-- Intro to the workshop and team: 5 minutes --><!-- Demo of PCT web app: 10 --><!-- Working together: downloading PCT data and opening in QGIS (Section 1.2): 15 minutes --><!-- Live demo of doing analysis (1.3 and 1.4) 10 minutes --><!-- Working together: downloading and opening the zip to see QGIS project (1.4 and 1.5) --><!-- Discussion of definition of cycle infrastructure (Joey 5 minutes, 1.5) --><!-- Discussion of schools data and merging school and commute route networks (Nathanael 5 minutes) --><!-- Any questions --><div id="getting-pct-data-from-the-pct-website" class="section level2">
-<h2 class="hasAnchor">
-<a href="#getting-pct-data-from-the-pct-website" class="anchor"></a><span class="header-section-number">1.1</span> Getting PCT data from the PCT website</h2>
-<p>In this example we will use data from North Yorkshire, an area with urban areas surrounding York and many rural areas.
-You can use the PCT, which works at the regional level, for North Yorkshire or any other region by clicking on the area you’re interested in on the main map at <a href="https://www.pct.bike" class="uri">https://www.pct.bike</a>.
-If you know the URL of the region you’re interested in, you can navigate straight there, in this case by typing in on clicking on the link <a href="https://www.pct.bike/m/?r=north-yorkshire" class="uri">https://www.pct.bike/m/?r=north-yorkshire</a>.</p>
+<!-- Preliminary timings: --><!-- Intro to the workshop and team: 5 minutes --><!-- Demo of PCT web app: 10 --><!-- Working together: downloading PCT data and opening in QGIS (Section 1.2): 15 minutes --><!-- Live demo of doing analysis (1.3 and 1.4) 10 minutes --><!-- Working together: downloading and opening the zip to see QGIS project (1.4 and 1.5) --><!-- Discussion of definition of cycle infrastructure (Joey 5 minutes, 1.5) --><!-- Discussion of schools data and merging school and commute route networks (Nathanael 5 minutes) --><!-- Any questions --><div class="section level2">
+<h2 id="getting-pct-data-from-the-pct-website">
+<span class="header-section-number">1.1</span> Getting PCT data from the PCT website<a class="anchor" aria-label="anchor" href="#getting-pct-data-from-the-pct-website"></a>
+</h2>
+<p>In this example we will use data from North Yorkshire, a mixed region containing urban areas such as York and many rural areas.
+You can use the PCT, which works at the regional level, for North Yorkshire or any other region by clicking on the area you’re interested in on the main map at <a href="https://www.pct.bike" class="external-link uri">https://www.pct.bike</a>.
+If you know the URL of the region you’re interested in, you can navigate straight there, in this case by typing in or clicking on the link <a href="https://www.pct.bike/m/?r=north-yorkshire" class="external-link uri">https://www.pct.bike/m/?r=north-yorkshire</a>.</p>
 <p>From there you will see a map showing the region.
 Before you download and use PCT data, it is worth exploring it on the PCT web app.</p>
 <p><strong>Exercise: explore the current level and distribution of cycling:</strong></p>
@@ -156,37 +145,58 @@ Before you download and use PCT data, it is worth exploring it on the PCT web ap
 <li>Explore different data layers contained in the PCT by selecting different options from the dropdown menus on the right.</li>
 <li>Look at the different types of Cycling Flows options and consider: which visualisation layer is most useful?</li>
 </ul>
-<div id="using-freeze-lines" class="section level3">
-<h3 class="hasAnchor">
-<a href="#using-freeze-lines" class="anchor"></a><span class="header-section-number">1.1.1</span> Using ‘Freeze Lines’</h3>
+<div class="section level3">
+<h3 id="using-freeze-lines">
+<span class="header-section-number">1.1.1</span> Using ‘Freeze Lines’<a class="anchor" aria-label="anchor" href="#using-freeze-lines"></a>
+</h3>
 <p>You can use the little-known ‘Freeze Lines’ functionality in the PCT’s web app to identify the zone origin and destinations of trips that would use improvements in a particular place.
-You can do this by selecting the Fast Routes option from the Cycling Flows menu, zooming into the area of interest Bridge, and then clicking on the Freeze Lines checkbox to prevent the selected routes from moving when you zoom back out.</p>
+You can do this by selecting the Fast Routes option from the Cycling Flows menu, zooming into the area of interest, and then clicking on the Freeze Lines checkbox to prevent the selected routes from moving when you zoom back out.</p>
 <ul>
-<li>Use this technique to find the areas that would benefit from improved cycling provision on Clifton bridge, 1 km northwest from central York over the River Ouse (see result in Figure <a href="#fig:clifton"><strong>??</strong></a>)</li>
+<li>Use this technique to find the areas that would benefit from improved cycling provision on Clifton bridge, 1 km northwest from central York over the River Ouse (see result in Figure <a href="#fig:clifton">1.1</a>)</li>
 </ul>
+<div class="figure">
+<span style="display:block;" id="fig:clifton"></span>
+<img src="https://user-images.githubusercontent.com/1825120/130370123-5b8885de-4aed-43b4-8a49-b2f875ffff1b.png" alt="Areas that may benefit from improved cycle provision on Clifton Bridge, according to the PCT."><p class="caption">
+Figure 1.1: Areas that may benefit from improved cycle provision on Clifton Bridge, according to the PCT.
+</p>
 </div>
 </div>
-<div id="downloading-data-from-the-pct-in-geojson-form" class="section level2">
-<h2 class="hasAnchor">
-<a href="#downloading-data-from-the-pct-in-geojson-form" class="anchor"></a><span class="header-section-number">1.2</span> Downloading data from the PCT in GeoJSON form</h2>
-<p>On the PCT web app Click on the Region data tab, shown in the top of Figure <a href="#fig:clifton"><strong>??</strong></a>, just beneath the ‘north’ in the URL.
-You should see a web page like that shown in Figure <a href="#fig:downloads"><strong>??</strong></a>, which highlights the Region data table alongside the Map, Region stats, National Data, Manual, and About page links.</p>
+</div>
+<div class="section level2">
+<h2 id="downloading-data-from-the-pct-in-geojson-form">
+<span class="header-section-number">1.2</span> Downloading data from the PCT in GeoJSON form<a class="anchor" aria-label="anchor" href="#downloading-data-from-the-pct-in-geojson-form"></a>
+</h2>
+<p>On the PCT web app Click on the Region data tab, shown in the top of Figure <a href="#fig:clifton">1.1</a>, just beneath the ‘north’ in the URL.
+You should see a web page like that shown in Figure <a href="#fig:downloads">1.2</a>, which highlights the Region data table alongside the Map, Region stats, National Data, Manual, and About page links.</p>
+<div class="figure">
+<span style="display:block;" id="fig:downloads"></span>
+<img src="https://user-images.githubusercontent.com/1825120/130371496-bd0d22ba-c969-4634-904a-0bd0dd924516.png" alt="The Region data tab in the PCT."><p class="caption">
+Figure 1.2: The Region data tab in the PCT.
+</p>
+</div>
 <ul>
 <li>Download the Zones (LSOA) dataset in geojson format</li>
-<li>Download the Route network layer (LSOA) in <a href="https://npttile.vs.mythic-beasts.com/pct-outputs-regional-notR/commute/lsoa/north-yorkshire/rnet_full.geojson">geojson</a> format</li>
-<li>Download the Fast routes (LSOA) in <a href="https://npttile.vs.mythic-beasts.com/pct-outputs-regional-notR/commute/lsoa/north-yorkshire/rf.geojson">geojson</a> format (warning: this file is nearly 100 MB in size so may take some time to download)</li>
+<li>Download the Route network layer (LSOA) in <a href="https://npttile.vs.mythic-beasts.com/pct-outputs-regional-notR/commute/lsoa/north-yorkshire/rnet_full.geojson" class="external-link">geojson</a> format</li>
+<li>Download the Fast routes (LSOA) in <a href="https://npttile.vs.mythic-beasts.com/pct-outputs-regional-notR/commute/lsoa/north-yorkshire/rf.geojson" class="external-link">geojson</a> format (warning: this file is nearly 100 MB in size so may take some time to download)</li>
 </ul>
 </div>
-<div id="visualising-pct-data-in-qgis" class="section level2">
-<h2 class="hasAnchor">
-<a href="#visualising-pct-data-in-qgis" class="anchor"></a><span class="header-section-number">1.3</span> Visualising PCT data in QGIS</h2>
+<div class="section level2">
+<h2 id="visualising-pct-data-in-qgis">
+<span class="header-section-number">1.3</span> Visualising PCT data in QGIS<a class="anchor" aria-label="anchor" href="#visualising-pct-data-in-qgis"></a>
+</h2>
 <p>In this section we assume you have a recent version of QGIS installed and have some experience using this popular and powerful free and open source desktop GIS software.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>
-Open QGIS and create a new <a href="https://docs.qgis.org/3.16/en/docs/user_manual/introduction/project_files.html">project</a> and name it pctdemo.</p>
+Open QGIS and create a new <a href="https://docs.qgis.org/3.16/en/docs/user_manual/introduction/project_files.html" class="external-link">project</a> and name it pctdemo.</p>
 <p>Once in the project, open the three layers you downloaded in the previous section.
-You should see something resembling the screenshot shown in Figure <a href="#fig:pctqgis1"><strong>??</strong></a>.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
-<p>After you have the data in QGIS as shown in Figure <a href="#fig:pctqgis1"><strong>??</strong></a> a wide range of analysis options are opened up.
+You should see something resembling the screenshot shown in Figure <a href="#fig:pctqgis1">1.3</a>.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
+<div class="figure">
+<span style="display:block;" id="fig:pctqgis1"></span>
+<img src="https://user-images.githubusercontent.com/1825120/130372558-629b7fb5-452c-4a44-80bb-2d88a0492be9.png" alt="Three PCT layers visualised in QGIS."><p class="caption">
+Figure 1.3: Three PCT layers visualised in QGIS.
+</p>
+</div>
+<p>After you have the data in QGIS as shown in Figure <a href="#fig:pctqgis1">1.3</a> a wide range of analysis options are opened up.
 We can only cover a few of these in here, due to space and time constraints, and it is worth being guided by local policy priorities rather than the technology to ensure useful (not just attractive or eye-catching) results.
-One major issue that is apparent in Figure <a href="#fig:pctqgis1"><strong>??</strong></a> is that the zones seem squashed.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>
+One major issue that is apparent in Figure <a href="#fig:pctqgis1">1.3</a> is that the zones seem squashed.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>
 We can deal with this by changing the coordinate reference system (CRS) of the map visualisation.
 It may also be worth reprojecting the data, to the official projected CRS in the UK: EPSG:27700.
 Undertake these tasks in the exercises below:</p>
@@ -195,24 +205,32 @@ Undertake these tasks in the exercises below:</p>
 <li>Save each of the layers in this same CRS by right clicking on the layer, selecting Export, and setting the CRS there (take care to export the data into the same folder that the project is in)</li>
 </ul>
 </div>
-<div id="comparing-pct-data-with-transport-network-data" class="section level2">
-<h2 class="hasAnchor">
-<a href="#comparing-pct-data-with-transport-network-data" class="anchor"></a><span class="header-section-number">1.4</span> Comparing PCT data with transport network data</h2>
+<div class="section level2">
+<h2 id="comparing-pct-data-with-transport-network-data">
+<span class="header-section-number">1.4</span> Comparing PCT data with transport network data<a class="anchor" aria-label="anchor" href="#comparing-pct-data-with-transport-network-data"></a>
+</h2>
 <p>Find all the fast routes that intersect with a 10 m buffer surrounding Clifton Bridge (note: this is a time consuming task).<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a></p>
 <p>Don’t worry if you do not have time to complete each of the steps needed to find the result.
 You can see how it works by opening the project pctqgis3.qgz in the <code>pctqgis.zip</code> file from <code>https://github.com/ITSLeeds/pct/releases/download/0.8.0/pctqgis.zip</code>.
-The result should look something like the screenshot shown in Figure <a href="#fig:cliftonbuffer"><strong>??</strong></a>.</p>
-<p>What is the difference between the route data shown in QGIS in Figure <a href="#fig:cliftonbuffer"><strong>??</strong></a> and the route data shown in the PCT web app in Figure <a href="#fig:clifton"><strong>??</strong></a>?</p>
+The result should look something like the screenshot shown in Figure <a href="#fig:cliftonbuffer">1.4</a>.</p>
+<div class="figure">
+<span style="display:block;" id="fig:cliftonbuffer"></span>
+<img src="https://user-images.githubusercontent.com/1825120/130374644-549c6de7-97fb-4fff-8356-fa59aa7d481e.png" alt="All fast routes that intersect with Clifton Bridge in QGIS."><p class="caption">
+Figure 1.4: All fast routes that intersect with Clifton Bridge in QGIS.
+</p>
+</div>
+<p>What is the difference between the route data shown in QGIS in Figure <a href="#fig:cliftonbuffer">1.4</a> and the route data shown in the PCT web app in Figure <a href="#fig:clifton">1.1</a>?</p>
 <p>Bonus: How many km of cycling per day could improvement to Clifton Bridge benefit?</p>
 <p>Advanced: What interventions would you recommend on Clifton Bridge?
-Your answer can be based on the analysis presented above, StreetView (see the bridge at <a href="https://goo.gl/maps/Zeq76RnZ9ENRWCsE6">goo.gl/maps/Zeq76RnZ9ENRWCsE6</a>) local knowledge and other factors.</p>
-<p>Feel free to post any answers/questions about this question in the open access ‘Issue Tracker’ where these materials were developed (requires a GitHub account): <a href="https://github.com/ITSLeeds/pct/issues" class="uri">https://github.com/ITSLeeds/pct/issues</a></p>
+Your answer can be based on the analysis presented above, StreetView (see the bridge at <a href="https://goo.gl/maps/Zeq76RnZ9ENRWCsE6" class="external-link">goo.gl/maps/Zeq76RnZ9ENRWCsE6</a>) local knowledge and other factors.</p>
+<p>Feel free to post any answers/questions about this question in the open access ‘Issue Tracker’ where these materials were developed (requires a GitHub account): <a href="https://github.com/ITSLeeds/pct/issues" class="external-link uri">https://github.com/ITSLeeds/pct/issues</a></p>
 </div>
-<div id="identifying-gaps-in-the-network" class="section level2">
-<h2 class="hasAnchor">
-<a href="#identifying-gaps-in-the-network" class="anchor"></a><span class="header-section-number">1.5</span> Identifying gaps in the network</h2>
+<div class="section level2">
+<h2 id="identifying-gaps-in-the-network">
+<span class="header-section-number">1.5</span> Identifying gaps in the network<a class="anchor" aria-label="anchor" href="#identifying-gaps-in-the-network"></a>
+</h2>
 <p>This section assumes you have data on the regional cycle network.
-For the purposes of this worked example, we used a broad definition of ‘cycle infrastructure’ based on <a href="http://k1z.blog.uni-heidelberg.de/2020/10/02/how-to-become-ohsome-part-8-complex-analysis-with-the-magical-filter-parameter/">research</a> undertaken at the University of Heidelberg.
+For the purposes of this worked example, we used a broad definition of ‘cycle infrastructure’ based on <a href="http://k1z.blog.uni-heidelberg.de/2020/10/02/how-to-become-ohsome-part-8-complex-analysis-with-the-magical-filter-parameter/" class="external-link">research</a> undertaken at the University of Heidelberg.
 Using this definition, a cycle infrastructure layer was extracted from OSM using R.
 The data was exported from R into the <code>cycle_infra_projected.gpkg</code>, which is provided in the <code>pctqgis.zip</code> file mentioned in the previous sections.</p>
 <p>In this section we will load the cycle infrastructure layer, buffer it, and undertake a geographic operation to identify places where there are gaps in the network.
@@ -222,23 +240,30 @@ The data was exported from R into the <code>cycle_infra_projected.gpkg</code>, w
 <li>Buffer it to 100 m</li>
 <li>Clip the route network layer to include only areas outside the buffer</li>
 </ul>
+<div class="figure">
+<span style="display:block;" id="fig:buffer"></span>
+<img src="https://user-images.githubusercontent.com/1825120/130415597-e7bcb8a1-4792-48de-ba83-118c082584cb.png" alt="Route network layer and buffer representing cycle infrastructure, to identify gaps in the network."><p class="caption">
+Figure 1.5: Route network layer and buffer representing cycle infrastructure, to identify gaps in the network.
+</p>
 </div>
-<div id="getting-pct-data-with-r" class="section level2">
-<h2 class="hasAnchor">
-<a href="#getting-pct-data-with-r" class="anchor"></a><span class="header-section-number">1.6</span> Getting PCT data with R</h2>
+</div>
+<div class="section level2">
+<h2 id="getting-pct-data-with-r">
+<span class="header-section-number">1.6</span> Getting PCT data with R<a class="anchor" aria-label="anchor" href="#getting-pct-data-with-r"></a>
+</h2>
 <p>We will get the same PCT datasets as in previous sections but using the R interface.
 If you have not already done so, you will need to install the R packages we will use for this section (and the next) by typing and executing the following command in the R console: <code>install.packages("pct", "sf", "dplyr", "tmap")</code>.</p>
 <ul>
-<li>After you have the necessary packages installed, the first stage is to load packages we will use:</li>
+<li>After you have the necessary packages installed, the first stage is to load the packages we will use:</li>
 </ul>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://itsleeds.github.io/pct/">pct</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span>          <span class="co"># key package for working with spatial vector data</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>   <span class="co"># in the tidyverse</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mtennekes/tmap">tmap</a></span><span class="op">)</span>        <span class="co"># installed alongside mapview</span>
-<span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tmap_options.html">tmap_options</a></span><span class="op">(</span>check.and.fix <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># tmap setting</span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://itsleeds.github.io/pct/" class="external-link">pct</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/" class="external-link">sf</a></span><span class="op">)</span>          <span class="co"># key package for working with spatial vector data</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span>   <span class="co"># in the tidyverse</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mtennekes/tmap" class="external-link">tmap</a></span><span class="op">)</span>        <span class="co"># installed alongside mapview</span>
+<span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tmap_options.html" class="external-link">tmap_options</a></span><span class="op">(</span>check.and.fix <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># tmap setting</span></code></pre></div>
 <ul>
-<li>After setting the region name (to avoid re-typing it many times) run the following commands to download data at the four main levels used in the PCT:</li>
+<li>We are now ready to use R to download PCT data. The following commands set the name of the region we are interested in (to avoid re-typing it many times) and download commute data for this region, in the four main forms used in the PCT:</li>
 </ul>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">region_name</span> <span class="op">=</span> <span class="st">"north-yorkshire"</span>
@@ -248,20 +273,22 @@ If you have not already done so, you will need to install the R packages we will
 <span class="va">routes_all</span> <span class="op">=</span> <span class="fu"><a href="../reference/get_pct_routes_fast.html">get_pct_routes_fast</a></span><span class="op">(</span><span class="va">region_name</span><span class="op">)</span>
 <span class="va">rnet_all</span> <span class="op">=</span> <span class="fu"><a href="../reference/get_pct_rnet.html">get_pct_rnet</a></span><span class="op">(</span><span class="va">region_name</span><span class="op">)</span></code></pre></div>
 <ul>
-<li>Check the downloads worked by plotting:</li>
+<li>Check the downloads worked by plotting them:</li>
 </ul>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">zones_all</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span>
-<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">lines_all</span><span class="op">$</span><span class="va">geometry</span>, col <span class="op">=</span> <span class="st">"blue"</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">routes_all</span><span class="op">$</span><span class="va">geometry</span>, col <span class="op">=</span> <span class="st">"green"</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">rnet_all</span><span class="op">$</span><span class="va">geometry</span>, col <span class="op">=</span> <span class="st">"red"</span>, lwd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">rnet_all</span><span class="op">$</span><span class="va">bicycle</span><span class="op">)</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">zones_all</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span>
+<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">lines_all</span><span class="op">$</span><span class="va">geometry</span>, col <span class="op">=</span> <span class="st">"blue"</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">routes_all</span><span class="op">$</span><span class="va">geometry</span>, col <span class="op">=</span> <span class="st">"green"</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">rnet_all</span><span class="op">$</span><span class="va">geometry</span>, col <span class="op">=</span> <span class="st">"red"</span>, lwd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">rnet_all</span><span class="op">$</span><span class="va">bicycle</span><span class="op">)</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<p><img src="getting_files/figure-html/plotall-1.png" width="70%"></p>
 </div>
-<div id="getting-school-route-network-data" class="section level2">
-<h2 class="hasAnchor">
-<a href="#getting-school-route-network-data" class="anchor"></a><span class="header-section-number">1.7</span> Getting school route network data</h2>
+<div class="section level2">
+<h2 id="getting-school-route-network-data">
+<span class="header-section-number">1.7</span> Getting school route network data<a class="anchor" aria-label="anchor" href="#getting-school-route-network-data"></a>
+</h2>
 <p>The PCT provides a school route network layer that can be especially important when planning cycling interventions in residential areas <span class="citation">(Goodman et al. 2019)</span>.
 Due to the sensitive nature of school data, we cannot make route or OD data level data available.
-However, the PCT provides travel to school data at zone and route network levels, as shown in Figure <a href="#fig:school1"><strong>??</strong></a>.
+However, the PCT provides travel to school data at zone and route network levels, as shown in Figure <a href="#fig:school1">1.6</a>.
 (Note: to get this data from the PCT website you must select School travel in the Trip purpose menu before clicking on Region data.)</p>
 <ul>
 <li>Get schools data from the PCT with the following commands</li>
@@ -270,153 +297,306 @@ However, the PCT provides travel to school data at zone and route network levels
 <code class="sourceCode R"><span class="va">zones_school</span> <span class="op">=</span> <span class="fu"><a href="../reference/get_pct_zones.html">get_pct_zones</a></span><span class="op">(</span>region <span class="op">=</span> <span class="va">region_name</span>, purpose <span class="op">=</span> <span class="st">"school"</span><span class="op">)</span>
 <span class="va">rnet_school</span> <span class="op">=</span> <span class="fu"><a href="../reference/get_pct_rnet.html">get_pct_rnet</a></span><span class="op">(</span>region <span class="op">=</span> <span class="va">region_name</span>, purpose <span class="op">=</span> <span class="st">"school"</span><span class="op">)</span></code></pre></div>
 <p>As we will see in Section <a href="#joining">3</a>, combining school and commute network data can result in a more comprehensive network.</p>
+<div class="figure">
+<span style="display:block;" id="fig:school1"></span>
+<img src="getting_files/figure-html/school1-1.png" alt="Open access data on cycling to school potential from the PCT, at zone (left) and route network (right) levels. These datasets can support planning interventions, especially 'safe routes to school' and interventions in residential areas. To see the source code that generates these plots, see the 'source' link at the top of the page." width="49%"><img src="getting_files/figure-html/school1-2.png" alt="Open access data on cycling to school potential from the PCT, at zone (left) and route network (right) levels. These datasets can support planning interventions, especially 'safe routes to school' and interventions in residential areas. To see the source code that generates these plots, see the 'source' link at the top of the page." width="49%"><p class="caption">
+Figure 1.6: Open access data on cycling to school potential from the PCT, at zone (left) and route network (right) levels. These datasets can support planning interventions, especially ‘safe routes to school’ and interventions in residential areas. To see the source code that generates these plots, see the ‘source’ link at the top of the page.
+</p>
+</div>
 <!-- representing estimates of current (2010/2011) levels of cycling to school, and potential under scenarios of change,  -->
 </div>
 </div>
-<div id="modelling-change" class="section level1">
-<h1 class="hasAnchor">
-<a href="#modelling-change" class="anchor"></a><span class="header-section-number">2</span> Modelling change</h1>
+<div class="section level1">
+<h1 id="modelling-change">
+<span class="header-section-number">2</span> Modelling change<a class="anchor" aria-label="anchor" href="#modelling-change"></a>
+</h1>
 <!-- From ccag 2021 -->
 <p>This section is designed for people with experience with the PCT and cycling uptake estimates who want to learn more about how uptake models work and how to generate new scenarios of change.
 Reproducible and open R code will be used to demonstrate the concepts so knowledge of R or other programming languages is recommended but not essential, as there will be conceptual exercises covering the factors linked to mode shift.
 In it you will:</p>
 <ul>
 <li>Learn about the uptake model underlying the Propensity to Cycle Tool scenarios</li>
-<li>Develop your own uptake model in conceptual terms, e.g., to represent the <a href="https://www.gov.uk/government/publications/transport-decarbonisation-plan">government’s aim</a> for 50% of all trips in towns and cities to be made by walking and cycling by 2030</li>
+<li>Develop your own uptake model in conceptual terms, e.g., to represent the <a href="https://www.gov.uk/government/publications/transport-decarbonisation-plan" class="external-link">government’s aim</a> for 50% of all trips in towns and cities to be made by walking and cycling by 2030</li>
 <li>Learn how to train uptake models against data, to build evidence-based uptake models</li>
 </ul>
-<!-- Timings for CCA conference: --><!-- Intro: 5 minutes --><!-- Set-up: 15 minutes, all working together --><!-- Demo of PCT scenarios: 15 minutes --><!-- Scenarios of change 15 minutes --><!-- Training an update models 5 minutes + questions --><!-- Link to further resources (Nathanael) --><div id="set-up" class="section level2">
-<h2 class="hasAnchor">
-<a href="#set-up" class="anchor"></a><span class="header-section-number">2.1</span> Set-up</h2>
-<p>To undertake the exercises in this section you need to have R and RStudio installed, as outlined <a href="https://itsleeds.github.io/pct/articles/pct_training.html#preparation">here</a>.
-Load the packages by running each of the lines of code in the code chunk beginning with <code><a href="https://itsleeds.github.io/pct/">library(pct)</a></code> (which loads the <code>pct</code> R package, making its functions available) in the previous section <a href="#getting-pct-data-with-r">1.6</a>.</p>
+<!-- Timings for CCA conference: --><!-- Intro: 5 minutes --><!-- Set-up: 15 minutes, all working together --><!-- Demo of PCT scenarios: 15 minutes --><!-- Scenarios of change 15 minutes --><!-- Training an update models 5 minutes + questions --><!-- Link to further resources (Nathanael) --><div class="section level2">
+<h2 id="set-up">
+<span class="header-section-number">2.1</span> Set-up<a class="anchor" aria-label="anchor" href="#set-up"></a>
+</h2>
+<p>To undertake the exercises in this section you need to have R and RStudio installed, as outlined <a href="https://itsleeds.github.io/pct/articles/pct_training.html#preparation" class="external-link">here</a>.
+Load the packages by running each of the lines of code in the code chunk beginning with <code><a href="https://itsleeds.github.io/pct/" class="external-link">library(pct)</a></code> (which loads the <code>pct</code> R package, making its functions available) in the previous section <a href="#getting-pct-data-with-r">1.6</a>.</p>
 <p>To complete the exercises in this workshop your also need to have imported PCT data into your R session, by running each line of code in the code chunk beginning <code>region_name = "north-yorkshire"</code> in the previous section.</p>
 <p>Finally, we will use these additional packages, which you must have installed on your computer for the code below to work:</p>
 </div>
-<div id="pct-scenarios" class="section level2">
-<h2 class="hasAnchor">
-<a href="#pct-scenarios" class="anchor"></a><span class="header-section-number">2.2</span> PCT scenarios</h2>
+<div class="section level2">
+<h2 id="pct-scenarios">
+<span class="header-section-number">2.2</span> PCT scenarios<a class="anchor" aria-label="anchor" href="#pct-scenarios"></a>
+</h2>
 <ul>
 <li>Generate a ‘Go Dutch’ scenario for the North Yorkshire using the function <code><a href="../reference/uptake_pct_godutch.html">uptake_pct_godutch()</a></code> (hint: the following code chunk will create a ‘Government Target’ scenario):</li>
 </ul>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">lines_all</span><span class="op">$</span><span class="va">pcycle</span> <span class="op">=</span> <span class="va">lines_all</span><span class="op">$</span><span class="va">bicycle</span> <span class="op">/</span> <span class="va">lines_all</span><span class="op">$</span><span class="va">all</span>
-<span class="va">lines_all</span><span class="op">$</span><span class="va">euclidean_distance</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_measures.html">st_length</a></span><span class="op">(</span><span class="va">lines_all</span><span class="op">)</span><span class="op">)</span>
+<span class="va">lines_all</span><span class="op">$</span><span class="va">euclidean_distance</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_measures.html" class="external-link">st_length</a></span><span class="op">(</span><span class="va">lines_all</span><span class="op">)</span><span class="op">)</span>
 <span class="va">lines_all</span><span class="op">$</span><span class="va">pcycle_govtarget</span> <span class="op">=</span> <span class="fu"><a href="../reference/uptake_pct_govtarget.html">uptake_pct_govtarget_2020</a></span><span class="op">(</span>
   distance <span class="op">=</span> <span class="va">lines_all</span><span class="op">$</span><span class="va">rf_dist_km</span>,
   gradient <span class="op">=</span> <span class="va">lines_all</span><span class="op">$</span><span class="va">rf_avslope_perc</span>
   <span class="op">)</span> <span class="op">*</span> <span class="fl">100</span> <span class="op">+</span> <span class="va">lines_all</span><span class="op">$</span><span class="va">pcycle</span></code></pre></div>
+<pre><code><span class="co">##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span>
+<span class="co">##   0.505   6.881  20.750  22.367  36.265  56.052</span></code></pre>
+<div class="figure">
+<img src="getting_files/figure-html/dutch_pcycle-1.png" alt="Percent cycling currently (left) and under a 'Go Dutch' scenario (right) in the North Yorkshire." width="40%"><img src="getting_files/figure-html/dutch_pcycle-2.png" alt="Percent cycling currently (left) and under a 'Go Dutch' scenario (right) in the North Yorkshire." width="40%"><p class="caption">
+(#fig:dutch_pcycle)Percent cycling currently (left) and under a ‘Go Dutch’ scenario (right) in the North Yorkshire.
+</p>
+</div>
 <ul>
 <li>Think of alternative scenarios that would be useful for your work</li>
-<li>Advanced: look at the source code of the function <a href="https://github.com/ITSLeeds/pct/blob/master/R/uptake.R#L36"><code>pct_uptake_godutch()</code></a> - how could it be modified?</li>
+<li>Advanced: look at the source code of the function <a href="https://github.com/ITSLeeds/pct/blob/master/R/uptake.R#L36" class="external-link"><code>pct_uptake_godutch()</code></a> - how could it be modified?</li>
 </ul>
 </div>
-<div id="developing-new-scenarios-of-change" class="section level2">
-<h2 class="hasAnchor">
-<a href="#developing-new-scenarios-of-change" class="anchor"></a><span class="header-section-number">2.3</span> Developing new scenarios of change</h2>
-<p>Let’s develop a simple model representing the government’s <a href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1009448/decarbonising-transport-a-better-greener-britain.pdf">aim</a>, that “half of all journeys in towns and cities <span class="math display">\[will be\]</span> cycled or walked” by 2030.
+<div class="section level2">
+<h2 id="developing-new-scenarios-of-change">
+<span class="header-section-number">2.3</span> Developing new scenarios of change<a class="anchor" aria-label="anchor" href="#developing-new-scenarios-of-change"></a>
+</h2>
+<p>Let’s develop a simple model representing the government’s <a href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1009448/decarbonising-transport-a-better-greener-britain.pdf" class="external-link">aim</a>, that “half of all journeys in towns and cities will be cycled or walked” by 2030.
 We will assume that this means that all journeys made <strong>in urban areas</strong>, as defined by the Office for National Statistics, will be made by these active modes.
 We only have commute data in the data we downloaded, but this is a good proxy for mode share overall.</p>
 <p>The first stage is to identify urban areas in North Yorkshire.
-We use data from the House of Commons Research <a href="https://commonslibrary.parliament.uk/research-briefings/cbp-8322/">Briefing</a> on City and Town Classifications to define areas based on their town/city status.
+We use data from the House of Commons Research <a href="https://commonslibrary.parliament.uk/research-briefings/cbp-8322/" class="external-link">Briefing</a> on City and Town Classifications to define areas based on their town/city status.
 The code chunk below shows the benefits of R in terms of being able to get and join data onto the route data we have been using:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">urban_rural</span> <span class="op">=</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://researchbriefings.files.parliament.uk/documents/CBP-8322/oa-classification-csv.csv"</span><span class="op">)</span>
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">urban_rural</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">citytownclassification</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html">coord_flip</a></span><span class="op">(</span><span class="op">)</span>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Get data on the urban_rural status of LSOA zones</span>
+<span class="va">urban_rural</span> <span class="op">=</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="st">"https://researchbriefings.files.parliament.uk/documents/CBP-8322/oa-classification-csv.csv"</span><span class="op">)</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">urban_rural</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_bar</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">citytownclassification</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html" class="external-link">coord_flip</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="co"># summary(routes_all$geo_code1 %in% urban_rural$lsoa_code)</span>
-<span class="va">urban_rural</span> <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span><span class="va">urban_rural</span>, geo_code <span class="op">=</span> <span class="va">lsoa_code</span><span class="op">)</span>
-<span class="va">zones_all_joined</span> <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">zones_all</span>, <span class="va">urban_rural</span><span class="op">)</span>
-<span class="va">routes_all_joined</span> <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">routes_all</span>, <span class="va">urban_rural</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"geo_code1"</span> <span class="op">=</span> <span class="st">"geo_code"</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">zones_all_joined</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_polygons.html">tm_polygons</a></span><span class="op">(</span><span class="st">"citytownclassification"</span><span class="op">)</span></code></pre></div>
+
+<span class="co"># Join this with the PCT commute data that we previously downloaded</span>
+<span class="va">urban_rural</span> <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span><span class="va">urban_rural</span>, geo_code <span class="op">=</span> <span class="va">lsoa_code</span><span class="op">)</span>
+<span class="va">zones_all_joined</span> <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="va">zones_all</span>, <span class="va">urban_rural</span><span class="op">)</span>
+<span class="va">routes_all_joined</span> <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="va">routes_all</span>, <span class="va">urban_rural</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"geo_code1"</span> <span class="op">=</span> <span class="st">"geo_code"</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html" class="external-link">tm_shape</a></span><span class="op">(</span><span class="va">zones_all_joined</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_polygons.html" class="external-link">tm_polygons</a></span><span class="op">(</span><span class="st">"citytownclassification"</span><span class="op">)</span></code></pre></div>
+<div class="figure">
+<span style="display:block;" id="fig:cities"></span>
+<img src="getting_files/figure-html/cities-1.png" alt="Classification of areas in Great Britain (left) and North Yorkshire (right)." width="45%"><img src="getting_files/figure-html/cities-2.png" alt="Classification of areas in Great Britain (left) and North Yorkshire (right)." width="45%"><p class="caption">
+Figure 2.1: Classification of areas in Great Britain (left) and North Yorkshire (right).
+</p>
+</div>
 <p>After the classification dataset has been joined, the proportion of trips made by walking and cycling in towns and cities across North Yorkshire can be calculated as follows.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">routes_towns</span> <span class="op">=</span> <span class="va">routes_all_joined</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"Town|City"</span>, x <span class="op">=</span> <span class="va">citytownclassification</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">routes_towns</span><span class="op">$</span><span class="va">foot</span> <span class="op">+</span> <span class="va">routes_towns</span><span class="op">$</span><span class="va">bicycle</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">routes_towns</span><span class="op">$</span><span class="va">all</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Select only zones for which the field `citytownclassification` contains the word "Town" or "City"</span>
+<span class="va">routes_towns</span> <span class="op">=</span> <span class="va">routes_all_joined</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"Town|City"</span>, x <span class="op">=</span> <span class="va">citytownclassification</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">routes_towns</span><span class="op">$</span><span class="va">foot</span> <span class="op">+</span> <span class="va">routes_towns</span><span class="op">$</span><span class="va">bicycle</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">routes_towns</span><span class="op">$</span><span class="va">all</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span></code></pre></div>
+<pre><code><span class="co">## [1] 34</span></code></pre>
 <p>Currently, only around 34% of commute trips in the region’s ‘town’ areas are made by walking and cycling (27% across all zones in North Yorkshire, and a much lower proportion in terms of distance).
-We explore this in more detail by looking at the relationship between trip distance and mode share, in Figure <a href="#fig:distmode"><strong>??</strong></a> (left).
-We will create a scenario representing the outcome of policies that incentivise people to replace car trips with walking and cycling, focussing on the red boxes in Figure <a href="#fig:distmode"><strong>??</strong></a>.
+We explore this in more detail by looking at the relationship between trip distance and mode share, as shown in Figure <a href="#fig:distmode">2.2</a> (a).
+We will create a scenario representing the outcome of policies that incentivise people to replace car trips with walking and cycling, focussing on the red boxes in Figure <a href="#fig:distmode">2.2</a>.
 The scenario will replace 50% of car trips of less than 1 km with walking and 10% of trips between 1 km and 2 km in distance.
-The remaining car trips will be replaced by cycling, with the percentages of trips that switch for each OD determined by the uptake function in the Go Dutch Scenario of the PCT, resulting in the right graphic shown in Figure <a href="#fig:distmode"><strong>??</strong></a>.</p>
+The remaining car trips will be replaced by cycling, with the percentages of trips that switch for each OD determined by the uptake function in the Go Dutch Scenario of the PCT, resulting in the graphic shown in Figure <a href="#fig:distmode">2.2</a> (b).</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Reduce the number of transport mode categories </span>
+<span class="va">routes_towns_recode</span> <span class="op">=</span> <span class="va">routes_towns</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>public_transport <span class="op">=</span> <span class="va">train_tube</span> <span class="op">+</span> <span class="va">bus</span>,
+         car <span class="op">=</span> <span class="va">car_driver</span> <span class="op">+</span> <span class="va">car_passenger</span>,
+         other <span class="op">=</span> <span class="va">taxi_other</span> <span class="op">+</span> <span class="va">motorbike</span> 
+         <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">car_driver</span>, <span class="op">-</span><span class="va">car_passenger</span>, <span class="op">-</span><span class="va">train_tube</span>, <span class="op">-</span><span class="va">bus</span><span class="op">)</span> 
+
+<span class="co"># Set distance bands to use in the bar charts</span>
+<span class="va">routes_towns_recode</span><span class="op">$</span><span class="va">dist_bands</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cut.html" class="external-link">cut</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">routes_towns_recode</span><span class="op">$</span><span class="va">rf_dist_km</span>, breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">6</span>, <span class="fl">10</span>, <span class="fl">15</span>, <span class="fl">20</span>, <span class="fl">30</span>, <span class="fl">1000</span><span class="op">)</span>, include.lowest <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+
+<span class="co"># Set the colours to use in the bar charts</span>
+<span class="va">col_modes</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#fe5f55"</span>, <span class="st">"grey"</span>, <span class="st">"#ffd166"</span>, <span class="st">"#90be6d"</span>, <span class="st">"#457b9d"</span><span class="op">)</span> 
+
+<span class="co"># Plot bar chart showing modal share by distance band for existing journeys </span>
+<span class="va">base_results</span> <span class="op">=</span> <span class="va">routes_towns_recode</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html" class="external-link">st_drop_geometry</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">dist_bands</span>, <span class="va">car</span>, <span class="va">other</span>, <span class="va">public_transport</span>, <span class="va">bicycle</span>, <span class="va">foot</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html" class="external-link">pivot_longer</a></span><span class="op">(</span>cols <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">matches</a></span><span class="op">(</span><span class="st">"car|other|publ|cy|foot"</span><span class="op">)</span>, names_to <span class="op">=</span> <span class="st">"mode"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>mode <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">mode</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"car"</span>, <span class="st">"other"</span>, <span class="st">"public_transport"</span>, <span class="st">"bicycle"</span>, <span class="st">"foot"</span><span class="op">)</span>, ordered <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">dist_bands</span>, <span class="va">mode</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/tidyverse.html" class="external-link">summarise</a></span><span class="op">(</span>Trips <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span><span class="op">)</span>
+<span class="va">g1</span> <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">base_results</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_col</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">dist_bands</span>, <span class="va">Trips</span>, fill <span class="op">=</span> <span class="va">mode</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">col_modes</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="st">"Trips"</span><span class="op">)</span>
+<span class="va">g1</span>
+
+<span class="co"># Create the new scenario: </span>
+<span class="co"># First we replace some car journeys with walking, then replace some of the</span>
+<span class="co"># remaining car journeys with cycling</span>
+<span class="va">routes_towns_recode_go_active</span> <span class="op">=</span> <span class="va">routes_towns_recode</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>
+    foot_increase_proportion <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html" class="external-link">case_when</a></span><span class="op">(</span>
+      <span class="co"># specifies that 50% of car journeys &lt;1km in length will be replaced with walking</span>
+      <span class="va">rf_dist_km</span> <span class="op">&lt;</span> <span class="fl">1</span> <span class="op">~</span> <span class="fl">0.5</span>, 
+      <span class="co"># specifies that 10% of car journeys 1-2km in length will be replaced with walking</span>
+      <span class="va">rf_dist_km</span> <span class="op">&gt;=</span> <span class="fl">1</span> <span class="op">&amp;</span> <span class="va">rf_dist_km</span> <span class="op">&lt;</span> <span class="fl">2</span> <span class="op">~</span> <span class="fl">0.1</span>, 
+      <span class="cn">TRUE</span> <span class="op">~</span> <span class="fl">0</span>
+      <span class="op">)</span>,
+    <span class="co"># Specify the Go Dutch scenario we will use to replace remaining car trips with cycling</span>
+    bicycle_increase_proportion <span class="op">=</span> <span class="fu"><a href="../reference/uptake_pct_govtarget.html">uptake_pct_godutch_2020</a></span><span class="op">(</span>distance <span class="op">=</span> <span class="va">rf_dist_km</span>, gradient <span class="op">=</span> <span class="va">rf_avslope_perc</span><span class="op">)</span>, 
+    <span class="co"># Make the changes specified above</span>
+    car_reduction <span class="op">=</span> <span class="va">car</span> <span class="op">*</span> <span class="va">foot_increase_proportion</span>,
+    car <span class="op">=</span> <span class="va">car</span> <span class="op">-</span> <span class="va">car_reduction</span>,
+    foot <span class="op">=</span> <span class="va">foot</span> <span class="op">+</span> <span class="va">car_reduction</span>,
+    car_reduction <span class="op">=</span> <span class="va">car</span> <span class="op">*</span> <span class="va">bicycle_increase_proportion</span>,
+    car <span class="op">=</span> <span class="va">car</span> <span class="op">-</span> <span class="va">car_reduction</span>,
+    bicycle <span class="op">=</span> <span class="va">bicycle</span> <span class="op">+</span> <span class="va">car_reduction</span>
+    <span class="op">)</span>
+
+<span class="co"># Plot bar chart showing how modal share has changed in our new scenario</span>
+<span class="va">active_results</span> <span class="op">=</span> <span class="va">routes_towns_recode_go_active</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html" class="external-link">st_drop_geometry</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">dist_bands</span>, <span class="va">car</span>, <span class="va">other</span>, <span class="va">public_transport</span>, <span class="va">bicycle</span>, <span class="va">foot</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html" class="external-link">pivot_longer</a></span><span class="op">(</span>cols <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">matches</a></span><span class="op">(</span><span class="st">"car|other|publ|cy|foot"</span><span class="op">)</span>, names_to <span class="op">=</span> <span class="st">"mode"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>mode <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">mode</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"car"</span>, <span class="st">"other"</span>, <span class="st">"public_transport"</span>, <span class="st">"bicycle"</span>, <span class="st">"foot"</span><span class="op">)</span>, ordered <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">dist_bands</span>, <span class="va">mode</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/tidyverse.html" class="external-link">summarise</a></span><span class="op">(</span>Trips <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span><span class="op">)</span>
+<span class="va">g2</span> <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">active_results</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_col</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">dist_bands</span>, <span class="va">Trips</span>, fill <span class="op">=</span> <span class="va">mode</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">col_modes</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="st">"Trips"</span><span class="op">)</span>
+<span class="va">g2</span></code></pre></div>
+<div class="figure">
+<span style="display:block;" id="fig:distmode"></span>
+<img src="getting_files/figure-html/distmode-1.png" alt="Relationship between distance (x axis) and mode share (y axis) in towns and cities in North Yorkshire. (a) left: existing mode shares; (b) right: mode shares under high active travel uptake scenario." width="49%"><img src="getting_files/figure-html/distmode-2.png" alt="Relationship between distance (x axis) and mode share (y axis) in towns and cities in North Yorkshire. (a) left: existing mode shares; (b) right: mode shares under high active travel uptake scenario." width="49%"><p class="caption">
+Figure 2.2: Relationship between distance (x axis) and mode share (y axis) in towns and cities in North Yorkshire. (a) left: existing mode shares; (b) right: mode shares under high active travel uptake scenario.
+</p>
+</div>
 <p>The scenario outlined above may sound ambitious, but it only just meets the government’s aim for walking and cycling to account for 50% of trips in Town and Cities, at least when looking exclusively at single stage commutes in a single region.
 Furthermore, while the scenario represents a ~200% (3 fold) increase in the total distance travelled by active modes, it only results in a 17% reduction in car km driven <em>in towns</em>.
 The overall impact on energy use, resource consumption and emissions is much lower for the region overall, including rural areas.</p>
 <p>In the context of the government’s aim of fully decarbonising the economy by 2050, the analysis above suggests that more stringent measures focussing on long distance trips, which account for the majority of emissions, may be needed.
-However, it is still useful to see where there is greatest potential for car trips to be replaced by walking and cycling, as shown in Figure <a href="#fig:shortcar"><strong>??</strong></a>.</p>
+However, it is still useful to see where there is greatest potential for car trips to be replaced by walking and cycling, as shown in Figure <a href="#fig:shortcar">2.3</a>.</p>
+<div class="figure">
+<span style="display:block;" id="fig:shortcar"></span>
+<img src="getting_files/figure-html/shortcar-1.png" alt="Illustration of route network based on car trips that could be replaced by bicycle trips, based on Census data on car trips to work and the Go Dutch uptake function used in the PCT." width="49%"><img src="getting_files/figure-html/shortcar-2.png" alt="Illustration of route network based on car trips that could be replaced by bicycle trips, based on Census data on car trips to work and the Go Dutch uptake function used in the PCT." width="49%"><p class="caption">
+Figure 2.3: Illustration of route network based on car trips that could be replaced by bicycle trips, based on Census data on car trips to work and the Go Dutch uptake function used in the PCT.
+</p>
 </div>
-<div id="training-uptake-models-against-new-datasets" class="section level2">
-<h2 class="hasAnchor">
-<a href="#training-uptake-models-against-new-datasets" class="anchor"></a><span class="header-section-number">2.4</span> Training uptake models against new datasets</h2>
+</div>
+<div class="section level2">
+<h2 id="training-uptake-models-against-new-datasets">
+<span class="header-section-number">2.4</span> Training uptake models against new datasets<a class="anchor" aria-label="anchor" href="#training-uptake-models-against-new-datasets"></a>
+</h2>
 <p>In this section we will create a new scenario called Go York, representing what would happen if people were as likely to cycle as people in York are, for a given trip distance and hilliness.
 The first step is to subset zones and OD pairs originating in York.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a></p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">zones_york</span> <span class="op">=</span> <span class="va">zones_all_joined</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">lad_name</span> <span class="op">==</span> <span class="st">"York"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>pcycle <span class="op">=</span> <span class="va">bicycle</span> <span class="op">/</span> <span class="va">all</span><span class="op">)</span>
-<span class="va">routes_york</span> <span class="op">=</span> <span class="va">routes_all</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">lad_name1</span> <span class="op">==</span> <span class="st">"York"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>pcycle <span class="op">=</span> <span class="va">bicycle</span> <span class="op">/</span> <span class="va">all</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">zones_york</span> <span class="op">=</span> <span class="va">zones_all_joined</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">lad_name</span> <span class="op">==</span> <span class="st">"York"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>pcycle <span class="op">=</span> <span class="va">bicycle</span> <span class="op">/</span> <span class="va">all</span><span class="op">)</span>
+<span class="va">routes_york</span> <span class="op">=</span> <span class="va">routes_all</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">lad_name1</span> <span class="op">==</span> <span class="st">"York"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>pcycle <span class="op">=</span> <span class="va">bicycle</span> <span class="op">/</span> <span class="va">all</span><span class="op">)</span></code></pre></div>
+<div class="figure">
+<span style="display:block;" id="fig:york"></span>
+<img src="getting_files/figure-html/york-1.png" alt="Zones in York with colours representing cycling mode share (left) and urban functional classification (right)" width="672"><p class="caption">
+Figure 2.4: Zones in York with colours representing cycling mode share (left) and urban functional classification (right)
+</p>
+</div>
 <p>We can train an uptake model based on this subset of the routes as follows:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pcycle_model_york</span> <span class="op">=</span> <span class="fu"><a href="../reference/model_pcycle_pct_2020.html">model_pcycle_pct_2020</a></span><span class="op">(</span>
   pcycle <span class="op">=</span> <span class="va">routes_york</span><span class="op">$</span><span class="va">pcycle</span>,
   distance <span class="op">=</span> <span class="va">routes_york</span><span class="op">$</span><span class="va">rq_dist_km</span>,
   gradient <span class="op">=</span> <span class="va">routes_york</span><span class="op">$</span><span class="va">rf_avslope_perc</span>,
   weights <span class="op">=</span> <span class="va">routes_york</span><span class="op">$</span><span class="va">all</span>
 <span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">pcycle_model_york</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">pcycle_model_york</span><span class="op">)</span></code></pre></div>
+<pre><code><span class="co">## </span>
+<span class="co">## Call:</span>
+<span class="co">## stats::glm(formula = pcycle ~ distance + sqrt(distance) + I(distance^2) + </span>
+<span class="co">##     gradient + distance * gradient + sqrt(distance) * gradient, </span>
+<span class="co">##     family = "quasibinomial", weights = weights)</span>
+<span class="co">## </span>
+<span class="co">## Deviance Residuals: </span>
+<span class="co">##     Min       1Q   Median       3Q      Max  </span>
+<span class="co">## -5.5128  -1.0194  -0.3506   0.6731   6.2125  </span>
+<span class="co">## </span>
+<span class="co">## Coefficients:</span>
+<span class="co">##                          Estimate Std. Error t value Pr(&gt;|t|)    </span>
+<span class="co">## (Intercept)             -3.342265   0.243422 -13.730  &lt; 2e-16 ***</span>
+<span class="co">## distance                -1.052107   0.083389 -12.617  &lt; 2e-16 ***</span>
+<span class="co">## sqrt(distance)           2.797373   0.284059   9.848  &lt; 2e-16 ***</span>
+<span class="co">## I(distance^2)            0.018713   0.001516  12.347  &lt; 2e-16 ***</span>
+<span class="co">## gradient                -1.356153   0.222618  -6.092 1.24e-09 ***</span>
+<span class="co">## distance:gradient       -0.136630   0.060429  -2.261   0.0238 *  </span>
+<span class="co">## sqrt(distance):gradient  1.100716   0.236224   4.660 3.29e-06 ***</span>
+<span class="co">## ---</span>
+<span class="co">## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class="co">## </span>
+<span class="co">## (Dispersion parameter for quasibinomial family taken to be 1.477246)</span>
+<span class="co">## </span>
+<span class="co">##     Null deviance: 6635.3  on 3388  degrees of freedom</span>
+<span class="co">## Residual deviance: 4938.1  on 3382  degrees of freedom</span>
+<span class="co">## AIC: NA</span>
+<span class="co">## </span>
+<span class="co">## Number of Fisher Scoring iterations: 5</span></code></pre>
 <p>We can then use this model to project cycling levels across the whole region.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">routes_all_renamed</span> <span class="op">=</span> <span class="va">routes_all</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>distance <span class="op">=</span> <span class="va">rf_dist_km</span>, gradient <span class="op">=</span> <span class="va">rf_avslope_perc</span><span class="op">)</span>
-<span class="va">pcycle_go_york_model</span> <span class="op">=</span> <span class="fu">boot</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/boot/man/inv.logit.html">inv.logit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">pcycle_model_york</span>, newdata <span class="op">=</span> <span class="va">routes_all_renamed</span><span class="op">)</span><span class="op">)</span>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">routes_all_renamed</span> <span class="op">=</span> <span class="va">routes_all</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span>distance <span class="op">=</span> <span class="va">rf_dist_km</span>, gradient <span class="op">=</span> <span class="va">rf_avslope_perc</span><span class="op">)</span>
+<span class="va">pcycle_go_york_model</span> <span class="op">=</span> <span class="fu">boot</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/boot/man/inv.logit.html" class="external-link">inv.logit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">pcycle_model_york</span>, newdata <span class="op">=</span> <span class="va">routes_all_renamed</span><span class="op">)</span><span class="op">)</span>
 <span class="va">routes_all</span><span class="op">$</span><span class="va">york_slc</span> <span class="op">=</span> <span class="va">routes_all</span><span class="op">$</span><span class="va">all</span> <span class="op">*</span> <span class="va">pcycle_go_york_model</span>
-<span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">routes_all</span><span class="op">$</span><span class="va">bicycle</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">routes_all</span><span class="op">$</span><span class="va">all</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">routes_all</span><span class="op">$</span><span class="va">govtarget_slc</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">routes_all</span><span class="op">$</span><span class="va">all</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">routes_all</span><span class="op">$</span><span class="va">dutch_slc</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">routes_all</span><span class="op">$</span><span class="va">all</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">routes_all</span><span class="op">$</span><span class="va">york_slc</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">routes_all</span><span class="op">$</span><span class="va">all</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">routes_all</span><span class="op">$</span><span class="va">bicycle</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">routes_all</span><span class="op">$</span><span class="va">all</span><span class="op">)</span></code></pre></div>
+<pre><code><span class="co">## [1] 0.07062867</span></code></pre>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">routes_all</span><span class="op">$</span><span class="va">govtarget_slc</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">routes_all</span><span class="op">$</span><span class="va">all</span><span class="op">)</span></code></pre></div>
+<pre><code><span class="co">## [1] 0.1145299</span></code></pre>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">routes_all</span><span class="op">$</span><span class="va">dutch_slc</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">routes_all</span><span class="op">$</span><span class="va">all</span><span class="op">)</span></code></pre></div>
+<pre><code><span class="co">## [1] 0.2828958</span></code></pre>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">routes_all</span><span class="op">$</span><span class="va">york_slc</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">routes_all</span><span class="op">$</span><span class="va">all</span><span class="op">)</span></code></pre></div>
+<pre><code><span class="co">## [1] 0.172178</span></code></pre>
 <!-- Todo: get data for York -->
 <!-- Train the model -->
 <!-- Apply to the region -->
 </div>
 </div>
-<div id="joining" class="section level1">
-<h1 class="hasAnchor">
-<a href="#joining" class="anchor"></a><span class="header-section-number">3</span> Joining commute and school data</h1>
+<div class="section level1">
+<h1 id="joining">
+<span class="header-section-number">3</span> Joining commute and school data<a class="anchor" aria-label="anchor" href="#joining"></a>
+</h1>
 <p>PCT is not limited to commuter data only, PCT also provides a range of school data for each region in England and Wales to be downloaded with relative ease.
 In the example below, we add a <code>purpose</code> to the <code><a href="../reference/get_pct_rnet.html">get_pct_rnet()</a></code> function of <code>school</code>.
 This allows us to get estimates of cycling potential on the road network for school trips, commuter trips, and school and commuter trips combined.
 Note in the figure below that the combined route network provides a more comprehensive (yet still incomplete) overview of cycling potential in the study region.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># get pct rnet data for schools</span>
 <span class="va">rnet_school</span> <span class="op">=</span> <span class="fu"><a href="../reference/get_pct_rnet.html">get_pct_rnet</a></span><span class="op">(</span>region <span class="op">=</span> <span class="va">region_name</span>, purpose <span class="op">=</span> <span class="st">"school"</span><span class="op">)</span>
-<span class="va">rnet_school</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">rnet_school</span>, select <span class="op">=</span> <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">`cambridge_slc`</span><span class="op">)</span><span class="op">)</span> <span class="co"># subset columns for bind</span>
-<span class="va">rnet_all</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">rnet_all</span>, select <span class="op">=</span> <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">`ebike_slc`</span>,<span class="va">`gendereq_slc`</span>,<span class="va">`govnearmkt_slc`</span><span class="op">)</span><span class="op">)</span> <span class="co"># subset columns for bind </span>
+<span class="va">rnet_school</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">rnet_school</span>, select <span class="op">=</span> <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">`cambridge_slc`</span><span class="op">)</span><span class="op">)</span> <span class="co"># subset columns for bind</span>
+<span class="va">rnet_all</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">rnet_all</span>, select <span class="op">=</span> <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">`ebike_slc`</span>,<span class="va">`gendereq_slc`</span>,<span class="va">`govnearmkt_slc`</span><span class="op">)</span><span class="op">)</span> <span class="co"># subset columns for bind </span>
 
-<span class="va">rnet_school_commute</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="va">rnet_all</span>,<span class="va">rnet_school</span><span class="op">)</span> <span class="co"># bind commute and schools rnet data</span>
-<span class="va">rnet_school_commute</span><span class="op">$</span><span class="va">duplicated_geometries</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/duplicated.html">duplicated</a></span><span class="op">(</span><span class="va">rnet_school_commute</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span> <span class="co"># find duplicated geometries</span>
-<span class="va">rnet_school_commute</span><span class="op">$</span><span class="va">geometry_txt</span> <span class="op">=</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_text.html">st_as_text</a></span><span class="op">(</span><span class="va">rnet_school_commute</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span>
+<span class="va">rnet_school_commute</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">rnet_all</span>,<span class="va">rnet_school</span><span class="op">)</span> <span class="co"># bind commute and schools rnet data</span>
+<span class="va">rnet_school_commute</span><span class="op">$</span><span class="va">duplicated_geometries</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/duplicated.html" class="external-link">duplicated</a></span><span class="op">(</span><span class="va">rnet_school_commute</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span> <span class="co"># find duplicated geometries</span>
+<span class="va">rnet_school_commute</span><span class="op">$</span><span class="va">geometry_txt</span> <span class="op">=</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_text.html" class="external-link">st_as_text</a></span><span class="op">(</span><span class="va">rnet_school_commute</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span>
 
-<span class="va">rnet_combined</span> <span class="op">=</span> <span class="va">rnet_school_commute</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">geometry_txt</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="co"># group by geometry</span>
-  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/tidyverse.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="va">bicycle</span><span class="op">:</span><span class="va">dutch_slc</span>, <span class="va">sum</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="co"># and summaries route network which is not a duplicate</span></code></pre></div>
+<span class="va">rnet_combined</span> <span class="op">=</span> <span class="va">rnet_school_commute</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">geometry_txt</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="co"># group by geometry</span>
+  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/tidyverse.html" class="external-link">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span><span class="va">bicycle</span><span class="op">:</span><span class="va">dutch_slc</span>, <span class="va">sum</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="co"># and summaries route network which is not a duplicate</span></code></pre></div>
+<div class="figure">
+<span style="display:block;" id="fig:combined"></span>
+<img src="https://user-images.githubusercontent.com/1825120/130692688-65a958a9-8586-4196-982d-872d236becdb.png" alt="Comparison of commute, school, and combined commute *and* school route networkworks, under the Go Dutch scenario." width="100%"><p class="caption">
+Figure 3.1: Comparison of commute, school, and combined commute <em>and</em> school route networkworks, under the Go Dutch scenario.
+</p>
 </div>
-<div id="references" class="section level1 unnumbered">
-<h1 class="hasAnchor">
-<a href="#references" class="anchor"></a>References</h1>
+</div>
+<div class="section level1 unnumbered">
+<h1 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h1>
 <div id="refs" class="references">
 <div id="ref-barrington-leigh_world_2017">
-<p>Barrington-Leigh, Christopher, and Adam Millard-Ball. 2017. “The World’s User-Generated Road Map Is More Than 80% Complete.” <em>PLOS ONE</em> 12 (8): e0180698. <a href="https://doi.org/10.1371/journal.pone.0180698">https://doi.org/10.1371/journal.pone.0180698</a>.</p>
+<p>Barrington-Leigh, Christopher, and Adam Millard-Ball. 2017. “The World’s User-Generated Road Map Is More Than 80% Complete.” <em>PLOS ONE</em> 12 (8): e0180698. <a href="https://doi.org/10.1371/journal.pone.0180698" class="external-link">https://doi.org/10.1371/journal.pone.0180698</a>.</p>
 </div>
 <div id="ref-goodman_scenarios_2019">
-<p>Goodman, Anna, Ilan Fridman Rojas, James Woodcock, Rachel Aldred, Nikolai Berkoff, Malcolm Morgan, Ali Abbas, and Robin Lovelace. 2019. “Scenarios of Cycling to School in England, and Associated Health and Carbon Impacts: Application of the ‘Propensity to Cycle Tool’.” <em>Journal of Transport &amp; Health</em> 12 (March): 263–78. <a href="https://doi.org/10.1016/j.jth.2019.01.008">https://doi.org/10.1016/j.jth.2019.01.008</a>.</p>
+<p>Goodman, Anna, Ilan Fridman Rojas, James Woodcock, Rachel Aldred, Nikolai Berkoff, Malcolm Morgan, Ali Abbas, and Robin Lovelace. 2019. “Scenarios of Cycling to School in England, and Associated Health and Carbon Impacts: Application of the ‘Propensity to Cycle Tool’.” <em>Journal of Transport &amp; Health</em> 12 (March): 263–78. <a href="https://doi.org/10.1016/j.jth.2019.01.008" class="external-link">https://doi.org/10.1016/j.jth.2019.01.008</a>.</p>
 </div>
 <div id="ref-lovelace_propensity_2017">
-<p>Lovelace, Robin, Anna Goodman, Rachel Aldred, Nikolai Berkoff, Ali Abbas, and James Woodcock. 2017. “The Propensity to Cycle Tool: An Open Source Online System for Sustainable Transport Planning.” <em>Journal of Transport and Land Use</em> 10 (1). <a href="https://doi.org/10.5198/jtlu.2016.862">https://doi.org/10.5198/jtlu.2016.862</a>.</p>
+<p>Lovelace, Robin, Anna Goodman, Rachel Aldred, Nikolai Berkoff, Ali Abbas, and James Woodcock. 2017. “The Propensity to Cycle Tool: An Open Source Online System for Sustainable Transport Planning.” <em>Journal of Transport and Land Use</em> 10 (1). <a href="https://doi.org/10.5198/jtlu.2016.862" class="external-link">https://doi.org/10.5198/jtlu.2016.862</a>.</p>
 </div>
 </div>
 </div>
@@ -424,8 +604,8 @@ Note in the figure below that the combined route network provides a more compreh
 <hr>
 <ol>
 <li id="fn1"><p>This tutorial was tested on QGIS version 3.20 but it should work fine on other versions, including the Long Term Support version (3.16 at the time of writing in summer 2021).
-To install the latest version of QGIS see <a href="https://qgis.org/en/site/forusers/download.html">qgis.org</a>.
-If you are new to QGIS, it is worth taking a look at the User Guide at <a href="https://docs.qgis.org/3.16/en/docs/user_manual/">docs.qgis.org</a> and, for a transport-oriented introduction, the <a href="https://itsleeds.github.io/QGIS-intro/">QGIS for Transport Research</a> resource developed by the University of Leeds.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+To install the latest version of QGIS see <a href="https://qgis.org/en/site/forusers/download.html" class="external-link">qgis.org</a>.
+If you are new to QGIS, it is worth taking a look at the User Guide at <a href="https://docs.qgis.org/3.16/en/docs/user_manual/" class="external-link">docs.qgis.org</a> and, for a transport-oriented introduction, the <a href="https://itsleeds.github.io/QGIS-intro/" class="external-link">QGIS for Transport Research</a> resource developed by the University of Leeds.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
 <li id="fn2"><p>A great thing about QGIS projects is that, like RStudio projects, they make organising and sharing your work easier.
 You should be able to see exactly the same project state as that shown in the figure by downloading the zip file at <code>https://github.com/ITSLeeds/pct/releases/download/0.8.0/pctqgis.zip</code> and opening the pctqgis1.qgz file in QGIS.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
 <li id="fn3"><p>This is because QGIS, unlike R’s spatial packages, shows geographic (longitude/latitude) coordinates as if they were projected, which makes maps seem squashed at high latitudes far from the equator.<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
@@ -448,11 +628,13 @@ For real world applications, you should start with the original OD data.<a href=
 
 
       <footer><div class="copyright">
-  <p>Developed by Robin Lovelace, Layik Hama.</p>
+  <p></p>
+<p>Developed by Robin Lovelace, Layik Hama.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>
@@ -460,6 +642,8 @@ For real world applications, you should start with the original OD data.<a href=
 
   
 
+
+  
 
   </body>
 </html>

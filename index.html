@@ -24,6 +24,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -36,18 +38,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">pct</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.4</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="articles/pct.html">Get started</a>
 </li>
@@ -87,7 +83,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/ITSLeeds/pct/">
+  <a href="https://github.com/ITSLeeds/pct/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -108,47 +104,47 @@
 
 <!-- [![R build status](https://github.com/itsleeds/pct/workflows/R-CMD-check/badge.svg)](https://github.com/itsleeds/pct/actions) -->
 <!-- [![Travis build status](https://travis-ci.org/ITSLeeds/pct.svg?branch=master)](https://travis-ci.org/ITSLeeds/pct) -->
-<div id="pct" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#pct" class="anchor"></a>pct</h1></div>
-<p>The goal of pct is to make the data produced by the Propensity to Cycle Tool (PCT) easier to access and reproduce. The PCT a research project and web application hosted at <a href="https://www.pct.bike/">www.pct.bike</a>. For an overview of the data provided by the PCT, clicking on the previous link and trying it out is a great place to start. An academic <a href="https://www.jtlu.org/index.php/jtlu/article/view/862">paper</a> on the PCT provides detail on the motivations for and methods underlying the project.</p>
-<p>A major motivation behind the project was making transport evidence more accessible, encouraging evidence-based transport policies. The code base underlying the PCT is publicly available (see <a href="https://github.com/npct/">github.com/npct</a>). However, the code hosted there is not easy to run or reproduce, which is where this package comes in: it provides quick access to the data underlying the PCT and enables some of the key results to be reproduced quickly. It was developed primarily for educational purposes (including for upcoming PCT training courses) but it may be useful for people to build on the the methods, for example to create a scenario of cycling uptake in their town/city/region.</p>
+<div class="section level1">
+<div class="page-header"><h1 id="pct">pct<a class="anchor" aria-label="anchor" href="#pct"></a>
+</h1></div>
+<p>The goal of pct is to make the data produced by the Propensity to Cycle Tool (PCT) easier to access and reproduce. The PCT a research project and web application hosted at <a href="https://www.pct.bike/" class="external-link">www.pct.bike</a>. For an overview of the data provided by the PCT, clicking on the previous link and trying it out is a great place to start. An academic <a href="https://www.jtlu.org/index.php/jtlu/article/view/862" class="external-link">paper</a> on the PCT provides detail on the motivations for and methods underlying the project.</p>
+<p>A major motivation behind the project was making transport evidence more accessible, encouraging evidence-based transport policies. The code base underlying the PCT is publicly available (see <a href="https://github.com/npct/" class="external-link">github.com/npct</a>). However, the code hosted there is not easy to run or reproduce, which is where this package comes in: it provides quick access to the data underlying the PCT and enables some of the key results to be reproduced quickly. It was developed primarily for educational purposes (including for upcoming PCT training courses) but it may be useful for people to build on the the methods, for example to create a scenario of cycling uptake in their town/city/region.</p>
 <p>In summary, if you want to know how PCT works, be able to reproduce some of its results, and build scenarios of cycling uptake to inform transport policies enabling cycling in cities worldwide, this package is for you!</p>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># from CRAN</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"pct"</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"pct"</span><span class="op">)</span></code></pre></div>
 <p>You can install the development version of the package as follows:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"ITSLeeds/pct"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"ITSLeeds/pct"</span><span class="op">)</span></code></pre></div>
 <p>Load the package as follows:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://itsleeds.github.io/pct/">pct</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://itsleeds.github.io/pct/" class="external-link">pct</a></span><span class="op">)</span></code></pre></div>
 </div>
-<div id="documentation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#documentation" class="anchor"></a>Documentation</h2>
-<p>Probably the best place to get further information on the PCT is from the package’s website at <a href="https://itsleeds.github.io/pct/" class="uri">https://itsleeds.github.io/pct/</a></p>
+<div class="section level2">
+<h2 id="documentation">Documentation<a class="anchor" aria-label="anchor" href="#documentation"></a>
+</h2>
+<p>Probably the best place to get further information on the PCT is from the package’s website at <a href="https://itsleeds.github.io/pct/" class="external-link uri">https://itsleeds.github.io/pct/</a></p>
 <p>There you will find the following vignettes, which we recommend reading, and reproducing and experimenting with the code contained within to deepen your understanding of the code, in the following order:</p>
-<ol>
-<li>A ‘get started’ introduction to the PCT and associated R package: <a href="https://itsleeds.github.io/pct/articles/pct.html" class="uri">https://itsleeds.github.io/pct/articles/pct.html</a>
+<ol style="list-style-type: decimal">
+<li>A ‘get started’ introduction to the PCT and associated R package: <a href="https://itsleeds.github.io/pct/articles/pct.html" class="external-link uri">https://itsleeds.github.io/pct/articles/pct.html</a>
 </li>
-<li>Getting and using PCT data, an <a href="https://itsleeds.github.io/pct/articles/getting.html">article</a> showing how to get and use data from the PCT, based on a case study from North Yorkshire</li>
-<li>A <a href="https://itsleeds.github.io/pct/articles/pct_training.html">training vignette</a> providing more detailed guidance on data provided by the PCT package, with interactive exercises based on a case study of the Isle of Wight</li>
-<li>A <a href="https://itsleeds.github.io/pct/articles/cycling-potential-uk.html">vignette</a> show how to use the data provided by the package to estimate cycling uptake in UK cities</li>
-<li>A <a href="https://itsleeds.github.io/pct/articles/pct-international.html">vignette</a> demonstrating the international applicability of the PCT method, with help from this and other R packages</li>
+<li>Getting and using PCT data, an <a href="https://itsleeds.github.io/pct/articles/getting.html" class="external-link">article</a> showing how to get and use data from the PCT, based on a case study from North Yorkshire</li>
+<li>A <a href="https://itsleeds.github.io/pct/articles/pct_training.html" class="external-link">training vignette</a> providing more detailed guidance on data provided by the PCT package, with interactive exercises based on a case study of the Isle of Wight</li>
+<li>A <a href="https://itsleeds.github.io/pct/articles/cycling-potential-uk.html" class="external-link">vignette</a> show how to use the data provided by the package to estimate cycling uptake in UK cities</li>
+<li>A <a href="https://itsleeds.github.io/pct/articles/pct-international.html" class="external-link">vignette</a> demonstrating the international applicability of the PCT method, with help from this and other R packages</li>
 </ol>
-<p>You will also find there documentation for each of the functions at <a href="https://itsleeds.github.io/pct/reference/index.html">itsleeds.github.io/pct/reference/</a>. Below we describe some of the basics.</p>
+<p>You will also find there documentation for each of the functions at <a href="https://itsleeds.github.io/pct/reference/index.html" class="external-link">itsleeds.github.io/pct/reference/</a>. Below we describe some of the basics.</p>
 </div>
-<div id="get-pct-data" class="section level2">
-<h2 class="hasAnchor">
-<a href="#get-pct-data" class="anchor"></a>Get PCT data</h2>
+<div class="section level2">
+<h2 id="get-pct-data">Get PCT data<a class="anchor" aria-label="anchor" href="#get-pct-data"></a>
+</h2>
 <p>From feedback, we hear that the use of the data is critical in decision making. Therefore, one area where the package could be useful is making the data “easily” available to be processed.</p>
 <ul>
 <li>
-<code>get_pct</code>: the basic function to obtain data available <a href="https://itsleeds.github.io/pct/reference/get_pct.html">here</a>.</li>
+<code>get_pct</code>: the basic function to obtain data available <a href="https://itsleeds.github.io/pct/reference/get_pct.html" class="external-link">here</a>.</li>
 </ul>
 <p>The rest of these should be self explanatory.</p>
 <ul>
@@ -164,28 +160,28 @@
 <p>For example, to get the centroids in West Yorkshire:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">centroids</span> <span class="op">=</span> <span class="fu"><a href="reference/get_pct_centroids.html">get_pct_centroids</a></span><span class="op">(</span>region <span class="op">=</span> <span class="st">"west-yorkshire"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">centroids</span><span class="op">[</span>, <span class="st">"geo_name"</span><span class="op">]</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">centroids</span><span class="op">[</span>, <span class="st">"geo_name"</span><span class="op">]</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-centroids-1.png" width="100%"></p>
 <p>Likewise to download the desire lines for “west-yorkshire”:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">lines</span> <span class="op">=</span> <span class="fu"><a href="reference/get_pct_lines.html">get_pct_lines</a></span><span class="op">(</span>region <span class="op">=</span> <span class="st">"west-yorkshire"</span><span class="op">)</span>
-<span class="va">lines</span> <span class="op">=</span> <span class="va">lines</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span><span class="op">(</span><span class="va">lines</span><span class="op">$</span><span class="va">all</span>, decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"all"</span><span class="op">)</span><span class="op">]</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">lines</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="op">]</span>, lwd <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></code></pre></div>
+<span class="va">lines</span> <span class="op">=</span> <span class="va">lines</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html" class="external-link">order</a></span><span class="op">(</span><span class="va">lines</span><span class="op">$</span><span class="va">all</span>, decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"all"</span><span class="op">)</span><span class="op">]</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">lines</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="op">]</span>, lwd <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-get_pct_lines-1.png" width="100%"></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># view the lines on a map</span>
 <span class="co"># mapview::mapview(lines[1:3000, c("geo_name1")])</span></code></pre></div>
 </div>
-<div id="estimate-cycling-uptake" class="section level2">
-<h2 class="hasAnchor">
-<a href="#estimate-cycling-uptake" class="anchor"></a>Estimate cycling uptake</h2>
-<p>An important part of the PCT is its ability to create model scenarios of cycling uptake. Key to the PCT uptake model is ‘distance decay’, meaning that short trips are more likely to be cycled than long trips. The functions <code><a href="reference/uptake_pct_govtarget.html">uptake_pct_govtarget()</a></code> and <code><a href="reference/uptake_pct_godutch.html">uptake_pct_godutch()</a></code> implement uptake models used in the PCT, which use distance and hilliness per desire line as inputs and output the proportion of people who could be expected to cycle if that scenario were realised. The scenarios of cycling uptake produced by these functions are not predictions of what <em>will</em> happen, but illustrative snapshots of what <em>could</em> happen if overall propensity to cycle reached a certain level. The uptake levels produced by Go Dutch and Government Target scenarios (which represent increases in cycling, not final levels) are illustrated in the graph below (other scenarios could be produced, see the <a href="https://itsleeds.github.io/pct/reference/uptake_pct_govtarget.html">source code</a> see how these models work):</p>
+<div class="section level2">
+<h2 id="estimate-cycling-uptake">Estimate cycling uptake<a class="anchor" aria-label="anchor" href="#estimate-cycling-uptake"></a>
+</h2>
+<p>An important part of the PCT is its ability to create model scenarios of cycling uptake. Key to the PCT uptake model is ‘distance decay’, meaning that short trips are more likely to be cycled than long trips. The functions <code><a href="reference/uptake_pct_govtarget.html">uptake_pct_govtarget()</a></code> and <code><a href="reference/uptake_pct_godutch.html">uptake_pct_godutch()</a></code> implement uptake models used in the PCT, which use distance and hilliness per desire line as inputs and output the proportion of people who could be expected to cycle if that scenario were realised. The scenarios of cycling uptake produced by these functions are not predictions of what <em>will</em> happen, but illustrative snapshots of what <em>could</em> happen if overall propensity to cycle reached a certain level. The uptake levels produced by Go Dutch and Government Target scenarios (which represent increases in cycling, not final levels) are illustrated in the graph below (other scenarios could be produced, see the <a href="https://itsleeds.github.io/pct/reference/uptake_pct_govtarget.html" class="external-link">source code</a> see how these models work):</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">distances</span> <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">20</span>
 <span class="va">hilliness</span> <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">5</span>
-<span class="va">uptake_df</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
-  distances <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="va">distances</span>, <span class="fl">6</span><span class="op">)</span>,
-  hilliness <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="va">hilliness</span>, each <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>
+<span class="va">uptake_df</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>
+  distances <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">distances</span>, <span class="fl">6</span><span class="op">)</span>,
+  hilliness <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">hilliness</span>, each <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>
 <span class="op">)</span>
 <span class="va">p_govtarget</span> <span class="op">=</span> <span class="fu"><a href="reference/uptake_pct_govtarget.html">uptake_pct_govtarget</a></span><span class="op">(</span>
     distance <span class="op">=</span> <span class="va">uptake_df</span><span class="op">$</span><span class="va">distances</span>,
@@ -195,29 +191,29 @@
     distance <span class="op">=</span> <span class="va">uptake_df</span><span class="op">$</span><span class="va">distances</span>,
     gradient <span class="op">=</span> <span class="va">uptake_df</span><span class="op">$</span><span class="va">hilliness</span>
     <span class="op">)</span>
-<span class="va">uptake_df</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">uptake_df</span>, scenario <span class="op">=</span> <span class="st">"govtarget"</span>, pcycle <span class="op">=</span> <span class="va">p_govtarget</span><span class="op">)</span>,
-  <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">uptake_df</span>, scenario <span class="op">=</span> <span class="st">"godutch"</span>, pcycle <span class="op">=</span> <span class="va">p_godutch</span><span class="op">)</span>
+<span class="va">uptake_df</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">uptake_df</span>, scenario <span class="op">=</span> <span class="st">"govtarget"</span>, pcycle <span class="op">=</span> <span class="va">p_govtarget</span><span class="op">)</span>,
+  <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">uptake_df</span>, scenario <span class="op">=</span> <span class="st">"godutch"</span>, pcycle <span class="op">=</span> <span class="va">p_godutch</span><span class="op">)</span>
 <span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">uptake_df</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">uptake_df</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>
     <span class="va">distances</span>,
     <span class="va">pcycle</span>,
     linetype <span class="op">=</span> <span class="va">scenario</span>,
-    colour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">hilliness</span><span class="op">)</span>
+    colour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">hilliness</span><span class="op">)</span>
   <span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_colour_discrete.html">scale_color_discrete</a></span><span class="op">(</span><span class="st">"Gradient (%)"</span><span class="op">)</span></code></pre></div>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_colour_discrete.html" class="external-link">scale_color_discrete</a></span><span class="op">(</span><span class="st">"Gradient (%)"</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-decay-1.png" width="100%"></p>
 <p>The proportion of trips made by cycling along each origin-destination (OD) pair therefore depends on the trip distance and hilliness. The equivalent plot for hilliness is as follows:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">distances</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">6</span>, <span class="fl">10</span>, <span class="fl">15</span>, <span class="fl">21</span><span class="op">)</span>
-<span class="va">hilliness</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">10</span>, by <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">distances</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">6</span>, <span class="fl">10</span>, <span class="fl">15</span>, <span class="fl">21</span><span class="op">)</span>
+<span class="va">hilliness</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">10</span>, by <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span>
 <span class="va">uptake_df</span> <span class="op">=</span> 
-  <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
-    <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html">expand.grid</a></span><span class="op">(</span><span class="va">distances</span>, <span class="va">hilliness</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html" class="external-link">expand.grid</a></span><span class="op">(</span><span class="va">distances</span>, <span class="va">hilliness</span><span class="op">)</span>
   <span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">uptake_df</span><span class="op">)</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"distances"</span>, <span class="st">"hilliness"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">uptake_df</span><span class="op">)</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"distances"</span>, <span class="st">"hilliness"</span><span class="op">)</span>
 <span class="va">p_govtarget</span> <span class="op">=</span> <span class="fu"><a href="reference/uptake_pct_govtarget.html">uptake_pct_govtarget</a></span><span class="op">(</span>
     distance <span class="op">=</span> <span class="va">uptake_df</span><span class="op">$</span><span class="va">distances</span>,
     gradient <span class="op">=</span> <span class="va">uptake_df</span><span class="op">$</span><span class="va">hilliness</span>
@@ -226,18 +222,18 @@
     distance <span class="op">=</span> <span class="va">uptake_df</span><span class="op">$</span><span class="va">distances</span>,
     gradient <span class="op">=</span> <span class="va">uptake_df</span><span class="op">$</span><span class="va">hilliness</span>
     <span class="op">)</span>
-<span class="va">uptake_df</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">uptake_df</span>, scenario <span class="op">=</span> <span class="st">"govtarget"</span>, pcycle <span class="op">=</span> <span class="va">p_govtarget</span><span class="op">)</span>,
-  <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">uptake_df</span>, scenario <span class="op">=</span> <span class="st">"godutch"</span>, pcycle <span class="op">=</span> <span class="va">p_godutch</span><span class="op">)</span>
+<span class="va">uptake_df</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">uptake_df</span>, scenario <span class="op">=</span> <span class="st">"govtarget"</span>, pcycle <span class="op">=</span> <span class="va">p_govtarget</span><span class="op">)</span>,
+  <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">uptake_df</span>, scenario <span class="op">=</span> <span class="st">"godutch"</span>, pcycle <span class="op">=</span> <span class="va">p_godutch</span><span class="op">)</span>
 <span class="op">)</span>
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">uptake_df</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">uptake_df</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>
     <span class="va">hilliness</span>,
     <span class="va">pcycle</span>,
     linetype <span class="op">=</span> <span class="va">scenario</span>,
-    colour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/formatc.html">formatC</a></span><span class="op">(</span><span class="va">distances</span>, flag <span class="op">=</span> <span class="st">"0"</span>, width <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
+    colour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/formatc.html" class="external-link">formatC</a></span><span class="op">(</span><span class="va">distances</span>, flag <span class="op">=</span> <span class="st">"0"</span>, width <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
   <span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_colour_discrete.html">scale_color_discrete</a></span><span class="op">(</span><span class="st">"Distance (km)"</span><span class="op">)</span></code></pre></div>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_colour_discrete.html" class="external-link">scale_color_discrete</a></span><span class="op">(</span><span class="st">"Distance (km)"</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-decayhills-1.png" width="100%"></p>
 <p>Note: if distances or gradient values appear to be provided in incorrect units, they will automatically be updated:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
@@ -248,15 +244,15 @@
 <span class="co">#&gt; Gradient assumed to be gradient, switching to % (*100)</span></code></pre></div>
 <p>The main input dataset into the PCT is OD data and, to convert each OD pair into a geographic desire line, geographic zone or centroids. Typical input data is provided in packaged datasets <code>od_leeds</code> and <code>zones_leeds</code>, as shown in the next section.</p>
 </div>
-<div id="reproduce-pct-for-leeds" class="section level2">
-<h2 class="hasAnchor">
-<a href="#reproduce-pct-for-leeds" class="anchor"></a>Reproduce PCT for Leeds</h2>
+<div class="section level2">
+<h2 id="reproduce-pct-for-leeds">Reproduce PCT for Leeds<a class="anchor" aria-label="anchor" href="#reproduce-pct-for-leeds"></a>
+</h2>
 <p>This example shows how scenarios of cycling uptake, and how ‘distance decay’ works (short trips are more likely to be cycled than long trips).</p>
 <p>The input data looks like this (origin-destination data and geographic zone data):</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">od_leeds</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">od_leeds</span><span class="op">)</span>
 <span class="co">#&gt; [1] "tbl_df"     "tbl"        "data.frame"</span>
-<span class="va">od_leeds</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">12</span><span class="op">)</span><span class="op">]</span>
+<span class="va">od_leeds</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">12</span><span class="op">)</span><span class="op">]</span>
 <span class="co">#&gt; # A tibble: 10 × 4</span>
 <span class="co">#&gt;    area_of_residence area_of_workplace   all bicycle</span>
 <span class="co">#&gt;    &lt;chr&gt;             &lt;chr&gt;             &lt;dbl&gt;   &lt;dbl&gt;</span>
@@ -270,7 +266,7 @@
 <span class="co">#&gt;  8 E02006852         E02006875          1221      99</span>
 <span class="co">#&gt;  9 E02006861         E02006875          1177      56</span>
 <span class="co">#&gt; 10 E02006876         E02006875          1035      10</span>
-<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">zones_leeds</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">zones_leeds</span><span class="op">)</span>
 <span class="co">#&gt; [1] "sf"         "data.frame"</span>
 <span class="va">zones_leeds</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="op">]</span>
 <span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
@@ -290,9 +286,9 @@
 <span class="co">#&gt; 2272 MULTIPOLYGON (((-1.682211 5...</span></code></pre></div>
 <p>The <code>stplanr</code> package can be used to convert the non-geographic OD data into geographic desire lines as follows:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span>
-<span class="co">#&gt; Linking to GEOS 3.9.0, GDAL 3.2.1, PROJ 7.2.1</span>
-<span class="va">desire_lines</span> <span class="op">=</span> <span class="fu">stplanr</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/stplanr/reference/od2line.html">od2line</a></span><span class="op">(</span>flow <span class="op">=</span> <span class="va">od_leeds</span>, zones <span class="op">=</span> <span class="va">zones_leeds</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/" class="external-link">sf</a></span><span class="op">)</span>
+<span class="co">#&gt; Linking to GEOS 3.9.1, GDAL 3.3.2, PROJ 7.2.1</span>
+<span class="va">desire_lines</span> <span class="op">=</span> <span class="fu">stplanr</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/stplanr/reference/od2line.html" class="external-link">od2line</a></span><span class="op">(</span>flow <span class="op">=</span> <span class="va">od_leeds</span>, zones <span class="op">=</span> <span class="va">zones_leeds</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>
 <span class="co">#&gt; Creating centroids representing desire line start and end points.</span>
 <span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
 <span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
@@ -300,16 +296,15 @@
 <span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
 <span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
 <span class="co">#&gt; old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
-<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">desire_lines</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">12</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">desire_lines</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">12</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-desire-1.png" width="100%"></p>
 <p>We can convert these straight lines into routes with a routing service, e.g.:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">segments_fast</span> <span class="op">=</span> <span class="fu">stplanr</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/stplanr/reference/route.html">route</a></span><span class="op">(</span>l <span class="op">=</span> <span class="va">desire_lines</span>, route_fun <span class="op">=</span> <span class="fu">cyclestreets</span><span class="fu">::</span><span class="va">journey</span><span class="op">)</span>
-<span class="co">#&gt; NA values detected</span>
+<code class="sourceCode R"><span class="va">segments_fast</span> <span class="op">=</span> <span class="fu">stplanr</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/stplanr/reference/route.html" class="external-link">route</a></span><span class="op">(</span>l <span class="op">=</span> <span class="va">desire_lines</span>, route_fun <span class="op">=</span> <span class="fu">cyclestreets</span><span class="fu">::</span><span class="va">journey</span><span class="op">)</span>
 <span class="co">#&gt; Most common output is sf</span></code></pre></div>
 <p>We got useful information from this routing operation, we will convert the route segments into complete routes with <code>dplyr</code>:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Attaching package: 'dplyr'</span>
 <span class="co">#&gt; The following objects are masked from 'package:stats':</span>
@@ -318,59 +313,55 @@
 <span class="co">#&gt; The following objects are masked from 'package:base':</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;     intersect, setdiff, setequal, union</span>
-<span class="va">routes_fast</span> <span class="op">=</span> <span class="va">segments_fast</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">area_of_residence</span>, <span class="va">area_of_workplace</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>
-    all <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">all</span><span class="op">)</span>,
-    bicycle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">bicycle</span><span class="op">)</span>,
-    length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">distances</span><span class="op">)</span>,
-    av_incline <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">gradient_smooth</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span>
+<span class="va">routes_fast</span> <span class="op">=</span> <span class="va">segments_fast</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">area_of_residence</span>, <span class="va">area_of_workplace</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>
+    all <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">all</span><span class="op">)</span>,
+    bicycle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">bicycle</span><span class="op">)</span>,
+    length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">distances</span><span class="op">)</span>,
+    av_incline <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">gradient_smooth</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span>
   <span class="op">)</span> 
 <span class="co">#&gt; `summarise()` has grouped output by 'area_of_residence'. You can override using the `.groups` argument.</span></code></pre></div>
 <p>The results at the route level are as follows:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">routes_fast</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">routes_fast</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-routes_fast-1.png" width="100%"></p>
 <p>Now we estimate cycling uptake:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">routes_fast</span><span class="op">$</span><span class="va">uptake</span> <span class="op">=</span> <span class="fu"><a href="reference/uptake_pct_govtarget.html">uptake_pct_govtarget</a></span><span class="op">(</span>distance <span class="op">=</span> <span class="va">routes_fast</span><span class="op">$</span><span class="va">length</span>, gradient <span class="op">=</span> <span class="va">routes_fast</span><span class="op">$</span><span class="va">av_incline</span><span class="op">)</span>
 <span class="va">routes_fast</span><span class="op">$</span><span class="va">bicycle_govtarget</span> <span class="op">=</span> <span class="va">routes_fast</span><span class="op">$</span><span class="va">bicycle</span> <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">routes_fast</span><span class="op">$</span><span class="va">uptake</span> <span class="op">*</span> <span class="va">routes_fast</span><span class="op">$</span><span class="va">all</span><span class="op">)</span></code></pre></div>
+  <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">routes_fast</span><span class="op">$</span><span class="va">uptake</span> <span class="op">*</span> <span class="va">routes_fast</span><span class="op">$</span><span class="va">all</span><span class="op">)</span></code></pre></div>
 <p>Let’s see how many people started cycling:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">routes_fast</span><span class="op">$</span><span class="va">bicycle_govtarget</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">routes_fast</span><span class="op">$</span><span class="va">bicycle</span><span class="op">)</span>
-<span class="co">#&gt; [1] 379</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">routes_fast</span><span class="op">$</span><span class="va">bicycle_govtarget</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">routes_fast</span><span class="op">$</span><span class="va">bicycle</span><span class="op">)</span>
+<span class="co">#&gt; [1] 404</span></code></pre></div>
 <p>Nearly 1000 more people cycling to work, just in 10 desire is not bad! What % cycling is this, for those routes?</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">routes_fast</span><span class="op">$</span><span class="va">bicycle_govtarget</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">routes_fast</span><span class="op">$</span><span class="va">all</span><span class="op">)</span>
-<span class="co">#&gt; [1] 0.07699892</span>
-<span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">routes_fast</span><span class="op">$</span><span class="va">bicycle</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">routes_fast</span><span class="op">$</span><span class="va">all</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">routes_fast</span><span class="op">$</span><span class="va">bicycle_govtarget</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">routes_fast</span><span class="op">$</span><span class="va">all</span><span class="op">)</span>
+<span class="co">#&gt; [1] 0.07946367</span>
+<span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">routes_fast</span><span class="op">$</span><span class="va">bicycle</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">routes_fast</span><span class="op">$</span><span class="va">all</span><span class="op">)</span>
 <span class="co">#&gt; [1] 0.03963324</span></code></pre></div>
 <p>It’s gone from 4% to 11%, a realistic increase if cycling were enabled by good infrastructure and policies.</p>
 <p>Now: where to prioritise that infrastructure and those policies?</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">routes_fast_linestrings</span> <span class="op">=</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_cast.html">st_cast</a></span><span class="op">(</span><span class="va">routes_fast</span>, <span class="st">"LINESTRING"</span><span class="op">)</span>
-<span class="va">rnet</span> <span class="op">=</span> <span class="fu">stplanr</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/stplanr/reference/overline.html">overline</a></span><span class="op">(</span><span class="va">routes_fast_linestrings</span>, attrib <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"bicycle"</span>, <span class="st">"bicycle_govtarget"</span><span class="op">)</span><span class="op">)</span>
-<span class="va">lwd</span> <span class="op">=</span> <span class="va">rnet</span><span class="op">$</span><span class="va">bicycle_govtarget</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">rnet</span><span class="op">$</span><span class="va">bicycle_govtarget</span><span class="op">)</span>
-<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">rnet</span><span class="op">[</span><span class="st">"bicycle_govtarget"</span><span class="op">]</span>, lwd <span class="op">=</span> <span class="va">lwd</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">routes_fast_linestrings</span> <span class="op">=</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_cast.html" class="external-link">st_cast</a></span><span class="op">(</span><span class="va">routes_fast</span>, <span class="st">"LINESTRING"</span><span class="op">)</span>
+<span class="va">rnet</span> <span class="op">=</span> <span class="fu">stplanr</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/stplanr/reference/overline.html" class="external-link">overline</a></span><span class="op">(</span><span class="va">routes_fast_linestrings</span>, attrib <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bicycle"</span>, <span class="st">"bicycle_govtarget"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">lwd</span> <span class="op">=</span> <span class="va">rnet</span><span class="op">$</span><span class="va">bicycle_govtarget</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">rnet</span><span class="op">$</span><span class="va">bicycle_govtarget</span><span class="op">)</span>
+<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">rnet</span><span class="op">[</span><span class="st">"bicycle_govtarget"</span><span class="op">]</span>, lwd <span class="op">=</span> <span class="va">lwd</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-rnetgove-1.png" width="100%"></p>
-<p>We can view the results in an interactive map and share with policy makers, stakeholders, and the public! E.g. (see interactive map <a href="https://rpubs.com/RobinLovelace/474074">here</a>):</p>
+<p>We can view the results in an interactive map and share with policy makers, stakeholders, and the public! E.g. (see interactive map <a href="https://rpubs.com/RobinLovelace/474074" class="external-link">here</a>):</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">mapview</span><span class="fu">::</span><span class="fu">mapview</span><span class="op">(</span><span class="va">rnet</span>, zcol <span class="op">=</span> <span class="st">"bicycle_govtarget"</span>, lwd <span class="op">=</span> <span class="va">lwd</span> <span class="op">*</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
 <p><img src="https://raw.githubusercontent.com/ITSLeeds/pct/master/pct-leeds-demo.png"></p>
 </div>
-<div id="current-limitations" class="section level2">
-<h2 class="hasAnchor">
-<a href="#current-limitations" class="anchor"></a>Current limitations</h2>
+<div class="section level2">
+<h2 id="current-limitations">Current limitations<a class="anchor" aria-label="anchor" href="#current-limitations"></a>
+</h2>
 <ul>
-<li>This package currently does not estimate cycling uptake associated with intrazonal flows and people with no fixed job data</li>
-<li>This package currently does not estimate health benefits</li>
+<li>This package does not contain code to estimate cycling uptake associated with intrazonal flows and people with no fixed job data, although the datasets downloaded with the <code><a href="reference/get_pct_centroids.html">get_pct_centroids()</a></code> functions provide estimated uptake for intrazonal flows.</li>
+<li>This package currently does not contiain code to estimate health benefits</li>
 </ul>
-<p>Commented out as we have now immidiate plans to work on these <!-- ## Next steps and further resources --></p>
-<!-- - Add additional scenarios of cycling uptake from different places (e.g. goCambridge) -->
-<!-- - Add additional distance decay functions -->
-<!-- - Make it easy to use data from other cities around the world -->
-<!-- - Show how to create raster tiles of cycling uptake -->
+<!-- Commented out as we have now immediate plans to work on these --><!-- ## Next steps and further resources --><!-- - Add additional scenarios of cycling uptake from different places (e.g. goCambridge) --><!-- - Add additional distance decay functions --><!-- - Make it easy to use data from other cities around the world --><!-- - Show how to create raster tiles of cycling uptake -->
 </div>
 </div>
 
@@ -378,51 +369,61 @@
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=pct">https://​cloud.r-project.org/​package=pct</a>
-</li>
-<li>Browse source code at <br><a href="https://github.com/ITSLeeds/pct/">https://​github.com/​ITSLeeds/​pct/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/ITSLeeds/pct/issues">https://​github.com/​ITSLeeds/​pct/​issues</a>
-</li>
-</ul>
-</div>
-<div class="license">
-<h2>License</h2>
-<ul class="list-unstyled">
-<li><a href="https://www.r-project.org/Licenses/GPL-3">GPL-3</a></li>
-</ul>
-</div>
-<div class="developers">
-<h2>Developers</h2>
-<ul class="list-unstyled">
-<li>Robin Lovelace <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0001-5679-6536" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li>Layik Hama <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0003-1912-4890" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li><a href="authors.html">All authors...</a></li>
+<li><a href="https://cloud.r-project.org/package=pct" class="external-link">View on CRAN</a></li>
+<li><a href="https://github.com/ITSLeeds/pct/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/ITSLeeds/pct/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="license">
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
-<li><a href="https://cran.r-project.org/package=pct"><img src="https://cranlogs.r-pkg.org/badges/grand-total/pct"></a></li>
-<li><a href="https://github.com/itsleeds/pct/actions"><img src="https://github.com/itsleeds/pct/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
-<li><a href="https://www.r-pkg.org/pkg/pct"><img src="https://www.r-pkg.org/badges/version/pct"></a></li>
-<li><a href="https://codecov.io/github/ITSLeeds/pct?branch=master"><img src="https://codecov.io/gh/ITSLeeds/pct/branch/master/graph/badge.svg" alt="Coverage status"></a></li>
-<li><a href="https://github.com/itsleeds/pct/actions"><img src="https://github.com/itsleeds/pct/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://www.r-project.org/Licenses/GPL-3" class="external-link">GPL-3</a></li>
 </ul>
 </div>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html#citation">Citing pct</a></li>
+</ul>
 </div>
+
+<div class="developers">
+<h2 data-toc-skip>Developers</h2>
+<ul class="list-unstyled">
+<li>Robin Lovelace <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0001-5679-6536" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Layik Hama <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0003-1912-4890" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li><a href="authors.html">More about authors...</a></li>
+</ul>
+</div>
+
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://cran.r-project.org/package=pct" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/grand-total/pct"></a></li>
+<li><a href="https://github.com/itsleeds/pct/actions" class="external-link"><img src="https://github.com/itsleeds/pct/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
+<li><a href="https://www.r-pkg.org/pkg/pct" class="external-link"><img src="https://www.r-pkg.org/badges/version/pct"></a></li>
+<li><a href="https://codecov.io/github/ITSLeeds/pct?branch=master" class="external-link"><img src="https://codecov.io/gh/ITSLeeds/pct/branch/master/graph/badge.svg" alt="Coverage status"></a></li>
+<li><a href="https://github.com/itsleeds/pct/actions" class="external-link"><img src="https://github.com/itsleeds/pct/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+</ul>
+</div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Robin Lovelace, Layik Hama.</p>
+  <p></p>
+<p>Developed by Robin Lovelace, Layik Hama.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>
@@ -430,6 +431,8 @@
 
   
 
+
+  
 
   </body>
 </html>
