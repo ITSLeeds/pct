@@ -92,6 +92,12 @@ remotes::install_cran(pkgs)
 # remotes::install_github("ITSLeeds/pct")
 ```
 
+```{r, echo=FALSE, eval=FALSE}
+piggyback::pb_upload("data-raw/training-dec-2021.html")
+piggyback::pb_download_url("training-dec-2021.html")
+```
+
+
 To test your computer is ready to work with PCT data in R, you can also try running the code hosted at <https://raw.githubusercontent.com/ITSLeeds/pct/master/inst/test-setup.R> to check everything is working:
 
 <!-- method for helping people set up their computers. Type this single line into the console and follow the instructions.  -->
@@ -107,15 +113,16 @@ If you have any questions before the workshop, feel free to ask a question on th
 Preliminary timings:
 <!-- Assuming it starts at 2pm... -->
 
-- Intro to the workshop and team: 5 minutes
+- Using the PCT for strategic cycle network planning: 5 minutes (Catriona)
 <!-- 14:05 -->
-- Demo of PCT web app: 10 minutes
+- Introduction to the PCT and demo of the web app: 10 minutes (Robin/Joey)
 <!-- 14:15 -->
-- Working together: Section 1 - downloading PCT data from the website and downloading PCT data in R (Section 1.2): 25 minutes
+- Working together: Section 1 - downloading PCT data from the website and downloading PCT data in R (Section 1.2): 25 minutes (Joey)
 <!-- 14:40 -->
 - Break: 10 minutes
 <!-- 14:50 -->
-- Section 2 - Cycling uptake scenarios and joining commute and school data: 70 minutes
+- Section 2 - Cycling uptake scenarios and joining commute and school data: 60 minutes (Robin)
+- Section 3 - Using the PCT approach with traffic simulation software A/B Street: 10 minutes (Dustin)
 <!-- 16:00 -->
 - Questions and solo work: 15 minutes
 <!-- 16:15 -->
