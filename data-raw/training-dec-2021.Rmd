@@ -97,7 +97,6 @@ piggyback::pb_upload("data-raw/training-dec-2021.html")
 piggyback::pb_download_url("training-dec-2021.html")
 ```
 
-
 To test your computer is ready to work with PCT data in R, you can also try running the code hosted at <https://raw.githubusercontent.com/ITSLeeds/pct/master/inst/test-setup.R> to check everything is working:
 
 <!-- method for helping people set up their computers. Type this single line into the console and follow the instructions.  -->
@@ -117,7 +116,7 @@ Preliminary timings:
 <!-- 14:05 -->
 - Introduction to the PCT and demo of the web app: 10 minutes (Robin/Joey)
 <!-- 14:15 -->
-- Working together: Section 1 - downloading PCT data from the website and downloading PCT data in R (Section 1.2): 25 minutes (Joey)
+- Working together: Section 1 - downloading PCT data from the website and downloading PCT data in R (Section 4 of the guide): 25 minutes (Joey)
 <!-- 14:40 -->
 - Break: 10 minutes
 <!-- 14:50 -->
@@ -126,6 +125,17 @@ Preliminary timings:
 <!-- 16:00 -->
 - Questions and solo work: 15 minutes
 <!-- 16:15 -->
+
+There will be three rooms throughout the day:
+
+- The main room where most people will be most of the time, in this room we will talk through the content
+- A breakout room for 'Basic R support' such as installing packages and accessing the data
+<!-- Greta -->
+- A breakout room for 'Intermediate R issues' such as a particular function call not working when you think it should and questions about adapting the code
+<!-- Rosa -->
+
+Before going into one of the breakout rooms you should write in the main room chat that you'd like support.
+Someone from the team should respond and you will be free to switch rooms to get support.
 
 The guide covers:
 
