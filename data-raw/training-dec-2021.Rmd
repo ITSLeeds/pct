@@ -18,7 +18,7 @@ editor_options:
 
 ```{r, include=FALSE}
 # knitr::opts_chunk$set(cache = TRUE, class.source = "fold-show")
-knitr::opts_chunk$set(cache = TRUE, eval = TRUE)
+knitr::opts_chunk$set(cache = TRUE, eval = TRUE, warning = FALSE, message = FALSE)
 ```
 
 For the online version of this training document with figures, see: 
@@ -493,8 +493,12 @@ york_north = york_clockboard %>%
   filter(circle_id == 1 | segment_id == 12)
 plot(york_clockboard$geometry)
 plot(york_north, add = TRUE)
+```
+
+```{r, eval=FALSE}
 buildings_york = buildings_nyorks[york_north, , op = sf::st_within] 
 ```
+
 
 
 These have been pre-saved and can be downloaded from GitHub as follows:
@@ -593,6 +597,10 @@ system("head go_active_york.json")
 ```{r, echo=FALSE, eval=FALSE}
 piggyback::pb_upload("go_active_york.json")
 ```
+
+## Importing scenario.json files and using A/B Street for active travel planning
+
+Dustin's bit.
 
 # Joining commute and school data {#joining}
 
