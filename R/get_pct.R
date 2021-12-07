@@ -186,9 +186,9 @@ get_pct_routes_quiet = function(
           extension = ".geojson")
 }
 
-#' Get road network results from the PCT
+#' Get route network results from the PCT
 #'
-#' Wrapper around `[get_pct()]` that gets centroid data from the PCT.
+#' Wrapper around `[get_pct()]` that gets route road network data from the PCT.
 #'
 #' @inheritParams get_pct
 #' @export
