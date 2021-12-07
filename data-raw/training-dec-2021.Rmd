@@ -382,7 +382,7 @@ g1
 # Create the new scenario: 
 # First we replace some car journeys with walking, then replace some of the
 # remaining car journeys with cycling
-routes_towns_recode_go_active = routes_towns_recode %>% 
+routes_towns_active = routes_towns_recode %>% 
   mutate(
     foot_increase_proportion = case_when(
       # specifies that 50% of car journeys <1km in length will be replaced with walking
@@ -392,7 +392,10 @@ routes_towns_recode_go_active = routes_towns_recode %>%
       TRUE ~ 0
       ),
     # Specify the Go Dutch scenario we will use to replace remaining car trips with cycling
-    bicycle_increase_proportion = uptake_pct_godutch_2020(distance = rf_dist_km, gradient = rf_avslope_perc), 
+    bicycle_increase_proportion = uptake_pct_godutch_2020(
+      distance = rf_dist_km,
+      gradient = rf_avslope_perc
+      ), 
     # Make the changes specified above
     car_reduction = car * foot_increase_proportion,
     car = car - car_reduction,
@@ -403,7 +406,7 @@ routes_towns_recode_go_active = routes_towns_recode %>%
     )
 
 # Plot bar chart showing how modal share has changed in our new scenario
-active_results = routes_towns_recode_go_active %>%
+active_results = routes_towns_active %>%
   sf::st_drop_geometry() %>% 
   dplyr::select(dist_bands, car, other, public_transport, bicycle, foot) %>% 
   tidyr::pivot_longer(cols = matches("car|other|publ|cy|foot"), names_to = "mode") %>% 
@@ -420,19 +423,19 @@ g2
 
 ```{r, echo=FALSE, eval=FALSE}
 # % active under go active scenario
-round(sum(routes_towns_recode$foot + routes_towns_recode$bicycle) / sum(routes_towns_recode_go_active$all) * 100)
-round(sum(routes_towns_recode_go_active$foot + routes_towns_recode_go_active$bicycle) / sum(routes_towns_recode_go_active$all) * 100)
+round(sum(routes_towns_recode$foot + routes_towns_recode$bicycle) / sum(routes_towns_active$all) * 100)
+round(sum(routes_towns_active$foot + routes_towns_active$bicycle) / sum(routes_towns_active$all) * 100)
 round(sum(routes_all_joined$foot + routes_all_joined$bicycle) / sum(routes_all_joined$all) * 100)
 round(
-  sum(routes_towns_recode_go_active$car * routes_towns_recode_go_active$rf_dist_km) /
+  sum(routes_towns_active$car * routes_towns_active$rf_dist_km) /
     sum(routes_towns_recode$car * routes_towns_recode$rf_dist_km) * 100
 )
 round(
-  sum(routes_towns_recode_go_active$bicycle * routes_towns_recode_go_active$rf_dist_km) /
+  sum(routes_towns_active$bicycle * routes_towns_active$rf_dist_km) /
     sum(routes_towns_recode$bicycle * routes_towns_recode$rf_dist_km) * 100
 )
 round(
-  sum(routes_towns_recode_go_active$foot * routes_towns_recode_go_active$rf_dist_km) /
+  sum(routes_towns_active$foot * routes_towns_active$rf_dist_km) /
     sum(routes_towns_recode$foot * routes_towns_recode$rf_dist_km) * 100
 )
     
@@ -446,9 +449,34 @@ In the context of the government's aim of fully decarbonising the economy by 205
 However, it is still useful to see where there is greatest potential for car trips to be replaced by walking and cycling, as shown in Figure \@ref(fig:shortcar).
 
 ```{r shortcar, echo=FALSE, fig.cap="Illustration of route network based on car trips that could be replaced by bicycle trips, based on Census data on car trips to work and the Go Dutch uptake function used in the PCT.", message=FALSE, fig.show='hold', out.width="49%"}
-rnet_shortcar = stplanr::overline(routes_towns_recode_go_active, "car_reduction")
+rnet_shortcar = stplanr::overline(routes_towns_active, "car_reduction")
 plot(rnet_shortcar)
 plot(rnet_all["dutch_slc"])
+```
+
+## Converting PCT scenarios A/B Street simulations
+
+For this section you will need to have installed the `abstr` package.
+
+```{r}
+remotes::install_cran("abstr")
+```
+
+
+
+```{r, echo=FALSE, eval=FALSE}
+# sanity check code
+routes_towns_active %>% 
+  sample_n(1000) %>% 
+  mapview::mapview() # they are full routes
+```
+
+A/B Street can simulate large areas such as the North Yorkshire case study area used in this demonstration, but it works best on most computers for smaller areas and small cities.
+Therefore, before generating A/B Street scenarios, we will constrain the case study area to York.
+The definition of the study area will be supplied by the local authority bounday, which is also available from the PCT.
+
+```{r}
+
 ```
 
 
