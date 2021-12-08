@@ -18,7 +18,7 @@ editor_options:
 
 ```{r, include=FALSE}
 # knitr::opts_chunk$set(cache = TRUE, class.source = "fold-show")
-knitr::opts_chunk$set(cache = TRUE, eval = TRUE)
+knitr::opts_chunk$set(cache = TRUE, eval = TRUE, warning = FALSE, message = FALSE)
 ```
 
 For the online version of this training document with figures, see: 
@@ -209,6 +209,7 @@ library(sf)          # key package for working with spatial vector data
 library(tidyverse)   # in the tidyverse
 library(tmap)        # installed alongside mapview
 tmap_options(check.and.fix = TRUE) # tmap setting
+sf::sf_use_s2(FALSE) # don't use the s2 geometry engine
 ```
 
 The `pct` package has been developed specifically for use with PCT data. 
@@ -382,7 +383,7 @@ g1
 # Create the new scenario: 
 # First we replace some car journeys with walking, then replace some of the
 # remaining car journeys with cycling
-routes_towns_recode_go_active = routes_towns_recode %>% 
+routes_towns_active = routes_towns_recode %>% 
   mutate(
     foot_increase_proportion = case_when(
       # specifies that 50% of car journeys <1km in length will be replaced with walking
@@ -392,7 +393,10 @@ routes_towns_recode_go_active = routes_towns_recode %>%
       TRUE ~ 0
       ),
     # Specify the Go Dutch scenario we will use to replace remaining car trips with cycling
-    bicycle_increase_proportion = uptake_pct_godutch_2020(distance = rf_dist_km, gradient = rf_avslope_perc), 
+    bicycle_increase_proportion = uptake_pct_godutch_2020(
+      distance = rf_dist_km,
+      gradient = rf_avslope_perc
+      ), 
     # Make the changes specified above
     car_reduction = car * foot_increase_proportion,
     car = car - car_reduction,
@@ -403,7 +407,7 @@ routes_towns_recode_go_active = routes_towns_recode %>%
     )
 
 # Plot bar chart showing how modal share has changed in our new scenario
-active_results = routes_towns_recode_go_active %>%
+active_results = routes_towns_active %>%
   sf::st_drop_geometry() %>% 
   dplyr::select(dist_bands, car, other, public_transport, bicycle, foot) %>% 
   tidyr::pivot_longer(cols = matches("car|other|publ|cy|foot"), names_to = "mode") %>% 
@@ -420,19 +424,19 @@ g2
 
 ```{r, echo=FALSE, eval=FALSE}
 # % active under go active scenario
-round(sum(routes_towns_recode$foot + routes_towns_recode$bicycle) / sum(routes_towns_recode_go_active$all) * 100)
-round(sum(routes_towns_recode_go_active$foot + routes_towns_recode_go_active$bicycle) / sum(routes_towns_recode_go_active$all) * 100)
+round(sum(routes_towns_recode$foot + routes_towns_recode$bicycle) / sum(routes_towns_active$all) * 100)
+round(sum(routes_towns_active$foot + routes_towns_active$bicycle) / sum(routes_towns_active$all) * 100)
 round(sum(routes_all_joined$foot + routes_all_joined$bicycle) / sum(routes_all_joined$all) * 100)
 round(
-  sum(routes_towns_recode_go_active$car * routes_towns_recode_go_active$rf_dist_km) /
+  sum(routes_towns_active$car * routes_towns_active$rf_dist_km) /
     sum(routes_towns_recode$car * routes_towns_recode$rf_dist_km) * 100
 )
 round(
-  sum(routes_towns_recode_go_active$bicycle * routes_towns_recode_go_active$rf_dist_km) /
+  sum(routes_towns_active$bicycle * routes_towns_active$rf_dist_km) /
     sum(routes_towns_recode$bicycle * routes_towns_recode$rf_dist_km) * 100
 )
 round(
-  sum(routes_towns_recode_go_active$foot * routes_towns_recode_go_active$rf_dist_km) /
+  sum(routes_towns_active$foot * routes_towns_active$rf_dist_km) /
     sum(routes_towns_recode$foot * routes_towns_recode$rf_dist_km) * 100
 )
     
@@ -446,9 +450,152 @@ In the context of the government's aim of fully decarbonising the economy by 205
 However, it is still useful to see where there is greatest potential for car trips to be replaced by walking and cycling, as shown in Figure \@ref(fig:shortcar).
 
 ```{r shortcar, echo=FALSE, fig.cap="Illustration of route network based on car trips that could be replaced by bicycle trips, based on Census data on car trips to work and the Go Dutch uptake function used in the PCT.", message=FALSE, fig.show='hold', out.width="49%"}
-rnet_shortcar = stplanr::overline(routes_towns_recode_go_active, "car_reduction")
+rnet_shortcar = stplanr::overline(routes_towns_active, "car_reduction")
 plot(rnet_shortcar)
 plot(rnet_all["dutch_slc"])
+```
+
+# Converting PCT scenarios A/B Street simulations
+
+The following section is based on the [pct_to_abstr vignette](https://a-b-street.github.io/abstr/articles/pct_to_abstr.html) in the `abstr` package, which can be installed as follows: 
+
+```{r}
+remotes::install_cran("abstr")
+```
+
+A/B Street can simulate large areas such as the North Yorkshire case study area used in this demonstration, but it works best on most computers for smaller areas and small cities.
+For the purposes of this example, we will create a smaller case study area, before generating A/B Street scenarios, we will constrain the case study area to York.
+The definition of the study area will be supplied by the local authority bounday, which is also available from the PCT.
+
+```{r}
+zones_york = zones_all %>% filter(lad_name == "York")
+```
+
+We will get OSM data for the whole region with the `osmextract` package (warning, this next line of code may take some time, you can skip it as the data has be pre-processed):
+
+```{r, echo=FALSE, eval=FALSE}
+q = "SELECT * FROM multipolygons WHERE building is not null"
+buildings_nyorks = osmextract::oe_get("north yorkshire", query = q)
+```
+
+The buildings within a 5 km radius of central York and travel corridor going due North can be returned as follows using the zonebuilder package:
+
+```{r, eval=FALSE, echo=FALSE}
+# york_centre = tmaptools::geocode_OSM("york", as.sf = TRUE)
+# york_3km = stplanr::geo_buffer(york_centre, dist = 3000)
+# buildings_york = buildings_nyorks[zones_york, , op = sf::st_within] # buildings in york
+buildings_york = buildings_nyorks[york_3km, , op = sf::st_within] 
+```
+
+```{r}
+york_clockboard = zonebuilder::zb_zone("york", n_circles = 3)
+york_north = york_clockboard %>% 
+  filter(circle_id == 1 | segment_id == 12)
+plot(york_clockboard$geometry)
+plot(york_north, add = TRUE)
+```
+
+```{r, eval=FALSE}
+buildings_york = buildings_nyorks[york_north, , op = sf::st_within] 
+```
+
+
+
+These have been pre-saved and can be downloaded from GitHub as follows:
+
+```{r, eval=FALSE, echo=FALSE}
+sf::write_sf(buildings_york, "buildings_york_north.geojson")
+piggyback::pb_upload("buildings_york_north.geojson")
+piggyback::pb_download_url("buildings_york_north.geojson")
+```
+
+```{r}
+u = "https://github.com/ITSLeeds/pct/releases/download/v0.9.4/buildings_york_north.geojson"
+buildings_york = sf::read_sf(u)
+```
+
+
+Note: if you want to look at what type of buildings are in the input dataset, the following code should help:
+
+```r
+buildings_nyorks %>%
+  sf::st_drop_geometry() %>% 
+  group_by(building) %>% 
+  count(building) %>% 
+  arrange(desc(n))
+```
+
+Next, we'll keep only OD pairs associated with zones whose centoids lie within the 5km central area:
+
+```{r}
+centroids = sf::st_centroid(zones_york)
+centroids_central = centroids[york_north, ]
+zones_central = zones_york %>% filter(geo_code %in% centroids_central$geo_code)
+```
+
+We can then subset the OD pairs, represented as routes in the `routes_towns_active` object, as follows:
+
+```{r}
+routes_york = routes_towns_active %>% 
+  filter(geo_code1 %in% zones_central$geo_code) %>% 
+  filter(geo_code2 %in% zones_central$geo_code)
+```
+
+Let's do some sanity checks to see what the input data looks like before creating scenarios for A/B Street:
+
+```{r}
+sum(routes_york$all) # 30k commuters
+zones_central %>% select(foot) %>% plot(reset = FALSE)
+plot(routes_york$geometry, add = TRUE, col = "white", lwd = 3)
+plot(buildings_york$geometry, add = TRUE)
+```
+
+
+
+```{r}
+od_york_abstr = routes_york %>% 
+  transmute(
+    o = geo_code1,
+    d = geo_code2,
+    All = foot + bicycle + public_transport + car,
+    Walk = foot,
+    Bike = bicycle,
+    Transit = public_transport,
+    Drive = car
+    ) %>% 
+  sf::st_drop_geometry()
+```
+
+After renaming the key columns in the previous command, we can covert the OD data into a new form, with a single desire line for each trip:
+
+```{r}
+output_sf = abstr::ab_scenario(
+  od = od_york_abstr,
+  zones = zones_york,
+  origin_buildings = buildings_york,
+  destination_buildings = buildings_york,
+  pop_var = 3,
+  time_fun = ab_time_normal,
+  output = "sf"
+)
+# plot(output_sf$geometry)
+```
+
+We can then convert the result to a list format and save the data as a `json` file:
+
+```{r, eval=FALSE, echo=FALSE}
+# output_json = abstr::ab_json(output_sf, scenario_name = "go_active_york", time_fun = abstr::ab_time_normal(7.5)) # fails but shouldn't, right?
+```
+
+
+```{r}
+output_json = abstr::ab_json(output_sf, scenario_name = "go_active_york")
+abstr::ab_save(output_json, f = "go_active_york.json")
+system("head go_active_york.json")
+```
+
+```{r, echo=FALSE, eval=FALSE}
+piggyback::pb_upload("go_active_york.json")
 ```
 
 ## Importing York into A/B Street for active travel planning
