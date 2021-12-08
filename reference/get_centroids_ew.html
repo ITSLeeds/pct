@@ -90,9 +90,16 @@ See <a href="https://geoportal.statistics.gov.uk/datasets/b0a6d8a3dc5d4718b3fd62
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">pwc</span> <span class="op">=</span> <span class="fu">get_centroids_ew</span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in open.connection(structure(4L, class = c("curl", "connection"), conn_id = &lt;pointer: 0x65e&gt;),     "rb"):</span> HTTP error 503.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">7201</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">6</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Delimiter:</span> ","</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">chr</span> (2): MSOA11CD, MSOA11NM</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">dbl</span> (4): BNGEAST, BNGNORTH, LONGITUDE, LATITUDE</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use <span style="color: #262626; background-color: #DADADA;">`spec()`</span> to retrieve the full column specification for this data.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Specify the column types or set <span style="color: #262626; background-color: #DADADA;">`show_col_types = FALSE`</span> to quiet this message.</span>
 <span class="r-in"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pwc</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">pwc</span><span class="op">)</span>, <span class="fl">1000</span><span class="op">)</span>, <span class="op">]</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in plot(pwc[sample(nrow(pwc), 1000), ]):</span> object 'pwc' not found</span>
+<span class="r-plt img"><img src="get_centroids_ew-1.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </div>
