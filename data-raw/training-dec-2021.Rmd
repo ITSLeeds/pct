@@ -451,6 +451,49 @@ plot(rnet_shortcar)
 plot(rnet_all["dutch_slc"])
 ```
 
+## Importing York into A/B Street for active travel planning
+
+[A/B Street](abstreet.org) is a suite of tools to rapidly prototype active travel schemes. There are parts dedicated to planning [cycle networks](bike.abstreet.org) and [low traffic neighborhoods](ltn.abstreet.org), but today we'll use the traffic simulator to visualize this scenario we've just generated.
+
+Many parts of A/B Street can be used in your web browser without installation, but we'll need to install it since we're importing a new city. Follow [these instructions](https://a-b-street.github.io/docs/user/index.html#installing-ab-street) and download the .zip file for your platform (Windows, Mac, or Linux) and then unzip it. Launch the software (on Windows and Mac, you may need to follow the instructions for skipping security warnings) and you should see the main screen:
+
+```{abst title, echo=FALSE, fig.cap="The home screen for A/B Street."}
+knitr::include_graphics("https://user-images.githubusercontent.com/1664407/145171484-b8c34f04-92a7-4e69-b3ea-761e714e75b2.png")
+```
+
+Choose "Traffic simulation sandbox." A small part of Seattle will be loaded by default. At the top-right of the screen, you can click the area name -- "Montlake and Eastlake" -- to change the map:
+
+```{abst switch map, echo=FALSE, fig.cap="After launching sandbox mode for the default map."}
+knitr::include_graphics("https://user-images.githubusercontent.com/1664407/145171705-36b221a6-f63b-47d6-8fb5-4e187508696c.png")
+```
+
+At the top is an option to "Import a new city." You'll see some instructions:
+
+```{abst import dialog, echo=FALSE, fig.cap="Settings for importing a new city into A/B Street."}
+knitr::include_graphics("https://user-images.githubusercontent.com/1664407/145171832-44270223-d3a6-4028-9586-6e5efb82c52c.png")
+```
+
+Step 1 leads you to [geojson.io](geojson.io), a handy site for drawing shapes on a map and generating GeoJSON. We need to sketch a boundary for the portion of York we wish to simulate. Use the polygon tool and select everything roughly within the ring road:
+
+```{abst geojson, echo=FALSE, fig.cap="geojson.io selecion of York."}
+knitr::include_graphics("https://user-images.githubusercontent.com/1664407/145173423-4c5468a1-fae1-4605-8db5-f5a201fae56c.png")
+```
+
+Select all of the JSON in the right sidebar and copy it into your system clipboard. Return to A/B Street, then check through the settings. Be sure to switch to driving on the left! You can also name the imported map "york" to find it more easily later. Leave the other settings alone, then press "Import the area from your clipboard."
+
+You'll then get a loading screen, while A/B Street downloads OpenStreetMap data for York and transforms it into a richer representation allowing for traffic simulation. This will take a few minutes, depending on your network and computer speed. The data for York is about 115MB, and on my system, the total import time was around 3 minutes.
+
+```{abst loading, echo=FALSE, fig.cap="While A/B Street imports York, you'll see a loading screen like this."}
+knitr::include_graphics("https://user-images.githubusercontent.com/1664407/145173134-3865e98b-ebd1-4808-8e1b-2697192a98d1.png")
+```
+
+If all goes well, you'll see York at midnight, all quiet:
+
+```{abst york, echo=FALSE, fig.cap="An empty York in A/B Street."}
+knitr::include_graphics("https://user-images.githubusercontent.com/1664407/145173156-85d32d77-27ce-4813-b7e8-fff962a09cae.png")
+```
+
+TODO: Show basic controls. Then import the scenario...
 
 # Joining commute and school data {#joining}
 
