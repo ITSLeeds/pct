@@ -493,7 +493,85 @@ If all goes well, you'll see York at midnight, all quiet:
 knitr::include_graphics("https://user-images.githubusercontent.com/1664407/145173156-85d32d77-27ce-4813-b7e8-fff962a09cae.png")
 ```
 
-TODO: Show basic controls. Then import the scenario...
+### Exploring A/B Street
+
+A/B Street has lots of functionality; it's best to just play around for a few minutes and explore it. To start, use your touchpad or mouse's scroll wheel and just zoom into the city center. Once you zoom in enough, the view will change to show detailed lanes on the streets. If you happen to know the area and something looks wrong, it may be missing data in OpenStreetMap -- get in touch if you'd like to learn how to update it!
+
+A handy tool is to just search for cross streets. Use the search icon in the bottom right corner (or its keybinding, **k**) and head to Gillygate and Clarence Street:
+
+```{abst search, echo=FALSE, fig.cap="Searching by street"}
+knitr::include_graphics("https://user-images.githubusercontent.com/1664407/145185679-7ec2f0bc-52e9-4aef-8e88-0b8154022744.png")
+```
+
+Let's see some people move around! Click on one of the intersections and "spawn some agents here." Or if you notice the hotkeys, you can just hover on the intersection and press **z** without having to click. Some cyclists, drivers, and pedestrians appear:
+
+```{abst spawn, echo=FALSE, fig.cap="Example traffic around one intersection"}
+knitr::include_graphics("https://user-images.githubusercontent.com/1664407/145186889-f32c55f4-e3e2-4958-9cf9-aa1f70b15275.png")
+```
+
+Click one of them and zoom out a bit to see where they're headed:
+
+```{abst follow, echo=FALSE, fig.cap="Following one traveller"}
+knitr::include_graphics("https://user-images.githubusercontent.com/1664407/145186881-f9f4532f-ac18-40d1-a177-dd5ea347d83e.png")
+```
+
+If they're moving too fast to select, press **space** to pause or resume the simulation, or use the controls in the top-left. The "spawn agents here" tool just creates a few people headed somewhere random, so there's nothing particularly meaningful about this.
+
+You might notice that Clarence Street has cycle lanes appear and disappear. Why don't we make things a little more connected? Just north of the traffic signal, there are two southbound lanes. Let's transform one into a cycle lane, just to learn how the road editor works. Click the street, then "edit lane." You'll enter the edit mode:
+
+```{abst edit, echo=FALSE, fig.cap="Editing a street"}
+knitr::include_graphics("https://user-images.githubusercontent.com/1664407/145186876-c7091281-8c1c-446f-97ae-4cd676162a22.png")
+```
+
+These controls are designed to be similar to the wonderful [Streetmix](streetmix.net) tool. Play around a bit and try adding a southbound cycle lane with a small buffer:
+
+```{abst new lane, echo=FALSE, fig.cap="After adding a protected cycle lane"}
+knitr::include_graphics("https://user-images.githubusercontent.com/1664407/145186873-a8b8c3a3-9833-4ef8-85f3-ad38b049c72e.png")
+```
+
+Great! Now that you know some of the basic controls, let's go back to that scenario file we generated previously.
+
+### Importing scenario.json files
+
+For this section, we'll switch to an area in Leeds, where another exercise (??) has generated https://github.com/ITSLeeds/pct/releases/download/v0.9.4/go_active_leeds.json using `abstr`. If you've generated scenario data for York, you can follow the same steps here, but the images shown will be for Leeds. Change the map at the top and open the Leeds city center. You can find it in the list of areas already imported; you won't need to draw a boundary yourself.
+
+Once you have Leeds opened up, change the traffic scenario using the button at the top-right next to the map name. You'll see some options:
+
+```{abst , echo=FALSE, fig.cap="Travel demand models available"}
+knitr::include_graphics("https://user-images.githubusercontent.com/1664407/145189333-e6ca7fac-ad26-4a06-8a3c-21ee3ed43213.png")
+```
+
+These are different [travel demand models](https://a-b-street.github.io/docs/tech/trafficsim/travel_demand.html) to tell the simulation where people live, work, and travel. Choose the last option, "import JSON scenario," and import either the JSON file you produced for York, or https://github.com/ITSLeeds/pct/releases/download/v0.9.4/go_active_leeds.json for Leeds.
+
+The simulation resets to midnight, and it's all quiet. Let's see when we can expect people to start moving. In the top-right panel, there's a small info icon:
+
+```{abst , echo=FALSE, fig.cap="When do trips start?"}
+knitr::include_graphics("https://user-images.githubusercontent.com/1664407/145189329-c7066424-ee65-4a72-b6b1-b56daf7a4cbe.png")
+```
+
+It looks like `abstr` starts all the trips around 8:30. Use the button at the bottom to jump to the first trip. You'll return to the simulation, where you can use the top-left panel to speed up time a bit. Around 7:45, things wake up a bit:
+
+```{abst , echo=FALSE, fig.cap="Start time distribution"}
+knitr::include_graphics("https://user-images.githubusercontent.com/1664407/145189325-55c6f809-0938-4ab9-b848-4877c9a1f706.png")
+```
+
+There are a few handy layers you can draw to find people more easily. Use the icon in the bottom-right corner or press the hotkey **l**. Feel free to explore these! Two useful ones are the population heatmap, just showing where people are:
+
+```{abst , echo=FALSE, fig.cap="Population layer"}
+knitr::include_graphics("https://user-images.githubusercontent.com/1664407/145189310-01e8624d-ce50-4fb7-91a1-7b647676f31d.png")
+```
+
+And the delay layer, showing where vehicles are getting stuck:
+
+```{abst , echo=FALSE, fig.cap="Delay layer"}
+knitr::include_graphics("https://user-images.githubusercontent.com/1664407/145189302-aec4b6cd-3b4b-4f40-9aca-b6bdf30081ab.png")
+```
+
+Zooming in a bit, it's not clear exactly what the bottleneck is -- probably this is an unrealistic volume of traffic to be pouring in from the north. Producing a realistic travel demand model is challenging!
+
+```{abst , echo=FALSE, fig.cap="Too many vehicles on a small street"}
+knitr::include_graphics("https://user-images.githubusercontent.com/1664407/145189298-84e1fd1c-a398-4cc6-af78-917326353bde.png")
+```
 
 # Joining commute and school data {#joining}
 
