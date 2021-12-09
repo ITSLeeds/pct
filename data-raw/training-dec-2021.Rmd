@@ -317,11 +317,12 @@ A basic data manipulation task is to select columns, do this using tidyverse syn
 
 ```{r}
 lines_all %>%
-  sf::st_drop_geometry() %>% 
-  summarise(mean_pct_cycling = mean(pcycle), sd = sd(pcycle))
+  sf::st_drop_geometry() %>%
+  select(pcycle) %>% 
+  summarise(mean(pcycle), sd(pcycle))
 ```
 
-That tells that the the average value of % cycling is 6%.
+That tells that the the average value of `pcycle` is 6%.
 Note: that is not the same as the overall % cycling in the region, which can be calculated with base R functions as follows:
 
 ```{r}
@@ -329,9 +330,7 @@ sum(lines_all$bicycle) / sum(lines_all$all)
 ```
 
 Use whichever R code style you find most appropriate; in this section we will tend to use the tidyverse style.
-See the books Reproducible Road Safety Research with R, Geocomutation with R and R for Data Science for more for developing your R code writing skills.
-
-
+See the books Reproducible Road Safety Research with R, Geocomputation with R and R for Data Science for more for developing your R code writing skills.
 
 ```{r}
 lines_all = lines_all %>% 
@@ -353,7 +352,17 @@ lines_all$pcycle_govtarget = uptake_pct_govtarget_2020(
 
 **Exercise: Generate a 'Go Dutch' scenario for North Yorkshire using the function `uptake_pct_godutch()`:** (Hint: the process is very similar to that used to generate the 'Government Target' scenario) 
 
-```{r change, echo=FALSE}
+```{r, echo=FALSE}
+lines_all = lines_all %>% 
+  mutate(
+    euclidean_distance = as.numeric(sf::st_length(lines_all)),
+    uptake = uptake_pct_godutch_2020(rf_dist_km, rf_avslope_perc),
+    pcycle_dutch = uptake + pcycle
+  )
+```
+
+```{r change, echo=FALSE, eval=FALSE}
+# base R way
 lines_all$pcycle_dutch = uptake_pct_godutch_2020(
   distance = lines_all$rf_dist_km,
   gradient = lines_all$rf_avslope_perc
@@ -361,16 +370,22 @@ lines_all$pcycle_dutch = uptake_pct_godutch_2020(
 summary(lines_all$pcycle_dutch)
 ```
 
-```{r dutch_pcycle, echo=FALSE, warning=FALSE, fig.show='hold', fig.cap="Percent cycling currently (left) and under a 'Go Dutch' scenario (right) in the North Yorkshire.", out.width="40%"}
-breaks = c(0, 5, 10, 20, 50) / 100
+You can plot the data as follows:
+
+```{r, eval=FALSE}
 lwd = lines_all$all / mean(lines_all$all)
-lines_to_plot_baseline = lines_all %>% 
-  transmute(Percent = pcycle * 100) %>% 
-  arrange(desc(Percent))
+breaks = c(0, 5, 10, 20, 50) / 100
+lines_all %>% 
+  select(pcycle) %>% 
+  plot(lwd = lwd, breaks = breaks)
+```
 
 
-# plot(lines_to_plot_baseline, lwd = lwd, breaks =  breaks)
-# plot(lines_all["pcycle_dutch"], lwd = lines_all$all / mean(lines_all$all), breaks = c(0, 5, 10, 20, 50) / 100)
+```{r dutchpcycle, echo=FALSE, warning=FALSE, fig.show='hold', fig.cap="Percent cycling currently (left) and under a 'Go Dutch' scenario (right) in the North Yorkshire.", out.width="40%"}
+lwd = lines_all$all / mean(lines_all$all)
+breaks = c(0, 5, 10, 20, 50) / 100
+plot(lines_all["pcycle"], lwd = lwd, breaks = breaks)
+plot(lines_all["pcycle_dutch"], lwd = lwd, breaks = breaks)
 # cor(l_originalines_all$dutch_slc / l_originalines_all$all, lines_all$pcycle_dutch)
 # cor(l_originalines_all$govtarget_slc / l_originalines_all$all, lines_all$pcycle_govtarget)
 # plot(l_originalines_all$dutch_slc / l_originalines_all$all, lines_all$pcycle_dutch)
