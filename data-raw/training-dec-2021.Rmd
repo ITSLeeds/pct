@@ -265,6 +265,17 @@ In it you will:
 -   Develop your own uptake model in conceptual terms, e.g., to represent the [government's aim](https://www.gov.uk/government/publications/transport-decarbonisation-plan) for 50% of all trips in towns and cities to be made by walking and cycling by 2030
 -   Learn how to train uptake models against data, to build evidence-based uptake models
 
+The section builds on the previous section and assumes you have installed and loaded the necessary packages, and that you have read-in data on a region of your choice with the following commands:
+
+```{r}
+region_name = "north-yorkshire"
+zones_all = get_pct_zones(region_name)
+lines_all = get_pct_lines(region_name)
+# note: the next command may take a few seconds
+routes_all = get_pct_routes_fast(region_name)
+rnet_all = get_pct_rnet(region_name)
+```
+
 ## PCT scenarios
 
 One of the benefits of the PCT is its ability to generate scenarios that model where people might cycle in future. 
@@ -294,8 +305,33 @@ lines_all = lines_all %>%
   mutate(pcycle = bicycle / all)
 ```
 
+You can see the first rows of data in this updated object by printing it as follows:
+
+```{r}
+lines_all
+```
+
+It's worth spending a moment to interpret the output: it tells us first that this a geographic object with a LINESTRING geometry and a bounding box in Northern Europe (UK). It contains just over 10k rows and 143 columns.
+
+A basic data manipulation task is to select columns, do this using tidyverse syntax as follows and pipe the output to the `summarise` function to find out the mean and standard deviation of the 'pcycle' column we have created as follows:
+
+```{r}
+lines_all %>%
+  sf::st_drop_geometry() %>% 
+  summarise(mean_pct_cycling = mean(pcycle), sd = sd(pcycle))
+```
+
+That tells that the the average value of % cycling is 6%.
+Note: that is not the same as the overall % cycling in the region, which can be calculated with base R functions as follows:
+
+```{r}
+sum(lines_all$bicycle) / sum(lines_all$all)
+```
+
 Use whichever R code style you find most appropriate; in this section we will tend to use the tidyverse style.
 See the books Reproducible Road Safety Research with R, Geocomutation with R and R for Data Science for more for developing your R code writing skills.
+
+
 
 ```{r}
 lines_all = lines_all %>% 
