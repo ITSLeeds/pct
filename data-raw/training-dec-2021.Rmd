@@ -21,6 +21,11 @@ editor_options:
 knitr::opts_chunk$set(cache = TRUE, eval = TRUE, warning = FALSE, message = FALSE)
 ```
 
+```{r, echo=FALSE, eval=FALSE}
+piggyback::pb_upload("data-raw/training-dec-2021.html")
+piggyback::pb_download_url("training-dec-2021.html")
+```
+
 For the online version of this training document with figures, see: 
 
 ```
@@ -90,11 +95,6 @@ pkgs = c(
 )
 remotes::install_cran(pkgs)
 # remotes::install_github("ITSLeeds/pct")
-```
-
-```{r, echo=FALSE, eval=FALSE}
-piggyback::pb_upload("data-raw/training-dec-2021.html")
-piggyback::pb_download_url("training-dec-2021.html")
 ```
 
 To test your computer is ready to work with PCT data in R, you can also try running the code hosted at <https://raw.githubusercontent.com/ITSLeeds/pct/master/inst/test-setup.R> to check everything is working:
@@ -278,14 +278,45 @@ For example, the PCT's 'Government Target' scenario allows us to calculate the c
 
 The following code chunk uses the R function `uptake_pct_govtarget_2020()` (from the `pct` package) to recreate this 'Government Target' scenario. 
 
+You can do this with **base R** functions as follows:
 
 ```{r}
 lines_all$pcycle = lines_all$bicycle / lines_all$all
+```
+
+However, many people, especially people new to R, find the **tidyverse syntax** more intuitive.
+The same result from the previous line of code can be achieved as follows:
+
+```{r}
+lines_all = lines_all %>% mutate(pcycle = bicycle / all)
+```
+
+That can also be written on two lines for clarity as follows:
+
+```{r}
+lines_all = lines_all %>% 
+  mutate(pcycle = bicycle / all)
+```
+
+Use whichever R code style you find most appropriate; in this section we will tend to use the tidyverse style.
+See the books Reproducible Road Safety Research with R, Geocomutation with R and R for Data Science for more for developing your R code writing skills.
+
+```{r}
+lines_all = lines_all %>% 
+  mutate(
+    euclidean_distance = as.numeric(sf::st_length(lines_all)),
+    uptake = uptake_pct_govtarget_2020(rf_dist_km, rf_avslope_perc),
+    pcycle_govtarget = uptake + pcycle
+  )
+```
+
+```{r, eval=FALSE, echo=FALSE}
+# Base R way:
 lines_all$euclidean_distance = as.numeric(sf::st_length(lines_all))
 lines_all$pcycle_govtarget = uptake_pct_govtarget_2020(
   distance = lines_all$rf_dist_km,
   gradient = lines_all$rf_avslope_perc
-  ) * 100 + lines_all$pcycle
+  ) + lines_all$pcycle
 ```
 
 **Exercise: Generate a 'Go Dutch' scenario for North Yorkshire using the function `uptake_pct_godutch()`:** (Hint: the process is very similar to that used to generate the 'Government Target' scenario) 
@@ -294,13 +325,20 @@ lines_all$pcycle_govtarget = uptake_pct_govtarget_2020(
 lines_all$pcycle_dutch = uptake_pct_godutch_2020(
   distance = lines_all$rf_dist_km,
   gradient = lines_all$rf_avslope_perc
-  ) * 100 + lines_all$pcycle
+  ) + lines_all$pcycle
 summary(lines_all$pcycle_dutch)
 ```
 
 ```{r dutch_pcycle, echo=FALSE, warning=FALSE, fig.show='hold', fig.cap="Percent cycling currently (left) and under a 'Go Dutch' scenario (right) in the North Yorkshire.", out.width="40%"}
-plot(lines_all["pcycle"], lwd = lines_all$all / mean(lines_all$all), breaks = c(0, 5, 10, 20, 50))
-plot(lines_all["pcycle_dutch"], lwd = lines_all$all / mean(lines_all$all), breaks = c(0, 5, 10, 20, 50))
+breaks = c(0, 5, 10, 20, 50) / 100
+lwd = lines_all$all / mean(lines_all$all)
+lines_to_plot_baseline = lines_all %>% 
+  transmute(Percent = pcycle * 100) %>% 
+  arrange(desc(Percent))
+
+
+# plot(lines_to_plot_baseline, lwd = lwd, breaks =  breaks)
+# plot(lines_all["pcycle_dutch"], lwd = lines_all$all / mean(lines_all$all), breaks = c(0, 5, 10, 20, 50) / 100)
 # cor(l_originalines_all$dutch_slc / l_originalines_all$all, lines_all$pcycle_dutch)
 # cor(l_originalines_all$govtarget_slc / l_originalines_all$all, lines_all$pcycle_govtarget)
 # plot(l_originalines_all$dutch_slc / l_originalines_all$all, lines_all$pcycle_dutch)
@@ -610,13 +648,13 @@ knitr::include_graphics("https://user-images.githubusercontent.com/1664407/14517
 
 Choose "Traffic simulation sandbox." A small part of Seattle will be loaded by default. At the top-right of the screen, you can click the area name -- "Montlake and Eastlake" -- to change the map:
 
-```{r switch map, echo=FALSE, fig.cap="After launching sandbox mode for the default map."}
+```{r switch, echo=FALSE, fig.cap="After launching sandbox mode for the default map."}
 knitr::include_graphics("https://user-images.githubusercontent.com/1664407/145171705-36b221a6-f63b-47d6-8fb5-4e187508696c.png")
 ```
 
 At the top is an option to "Import a new city." You'll see some instructions:
 
-```{r import dialog, echo=FALSE, fig.cap="Settings for importing a new city into A/B Street."}
+```{r import, echo=FALSE, fig.cap="Settings for importing a new city into A/B Street."}
 knitr::include_graphics("https://user-images.githubusercontent.com/1664407/145171832-44270223-d3a6-4028-9586-6e5efb82c52c.png")
 ```
 
@@ -672,7 +710,7 @@ knitr::include_graphics("https://user-images.githubusercontent.com/1664407/14518
 
 These controls are designed to be similar to the wonderful [Streetmix](streetmix.net) tool. Play around a bit and try adding a southbound cycle lane with a small buffer:
 
-```{r new lane, echo=FALSE, fig.cap="After adding a protected cycle lane"}
+```{r new-lane, echo=FALSE, fig.cap="After adding a protected cycle lane"}
 knitr::include_graphics("https://user-images.githubusercontent.com/1664407/145186873-a8b8c3a3-9833-4ef8-85f3-ad38b049c72e.png")
 ```
 
