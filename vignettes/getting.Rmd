@@ -22,7 +22,7 @@ editor_options:
 
 ```{r, include=FALSE}
 # knitr::opts_chunk$set(cache = TRUE, class.source = "fold-show")
-knitr::opts_chunk$set(cache = TRUE, eval = TRUE)
+knitr::opts_chunk$set(cache = TRUE)
 ```
 
 The PCT is not only a web tool, it is a research and open data project that has resulted in many megabytes of valuable data [@lovelace_propensity_2017].
@@ -186,6 +186,11 @@ We will get the same PCT datasets as in previous sections but using the R interf
 If you have not already done so, you will need to install the R packages we will use for this section (and the next) by typing and executing the following command in the R console: `install.packages("pct", "sf", "dplyr", "tmap")`.
 
 -   After you have the necessary packages installed, the first stage is to load the packages we will use:
+
+```{r}
+knitr::opts_chunk$set(eval = FALSE)
+```
+
 
 ```{r, message=FALSE}
 library(pct)
