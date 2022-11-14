@@ -89,7 +89,7 @@ https://github.com/ITSLeeds/pct/releases/download/0.8.1/Propensity.to.Cycle.Tool
 <!-- If you are new to R this course may not be appropriate for you. -->
 
 If you are new to R, you should install R and RStudio before the course.
-For instructions on that, see the download links at [cran.r-project.org](https://cran.r-project.org/) and [RStudio.com](https://www.rstudio.com/products/rstudio/download/#download).
+For instructions on that, see the download links at [cran.r-project.org](https://cran.r-project.org/) and [RStudio.com](https://posit.co/download/rstudio-desktop/).
 
 R is a powerful statistical programming language for data science and a wide range of other applications and, like any language, takes time to learn.
 To get started we recommend the following free resources:
