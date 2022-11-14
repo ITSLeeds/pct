@@ -65,6 +65,7 @@
 #' points(l$length, pcycle_scenario_2020, col = "blue")
 #'
 #' # compare with published PCT data:
+#' \dontrun{
 #' l_pct_2020 = get_pct_lines(region = "isle-of-wight")
 #' # test for another region:
 #' # l_pct_2020 = get_pct_lines(region = "west-yorkshire")
@@ -92,6 +93,7 @@
 #' mean(l_pct_2020$dutch_slc)
 #' mean(godutch_slc)
 #' mean(godutch_slc_2020)
+#' }
 uptake_pct_govtarget = function(distance,
                                 gradient,
                                 alpha = -3.959,

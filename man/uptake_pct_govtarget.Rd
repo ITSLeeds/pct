@@ -121,7 +121,9 @@ data  sources  on  travel  patterns."
 }
 \details{
 The functional form of the cycling uptake model used in the PCT is as follows:
-(Source: \href{https://npct.github.io/pct-shiny/regions_www/www/static/03a_manual/pct-bike-eng-user-manual-c1.pdf}{npct.github.io})\preformatted{logit (pcycle) = -3.959 +   # alpha
+(Source: \href{https://npct.github.io/pct-shiny/regions_www/www/static/03a_manual/pct-bike-eng-user-manual-c1.pdf}{npct.github.io})
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{logit (pcycle) = -3.959 +   # alpha
   (-0.5963 * distance) +    # d1
   (1.866 * distancesqrt) +  # d2
   (0.008050 * distancesq) + # d3
@@ -130,7 +132,7 @@ The functional form of the cycling uptake model used in the PCT is as follows:
   (-0.05135 * distancesqrt *gradient) # i2
 
 pcycle = exp ([logit (pcycle)]) / (1 + (exp([logit(pcycle)])
-}
+}\if{html}{\out{</div>}}
 
 \code{uptake_pct_govtarget_2020()} and
 \code{uptake_pct_godutch_2020()}
@@ -160,6 +162,7 @@ plot(l$length, pcycle_scenario, ylim = c(0, 0.2))
 points(l$length, pcycle_scenario_2020, col = "blue")
 
 # compare with published PCT data:
+\dontrun{
 l_pct_2020 = get_pct_lines(region = "isle-of-wight")
 # test for another region:
 # l_pct_2020 = get_pct_lines(region = "west-yorkshire")
@@ -187,6 +190,7 @@ godutch_slc_2020 = uptake_pct_godutch_2020(
 mean(l_pct_2020$dutch_slc)
 mean(godutch_slc)
 mean(godutch_slc_2020)
+}
 # Take an origin destination (OD) pair between an LSOA centroid and a
 # secondary school. In this OD pair, 30 secondary school children travel, of
 # whom 3 currently cycle. The fastest route distance is 3.51 km and the

@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_pct.R
 \name{get_pct_rnet}
 \alias{get_pct_rnet}
-\title{Get road network results from the PCT}
+\title{Get route network results from the PCT}
 \usage{
 get_pct_rnet(
   region = NULL,
@@ -22,10 +22,10 @@ See \code{View(pct_regions_lookup)} for a full list of possible region names.}
 \item{extension}{The type of file to download (only \code{.geojson} supported at present)}
 }
 \description{
-Wrapper around \verb{[get_pct()]} that gets centroid data from the PCT.
+Wrapper around \verb{[get_pct()]} that gets route road network data from the PCT.
 }
 \examples{
-\donttest{
+\dontrun{
 # don't test to reduce build times
 rnet =  get_pct_rnet("isle-of-wight")
 plot(rnet)

@@ -25,7 +25,7 @@ See \code{View(pct_regions_lookup)} for a full list of possible region names.}
 Wrapper around \verb{[get_pct()]} that gets centroid data from the PCT.
 }
 \examples{
-\donttest{
+\dontrun{
 # don't test to reduce build times
 c = get_pct_centroids("isle-of-wight")
 plot(c)

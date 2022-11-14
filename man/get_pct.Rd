@@ -36,7 +36,7 @@ This function gets data generated for the Propensity to Cycle Tool
 project and returns objects in the modern \code{sf} class.
 }
 \examples{
-\donttest{
+\dontrun{
 rf = get_pct(region = "isle-of-wight", layer = "rf")
 names(rf)[1:20]
 vars_to_plot = 10:13
