@@ -61,10 +61,10 @@ get_pct = function(
     u_file = paste(u_folder, f, sep = "/")
   }
   u_ok = crul::ok(u_file)
-  if(u_ok) {
-    sf::read_sf(u_file)
-  } else {
+  if(!u_ok) {
     stop("No file available, check the region exists and internet connection")
+  } else {
+    sf::read_sf(u_file)
   }
 }
 #' Get zone results from the PCT
