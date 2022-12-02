@@ -60,7 +60,12 @@ get_pct = function(
     f = paste0(layer, extension)
     u_file = paste(u_folder, f, sep = "/")
   }
-  sf::read_sf(u_file)
+  u_ok = crul::ok(u_file)
+  if(u_ok) {
+    sf::read_sf(u_file)
+  } else {
+    stop("No file available, check the region exists and internet connection")
+  }
 }
 #' Get zone results from the PCT
 #'
