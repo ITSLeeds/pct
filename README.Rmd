@@ -296,3 +296,4 @@ mapview::mapview(rnet, zcol = "bicycle_govtarget", lwd = lwd * 2)
 <!-- - Add additional distance decay functions -->
 <!-- - Make it easy to use data from other cities around the world -->
 <!-- - Show how to create raster tiles of cycling uptake -->
+ 
