@@ -19,3 +19,4 @@ data-raw/*
 ^data-raw$
 ^_pkgdown\.yml$
 ^pkgdown$
+^CRAN-SUBMISSION$
