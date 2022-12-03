@@ -1,15 +1,17 @@
-## Changes
+Updates to make the package fail gracefully.
 
-- Submission after it was taken down due to dependency on stplanr which was taken down without warning.
-- Some vignettes no longer evaluate, which should save resources on CRAN, all URLs that were out of date have been updated and work according to check on Win-Build: https://win-builder.r-project.org/A60935OuuntU/
+I have updated all functions that download files or that read directly from web URLs to check if the endpoint is 'alive'.
+I've tested the package on a laptop with wifi switched off to ensure that the results fail gracefully and indeed they do, e.g., this happens when the user is offline now:
 
-## Test environments
-* local Ubuntu 20.04 install, R 4.1.1
-* Ubuntu (other versions and various R releases), GH Actions
-* Windows, GH Actions
-* Mac, GH Actions
-* cyclestreets dependency requires an API, so some tests will be skipped if not provided.
+pct::get_pct_zones("west-yorkshire")
+Could not resolve host: github.com
+Could not find anything at this URL:
+https://github.com/npct/pct-outputs-regional-notR/raw/master/commute/lsoa/west-yorkshire/z.geojson
+Error in read_pct(u_file, fun = sf::read_sf) : 
+  Check the region exists and internet connection
 
 ## R CMD check results
-There were no ERRORs or WARNINGs. 
 
+0 errors | 0 warnings | 1 note
+
+* This is a new release.

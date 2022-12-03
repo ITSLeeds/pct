@@ -20,3 +20,4 @@ data-raw/*
 ^_pkgdown\.yml$
 ^pkgdown$
 ^CRAN-SUBMISSION$
+^cran-comments\.md$
