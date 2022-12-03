@@ -32,6 +32,12 @@ knitr::opts_chunk$set(
 )
 ```
 
+Set `eval=TRUE` to run this code when knitting:
+
+```{r}
+knitr::opts_chunk$set(eval = FALSE)
+```
+
 ## Introduction
 
 The goal of the `pct` package is to increase the accessibility and reproducibility of the outputs from the Propensity to Cycle Tool (PCT), a research project and web application hosted at [www.pct.bike](https://www.pct.bike/).

@@ -125,6 +125,10 @@ get_od = function(region = NULL,
     census_file = file.path(tempdir(), paste0(filename, ".csv"))
     file_url = u
     if(!exists(census_file)) {
+      file_url_ok = crul::ok(file_url)
+      if(!file_url_ok) {
+        stop("URL not available: ", file_url)
+      }
       utils::download.file(file_url, zip_file)
       utils::unzip(zip_file, exdir = tempdir())
     }
@@ -141,6 +145,10 @@ get_od = function(region = NULL,
   census_file = file.path(tempdir(), paste0(filename, ".csv"))
   file_url = paste0(base_url, filename, "/", filename, ".zip")
   if(!exists(census_file)) {
+    file_url_ok = crul::ok(file_url)
+    if(!file_url_ok) {
+      stop("URL not available: ", file_url)
+    }
     utils::download.file(file_url, zip_file)
     utils::unzip(zip_file, exdir = tempdir())
   }

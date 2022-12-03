@@ -13,12 +13,19 @@ In the context of society, cycling acts as a vessel to mobilise citizens to navi
 
 Using data from the 2011 census and models built into the PCT package, this article asks the question of "How many km's per LSOA do commuters cycle through each year?". The results of which provide valuable insight into future sustainable transport planning decisions and highlight the versatility of the PCT package through a reproducible method. 
 
+Set `eval=TRUE` to run this code when knitting:
+
+```{r}
+knitr::opts_chunk$set(eval = FALSE)
+```
+
+
 ## Prerequisites
 
 The following packages must be installed and loaded to run the code in this vignette.
 
-```{r echo = TRUE, message=FALSE, warning=FALSE}
-#Load packages
+```{r, message=FALSE, warning=FALSE}
+# Load packages
 library(pct)
 library(tmap)
 ```
@@ -27,7 +34,7 @@ library(tmap)
 
 The PCT package permits an easy method for fetching road network and commuting origin/destination data for any region in England and Wales. This data will be used as the basis for understanding the current context of cycling for a given region (A definition of regions can be found in this earlier <a href="https://itsleeds.github.io/pct/articles/uk-cities.html">article</a>). For this first example, we will apply the pct method to the region of Oxfordshire. To kick things off, we use the ```get_pct_rnet``` to retrieve road network data for the region. This data is then used to calculate the length of the road network cycled using ```base ``` r functions.
 
-```{r echo = TRUE, message=FALSE, warning=FALSE}
+```{r, message=FALSE, warning=FALSE}
 #Get road network for preselected regin
 rnet = pct::get_pct_rnet(region = "oxfordshire")
 #Calculate road length
@@ -38,7 +45,7 @@ rnet$m_cycled_per_working_day = rnet$segment_length * rnet$bicycle
 
 Simples! Now we can use the ```get_pct_zones``` function to get LSOA geographies in order to calculate the number of km's cycled per day through each LSOA.
 
-```{r echo = TRUE, message=FALSE, warning=FALSE}
+```{r, message=FALSE, warning=FALSE}
 # Get road network for preselected regin
 zones = pct::get_pct_zones(region = "oxfordshire")
 summary(sf::st_is_valid(zones))
@@ -49,7 +56,7 @@ cycled_m_per_zone = aggregate(rnet["m_cycled_per_working_day"], zones, FUN = sum
 
 While this is great information, it doesn't provide answer the long term question of how many distance are cycled per year. In order to achieve this, we must multiple the number of trips per day by the number of days in a standard working year (200) and divide by a million. Once again, this is achieved using ```base``` r functionality.
 
-```{r echo = TRUE, message=FALSE, warning=FALSE}
+```{r, message=FALSE, warning=FALSE}
 zones$mkm_cycled_for_commuting_per_year_estimated = cycled_m_per_zone$m_cycled_per_working_day * 
   2 * 200 / # estimate of trips days per year, morning and afternoon
   1e9
@@ -57,7 +64,7 @@ zones$mkm_cycled_for_commuting_per_year_estimated = cycled_m_per_zone$m_cycled_p
 
 With this calculated, we can now answer our question and visualize yearly km's cycled using ```tmap```.
 
-```{r echo = TRUE, message=FALSE, warning=FALSE, fig.align="center", fig.width = 7, fig.height = 6}
+```{r, message=FALSE, warning=FALSE, fig.align="center", fig.width = 7, fig.height = 6}
   tm_shape(zones) +
     tm_fill(
       col = "mkm_cycled_for_commuting_per_year_estimated",
@@ -84,7 +91,7 @@ Wow, that's a lot of miles cycled! The plot breaks down the number km's cycled b
 
 Now say we wanted to compare the results of Oxfordshire, with its regional neighbor Cambridgeshire. This can be achieved by wrapping the previous method into a function.
 
-```{r echo = TRUE, message=FALSE, warning=FALSE}
+```{r, message=FALSE, warning=FALSE}
 pct_zones_rnet_current = function(region_name) {
   # Get road network for preselected regin
   rnet = pct::get_pct_rnet(region = region_name)
@@ -128,7 +135,7 @@ pct_zones_rnet_current = function(region_name) {
 
 With our function built, we can now easily compare regional differences.
 
-```{r echo = TRUE, message=FALSE, warning=FALSE, fig.align="center", fig.width = 7, fig.height = 6}
+```{r, message=FALSE, warning=FALSE, fig.align="center", fig.width = 7, fig.height = 6}
 oxfordshire_results = pct_zones_rnet_current(region_name = "oxfordshire")
 cambrideshire_results = pct_zones_rnet_current(region_name = "cambridgeshire")
 tmap_arrange(oxfordshire_results, cambrideshire_results, ncol = 2)
@@ -138,7 +145,7 @@ In comparison to Oxfordshire, Cambridgeshire spatial distribution of km's cycled
 
 Now lets say we wanted to compare two cities. Lets take London and Greater Manchester.
 
-```{r echo = TRUE, message=FALSE, warning=FALSE, fig.align="center", fig.width = 7, fig.height = 6}
+```{r, message=FALSE, warning=FALSE, fig.align="center", fig.width = 7, fig.height = 6}
 london_results = pct_zones_rnet_current(region_name = "london")
 gm_results = pct_zones_rnet_current(region_name = "greater-manchester")
 #tmap_mode("view")  
@@ -151,7 +158,7 @@ Jheeze! The maps provides insight at a highly granular level. Both Greater Manch
 
 While the results based on the 2011 census provide interesting and valuable results, a lot has changed since 2011 and other scenarios should be explored. The PCT package features numerous models (e.g. ```govtarget_slc```,```gendereq_slc``` and ```ebike_slc```). In this example, lets examine London and Manchester again, but this time, lets use the PCT E-bike model scenario. The PCT E-Bike model assumes commuters will use e-Bikes for longer or hillier trips (based on data from Dutch and Swiss travel surveys). In order to model this, we will build a function similar to what we used for the census data, but change the daily miles cycled to use the ```ebike_slc``` column.
 
-```{r echo = TRUE, message=FALSE, warning=FALSE}
+```{r, message=FALSE, warning=FALSE}
 pct_zones_rnet_ebikes <- function(region_name) {
   # Get road network for pre-selected region
   rnet = pct::get_pct_rnet(region = region_name)
@@ -194,7 +201,7 @@ pct_zones_rnet_ebikes <- function(region_name) {
 
 With our E-Bikes function built, we can map the results to visualise the effect an E-bike scenario may have on these two cities.
 
-```{r echo = TRUE, message=FALSE, warning=FALSE, fig.align="center", fig.width = 7, fig.height = 6}
+```{r, message=FALSE, warning=FALSE, fig.align="center", fig.width = 7, fig.height = 6}
 london_results_ebikes = pct_zones_rnet_ebikes(region_name = "london")
 gm_results_ebikes = pct_zones_rnet_ebikes(region_name = "greater-manchester")
 #tmap_mode("view")

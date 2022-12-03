@@ -21,6 +21,12 @@ knitr::opts_chunk$set(
 The package README shows how the PCT can be used to get and reproduce some of the datasets from the PCT package, based on an example in the city of Leeds.
 This vignette shows how the package can be used to create estimates of cycling potential in other cities.
 
+Set `eval=TRUE` to run this code when knitting:
+
+```{r}
+knitr::opts_chunk$set(eval = FALSE)
+```
+
 Let's start by loading the package:
 
 ```{r libraries, message=FALSE}

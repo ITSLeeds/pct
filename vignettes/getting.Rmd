@@ -22,7 +22,7 @@ editor_options:
 
 ```{r, include=FALSE}
 # knitr::opts_chunk$set(cache = TRUE, class.source = "fold-show")
-knitr::opts_chunk$set(cache = TRUE)
+knitr::opts_chunk$set(eval = FALSE)
 ```
 
 The PCT is not only a web tool, it is a research and open data project that has resulted in many megabytes of valuable data [@lovelace_propensity_2017].
