@@ -26,7 +26,8 @@ Imports:
     boot,
     stplanr (>= 0.2.8),
     readr,
-    sf
+    sf,
+    crul
 Suggests: 
     covr,
     curl,
