@@ -22,6 +22,12 @@ Evidence-based interventions can make streets safer for future generations.
 This article demonstrates how to retrieve cycling potential data for any UK city, down to the route network level (see the `cycling-potential-uk` [here](https://itsleeds.github.io/pct/articles/cycling-potential-uk.html) or by running [`vignette("cycling-potential-uk")`](https://itsleeds.github.io/pct/articles/cycling-potential-uk.html) in R for a tutorial showing how the package can provide cycling uptake estimates at the area level), and how to use the results to see which streets will have high potential.
 These results can help prioritise investment in new cycleways and other interventions. 
 
+Set `eval=TRUE` to run this code when knitting:
+
+```{r}
+knitr::opts_chunk$set(eval = FALSE)
+```
+
 # Prerequisites 
 
 The following packages must be installed and loaded to run the code in this vignette. 
