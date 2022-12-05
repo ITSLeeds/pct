@@ -1,5 +1,8 @@
 # pct 0.9.7
 
+- Additional changes for CRAN (#222)
+- Message rather than error if resource unavailable (#222)
+
 # pct 0.9.6
 
 - Updates to fail gracefully (#220)

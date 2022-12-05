@@ -1,6 +1,8 @@
-Updates to make the package fail gracefully.
 
-I have updated all functions that download files or that read directly from web URLs to check if the endpoint is 'alive'.
+Additional checks for online resources, including the readRDS(url(...)) command this time.
+When web resources are unavailable package functions produce a message not an error now, in response to feedback from CRAN (many thanks).
+
+
 I've tested the package on a laptop with wifi switched off to ensure that the results fail gracefully and indeed they do, e.g., this happens when the user is offline now:
 
 pct::get_pct_zones("west-yorkshire")
