@@ -127,7 +127,8 @@ get_od = function(region = NULL,
     if(!exists(census_file)) {
       file_url_ok = crul::ok(file_url)
       if(!file_url_ok) {
-        stop("URL not available: ", file_url)
+        message("URL not available: ", file_url)
+        return(NULL)
       }
       utils::download.file(file_url, zip_file)
       utils::unzip(zip_file, exdir = tempdir())
@@ -147,7 +148,8 @@ get_od = function(region = NULL,
   if(!exists(census_file)) {
     file_url_ok = crul::ok(file_url)
     if(!file_url_ok) {
-      stop("URL not available: ", file_url)
+      message("URL not available: ", file_url)
+      return(NULL)
     }
     utils::download.file(file_url, zip_file)
     utils::unzip(zip_file, exdir = tempdir())

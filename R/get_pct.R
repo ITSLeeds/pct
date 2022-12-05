@@ -43,7 +43,9 @@ get_pct = function(
     u_folder = paste(base_url, purpose, geography, sep = "/")
     f = paste0(layer, extension)
     u_file = paste(u_folder, f, sep = "/")
-    return(sf_object = sf::st_as_sf(readRDS(url(u_file))))
+    read_url = function(u) readRDS(url(u))
+    res_sp = read_pct(u_file, read_url)
+    return(sf_object = sf::st_as_sf(res_sp))
   } else {
     if(length(region) != 1L)
       stop("'region' must be of length 1")
