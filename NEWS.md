@@ -1,4 +1,4 @@
-# pct 0.9.8
+# pct 0.9.8 (February 2023)
 
 - Remove tidyverse (#123)
 
