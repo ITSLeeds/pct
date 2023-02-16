@@ -1,5 +1,7 @@
 # pct 0.9.8
 
+- Remove tidyverse (#123)
+
 # pct 0.9.7
 
 - Additional changes for CRAN (#222)
