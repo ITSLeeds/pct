@@ -40,8 +40,7 @@ Suggests:
     rmarkdown,
     testthat,
     tmap,
-    bookdown,
-    tidyverse
+    bookdown
 VignetteBuilder: knitr
 RoxygenNote: 7.2.1
 Roxygen: list(markdown = TRUE)
