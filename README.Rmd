@@ -284,7 +284,7 @@ mapview::mapview(rnet, zcol = "bicycle_govtarget", lwd = lwd * 2)
 
 ![](https://raw.githubusercontent.com/ITSLeeds/pct/master/pct-leeds-demo.png)
 
-## Current limitations
+## Limitations
 
 * This package does not contain code to estimate cycling uptake associated with intrazonal flows and people with no fixed job data, although the datasets downloaded with the `get_pct_centroids()` functions provide estimated uptake for intrazonal flows.
 * This package currently does not contiain code to estimate health benefits
@@ -297,3 +297,11 @@ mapview::mapview(rnet, zcol = "bicycle_govtarget", lwd = lwd * 2)
 <!-- - Make it easy to use data from other cities around the world -->
 <!-- - Show how to create raster tiles of cycling uptake -->
  
+## Testing the package
+
+Test the package with the following code:
+
+```{r, eval=FALSE}
+remotes::install_github("ITSLeeds/pct")
+devtools::check()
+```

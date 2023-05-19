@@ -1,3 +1,9 @@
+# pct 0.9.9 (May 2023)
+
+- Fix for CRAN check errors (#124)
+- Update README with test instructions
+- Ignore large .geojson files in .Rbuildignore
+
 # pct 0.9.8 (February 2023)
 
 - Remove tidyverse (#123)

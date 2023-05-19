@@ -1,5 +1,6 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+
 <!-- badges: start -->
 
 [![](https://cranlogs.r-pkg.org/badges/grand-total/pct)](https://cran.r-project.org/package=pct)
@@ -12,6 +13,7 @@ status](https://codecov.io/gh/ITSLeeds/pct/branch/master/graph/badge.svg)](https
 <!-- badges: end -->
 
 <!-- [![R build status](https://github.com/itsleeds/pct/workflows/R-CMD-check/badge.svg)](https://github.com/itsleeds/pct/actions) -->
+
 <!-- [![Travis build status](https://travis-ci.org/ITSLeeds/pct.svg?branch=master)](https://travis-ci.org/ITSLeeds/pct) -->
 
 # pct
@@ -40,7 +42,7 @@ town/city/region.
 In summary, if you want to know how PCT works, be able to reproduce some
 of its results, and build scenarios of cycling uptake to inform
 transport policies enabling cycling in cities worldwide, this package is
-for you!
+for you\!
 
 ## Installation
 
@@ -100,19 +102,19 @@ From feedback, we hear that the use of the data is critical in decision
 making. Therefore, one area where the package could be useful is making
 the data “easily” available to be processed.
 
--   `get_pct`: the basic function to obtain data available
+  - `get_pct`: the basic function to obtain data available
     [here](https://itsleeds.github.io/pct/reference/get_pct.html).
 
 The rest of these should be self explanatory.
 
--   `get_pct_centroids`
--   `get_pct_lines`
--   `get_pct_rnet`
--   `get_pct_routes_fast`
--   `get_pct_routes_quiet`
--   `get_pct_zones`
--   `uptake_pct_godutch`
--   `uptake_pct_govtarget`
+  - `get_pct_centroids`
+  - `get_pct_lines`
+  - `get_pct_rnet`
+  - `get_pct_routes_fast`
+  - `get_pct_routes_quiet`
+  - `get_pct_zones`
+  - `uptake_pct_godutch`
+  - `uptake_pct_govtarget`
 
 For example, to get the centroids in West Yorkshire:
 
@@ -290,7 +292,7 @@ into geographic desire lines as follows:
 
 ``` r
 library(sf)
-#> Linking to GEOS 3.9.1, GDAL 3.3.2, PROJ 7.2.1
+#> Linking to GEOS 3.11.1, GDAL 3.6.2, PROJ 9.1.1; sf_use_s2() is TRUE
 desire_lines = stplanr::od2line(flow = od_leeds, zones = zones_leeds[2])
 #> Creating centroids representing desire line start and end points.
 #> old-style crs object detected; please recreate object with a recent sf::st_crs()
@@ -333,7 +335,8 @@ routes_fast = segments_fast %>%
     length = sum(distances),
     av_incline = mean(gradient_smooth) * 100
   ) 
-#> `summarise()` has grouped output by 'area_of_residence'. You can override using the `.groups` argument.
+#> `summarise()` has grouped output by 'area_of_residence'. You can override using
+#> the `.groups` argument.
 ```
 
 The results at the route level are as follows:
@@ -356,15 +359,15 @@ Let’s see how many people started cycling:
 
 ``` r
 sum(routes_fast$bicycle_govtarget) - sum(routes_fast$bicycle)
-#> [1] 404
+#> [1] 408
 ```
 
-Nearly 1000 more people cycling to work, just in 10 desire is not bad!
+Nearly 1000 more people cycling to work, just in 10 desire is not bad\!
 What % cycling is this, for those routes?
 
 ``` r
 sum(routes_fast$bicycle_govtarget) / sum(routes_fast$all)
-#> [1] 0.07946367
+#> [1] 0.07985803
 sum(routes_fast$bicycle) / sum(routes_fast$all)
 #> [1] 0.03963324
 ```
@@ -384,7 +387,7 @@ plot(rnet["bicycle_govtarget"], lwd = lwd)
 <img src="man/figures/README-rnetgove-1.png" width="100%" />
 
 We can view the results in an interactive map and share with policy
-makers, stakeholders, and the public! E.g. (see interactive map
+makers, stakeholders, and the public\! E.g. (see interactive map
 [here](https://rpubs.com/RobinLovelace/474074)):
 
 ``` r
@@ -393,18 +396,32 @@ mapview::mapview(rnet, zcol = "bicycle_govtarget", lwd = lwd * 2)
 
 ![](https://raw.githubusercontent.com/ITSLeeds/pct/master/pct-leeds-demo.png)
 
-## Current limitations
+## Limitations
 
--   This package does not contain code to estimate cycling uptake
+  - This package does not contain code to estimate cycling uptake
     associated with intrazonal flows and people with no fixed job data,
     although the datasets downloaded with the `get_pct_centroids()`
     functions provide estimated uptake for intrazonal flows.
--   This package currently does not contiain code to estimate health
+  - This package currently does not contiain code to estimate health
     benefits
 
 <!-- Commented out as we have now immediate plans to work on these -->
+
 <!-- ## Next steps and further resources -->
+
 <!-- - Add additional scenarios of cycling uptake from different places (e.g. goCambridge) -->
+
 <!-- - Add additional distance decay functions -->
+
 <!-- - Make it easy to use data from other cities around the world -->
+
 <!-- - Show how to create raster tiles of cycling uptake -->
+
+## Testing the package
+
+Test the package with the following code:
+
+``` r
+remotes::install_github("ITSLeeds/pct")
+devtools::check()
+```
