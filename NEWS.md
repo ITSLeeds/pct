@@ -1,8 +1,6 @@
-# pct 0.9.9
-
 # pct 0.9.9 (May 2023)
 
-- Fix for CRAN check errors (#124)
+- Fix for CRAN check errors (pass tests without internet) (#124)
 - Update README with test instructions
 - Ignore large .geojson files in .Rbuildignore
 - Prevent high uptake numbers for long distances (#125)

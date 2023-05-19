@@ -10,7 +10,3 @@ get_centroids_ew()
 Downloads and processes data on where people live in England and Wales.
 See \href{https://geoportal.statistics.gov.uk/datasets/b0a6d8a3dc5d4718b3fd62c548d60f81_0}{geoportal.statistics.gov.uk}.
 }
-\examples{
-pwc = get_centroids_ew()
-plot(pwc[sample(nrow(pwc), 1000), ])
-}

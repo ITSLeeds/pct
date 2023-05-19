@@ -4,13 +4,15 @@
 #' See [geoportal.statistics.gov.uk](https://geoportal.statistics.gov.uk/datasets/b0a6d8a3dc5d4718b3fd62c548d60f81_0).
 #'
 #' @export
-#' @examples
-#' pwc = get_centroids_ew()
-#' plot(pwc[sample(nrow(pwc), 1000), ])
 get_centroids_ew = function() {
   # vanished dataset
   # u = paste0("https://opendata.arcgis.com/datasets/b0a6d8a3dc5d4718b3fd62c548d60f81_0.csv?",
   # "outSR=%7B%22latestWkid%22%3A27700%2C%22wkid%22%3A27700%7D")
+  # Check to see if there is internet connection
+  has_internet = curl::has_internet()
+  if (!has_internet) {
+    stop("No internet connection")
+  }
   u = "https://github.com/ITSLeeds/pct/releases/download/0.2.5/MSOA_2011_EW_PWC_COORD_V2.CSV"
   # suggestion: store locally if API changes again?
   # f = "centroids-msoa.csv" # store locally

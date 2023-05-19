@@ -42,6 +42,6 @@ Suggests:
     tmap,
     bookdown
 VignetteBuilder: knitr
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 Roxygen: list(markdown = TRUE)
 Language: en-GB
