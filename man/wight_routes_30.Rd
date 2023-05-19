@@ -11,6 +11,7 @@ This data was obtained using code shown in the introductory
 \href{https://itsleeds.github.io/pct/articles/pct.html}{pct package vignette}.
 }
 \examples{
+library(sf)
 names(wight_routes_30)
 head(wight_routes_30)
 plot(wight_routes_30)

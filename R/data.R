@@ -155,6 +155,7 @@ NULL
 #' @name wight_zones
 #' @aliases wight_centroids
 #' @examples
+#' library(sf)
 #' names(wight_lines_30)
 #' plot(wight_lines_30)
 NULL
@@ -182,6 +183,7 @@ NULL
 #' @name wight_routes_30
 #' @aliases wight_rnet wight_routes_30_cs
 #' @examples
+#' library(sf)
 #' names(wight_routes_30)
 #' head(wight_routes_30)
 #' plot(wight_routes_30)
@@ -197,6 +199,7 @@ NULL
 #' @keywords datasets
 #' @name santiago_routes_cs
 #' @examples
+#' library(sf)
 #' names(santiago_routes_cs)
 #' head(santiago_routes_cs)
 #' plot(santiago_routes_cs)

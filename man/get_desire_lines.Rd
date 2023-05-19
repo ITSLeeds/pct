@@ -23,9 +23,11 @@ can get the top \code{n}.
 }
 \examples{
 \donttest{
+if(curl::has_internet()) {
 desire_lines = get_desire_lines("wight")
 plot(desire_lines)
 intra_zonal = desire_lines$geo_code1 == desire_lines$geo_code2
 plot(desire_lines[intra_zonal, ])
+}
 }
 }

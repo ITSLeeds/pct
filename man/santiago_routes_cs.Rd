@@ -10,6 +10,7 @@ International application of the PCT methods
 \href{https://itsleeds.github.io/pct/articles/pct-international.html}{vignette}.
 }
 \examples{
+library(sf)
 names(santiago_routes_cs)
 head(santiago_routes_cs)
 plot(santiago_routes_cs)

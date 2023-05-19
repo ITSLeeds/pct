@@ -10,6 +10,7 @@ This data was obtained using code shown in the introductory
 \href{https://itsleeds.github.io/pct/articles/pct.html}{pct package vignette}.
 }
 \examples{
+library(sf)
 names(wight_lines_30)
 plot(wight_lines_30)
 }
