@@ -218,4 +218,4 @@ As demonstrated, the PCT packages provides easy methods to visualize cycle poten
 * For more of a deep dive into the methods, see the pct_training vignette
 * See the pct-international to see how to apply the methods internationally
 
-We’re interested to know how you’ve used the methods/data so please get in touch on <a href="https://twitter.com/robinlovelace"> social media </a> and <a href="https://github.com/ITSLeeds/pct"> GitHub </a> letting us know how get on. Any comments/contributions to this analysis: welcome.
+We’re interested to know how you’ve used the methods/data so please get in touch on social media </a> and <a href="https://github.com/ITSLeeds/pct"> GitHub </a> letting us know how get on. Any comments/contributions to this analysis: welcome.

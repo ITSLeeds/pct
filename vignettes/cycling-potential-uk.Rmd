@@ -20,7 +20,9 @@ See https://rpubs.com/RobinLovelace/749112 for the results with the code running
 
 What modal shift to cycling do you think we could achieve in UK cities in an ideal scenario?
 Answers to that question are vital to support high level ambition for active transport and wider sustainability policies in settlements worldwide.
-In UK cities such as Leeds (where the motivation for this article originated, via [Twitter](https://twitter.com/PaulChatterton9/status/1190925153322098690)) there is already a wealth of freely available data on cycling potential, based on the Propensity to Cycle Tool ([PCT](https://www.pct.bike/)) project, of which this package is a part.
+In UK cities such as Leeds (where the motivation for this article originated, via Twitter^[
+  See `https://twitter.com/PaulChatterton9/status/1190925153322098690` for the original tweet.
+]) there is already a wealth of freely available data on cycling potential, based on the Propensity to Cycle Tool ([PCT](https://www.pct.bike/)) project, of which this package is a part.
 This article will briefly explain how to get cycling potential data for any city in England and Wales, based on a case study of Leeds.
 
 # Getting the region of interest
@@ -252,5 +254,5 @@ The PCT does not account for the fact that some trips to work are also 'caregivi
 ## Challenge
 
 To anyone interested in cycling in your city: try re-running the reproducible code above for your PCT region and local authority.
-Let us know on [social media](https://twitter.com/robinlovelace/status/1191378869728763904) and [GitHub](https://github.com/ITSLeeds/pct/issues) how you get on.
+Let us know on social media and [GitHub](https://github.com/ITSLeeds/pct/issues) how you get on.
 Any comments/contributions to this analysis: [welcome.](https://github.com/ITSLeeds/pct/edit/master/vignettes/cycling-potential-uk.Rmd)

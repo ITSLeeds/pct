@@ -144,6 +144,4 @@ You can also try the following resources (in R and online):
 - See the [`pct-international`](https://itsleeds.github.io/pct/articles/pct-international.html) to see how to apply the methods internationally
 
 
-We're interested to know how you've used the methods/data so please get in touch on [(social media)](https://twitter.com/robinlovelace) and [(Github)](https://github.com/ITSLeeds/pct) letting us know how get on.
-Any comments/contributions to this analysis: welcome.
-
+We're interested to know how you've used the methods/data so please get in touch.

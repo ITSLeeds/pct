@@ -17,7 +17,6 @@ knitr::opts_chunk$set(
 [![](https://cranlogs.r-pkg.org/badges/grand-total/pct)](https://cran.r-project.org/package=pct)
 [![R build status](https://github.com/itsleeds/pct/workflows/R-CMD-check/badge.svg)](https://github.com/itsleeds/pct/actions)
 [![](https://www.r-pkg.org/badges/version/pct)](https://www.r-pkg.org/pkg/pct)
-[![Coverage status](https://codecov.io/gh/ITSLeeds/pct/branch/master/graph/badge.svg)](https://codecov.io/github/ITSLeeds/pct?branch=master)
 [![R-CMD-check](https://github.com/itsleeds/pct/workflows/R-CMD-check/badge.svg)](https://github.com/itsleeds/pct/actions)
 <!-- badges: end -->
 

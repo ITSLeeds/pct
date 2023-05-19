@@ -45,7 +45,7 @@ The tool is one of just ~300 [central government websites](https://www.data.gov.
 For an overview of the data provided by the PCT, clicking on the previous link and trying it out is a great place to start.
 An academic [paper](https://www.jtlu.org/index.php/jtlu/article/view/862) on the PCT provides detail on the motivations and methods underlying the project [@lovelace_propensity_2017].
 
-Since work on the package began in 2015, for example during the ODI Leeds Hack my Route [hackathon](https://datamillnorth.org/community/blog/hack-my-route-live-blog/) (see [an early prototype of the tool here](https://twitter.com/robinlovelace/status/611979463803432960)), the features and demand for the PCT have evolved substantially.
+Since work on the package began in 2015, for example during the ODI Leeds Hack my Route [hackathon](https://datamillnorth.org/community/blog/hack-my-route-live-blog/) (see an early prototype of the tool at `https://twitter.com/robinlovelace/status/611979463803432960`), the features and demand for the PCT have evolved substantially.
 In early 2019, for example, the [School travel layer](https://blog.pct.bike/2019/03/18/propensity-to-cycle-to-school-layer-deployed/) was added to the main PCT site to provide evidence nationwide on the potential benefits of scenarios of cycling uptake, and where safe routes to school should be prioritised [@goodman_scenarios_2019].
 In fact, a major aim of the PCT was to enable people to extend the tool [@lovelace_propensity_2017]:
 
