@@ -381,6 +381,14 @@ check_distance_gradient = function(distance, gradient, verbose = TRUE) {
     }
     distance = distance / 1000
   }
+  # If distance is more than 30 km set to 30:
+  which_distance_too_long = distance > 30
+  if (any(which_distance_too_long)) {
+    if (verbose) {
+      message("Distances greater than 30 km set to 30 km")
+    }
+    distance[which_distance_too_long] = 30
+  }
   # is it in %? If mean of gradient is more than 0.1 (10% as ratio), probably
   is_gradient_percent = mean(gradient) > 0.1
   if(!is_gradient_percent) {

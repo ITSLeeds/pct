@@ -3,6 +3,7 @@
 - Fix for CRAN check errors (#124)
 - Update README with test instructions
 - Ignore large .geojson files in .Rbuildignore
+- Prevent high uptake numbers for long distances (#125)
 
 # pct 0.9.8 (February 2023)
 
