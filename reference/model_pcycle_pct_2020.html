@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pct</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.9</span>
       </span>
     </div>
 
@@ -29,7 +29,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -38,16 +38,10 @@
       <a href="../articles/cycling-potential-uk.html">Cycling potential in UK cities</a>
     </li>
     <li>
-      <a href="../articles/getting.html">Getting and using data from the PCT</a>
-    </li>
-    <li>
       <a href="../articles/km-cycled.html">Estimating distance cycled per zone in England and Wales regions</a>
     </li>
     <li>
       <a href="../articles/pct-international.html">International application of the PCT methods</a>
-    </li>
-    <li>
-      <a href="../articles/pct_training.html">Propensity to Cycle Tool Advanced Workshop</a>
     </li>
     <li>
       <a href="../articles/uk-cities.html">Reproducing cycling potential estimates in UK cities</a>
@@ -81,46 +75,53 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">model_pcycle_pct_2020</span><span class="op">(</span><span class="va">pcycle</span>, <span class="va">distance</span>, <span class="va">gradient</span>, <span class="va">weights</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">model_pcycle_pct_2020</span><span class="op">(</span><span class="va">pcycle</span>, <span class="va">distance</span>, <span class="va">gradient</span>, <span class="va">weights</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>pcycle</dt>
 <dd><p>The proportion of trips by bike, e.g. 0.1, meaning 10%</p></dd>
+
+
 <dt>distance</dt>
 <dd><p>Vector distance numeric values of routes in km
 (switches to km if more than 100).</p></dd>
+
+
 <dt>gradient</dt>
 <dd><p>Vector gradient numeric values of routes.</p></dd>
+
+
 <dt>weights</dt>
 <dd><p>The weights used in the model, typically the total number of people per OD pair</p></dd>
+
 </dl></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># l = get_pct_lines(region = "isle-of-wight")</span></span>
-<span class="r-in"><span class="co"># l = get_pct_lines(region = "cambridgeshire")</span></span>
-<span class="r-in"><span class="va">l</span> <span class="op">=</span> <span class="va">wight_lines_pct</span></span>
-<span class="r-in"><span class="va">pcycle</span> <span class="op">=</span> <span class="va">l</span><span class="op">$</span><span class="va">bicycle</span> <span class="op">/</span> <span class="va">l</span><span class="op">$</span><span class="va">all</span></span>
-<span class="r-in"><span class="va">pcycle_dutch</span> <span class="op">=</span> <span class="va">l</span><span class="op">$</span><span class="va">dutch_slc</span> <span class="op">/</span> <span class="va">l</span><span class="op">$</span><span class="va">all</span></span>
-<span class="r-in"><span class="va">m1</span> <span class="op">=</span> <span class="fu">model_pcycle_pct_2020</span><span class="op">(</span></span>
-<span class="r-in">  <span class="va">pcycle</span>,</span>
-<span class="r-in">  distance <span class="op">=</span> <span class="va">l</span><span class="op">$</span><span class="va">rf_dist_km</span>,</span>
-<span class="r-in">  gradient <span class="op">=</span> <span class="va">l</span><span class="op">$</span><span class="va">rf_avslope_perc</span> <span class="op">-</span> <span class="fl">0.78</span>,</span>
-<span class="r-in">  weights <span class="op">=</span> <span class="va">l</span><span class="op">$</span><span class="va">all</span></span>
-<span class="r-in">  <span class="op">)</span></span>
-<span class="r-in"><span class="va">m2</span> <span class="op">=</span> <span class="fu">model_pcycle_pct_2020</span><span class="op">(</span></span>
-<span class="r-in">  <span class="va">pcycle_dutch</span>, distance <span class="op">=</span> <span class="va">l</span><span class="op">$</span><span class="va">rf_dist_km</span>,</span>
-<span class="r-in">  gradient <span class="op">=</span> <span class="va">l</span><span class="op">$</span><span class="va">rf_avslope_perc</span> <span class="op">-</span> <span class="fl">0.78</span>,</span>
-<span class="r-in">  weights <span class="op">=</span> <span class="va">l</span><span class="op">$</span><span class="va">all</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"><span class="va">m3</span> <span class="op">=</span> <span class="fu">model_pcycle_pct_2020</span><span class="op">(</span></span>
-<span class="r-in">  <span class="va">pcycle_dutch</span>, distance <span class="op">=</span> <span class="va">l</span><span class="op">$</span><span class="va">rf_dist_km</span>,</span>
-<span class="r-in">  gradient <span class="op">=</span> <span class="va">l</span><span class="op">$</span><span class="va">rf_avslope_perc</span> <span class="op">-</span> <span class="fl">0.78</span>,</span>
-<span class="r-in">  weights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">l</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"><span class="va">m1</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># l = get_pct_lines(region = "isle-of-wight")</span></span></span>
+<span class="r-in"><span><span class="co"># l = get_pct_lines(region = "cambridgeshire")</span></span></span>
+<span class="r-in"><span><span class="va">l</span> <span class="op">=</span> <span class="va">wight_lines_pct</span></span></span>
+<span class="r-in"><span><span class="va">pcycle</span> <span class="op">=</span> <span class="va">l</span><span class="op">$</span><span class="va">bicycle</span> <span class="op">/</span> <span class="va">l</span><span class="op">$</span><span class="va">all</span></span></span>
+<span class="r-in"><span><span class="va">pcycle_dutch</span> <span class="op">=</span> <span class="va">l</span><span class="op">$</span><span class="va">dutch_slc</span> <span class="op">/</span> <span class="va">l</span><span class="op">$</span><span class="va">all</span></span></span>
+<span class="r-in"><span><span class="va">m1</span> <span class="op">=</span> <span class="fu">model_pcycle_pct_2020</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">pcycle</span>,</span></span>
+<span class="r-in"><span>  distance <span class="op">=</span> <span class="va">l</span><span class="op">$</span><span class="va">rf_dist_km</span>,</span></span>
+<span class="r-in"><span>  gradient <span class="op">=</span> <span class="va">l</span><span class="op">$</span><span class="va">rf_avslope_perc</span> <span class="op">-</span> <span class="fl">0.78</span>,</span></span>
+<span class="r-in"><span>  weights <span class="op">=</span> <span class="va">l</span><span class="op">$</span><span class="va">all</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">m2</span> <span class="op">=</span> <span class="fu">model_pcycle_pct_2020</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">pcycle_dutch</span>, distance <span class="op">=</span> <span class="va">l</span><span class="op">$</span><span class="va">rf_dist_km</span>,</span></span>
+<span class="r-in"><span>  gradient <span class="op">=</span> <span class="va">l</span><span class="op">$</span><span class="va">rf_avslope_perc</span> <span class="op">-</span> <span class="fl">0.78</span>,</span></span>
+<span class="r-in"><span>  weights <span class="op">=</span> <span class="va">l</span><span class="op">$</span><span class="va">all</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">m3</span> <span class="op">=</span> <span class="fu">model_pcycle_pct_2020</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">pcycle_dutch</span>, distance <span class="op">=</span> <span class="va">l</span><span class="op">$</span><span class="va">rf_dist_km</span>,</span></span>
+<span class="r-in"><span>  gradient <span class="op">=</span> <span class="va">l</span><span class="op">$</span><span class="va">rf_avslope_perc</span> <span class="op">-</span> <span class="fl">0.78</span>,</span></span>
+<span class="r-in"><span>  weights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">l</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">m1</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call:  stats::glm(formula = pcycle ~ distance + sqrt(distance) + I(distance^2) + </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     gradient + distance * gradient + sqrt(distance) * gradient, </span>
@@ -137,42 +138,42 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Degrees of Freedom: 136 Total (i.e. Null);  130 Residual</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Null Deviance:	    657.4 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Residual Deviance: 351.3 	AIC: NA</span>
-<span class="r-in"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">l</span><span class="op">$</span><span class="va">rf_dist_km</span>, <span class="va">pcycle</span>, cex <span class="op">=</span> <span class="va">l</span><span class="op">$</span><span class="va">all</span> <span class="op">/</span> <span class="fl">100</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">l</span><span class="op">$</span><span class="va">rf_dist_km</span>, <span class="va">m1</span><span class="op">$</span><span class="va">fitted.values</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">l</span><span class="op">$</span><span class="va">rf_dist_km</span>, <span class="va">m2</span><span class="op">$</span><span class="va">fitted.values</span>, col <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">l</span><span class="op">$</span><span class="va">rf_dist_km</span>, <span class="va">pcycle_dutch</span>, col <span class="op">=</span> <span class="st">"green"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">l</span><span class="op">$</span><span class="va">rf_dist_km</span>, <span class="va">pcycle</span>, cex <span class="op">=</span> <span class="va">l</span><span class="op">$</span><span class="va">all</span> <span class="op">/</span> <span class="fl">100</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">l</span><span class="op">$</span><span class="va">rf_dist_km</span>, <span class="va">m1</span><span class="op">$</span><span class="va">fitted.values</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">l</span><span class="op">$</span><span class="va">rf_dist_km</span>, <span class="va">m2</span><span class="op">$</span><span class="va">fitted.values</span>, col <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">l</span><span class="op">$</span><span class="va">rf_dist_km</span>, <span class="va">pcycle_dutch</span>, col <span class="op">=</span> <span class="st">"green"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="model_pcycle_pct_2020-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">l</span><span class="op">$</span><span class="va">dutch_slc</span>, <span class="va">m2</span><span class="op">$</span><span class="va">fitted.values</span> <span class="op">*</span> <span class="va">l</span><span class="op">$</span><span class="va">all</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span> <span class="co"># 95% captured</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">l</span><span class="op">$</span><span class="va">dutch_slc</span>, <span class="va">m2</span><span class="op">$</span><span class="va">fitted.values</span> <span class="op">*</span> <span class="va">l</span><span class="op">$</span><span class="va">all</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span> <span class="co"># 95% captured</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.9998731</span>
-<span class="r-in"><span class="co"># identical means:</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">l</span><span class="op">$</span><span class="va">dutch_slc</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># identical means:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">l</span><span class="op">$</span><span class="va">dutch_slc</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 34.18643</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">m2</span><span class="op">$</span><span class="va">fitted.values</span> <span class="op">*</span> <span class="va">l</span><span class="op">$</span><span class="va">all</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">m2</span><span class="op">$</span><span class="va">fitted.values</span> <span class="op">*</span> <span class="va">l</span><span class="op">$</span><span class="va">all</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 34.18643</span>
-<span class="r-in"><span class="va">pct_coefficients_2020</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span class="r-in">  alpha <span class="op">=</span> <span class="op">-</span><span class="fl">4.018</span> <span class="op">+</span> <span class="fl">2.550</span>,</span>
-<span class="r-in">  d1 <span class="op">=</span> <span class="op">-</span><span class="fl">0.6369</span> <span class="op">-</span><span class="fl">0.08036</span>,</span>
-<span class="r-in">  d2 <span class="op">=</span> <span class="fl">1.988</span>,</span>
-<span class="r-in">  d3 <span class="op">=</span> <span class="fl">0.008775</span>,</span>
-<span class="r-in">  h1 <span class="op">=</span> <span class="op">-</span><span class="fl">0.2555</span>,</span>
-<span class="r-in">  i1 <span class="op">=</span> <span class="fl">0.02006</span>,</span>
-<span class="r-in">  i2 <span class="op">=</span> <span class="op">-</span><span class="fl">0.1234</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"><span class="va">pct_coefficients_2020</span></span>
+<span class="r-in"><span><span class="va">pct_coefficients_2020</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  alpha <span class="op">=</span> <span class="op">-</span><span class="fl">4.018</span> <span class="op">+</span> <span class="fl">2.550</span>,</span></span>
+<span class="r-in"><span>  d1 <span class="op">=</span> <span class="op">-</span><span class="fl">0.6369</span> <span class="op">-</span><span class="fl">0.08036</span>,</span></span>
+<span class="r-in"><span>  d2 <span class="op">=</span> <span class="fl">1.988</span>,</span></span>
+<span class="r-in"><span>  d3 <span class="op">=</span> <span class="fl">0.008775</span>,</span></span>
+<span class="r-in"><span>  h1 <span class="op">=</span> <span class="op">-</span><span class="fl">0.2555</span>,</span></span>
+<span class="r-in"><span>  i1 <span class="op">=</span> <span class="fl">0.02006</span>,</span></span>
+<span class="r-in"><span>  i2 <span class="op">=</span> <span class="op">-</span><span class="fl">0.1234</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">pct_coefficients_2020</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     alpha        d1        d2        d3        h1        i1        i2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -1.468000 -0.717260  1.988000  0.008775 -0.255500  0.020060 -0.123400 </span>
-<span class="r-in"><span class="va">m2</span><span class="op">$</span><span class="va">coef</span></span>
+<span class="r-in"><span><span class="va">m2</span><span class="op">$</span><span class="va">coef</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             (Intercept)                distance          sqrt(distance) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             -1.11820425             -0.63433011              1.61587978 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           I(distance^2)                gradient       distance:gradient </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              0.01071045             -0.43192958             -0.03685552 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sqrt(distance):gradient </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              0.13203862 </span>
-<span class="r-in"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pct_coefficients_2020</span>, <span class="va">m2</span><span class="op">$</span><span class="va">coeff</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pct_coefficients_2020</span>, <span class="va">m2</span><span class="op">$</span><span class="va">coeff</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="model_pcycle_pct_2020-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">pct_coefficients_2020</span>, <span class="va">m2</span><span class="op">$</span><span class="va">coeff</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">pct_coefficients_2020</span>, <span class="va">m2</span><span class="op">$</span><span class="va">coeff</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.9740929</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">pct_coefficients_2020</span>, <span class="va">m3</span><span class="op">$</span><span class="va">coeff</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span> <span class="co"># explains 95%+ variability in params</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">pct_coefficients_2020</span>, <span class="va">m3</span><span class="op">$</span><span class="va">coeff</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span> <span class="co"># explains 95%+ variability in params</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.9653234</span>
 </code></pre></div>
     </div>
@@ -188,7 +189,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

@@ -18,7 +18,7 @@ according to the 2011 Census."><!-- mathjax --><script src="https://cdnjs.cloudf
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pct</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.9</span>
       </span>
     </div>
 
@@ -30,7 +30,7 @@ according to the 2011 Census."><!-- mathjax --><script src="https://cdnjs.cloudf
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -39,16 +39,10 @@ according to the 2011 Census."><!-- mathjax --><script src="https://cdnjs.cloudf
       <a href="../articles/cycling-potential-uk.html">Cycling potential in UK cities</a>
     </li>
     <li>
-      <a href="../articles/getting.html">Getting and using data from the PCT</a>
-    </li>
-    <li>
       <a href="../articles/km-cycled.html">Estimating distance cycled per zone in England and Wales regions</a>
     </li>
     <li>
       <a href="../articles/pct-international.html">International application of the PCT methods</a>
-    </li>
-    <li>
-      <a href="../articles/pct_training.html">Propensity to Cycle Tool Advanced Workshop</a>
     </li>
     <li>
       <a href="../articles/uk-cities.html">Reproducing cycling potential estimates in UK cities</a>
@@ -86,22 +80,22 @@ according to the 2011 Census.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># see data-raw folder for generation code</span></span>
-<span class="r-in"><span class="va">od_leeds</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># see data-raw folder for generation code</span></span></span>
+<span class="r-in"><span><span class="va">od_leeds</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 10 × 14</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    area_of_residence area_of_workplace   all  home metro train bus_minibus_or_c…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> E02002363         E02006875           922     0     0     5               356</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> E02002373         E02006875          <span style="text-decoration: underline;">1</span>037     0     5   111               424</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> E02002384         E02006875           966     0     3    14               153</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> E02002385         E02006875           958     0     4   121               334</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> E02002392         E02006875           753     0     0    10                91</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> E02002404         E02006875          <span style="text-decoration: underline;">1</span>145     0     0     6               174</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> E02002411         E02006875           929     0     0     8               200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> E02006852         E02006875          <span style="text-decoration: underline;">1</span>221     0     4    14               509</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> E02006861         E02006875          <span style="text-decoration: underline;">1</span>177     0     3    43               400</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> E02006876         E02006875          <span style="text-decoration: underline;">1</span>035     0     1    11               132</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 7 more variables: taxi &lt;dbl&gt;, motorcycle &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    area_of_residence area_of_workplace   all  home metro train</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> E02002363         E02006875           922     0     0     5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> E02002373         E02006875          <span style="text-decoration: underline;">1</span>037     0     5   111</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> E02002384         E02006875           966     0     3    14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> E02002385         E02006875           958     0     4   121</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> E02002392         E02006875           753     0     0    10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> E02002404         E02006875          <span style="text-decoration: underline;">1</span>145     0     0     6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> E02002411         E02006875           929     0     0     8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> E02006852         E02006875          <span style="text-decoration: underline;">1</span>221     0     4    14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> E02006861         E02006875          <span style="text-decoration: underline;">1</span>177     0     3    43</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> E02006876         E02006875          <span style="text-decoration: underline;">1</span>035     0     1    11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 8 more variables: bus_minibus_or_coach &lt;dbl&gt;, taxi &lt;dbl&gt;, motorcycle &lt;dbl&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   driving_a_car_or_van &lt;dbl&gt;, passenger &lt;dbl&gt;, bicycle &lt;dbl&gt;, on_foot &lt;dbl&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   other &lt;dbl&gt;</span></span>
 </code></pre></div>
@@ -118,7 +112,7 @@ according to the 2011 Census.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

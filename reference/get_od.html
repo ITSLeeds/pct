@@ -21,7 +21,7 @@ local authority or region."><!-- mathjax --><script src="https://cdnjs.cloudflar
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pct</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.9</span>
       </span>
     </div>
 
@@ -33,7 +33,7 @@ local authority or region."><!-- mathjax --><script src="https://cdnjs.cloudflar
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -42,16 +42,10 @@ local authority or region."><!-- mathjax --><script src="https://cdnjs.cloudflar
       <a href="../articles/cycling-potential-uk.html">Cycling potential in UK cities</a>
     </li>
     <li>
-      <a href="../articles/getting.html">Getting and using data from the PCT</a>
-    </li>
-    <li>
       <a href="../articles/km-cycled.html">Estimating distance cycled per zone in England and Wales regions</a>
     </li>
     <li>
       <a href="../articles/pct-international.html">International application of the PCT methods</a>
-    </li>
-    <li>
-      <a href="../articles/pct_training.html">Propensity to Cycle Tool Advanced Workshop</a>
     </li>
     <li>
       <a href="../articles/uk-cities.html">Reproducing cycling potential estimates in UK cities</a>
@@ -89,16 +83,16 @@ local authority or region.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">get_od</span><span class="op">(</span>
-  region <span class="op">=</span> <span class="cn">NULL</span>,
-  n <span class="op">=</span> <span class="cn">NULL</span>,
-  type <span class="op">=</span> <span class="st">"within"</span>,
-  omit_intrazonal <span class="op">=</span> <span class="cn">FALSE</span>,
-  base_url <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"https://s3-eu-west-1.amazonaws.com/"</span>,
-    <span class="st">"statistics.digitalresources.jisc.ac.uk"</span>, <span class="st">"/dkan/files/FLOW/"</span><span class="op">)</span>,
-  filename <span class="op">=</span> <span class="st">"wu03ew_v2"</span>,
-  u <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">get_od</span><span class="op">(</span></span>
+<span>  region <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  n <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"within"</span>,</span>
+<span>  omit_intrazonal <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  base_url <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"https://s3-eu-west-1.amazonaws.com/"</span>,</span>
+<span>    <span class="st">"statistics.digitalresources.jisc.ac.uk"</span>, <span class="st">"/dkan/files/FLOW/"</span><span class="op">)</span>,</span>
+<span>  filename <span class="op">=</span> <span class="st">"wu03ew_v2"</span>,</span>
+<span>  u <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -106,59 +100,72 @@ local authority or region.</p>
     <dl><dt>region</dt>
 <dd><p>The PCT region or local authority to download data from (e.g. <code>west-yorkshire</code> or <code>Leeds</code>).
 See <code>View(pct_regions_lookup)</code> for a full list of possible region names.</p></dd>
+
+
 <dt>n</dt>
 <dd><p>top n number of destinations with most trips in the 2011 census
 within the <code>region</code>.</p></dd>
+
+
 <dt>type</dt>
 <dd><p>the type of subsetting: one of <code>from</code>, <code>to</code> or <code>within</code>, specifying how
 the od dataset should be subset in relation to the <code>region</code>.</p></dd>
+
+
 <dt>omit_intrazonal</dt>
 <dd><p>should intrazonal OD pairs be omited from result?
 <code>FALSE</code> by default.</p></dd>
+
+
 <dt>base_url</dt>
 <dd><p>the base url where the OD dataset is stored</p></dd>
+
+
 <dt>filename</dt>
 <dd><p>the name of the file to download, if not the default MSOA level
 data.</p></dd>
+
+
 <dt>u</dt>
 <dd><p>full url of file to download</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
-    <p>OD datasets available include <a href="https://statistics.ukdataservice.ac.uk/" class="external-link">wu03uk_v3</a>
+    <p>OD datasets available include wu03uk_v3
 and others listed on the Wicid website.</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># \donttest{</span></span>
-<span class="r-in"><span class="fu">get_od</span><span class="op">(</span><span class="st">"wight"</span>, n <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
+<span class="r-in"><span><span class="fu">get_od</span><span class="op">(</span><span class="st">"wight"</span>, n <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">2402201</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">14</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Delimiter:</span> ","</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">chr</span>  (2): Area of residence, Area of workplace</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">dbl</span> (12): All categories: Method of travel to work, Work mainly at or from h...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use <span style="color: #262626; background-color: #DADADA;">`spec()`</span> to retrieve the full column specification for this data.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Specify the column types or set <span style="color: #262626; background-color: #DADADA;">`show_col_types = FALSE`</span> to quiet this message.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use `spec()` to retrieve the full column specification for this data.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">7201</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">6</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Delimiter:</span> ","</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">chr</span> (2): MSOA11CD, MSOA11NM</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">dbl</span> (4): BNGEAST, BNGNORTH, LONGITUDE, LATITUDE</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use <span style="color: #262626; background-color: #DADADA;">`spec()`</span> to retrieve the full column specification for this data.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Specify the column types or set <span style="color: #262626; background-color: #DADADA;">`show_col_types = FALSE`</span> to quiet this message.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use `spec()` to retrieve the full column specification for this data.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 18</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   geo_code1 geo_code2   all from_home light_rail train   bus  taxi motorbike</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> E02003592 E02003592  <span style="text-decoration: underline;">1</span>164         0          0     1    41     3        10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> E02003589 E02003589   875         0          0     0    12     1         8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> E02003591 E02003589   852         0          0     1     6     0        11</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 9 more variables: car_driver &lt;dbl&gt;, car_passenger &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   bicycle &lt;dbl&gt;, foot &lt;dbl&gt;, other &lt;dbl&gt;, geo_name1 &lt;chr&gt;, geo_name2 &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   la_1 &lt;chr&gt;, la_2 &lt;chr&gt;</span></span>
-<span class="r-in"><span class="fu">get_od</span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 9 more variables: car_driver &lt;dbl&gt;, car_passenger &lt;dbl&gt;, bicycle &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   foot &lt;dbl&gt;, other &lt;dbl&gt;, geo_name1 &lt;chr&gt;, geo_name2 &lt;chr&gt;, la_1 &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   la_2 &lt;chr&gt;</span></span>
+<span class="r-in"><span><span class="fu">get_od</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> No region provided. Returning national OD data.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">2402201</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">14</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────</span></span>
@@ -166,16 +173,16 @@ and others listed on the Wicid website.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">chr</span>  (2): Area of residence, Area of workplace</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">dbl</span> (12): All categories: Method of travel to work, Work mainly at or from h...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use <span style="color: #262626; background-color: #DADADA;">`spec()`</span> to retrieve the full column specification for this data.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Specify the column types or set <span style="color: #262626; background-color: #DADADA;">`show_col_types = FALSE`</span> to quiet this message.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use `spec()` to retrieve the full column specification for this data.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">7201</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">6</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Delimiter:</span> ","</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">chr</span> (2): MSOA11CD, MSOA11NM</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">dbl</span> (4): BNGEAST, BNGNORTH, LONGITUDE, LATITUDE</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use <span style="color: #262626; background-color: #DADADA;">`spec()`</span> to retrieve the full column specification for this data.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Specify the column types or set <span style="color: #262626; background-color: #DADADA;">`show_col_types = FALSE`</span> to quiet this message.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use `spec()` to retrieve the full column specification for this data.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2,402,201 × 18</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    geo_code1 geo_code2   all from_home light_rail train   bus  taxi motorbike</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
@@ -189,10 +196,11 @@ and others listed on the Wicid website.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> E02000001 E02000057     1         0          1     0     0     0         0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> E02000001 E02000058     1         0          0     0     0     0         0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> E02000001 E02000059     1         0          0     0     0     1         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 2,402,191 more rows, and 9 more variables: car_driver &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   car_passenger &lt;dbl&gt;, bicycle &lt;dbl&gt;, foot &lt;dbl&gt;, other &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   geo_name1 &lt;chr&gt;, geo_name2 &lt;chr&gt;, la_1 &lt;chr&gt;, la_2 &lt;chr&gt;</span></span>
-<span class="r-in"><span class="fu">get_od</span><span class="op">(</span>filename <span class="op">=</span> <span class="st">"wu03uk_v3"</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 2,402,191 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 9 more variables: car_driver &lt;dbl&gt;, car_passenger &lt;dbl&gt;, bicycle &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   foot &lt;dbl&gt;, other &lt;dbl&gt;, geo_name1 &lt;chr&gt;, geo_name2 &lt;chr&gt;, la_1 &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   la_2 &lt;chr&gt;</span></span>
+<span class="r-in"><span><span class="fu">get_od</span><span class="op">(</span>filename <span class="op">=</span> <span class="st">"wu03uk_v3"</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> No region provided. Returning national OD data.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">110162</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">14</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────</span></span>
@@ -200,8 +208,8 @@ and others listed on the Wicid website.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">chr</span>  (2): Area of usual residence, Area of workplace</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">dbl</span> (12): All categories: Method of travel to work, Work mainly at or from h...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use <span style="color: #262626; background-color: #DADADA;">`spec()`</span> to retrieve the full column specification for this data.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Specify the column types or set <span style="color: #262626; background-color: #DADADA;">`show_col_types = FALSE`</span> to quiet this message.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use `spec()` to retrieve the full column specification for this data.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 110,162 × 14</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    ``    geo_code2   all from_home light_rail train   bus  taxi motorbike</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
@@ -215,11 +223,12 @@ and others listed on the Wicid website.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> 95AA  95HH        139         0          0     1     1     0         0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 95AA  95II        282         0          0     2    15     0         0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 95AA  95JJ        108         0          0    15     2     0         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 110,152 more rows, and 5 more variables: car_driver &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   car_passenger &lt;dbl&gt;, bicycle &lt;dbl&gt;, foot &lt;dbl&gt;, other &lt;dbl&gt;</span></span>
-<span class="r-in"><span class="va">u</span> <span class="op">=</span> <span class="st">"https://www.nomisweb.co.uk/output/census/2011/wf02ew_oa.zip"</span></span>
-<span class="r-in"><span class="co"># get_od(u = u)</span></span>
-<span class="r-in"><span class="co"># }</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 110,152 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 5 more variables: car_driver &lt;dbl&gt;, car_passenger &lt;dbl&gt;, bicycle &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   foot &lt;dbl&gt;, other &lt;dbl&gt;</span></span>
+<span class="r-in"><span><span class="va">u</span> <span class="op">=</span> <span class="st">"https://www.nomisweb.co.uk/output/census/2011/wf02ew_oa.zip"</span></span></span>
+<span class="r-in"><span><span class="co"># get_od(u = u)</span></span></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -234,7 +243,7 @@ and others listed on the Wicid website.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

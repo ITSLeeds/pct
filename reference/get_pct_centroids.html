@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pct</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.9</span>
       </span>
     </div>
 
@@ -29,7 +29,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -38,16 +38,10 @@
       <a href="../articles/cycling-potential-uk.html">Cycling potential in UK cities</a>
     </li>
     <li>
-      <a href="../articles/getting.html">Getting and using data from the PCT</a>
-    </li>
-    <li>
       <a href="../articles/km-cycled.html">Estimating distance cycled per zone in England and Wales regions</a>
     </li>
     <li>
       <a href="../articles/pct-international.html">International application of the PCT methods</a>
-    </li>
-    <li>
-      <a href="../articles/pct_training.html">Propensity to Cycle Tool Advanced Workshop</a>
     </li>
     <li>
       <a href="../articles/uk-cities.html">Reproducing cycling potential estimates in UK cities</a>
@@ -81,12 +75,12 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">get_pct_centroids</span><span class="op">(</span>
-  region <span class="op">=</span> <span class="cn">NULL</span>,
-  purpose <span class="op">=</span> <span class="st">"commute"</span>,
-  geography <span class="op">=</span> <span class="st">"lsoa"</span>,
-  extension <span class="op">=</span> <span class="st">".geojson"</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">get_pct_centroids</span><span class="op">(</span></span>
+<span>  region <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  purpose <span class="op">=</span> <span class="st">"commute"</span>,</span>
+<span>  geography <span class="op">=</span> <span class="st">"lsoa"</span>,</span>
+<span>  extension <span class="op">=</span> <span class="st">".geojson"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -94,23 +88,28 @@
     <dl><dt>region</dt>
 <dd><p>The PCT region or local authority to download data from (e.g. <code>west-yorkshire</code> or <code>Leeds</code>).
 See <code>View(pct_regions_lookup)</code> for a full list of possible region names.</p></dd>
+
+
 <dt>purpose</dt>
 <dd><p>Trip purpose (typically <code>school</code> or <code>commute</code>)</p></dd>
+
+
 <dt>geography</dt>
 <dd><p>Geographic resolution of outputs, <code>msoa</code> or <code>lsoa</code> (the default)</p></dd>
+
+
 <dt>extension</dt>
 <dd><p>The type of file to download (only <code>.geojson</code> supported at present)</p></dd>
+
 </dl></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># \donttest{</span></span>
-<span class="r-in"><span class="co"># don't test to reduce build times</span></span>
-<span class="r-in"><span class="va">c</span> <span class="op">=</span> <span class="fu">get_pct_centroids</span><span class="op">(</span><span class="st">"isle-of-wight"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">c</span><span class="op">)</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>plotting the first 10 out of 127 attributes; use max.plot = 127 to plot all</span>
-<span class="r-plt img"><img src="get_pct_centroids-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># }</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co"># don't test to reduce build times</span></span></span>
+<span class="r-in"><span><span class="va">c</span> <span class="op">=</span> <span class="fu">get_pct_centroids</span><span class="op">(</span><span class="st">"isle-of-wight"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">c</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -125,7 +124,7 @@ See <code>View(pct_regions_lookup)</code> for a full list of possible region nam
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

@@ -23,7 +23,7 @@ data  sources  on  travel  patterns."'><!-- mathjax --><script src="https://cdnj
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pct</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.9</span>
       </span>
     </div>
 
@@ -35,7 +35,7 @@ data  sources  on  travel  patterns."'><!-- mathjax --><script src="https://cdnj
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -44,16 +44,10 @@ data  sources  on  travel  patterns."'><!-- mathjax --><script src="https://cdnj
       <a href="../articles/cycling-potential-uk.html">Cycling potential in UK cities</a>
     </li>
     <li>
-      <a href="../articles/getting.html">Getting and using data from the PCT</a>
-    </li>
-    <li>
       <a href="../articles/km-cycled.html">Estimating distance cycled per zone in England and Wales regions</a>
     </li>
     <li>
       <a href="../articles/pct-international.html">International application of the PCT methods</a>
-    </li>
-    <li>
-      <a href="../articles/pct_training.html">Propensity to Cycle Tool Advanced Workshop</a>
     </li>
     <li>
       <a href="../articles/uk-cities.html">Reproducing cycling potential estimates in UK cities</a>
@@ -93,82 +87,82 @@ data  sources  on  travel  patterns."</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">uptake_pct_govtarget</span><span class="op">(</span>
-  <span class="va">distance</span>,
-  <span class="va">gradient</span>,
-  alpha <span class="op">=</span> <span class="op">-</span><span class="fl">3.959</span>,
-  d1 <span class="op">=</span> <span class="op">-</span><span class="fl">0.5963</span>,
-  d2 <span class="op">=</span> <span class="fl">1.866</span>,
-  d3 <span class="op">=</span> <span class="fl">0.00805</span>,
-  h1 <span class="op">=</span> <span class="op">-</span><span class="fl">0.271</span>,
-  i1 <span class="op">=</span> <span class="fl">0.009394</span>,
-  i2 <span class="op">=</span> <span class="op">-</span><span class="fl">0.05135</span>,
-  verbose <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span>
-
-<span class="fu">uptake_pct_govtarget_2020</span><span class="op">(</span>
-  <span class="va">distance</span>,
-  <span class="va">gradient</span>,
-  alpha <span class="op">=</span> <span class="op">-</span><span class="fl">4.018</span>,
-  d1 <span class="op">=</span> <span class="op">-</span><span class="fl">0.6369</span>,
-  d2 <span class="op">=</span> <span class="fl">1.988</span>,
-  d3 <span class="op">=</span> <span class="fl">0.008775</span>,
-  h1 <span class="op">=</span> <span class="op">-</span><span class="fl">0.2555</span>,
-  h2 <span class="op">=</span> <span class="op">-</span><span class="fl">0.78</span>,
-  i1 <span class="op">=</span> <span class="fl">0.02006</span>,
-  i2 <span class="op">=</span> <span class="op">-</span><span class="fl">0.1234</span>,
-  verbose <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span>
-
-<span class="fu">uptake_pct_godutch_2020</span><span class="op">(</span>
-  <span class="va">distance</span>,
-  <span class="va">gradient</span>,
-  alpha <span class="op">=</span> <span class="op">-</span><span class="fl">4.018</span> <span class="op">+</span> <span class="fl">2.55</span>,
-  d1 <span class="op">=</span> <span class="op">-</span><span class="fl">0.6369</span> <span class="op">-</span> <span class="fl">0.08036</span>,
-  d2 <span class="op">=</span> <span class="fl">1.988</span>,
-  d3 <span class="op">=</span> <span class="fl">0.008775</span>,
-  h1 <span class="op">=</span> <span class="op">-</span><span class="fl">0.2555</span>,
-  h2 <span class="op">=</span> <span class="op">-</span><span class="fl">0.78</span>,
-  i1 <span class="op">=</span> <span class="fl">0.02006</span>,
-  i2 <span class="op">=</span> <span class="op">-</span><span class="fl">0.1234</span>,
-  verbose <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span>
-
-<span class="fu">uptake_pct_ebike_2020</span><span class="op">(</span>
-  <span class="va">distance</span>,
-  <span class="va">gradient</span>,
-  alpha <span class="op">=</span> <span class="op">-</span><span class="fl">4.018</span> <span class="op">+</span> <span class="fl">2.55</span>,
-  d1 <span class="op">=</span> <span class="op">-</span><span class="fl">0.6369</span> <span class="op">-</span> <span class="fl">0.08036</span> <span class="op">+</span> <span class="fl">0.05509</span>,
-  d2 <span class="op">=</span> <span class="fl">1.988</span>,
-  d3 <span class="op">=</span> <span class="fl">0.008775</span> <span class="op">-</span> <span class="fl">0.000295</span>,
-  h1 <span class="op">=</span> <span class="op">-</span><span class="fl">0.2555</span> <span class="op">+</span> <span class="fl">0.1812</span>,
-  h2 <span class="op">=</span> <span class="op">-</span><span class="fl">0.78</span>,
-  i1 <span class="op">=</span> <span class="fl">0.02006</span>,
-  i2 <span class="op">=</span> <span class="op">-</span><span class="fl">0.1234</span>,
-  verbose <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span>
-
-<span class="fu">uptake_pct_govtarget_school2</span><span class="op">(</span>
-  <span class="va">distance</span>,
-  <span class="va">gradient</span>,
-  alpha <span class="op">=</span> <span class="op">-</span><span class="fl">7.178</span>,
-  d1 <span class="op">=</span> <span class="op">-</span><span class="fl">1.87</span>,
-  d2 <span class="op">=</span> <span class="fl">5.961</span>,
-  h1 <span class="op">=</span> <span class="op">-</span><span class="fl">0.529</span>,
-  h2 <span class="op">=</span> <span class="op">-</span><span class="fl">0.63</span>,
-  verbose <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span>
-
-<span class="fu">uptake_pct_godutch_school2</span><span class="op">(</span>
-  <span class="va">distance</span>,
-  <span class="va">gradient</span>,
-  alpha <span class="op">=</span> <span class="op">-</span><span class="fl">7.178</span> <span class="op">+</span> <span class="fl">3.574</span>,
-  d1 <span class="op">=</span> <span class="op">-</span><span class="fl">1.87</span> <span class="op">+</span> <span class="fl">0.3438</span>,
-  d2 <span class="op">=</span> <span class="fl">5.961</span>,
-  h1 <span class="op">=</span> <span class="op">-</span><span class="fl">0.529</span>,
-  h2 <span class="op">=</span> <span class="op">-</span><span class="fl">0.63</span>,
-  verbose <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">uptake_pct_govtarget</span><span class="op">(</span></span>
+<span>  <span class="va">distance</span>,</span>
+<span>  <span class="va">gradient</span>,</span>
+<span>  alpha <span class="op">=</span> <span class="op">-</span><span class="fl">3.959</span>,</span>
+<span>  d1 <span class="op">=</span> <span class="op">-</span><span class="fl">0.5963</span>,</span>
+<span>  d2 <span class="op">=</span> <span class="fl">1.866</span>,</span>
+<span>  d3 <span class="op">=</span> <span class="fl">0.00805</span>,</span>
+<span>  h1 <span class="op">=</span> <span class="op">-</span><span class="fl">0.271</span>,</span>
+<span>  i1 <span class="op">=</span> <span class="fl">0.009394</span>,</span>
+<span>  i2 <span class="op">=</span> <span class="op">-</span><span class="fl">0.05135</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">uptake_pct_govtarget_2020</span><span class="op">(</span></span>
+<span>  <span class="va">distance</span>,</span>
+<span>  <span class="va">gradient</span>,</span>
+<span>  alpha <span class="op">=</span> <span class="op">-</span><span class="fl">4.018</span>,</span>
+<span>  d1 <span class="op">=</span> <span class="op">-</span><span class="fl">0.6369</span>,</span>
+<span>  d2 <span class="op">=</span> <span class="fl">1.988</span>,</span>
+<span>  d3 <span class="op">=</span> <span class="fl">0.008775</span>,</span>
+<span>  h1 <span class="op">=</span> <span class="op">-</span><span class="fl">0.2555</span>,</span>
+<span>  h2 <span class="op">=</span> <span class="op">-</span><span class="fl">0.78</span>,</span>
+<span>  i1 <span class="op">=</span> <span class="fl">0.02006</span>,</span>
+<span>  i2 <span class="op">=</span> <span class="op">-</span><span class="fl">0.1234</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">uptake_pct_godutch_2020</span><span class="op">(</span></span>
+<span>  <span class="va">distance</span>,</span>
+<span>  <span class="va">gradient</span>,</span>
+<span>  alpha <span class="op">=</span> <span class="op">-</span><span class="fl">4.018</span> <span class="op">+</span> <span class="fl">2.55</span>,</span>
+<span>  d1 <span class="op">=</span> <span class="op">-</span><span class="fl">0.6369</span> <span class="op">-</span> <span class="fl">0.08036</span>,</span>
+<span>  d2 <span class="op">=</span> <span class="fl">1.988</span>,</span>
+<span>  d3 <span class="op">=</span> <span class="fl">0.008775</span>,</span>
+<span>  h1 <span class="op">=</span> <span class="op">-</span><span class="fl">0.2555</span>,</span>
+<span>  h2 <span class="op">=</span> <span class="op">-</span><span class="fl">0.78</span>,</span>
+<span>  i1 <span class="op">=</span> <span class="fl">0.02006</span>,</span>
+<span>  i2 <span class="op">=</span> <span class="op">-</span><span class="fl">0.1234</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">uptake_pct_ebike_2020</span><span class="op">(</span></span>
+<span>  <span class="va">distance</span>,</span>
+<span>  <span class="va">gradient</span>,</span>
+<span>  alpha <span class="op">=</span> <span class="op">-</span><span class="fl">4.018</span> <span class="op">+</span> <span class="fl">2.55</span>,</span>
+<span>  d1 <span class="op">=</span> <span class="op">-</span><span class="fl">0.6369</span> <span class="op">-</span> <span class="fl">0.08036</span> <span class="op">+</span> <span class="fl">0.05509</span>,</span>
+<span>  d2 <span class="op">=</span> <span class="fl">1.988</span>,</span>
+<span>  d3 <span class="op">=</span> <span class="fl">0.008775</span> <span class="op">-</span> <span class="fl">0.000295</span>,</span>
+<span>  h1 <span class="op">=</span> <span class="op">-</span><span class="fl">0.2555</span> <span class="op">+</span> <span class="fl">0.1812</span>,</span>
+<span>  h2 <span class="op">=</span> <span class="op">-</span><span class="fl">0.78</span>,</span>
+<span>  i1 <span class="op">=</span> <span class="fl">0.02006</span>,</span>
+<span>  i2 <span class="op">=</span> <span class="op">-</span><span class="fl">0.1234</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">uptake_pct_govtarget_school2</span><span class="op">(</span></span>
+<span>  <span class="va">distance</span>,</span>
+<span>  <span class="va">gradient</span>,</span>
+<span>  alpha <span class="op">=</span> <span class="op">-</span><span class="fl">7.178</span>,</span>
+<span>  d1 <span class="op">=</span> <span class="op">-</span><span class="fl">1.87</span>,</span>
+<span>  d2 <span class="op">=</span> <span class="fl">5.961</span>,</span>
+<span>  h1 <span class="op">=</span> <span class="op">-</span><span class="fl">0.529</span>,</span>
+<span>  h2 <span class="op">=</span> <span class="op">-</span><span class="fl">0.63</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">uptake_pct_godutch_school2</span><span class="op">(</span></span>
+<span>  <span class="va">distance</span>,</span>
+<span>  <span class="va">gradient</span>,</span>
+<span>  alpha <span class="op">=</span> <span class="op">-</span><span class="fl">7.178</span> <span class="op">+</span> <span class="fl">3.574</span>,</span>
+<span>  d1 <span class="op">=</span> <span class="op">-</span><span class="fl">1.87</span> <span class="op">+</span> <span class="fl">0.3438</span>,</span>
+<span>  d2 <span class="op">=</span> <span class="fl">5.961</span>,</span>
+<span>  h1 <span class="op">=</span> <span class="op">-</span><span class="fl">0.529</span>,</span>
+<span>  h2 <span class="op">=</span> <span class="op">-</span><span class="fl">0.63</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -176,41 +170,61 @@ data  sources  on  travel  patterns."</p>
     <dl><dt>distance</dt>
 <dd><p>Vector distance numeric values of routes in km
 (switches to km if more than 100).</p></dd>
+
+
 <dt>gradient</dt>
 <dd><p>Vector gradient numeric values of routes.</p></dd>
+
+
 <dt>alpha</dt>
 <dd><p>The intercept</p></dd>
+
+
 <dt>d1</dt>
 <dd><p>Distance term 1</p></dd>
+
+
 <dt>d2</dt>
 <dd><p>Distance term 2</p></dd>
+
+
 <dt>d3</dt>
 <dd><p>Distance term 3</p></dd>
+
+
 <dt>h1</dt>
 <dd><p>Hilliness term 1</p></dd>
+
+
 <dt>i1</dt>
 <dd><p>Distance-hilliness interaction term 1</p></dd>
+
+
 <dt>i2</dt>
 <dd><p>Distance-hilliness interaction term 2</p></dd>
+
+
 <dt>verbose</dt>
 <dd><p>Print messages? <code>FALSE</code> by default.</p></dd>
+
+
 <dt>h2</dt>
 <dd><p>Hilliness term 2</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
     <p>The functional form of the cycling uptake model used in the PCT is as follows:
-(Source: <a href="https://npct.github.io/pct-shiny/regions_www/www/static/03a_manual/pct-bike-eng-user-manual-c1.pdf" class="external-link">npct.github.io</a>)</p><div class="sourceCode"><pre><code>logit (pcycle) = -3.959 +   # alpha
-  (-0.5963 * distance) +    # d1
-  (1.866 * distancesqrt) +  # d2
-  (0.008050 * distancesq) + # d3
-  (-0.2710 * gradient) +    # h1
-  (0.009394 * distance * gradient) +  # i1
-  (-0.05135 * distancesqrt *gradient) # i2
-
-pcycle = exp ([logit (pcycle)]) / (1 + (exp([logit(pcycle)])
-</code></pre></div>
-
+(Source: <a href="https://npct.github.io/pct-shiny/regions_www/www/static/03a_manual/pct-bike-eng-user-manual-c1.pdf" class="external-link">npct.github.io</a>)</p>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">logit</span> (pcycle) <span class="ot">=</span> <span class="sc">-</span><span class="fl">3.959</span> <span class="sc">+</span>   <span class="co"># alpha</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  (<span class="sc">-</span><span class="fl">0.5963</span> <span class="sc">*</span> distance) <span class="sc">+</span>    <span class="co"># d1</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  (<span class="fl">1.866</span> <span class="sc">*</span> distancesqrt) <span class="sc">+</span>  <span class="co"># d2</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  (<span class="fl">0.008050</span> <span class="sc">*</span> distancesq) <span class="sc">+</span> <span class="co"># d3</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  (<span class="sc">-</span><span class="fl">0.2710</span> <span class="sc">*</span> gradient) <span class="sc">+</span>    <span class="co"># h1</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  (<span class="fl">0.009394</span> <span class="sc">*</span> distance <span class="sc">*</span> gradient) <span class="sc">+</span>  <span class="co"># i1</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  (<span class="sc">-</span><span class="fl">0.05135</span> <span class="sc">*</span> distancesqrt <span class="sc">*</span>gradient) <span class="co"># i2</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>pcycle <span class="ot">=</span> <span class="fu">exp</span> ([<span class="fu">logit</span> (pcycle)]) <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> (<span class="fu">exp</span>([<span class="fu">logit</span>(pcycle)])</span></code></pre><p></p></div>
 <p><code>uptake_pct_govtarget_2020()</code> and
 <code>uptake_pct_godutch_2020()</code>
 approximate the uptake models used in the updated 2020 release of
@@ -222,73 +236,67 @@ distances of less than 100 m, convert the distances to km first.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">distance</span> <span class="op">=</span> <span class="fl">15</span></span>
-<span class="r-in"><span class="va">gradient</span> <span class="op">=</span> <span class="fl">2</span></span>
-<span class="r-in"><span class="va">logit_pcycle</span> <span class="op">=</span> <span class="op">-</span><span class="fl">3.959</span> <span class="op">+</span> <span class="co"># alpha</span></span>
-<span class="r-in">  <span class="op">(</span><span class="op">-</span><span class="fl">0.5963</span> <span class="op">*</span> <span class="va">distance</span><span class="op">)</span> <span class="op">+</span> <span class="co"># d1</span></span>
-<span class="r-in">  <span class="op">(</span><span class="fl">1.866</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">distance</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="co"># d2</span></span>
-<span class="r-in">  <span class="op">(</span><span class="fl">0.008050</span> <span class="op">*</span> <span class="va">distance</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span> <span class="op">+</span> <span class="co"># d3</span></span>
-<span class="r-in">  <span class="op">(</span><span class="op">-</span><span class="fl">0.2710</span> <span class="op">*</span> <span class="va">gradient</span><span class="op">)</span> <span class="op">+</span> <span class="co"># h1</span></span>
-<span class="r-in">  <span class="op">(</span><span class="fl">0.009394</span> <span class="op">*</span> <span class="va">distance</span> <span class="op">*</span> <span class="va">gradient</span><span class="op">)</span> <span class="op">+</span> <span class="co"># i1</span></span>
-<span class="r-in">  <span class="op">(</span><span class="op">-</span><span class="fl">0.05135</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">distance</span><span class="op">)</span> <span class="op">*</span> <span class="va">gradient</span><span class="op">)</span> <span class="co"># i2</span></span>
-<span class="r-in"><span class="fu">boot</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/boot/man/inv.logit.html" class="external-link">inv.logit</a></span><span class="op">(</span><span class="va">logit_pcycle</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">distance</span> <span class="op">=</span> <span class="fl">15</span></span></span>
+<span class="r-in"><span><span class="va">gradient</span> <span class="op">=</span> <span class="fl">2</span></span></span>
+<span class="r-in"><span><span class="va">logit_pcycle</span> <span class="op">=</span> <span class="op">-</span><span class="fl">3.959</span> <span class="op">+</span> <span class="co"># alpha</span></span></span>
+<span class="r-in"><span>  <span class="op">(</span><span class="op">-</span><span class="fl">0.5963</span> <span class="op">*</span> <span class="va">distance</span><span class="op">)</span> <span class="op">+</span> <span class="co"># d1</span></span></span>
+<span class="r-in"><span>  <span class="op">(</span><span class="fl">1.866</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">distance</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="co"># d2</span></span></span>
+<span class="r-in"><span>  <span class="op">(</span><span class="fl">0.008050</span> <span class="op">*</span> <span class="va">distance</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span> <span class="op">+</span> <span class="co"># d3</span></span></span>
+<span class="r-in"><span>  <span class="op">(</span><span class="op">-</span><span class="fl">0.2710</span> <span class="op">*</span> <span class="va">gradient</span><span class="op">)</span> <span class="op">+</span> <span class="co"># h1</span></span></span>
+<span class="r-in"><span>  <span class="op">(</span><span class="fl">0.009394</span> <span class="op">*</span> <span class="va">distance</span> <span class="op">*</span> <span class="va">gradient</span><span class="op">)</span> <span class="op">+</span> <span class="co"># i1</span></span></span>
+<span class="r-in"><span>  <span class="op">(</span><span class="op">-</span><span class="fl">0.05135</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">distance</span><span class="op">)</span> <span class="op">*</span> <span class="va">gradient</span><span class="op">)</span> <span class="co"># i2</span></span></span>
+<span class="r-in"><span><span class="fu">boot</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/boot/man/inv.logit.html" class="external-link">inv.logit</a></span><span class="op">(</span><span class="va">logit_pcycle</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.0107377</span>
-<span class="r-in"><span class="fu">uptake_pct_govtarget</span><span class="op">(</span><span class="fl">15</span>, <span class="fl">2</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">uptake_pct_govtarget</span><span class="op">(</span><span class="fl">15</span>, <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.0107377</span>
-<span class="r-in"><span class="va">l</span> <span class="op">=</span> <span class="va">routes_fast_leeds</span></span>
-<span class="r-in"><span class="va">pcycle_scenario</span> <span class="op">=</span> <span class="fu">uptake_pct_govtarget</span><span class="op">(</span><span class="va">l</span><span class="op">$</span><span class="va">length</span>, <span class="va">l</span><span class="op">$</span><span class="va">av_incline</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">pcycle_scenario_2020</span> <span class="op">=</span> <span class="fu">uptake_pct_govtarget_2020</span><span class="op">(</span><span class="va">l</span><span class="op">$</span><span class="va">length</span>, <span class="va">l</span><span class="op">$</span><span class="va">av_incline</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">l</span><span class="op">$</span><span class="va">length</span>, <span class="va">pcycle_scenario</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.2</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">l</span><span class="op">$</span><span class="va">length</span>, <span class="va">pcycle_scenario_2020</span>, col <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">l</span> <span class="op">=</span> <span class="va">routes_fast_leeds</span></span></span>
+<span class="r-in"><span><span class="va">pcycle_scenario</span> <span class="op">=</span> <span class="fu">uptake_pct_govtarget</span><span class="op">(</span><span class="va">l</span><span class="op">$</span><span class="va">length</span>, <span class="va">l</span><span class="op">$</span><span class="va">av_incline</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">pcycle_scenario_2020</span> <span class="op">=</span> <span class="fu">uptake_pct_govtarget_2020</span><span class="op">(</span><span class="va">l</span><span class="op">$</span><span class="va">length</span>, <span class="va">l</span><span class="op">$</span><span class="va">av_incline</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">l</span><span class="op">$</span><span class="va">length</span>, <span class="va">pcycle_scenario</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">l</span><span class="op">$</span><span class="va">length</span>, <span class="va">pcycle_scenario_2020</span>, col <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="uptake_pct_govtarget-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># compare with published PCT data:</span></span>
-<span class="r-in"><span class="va">l_pct_2020</span> <span class="op">=</span> <span class="fu"><a href="get_pct_lines.html">get_pct_lines</a></span><span class="op">(</span>region <span class="op">=</span> <span class="st">"isle-of-wight"</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># test for another region:</span></span>
-<span class="r-in"><span class="co"># l_pct_2020 = get_pct_lines(region = "west-yorkshire")</span></span>
-<span class="r-in"><span class="va">l_pct_2020</span><span class="op">$</span><span class="va">rf_avslope_perc</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.52 0.30 0.32 0.46 0.49</span>
-<span class="r-in"><span class="va">l_pct_2020</span><span class="op">$</span><span class="va">rf_dist_km</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 14.6 11.7 11.3 11.7 12.1</span>
-<span class="r-in"><span class="va">govtarget_slc</span> <span class="op">=</span> <span class="fu">uptake_pct_govtarget</span><span class="op">(</span></span>
-<span class="r-in">  distance <span class="op">=</span> <span class="va">l_pct_2020</span><span class="op">$</span><span class="va">rf_dist_km</span>,</span>
-<span class="r-in">  gradient <span class="op">=</span> <span class="va">l_pct_2020</span><span class="op">$</span><span class="va">rf_avslope_perc</span></span>
-<span class="r-in"><span class="op">)</span> <span class="op">*</span> <span class="va">l_pct_2020</span><span class="op">$</span><span class="va">all</span> <span class="op">+</span> <span class="va">l_pct_2020</span><span class="op">$</span><span class="va">bicycle</span></span>
-<span class="r-in"><span class="va">govtarget_slc_2020</span> <span class="op">=</span> <span class="fu">uptake_pct_govtarget_2020</span><span class="op">(</span></span>
-<span class="r-in">  distance <span class="op">=</span> <span class="va">l_pct_2020</span><span class="op">$</span><span class="va">rf_dist_km</span>,</span>
-<span class="r-in">  gradient <span class="op">=</span> <span class="va">l_pct_2020</span><span class="op">$</span><span class="va">rf_avslope_perc</span></span>
-<span class="r-in"><span class="op">)</span> <span class="op">*</span> <span class="va">l_pct_2020</span><span class="op">$</span><span class="va">all</span> <span class="op">+</span> <span class="va">l_pct_2020</span><span class="op">$</span><span class="va">bicycle</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">l_pct_2020</span><span class="op">$</span><span class="va">govtarget_slc</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.233474</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">govtarget_slc</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.171526</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">govtarget_slc_2020</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.233669</span>
-<span class="r-in"><span class="va">godutch_slc</span> <span class="op">=</span> <span class="fu"><a href="uptake_pct_godutch.html">uptake_pct_godutch</a></span><span class="op">(</span></span>
-<span class="r-in">  distance <span class="op">=</span> <span class="va">l_pct_2020</span><span class="op">$</span><span class="va">rf_dist_km</span>,</span>
-<span class="r-in">  gradient <span class="op">=</span> <span class="va">l_pct_2020</span><span class="op">$</span><span class="va">rf_avslope_perc</span></span>
-<span class="r-in"><span class="op">)</span> <span class="op">*</span> <span class="va">l_pct_2020</span><span class="op">$</span><span class="va">all</span> <span class="op">+</span> <span class="va">l_pct_2020</span><span class="op">$</span><span class="va">bicycle</span></span>
-<span class="r-in"><span class="va">godutch_slc_2020</span> <span class="op">=</span> <span class="fu">uptake_pct_godutch_2020</span><span class="op">(</span></span>
-<span class="r-in">  distance <span class="op">=</span> <span class="va">l_pct_2020</span><span class="op">$</span><span class="va">rf_dist_km</span>,</span>
-<span class="r-in">  gradient <span class="op">=</span> <span class="va">l_pct_2020</span><span class="op">$</span><span class="va">rf_avslope_perc</span></span>
-<span class="r-in"><span class="op">)</span> <span class="op">*</span> <span class="va">l_pct_2020</span><span class="op">$</span><span class="va">all</span> <span class="op">+</span> <span class="va">l_pct_2020</span><span class="op">$</span><span class="va">bicycle</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">l_pct_2020</span><span class="op">$</span><span class="va">dutch_slc</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3.574052</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">godutch_slc</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3.828446</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">godutch_slc_2020</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 4.191658</span>
-<span class="r-in"><span class="co"># Take an origin destination (OD) pair between an LSOA centroid and a</span></span>
-<span class="r-in"><span class="co"># secondary school. In this OD pair, 30 secondary school children travel, of</span></span>
-<span class="r-in"><span class="co"># whom 3 currently cycle. The fastest route distance is 3.51 km and the</span></span>
-<span class="r-in"><span class="co"># gradient is 1.11%. The</span></span>
-<span class="r-in"><span class="co"># gradient as centred on Dutch hilliness levels is 1.11 – 0.63 = 0.48%.</span></span>
-<span class="r-in"><span class="co"># The observed number of cyclists is 2. ... Modelled baseline= 30 * .0558 = 1.8.</span></span>
-<span class="r-in"><span class="fu">uptake_pct_govtarget_school2</span><span class="op">(</span><span class="fl">3.51</span>, <span class="fl">1.11</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># compare with published PCT data:</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="va">l_pct_2020</span> <span class="op">=</span> <span class="fu"><a href="get_pct_lines.html">get_pct_lines</a></span><span class="op">(</span>region <span class="op">=</span> <span class="st">"isle-of-wight"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># test for another region:</span></span></span>
+<span class="r-in"><span><span class="co"># l_pct_2020 = get_pct_lines(region = "west-yorkshire")</span></span></span>
+<span class="r-in"><span><span class="va">l_pct_2020</span><span class="op">$</span><span class="va">rf_avslope_perc</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">l_pct_2020</span><span class="op">$</span><span class="va">rf_dist_km</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">govtarget_slc</span> <span class="op">=</span> <span class="fu">uptake_pct_govtarget</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  distance <span class="op">=</span> <span class="va">l_pct_2020</span><span class="op">$</span><span class="va">rf_dist_km</span>,</span></span>
+<span class="r-in"><span>  gradient <span class="op">=</span> <span class="va">l_pct_2020</span><span class="op">$</span><span class="va">rf_avslope_perc</span></span></span>
+<span class="r-in"><span><span class="op">)</span> <span class="op">*</span> <span class="va">l_pct_2020</span><span class="op">$</span><span class="va">all</span> <span class="op">+</span> <span class="va">l_pct_2020</span><span class="op">$</span><span class="va">bicycle</span></span></span>
+<span class="r-in"><span><span class="va">govtarget_slc_2020</span> <span class="op">=</span> <span class="fu">uptake_pct_govtarget_2020</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  distance <span class="op">=</span> <span class="va">l_pct_2020</span><span class="op">$</span><span class="va">rf_dist_km</span>,</span></span>
+<span class="r-in"><span>  gradient <span class="op">=</span> <span class="va">l_pct_2020</span><span class="op">$</span><span class="va">rf_avslope_perc</span></span></span>
+<span class="r-in"><span><span class="op">)</span> <span class="op">*</span> <span class="va">l_pct_2020</span><span class="op">$</span><span class="va">all</span> <span class="op">+</span> <span class="va">l_pct_2020</span><span class="op">$</span><span class="va">bicycle</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">l_pct_2020</span><span class="op">$</span><span class="va">govtarget_slc</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">govtarget_slc</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">govtarget_slc_2020</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">godutch_slc</span> <span class="op">=</span> <span class="fu"><a href="uptake_pct_godutch.html">uptake_pct_godutch</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  distance <span class="op">=</span> <span class="va">l_pct_2020</span><span class="op">$</span><span class="va">rf_dist_km</span>,</span></span>
+<span class="r-in"><span>  gradient <span class="op">=</span> <span class="va">l_pct_2020</span><span class="op">$</span><span class="va">rf_avslope_perc</span></span></span>
+<span class="r-in"><span><span class="op">)</span> <span class="op">*</span> <span class="va">l_pct_2020</span><span class="op">$</span><span class="va">all</span> <span class="op">+</span> <span class="va">l_pct_2020</span><span class="op">$</span><span class="va">bicycle</span></span></span>
+<span class="r-in"><span><span class="va">godutch_slc_2020</span> <span class="op">=</span> <span class="fu">uptake_pct_godutch_2020</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  distance <span class="op">=</span> <span class="va">l_pct_2020</span><span class="op">$</span><span class="va">rf_dist_km</span>,</span></span>
+<span class="r-in"><span>  gradient <span class="op">=</span> <span class="va">l_pct_2020</span><span class="op">$</span><span class="va">rf_avslope_perc</span></span></span>
+<span class="r-in"><span><span class="op">)</span> <span class="op">*</span> <span class="va">l_pct_2020</span><span class="op">$</span><span class="va">all</span> <span class="op">+</span> <span class="va">l_pct_2020</span><span class="op">$</span><span class="va">bicycle</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">l_pct_2020</span><span class="op">$</span><span class="va">dutch_slc</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">godutch_slc</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">godutch_slc_2020</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="co"># Take an origin destination (OD) pair between an LSOA centroid and a</span></span></span>
+<span class="r-in"><span><span class="co"># secondary school. In this OD pair, 30 secondary school children travel, of</span></span></span>
+<span class="r-in"><span><span class="co"># whom 3 currently cycle. The fastest route distance is 3.51 km and the</span></span></span>
+<span class="r-in"><span><span class="co"># gradient is 1.11%. The</span></span></span>
+<span class="r-in"><span><span class="co"># gradient as centred on Dutch hilliness levels is 1.11 – 0.63 = 0.48%.</span></span></span>
+<span class="r-in"><span><span class="co"># The observed number of cyclists is 2. ... Modelled baseline= 30 * .0558 = 1.8.</span></span></span>
+<span class="r-in"><span><span class="fu">uptake_pct_govtarget_school2</span><span class="op">(</span><span class="fl">3.51</span>, <span class="fl">1.11</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.05584607</span>
-<span class="r-in"><span class="co"># pcycle = exp ([logit (pcycle)])/(1 + (exp([logit(pcycle)]))).</span></span>
-<span class="r-in"><span class="co"># pcycle = exp(1.953)/(1 + exp(1.953)) = .8758, or 87.58%.</span></span>
-<span class="r-in"><span class="fu">uptake_pct_godutch_school2</span><span class="op">(</span><span class="fl">3.51</span>, <span class="fl">1.11</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># pcycle = exp ([logit (pcycle)])/(1 + (exp([logit(pcycle)]))).</span></span></span>
+<span class="r-in"><span><span class="co"># pcycle = exp(1.953)/(1 + exp(1.953)) = .8758, or 87.58%.</span></span></span>
+<span class="r-in"><span><span class="fu">uptake_pct_godutch_school2</span><span class="op">(</span><span class="fl">3.51</span>, <span class="fl">1.11</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.8757786</span>
 </code></pre></div>
     </div>
@@ -304,7 +312,7 @@ distances of less than 100 m, convert the distances to km first.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

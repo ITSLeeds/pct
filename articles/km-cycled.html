@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pct</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.9</span>
       </span>
     </div>
 
@@ -46,7 +46,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -56,16 +56,10 @@
       <a href="../articles/cycling-potential-uk.html">Cycling potential in UK cities</a>
     </li>
     <li>
-      <a href="../articles/getting.html">Getting and using data from the PCT</a>
-    </li>
-    <li>
       <a href="../articles/km-cycled.html">Estimating distance cycled per zone in England and Wales regions</a>
     </li>
     <li>
       <a href="../articles/pct-international.html">International application of the PCT methods</a>
-    </li>
-    <li>
-      <a href="../articles/pct_training.html">Propensity to Cycle Tool Advanced Workshop</a>
     </li>
     <li>
       <a href="../articles/uk-cities.html">Reproducing cycling potential estimates in UK cities</a>
@@ -93,11 +87,13 @@
 
       
 
-      </header><script src="km-cycled_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Estimating distance cycled per zone in England and Wales regions</h1>
-                        <h4 data-toc-skip class="author">Nathanael Sheehan</h4>
+      <h1 data-toc-skip>Estimating distance cycled per zone in England
+and Wales regions</h1>
+                        <h4 data-toc-skip class="author">Nathanael
+Sheehan</h4>
             
       
       <small class="dont-index">Source: <a href="https://github.com/ITSLeeds/pct/blob/HEAD/vignettes/km-cycled.Rmd" class="external-link"><code>vignettes/km-cycled.Rmd</code></a></small>
@@ -107,192 +103,260 @@
 
     
     
-<p>In the context of society, cycling acts as a vessel to mobilise citizens to navigate through spatial geography in a sustainable fashion. In doing so, cycling obtains numerous socio-spatial benefits both at the micro (individual health benefits from active transport) and macro (lower pollution from vehicles) scale. With the ambition of building a sustainable future, the PCT project promotes cycle uptake through providing open tools for policy-makers, transport planners and academics to plan future cycle infrastructure for the built environment.</p>
-<p>Using data from the 2011 census and models built into the PCT package, this article asks the question of “How many km’s per LSOA do commuters cycle through each year?”. The results of which provide valuable insight into future sustainable transport planning decisions and highlight the versatility of the PCT package through a reproducible method.</p>
+<p>In the context of society, cycling acts as a vessel to mobilise
+citizens to navigate through spatial geography in a sustainable fashion.
+In doing so, cycling obtains numerous socio-spatial benefits both at the
+micro (individual health benefits from active transport) and macro
+(lower pollution from vehicles) scale. With the ambition of building a
+sustainable future, the PCT project promotes cycle uptake through
+providing open tools for policy-makers, transport planners and academics
+to plan future cycle infrastructure for the built environment.</p>
+<p>Using data from the 2011 census and models built into the PCT
+package, this article asks the question of “How many km’s per LSOA do
+commuters cycle through each year?”. The results of which provide
+valuable insight into future sustainable transport planning decisions
+and highlight the versatility of the PCT package through a reproducible
+method.</p>
+<p>Set <code>eval=TRUE</code> to run this code when knitting:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/knitr/man/opts_chunk.html" class="external-link">opts_chunk</a></span><span class="op">$</span><span class="fu">set</span><span class="op">(</span>eval <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="prerequisites">Prerequisites<a class="anchor" aria-label="anchor" href="#prerequisites"></a>
 </h2>
-<p>The following packages must be installed and loaded to run the code in this vignette.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#Load packages</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://itsleeds.github.io/pct/" class="external-link">pct</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mtennekes/tmap" class="external-link">tmap</a></span><span class="op">)</span></code></pre></div>
+<p>The following packages must be installed and loaded to run the code
+in this vignette.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Load packages</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://itsleeds.github.io/pct/" class="external-link">pct</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/r-tmap/tmap" class="external-link">tmap</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="estimating-distance-cycled-for-a-region-based-on-2011-census-data">Estimating distance cycled for a region based on 2011 census data<a class="anchor" aria-label="anchor" href="#estimating-distance-cycled-for-a-region-based-on-2011-census-data"></a>
+<h2 id="estimating-distance-cycled-for-a-region-based-on-2011-census-data">Estimating distance cycled for a region based on 2011 census
+data<a class="anchor" aria-label="anchor" href="#estimating-distance-cycled-for-a-region-based-on-2011-census-data"></a>
 </h2>
-<p>The PCT package permits an easy method for fetching road network and commuting origin/destination data for any region in England and Wales. This data will be used as the basis for understanding the current context of cycling for a given region (A definition of regions can be found in this earlier <a href="https://itsleeds.github.io/pct/articles/uk-cities.html" class="external-link">article</a>). For this first example, we will apply the pct method to the region of Oxfordshire. To kick things off, we use the <code>get_pct_rnet</code> to retrieve road network data for the region. This data is then used to calculate the length of the road network cycled using <code>base</code> r functions.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#Get road network for preselected regin</span>
-<span class="va">rnet</span> <span class="op">=</span> <span class="fu">pct</span><span class="fu">::</span><span class="fu"><a href="../reference/get_pct_rnet.html">get_pct_rnet</a></span><span class="op">(</span>region <span class="op">=</span> <span class="st">"oxfordshire"</span><span class="op">)</span>
-<span class="co">#Calculate road length</span>
-<span class="va">rnet</span><span class="op">$</span><span class="va">segment_length</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_measures.html" class="external-link">st_length</a></span><span class="op">(</span><span class="va">rnet</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#Calculate daily km's cycled</span>
-<span class="va">rnet</span><span class="op">$</span><span class="va">m_cycled_per_working_day</span> <span class="op">=</span> <span class="va">rnet</span><span class="op">$</span><span class="va">segment_length</span> <span class="op">*</span> <span class="va">rnet</span><span class="op">$</span><span class="va">bicycle</span></code></pre></div>
-<p>Simples! Now we can use the <code>get_pct_zones</code> function to get LSOA geographies in order to calculate the number of km’s cycled per day through each LSOA.</p>
+<p>The PCT package permits an easy method for fetching road network and
+commuting origin/destination data for any region in England and Wales.
+This data will be used as the basis for understanding the current
+context of cycling for a given region (A definition of regions can be
+found in this earlier
+<a href="https://itsleeds.github.io/pct/articles/uk-cities.html" class="external-link">article</a>).
+For this first example, we will apply the pct method to the region of
+Oxfordshire. To kick things off, we use the <code>get_pct_rnet</code> to
+retrieve road network data for the region. This data is then used to
+calculate the length of the road network cycled using <code>base</code>
+r functions.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Get road network for preselected regin</span>
-<span class="va">zones</span> <span class="op">=</span> <span class="fu">pct</span><span class="fu">::</span><span class="fu"><a href="../reference/get_pct_zones.html">get_pct_zones</a></span><span class="op">(</span>region <span class="op">=</span> <span class="st">"oxfordshire"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/valid.html" class="external-link">st_is_valid</a></span><span class="op">(</span><span class="va">zones</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">##    Mode   FALSE    TRUE </span>
-<span class="co">## logical       1     406</span></code></pre>
+<code class="sourceCode R"><span><span class="co">#Get road network for preselected regin</span></span>
+<span><span class="va">rnet</span> <span class="op">=</span> <span class="fu">pct</span><span class="fu">::</span><span class="fu"><a href="../reference/get_pct_rnet.html">get_pct_rnet</a></span><span class="op">(</span>region <span class="op">=</span> <span class="st">"oxfordshire"</span><span class="op">)</span></span>
+<span><span class="co">#Calculate road length</span></span>
+<span><span class="va">rnet</span><span class="op">$</span><span class="va">segment_length</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_measures.html" class="external-link">st_length</a></span><span class="op">(</span><span class="va">rnet</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#Calculate daily km's cycled</span></span>
+<span><span class="va">rnet</span><span class="op">$</span><span class="va">m_cycled_per_working_day</span> <span class="op">=</span> <span class="va">rnet</span><span class="op">$</span><span class="va">segment_length</span> <span class="op">*</span> <span class="va">rnet</span><span class="op">$</span><span class="va">bicycle</span></span></code></pre></div>
+<p>Simples! Now we can use the <code>get_pct_zones</code> function to
+get LSOA geographies in order to calculate the number of km’s cycled per
+day through each LSOA.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Get road network for preselected regin</span></span>
+<span><span class="va">zones</span> <span class="op">=</span> <span class="fu">pct</span><span class="fu">::</span><span class="fu"><a href="../reference/get_pct_zones.html">get_pct_zones</a></span><span class="op">(</span>region <span class="op">=</span> <span class="st">"oxfordshire"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/valid.html" class="external-link">st_is_valid</a></span><span class="op">(</span><span class="va">zones</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">zones</span> <span class="op">=</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/valid.html" class="external-link">st_make_valid</a></span><span class="op">(</span><span class="va">zones</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/valid.html" class="external-link">st_is_valid</a></span><span class="op">(</span><span class="va">zones</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">cycled_m_per_zone</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/aggregate.html" class="external-link">aggregate</a></span><span class="op">(</span><span class="va">rnet</span><span class="op">[</span><span class="st">"m_cycled_per_working_day"</span><span class="op">]</span>, <span class="va">zones</span>, FUN <span class="op">=</span> <span class="va">sum</span><span class="op">)</span></span></code></pre></div>
+<p>While this is great information, it doesn’t provide answer the long
+term question of how many distance are cycled per year. In order to
+achieve this, we must multiple the number of trips per day by the number
+of days in a standard working year (200) and divide by a million. Once
+again, this is achieved using <code>base</code> r functionality.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">zones</span> <span class="op">=</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/valid.html" class="external-link">st_make_valid</a></span><span class="op">(</span><span class="va">zones</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/valid.html" class="external-link">st_is_valid</a></span><span class="op">(</span><span class="va">zones</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">##    Mode    TRUE </span>
-<span class="co">## logical     407</span></code></pre>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">cycled_m_per_zone</span> <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/aggregate.sf.html" class="external-link">aggregate</a></span><span class="op">(</span><span class="va">rnet</span><span class="op">[</span><span class="st">"m_cycled_per_working_day"</span><span class="op">]</span>, <span class="va">zones</span>, FUN <span class="op">=</span> <span class="va">sum</span><span class="op">)</span></code></pre></div>
-<p>While this is great information, it doesn’t provide answer the long term question of how many distance are cycled per year. In order to achieve this, we must multiple the number of trips per day by the number of days in a standard working year (200) and divide by a million. Once again, this is achieved using <code>base</code> r functionality.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">zones</span><span class="op">$</span><span class="va">mkm_cycled_for_commuting_per_year_estimated</span> <span class="op">=</span> <span class="va">cycled_m_per_zone</span><span class="op">$</span><span class="va">m_cycled_per_working_day</span> <span class="op">*</span> 
-  <span class="fl">2</span> <span class="op">*</span> <span class="fl">200</span> <span class="op">/</span> <span class="co"># estimate of trips days per year, morning and afternoon</span>
-  <span class="fl">1e9</span></code></pre></div>
-<p>With this calculated, we can now answer our question and visualize yearly km’s cycled using <code>tmap</code>.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R">  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html" class="external-link">tm_shape</a></span><span class="op">(</span><span class="va">zones</span><span class="op">)</span> <span class="op">+</span>
-    <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_polygons.html" class="external-link">tm_fill</a></span><span class="op">(</span>
-      col <span class="op">=</span> <span class="st">"mkm_cycled_for_commuting_per_year_estimated"</span>,
-      style <span class="op">=</span> <span class="st">"quantile"</span>,
-      palette <span class="op">=</span> <span class="st">"plasma"</span>,
-      title <span class="op">=</span> <span class="st">"Yearly distance cycled by commuters per day\n(2011 Census Data)"</span>,
-      legend.size.is.portrait <span class="op">=</span> <span class="cn">TRUE</span>
-    <span class="op">)</span> <span class="op">+</span>
-    <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_layout.html" class="external-link">tm_layout</a></span><span class="op">(</span>
-      title <span class="op">=</span> <span class="st">"OXFORDSHIRE"</span>,
-      title.position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"left"</span>, <span class="st">"top"</span><span class="op">)</span>,
-      bg.color <span class="op">=</span> <span class="st">"honeydew3"</span>,
-      outer.bg.color <span class="op">=</span> <span class="st">"honeydew"</span>,
-      legend.stack <span class="op">=</span> <span class="st">"horizontal"</span>,
-      legend.outside <span class="op">=</span> <span class="cn">TRUE</span>,
-      legend.outside.position <span class="op">=</span> <span class="st">"left"</span>,
-      frame.lwd <span class="op">=</span> <span class="fl">5</span>
-    <span class="op">)</span> </code></pre></div>
-<p><img src="km-cycled_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;"></p>
-<p>Wow, that’s a lot of miles cycled! The plot breaks down the number km’s cycled by quartiles and thus paints the picture of where cycling is most prominent. In the context of Oxfordshire, the map depecits the region obtainaing a rather high cycle uptake; with its spatial distribution primarily in the centre of the region.</p>
+<code class="sourceCode R"><span><span class="va">zones</span><span class="op">$</span><span class="va">mkm_cycled_for_commuting_per_year_estimated</span> <span class="op">=</span> <span class="va">cycled_m_per_zone</span><span class="op">$</span><span class="va">m_cycled_per_working_day</span> <span class="op">*</span> </span>
+<span>  <span class="fl">2</span> <span class="op">*</span> <span class="fl">200</span> <span class="op">/</span> <span class="co"># estimate of trips days per year, morning and afternoon</span></span>
+<span>  <span class="fl">1e9</span></span></code></pre></div>
+<p>With this calculated, we can now answer our question and visualize
+yearly km’s cycled using <code>tmap</code>.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span>  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html" class="external-link">tm_shape</a></span><span class="op">(</span><span class="va">zones</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_polygons.html" class="external-link">tm_fill</a></span><span class="op">(</span></span>
+<span>      col <span class="op">=</span> <span class="st">"mkm_cycled_for_commuting_per_year_estimated"</span>,</span>
+<span>      style <span class="op">=</span> <span class="st">"quantile"</span>,</span>
+<span>      palette <span class="op">=</span> <span class="st">"plasma"</span>,</span>
+<span>      title <span class="op">=</span> <span class="st">"Yearly distance cycled by commuters per day\n(2011 Census Data)"</span>,</span>
+<span>      legend.size.is.portrait <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>    <span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_layout.html" class="external-link">tm_layout</a></span><span class="op">(</span></span>
+<span>      title <span class="op">=</span> <span class="st">"OXFORDSHIRE"</span>,</span>
+<span>      title.position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"left"</span>, <span class="st">"top"</span><span class="op">)</span>,</span>
+<span>      bg.color <span class="op">=</span> <span class="st">"honeydew3"</span>,</span>
+<span>      outer.bg.color <span class="op">=</span> <span class="st">"honeydew"</span>,</span>
+<span>      legend.stack <span class="op">=</span> <span class="st">"horizontal"</span>,</span>
+<span>      legend.outside <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>      legend.outside.position <span class="op">=</span> <span class="st">"left"</span>,</span>
+<span>      frame.lwd <span class="op">=</span> <span class="fl">5</span></span>
+<span>    <span class="op">)</span> </span></code></pre></div>
+<p>Wow, that’s a lot of miles cycled! The plot breaks down the number
+km’s cycled by quartiles and thus paints the picture of where cycling is
+most prominent. In the context of Oxfordshire, the map depecits the
+region obtainaing a rather high cycle uptake; with its spatial
+distribution primarily in the centre of the region.</p>
 </div>
 <div class="section level2">
 <h2 id="comparing-regions">Comparing Regions<a class="anchor" aria-label="anchor" href="#comparing-regions"></a>
 </h2>
-<p>Now say we wanted to compare the results of Oxfordshire, with its regional neighbor Cambridgeshire. This can be achieved by wrapping the previous method into a function.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">pct_zones_rnet_current</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">region_name</span><span class="op">)</span> <span class="op">{</span>
-  <span class="co"># Get road network for preselected regin</span>
-  <span class="va">rnet</span> <span class="op">=</span> <span class="fu">pct</span><span class="fu">::</span><span class="fu"><a href="../reference/get_pct_rnet.html">get_pct_rnet</a></span><span class="op">(</span>region <span class="op">=</span> <span class="va">region_name</span><span class="op">)</span>
-  <span class="co"># Calculate road length</span>
-  <span class="va">rnet</span><span class="op">$</span><span class="va">segment_length</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_measures.html" class="external-link">st_length</a></span><span class="op">(</span><span class="va">rnet</span><span class="op">)</span><span class="op">)</span>
-  <span class="co"># Calculate daily km cycled</span>
-  <span class="va">rnet</span><span class="op">$</span><span class="va">m_cycled_per_working_day</span> <span class="op">=</span> <span class="va">rnet</span><span class="op">$</span><span class="va">segment_length</span> <span class="op">*</span> <span class="va">rnet</span><span class="op">$</span><span class="va">bicycle</span>
-  <span class="co"># Convert to centroids to avoid double counting flows that cross zones</span>
-  <span class="va">rnet_centroids</span> <span class="op">=</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_unary.html" class="external-link">st_centroid</a></span><span class="op">(</span><span class="va">rnet</span><span class="op">)</span>
-  <span class="co"># Get LSOA spatial data</span>
-  <span class="va">zones</span> <span class="op">=</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/valid.html" class="external-link">st_make_valid</a></span><span class="op">(</span><span class="fu">pct</span><span class="fu">::</span><span class="fu"><a href="../reference/get_pct_zones.html">get_pct_zones</a></span><span class="op">(</span>region <span class="op">=</span> <span class="va">region_name</span><span class="op">)</span><span class="op">)</span>
-  <span class="co"># Calculate cyced miles per zone</span>
-  <span class="va">cycled_m_per_zone</span> <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/aggregate.sf.html" class="external-link">aggregate</a></span><span class="op">(</span><span class="va">rnet_centroids</span><span class="op">[</span><span class="st">"m_cycled_per_working_day"</span><span class="op">]</span>, <span class="va">zones</span>, FUN <span class="op">=</span> <span class="va">sum</span><span class="op">)</span>
-  <span class="co"># Calculate miles cycled per year from commuting</span>
-  <span class="va">zones</span><span class="op">$</span><span class="va">mkm_cycled_for_commuting_per_year_estimated</span> <span class="op">=</span> <span class="va">cycled_m_per_zone</span><span class="op">$</span><span class="va">m_cycled_per_working_day</span> <span class="op">*</span>
-    <span class="fl">2</span> <span class="op">*</span> <span class="fl">200</span> <span class="op">/</span> <span class="co"># estimate of trips days per year, morning and afternoon</span>
-    <span class="fl">1e9</span>
-  <span class="co"># Plot results</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tmap_mode.html" class="external-link">tmap_mode</a></span><span class="op">(</span><span class="st">"plot"</span><span class="op">)</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html" class="external-link">tm_shape</a></span><span class="op">(</span><span class="va">zones</span><span class="op">)</span> <span class="op">+</span>
-    <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_polygons.html" class="external-link">tm_fill</a></span><span class="op">(</span>
-      col <span class="op">=</span> <span class="st">"mkm_cycled_for_commuting_per_year_estimated"</span>,
-      style <span class="op">=</span> <span class="st">"quantile"</span>,
-      palette <span class="op">=</span> <span class="st">"plasma"</span>,
-      title <span class="op">=</span> <span class="st">"Million km's cycled by commuters per year\n(2011 Census Data)"</span>,
-      legend.size.is.portrait <span class="op">=</span> <span class="cn">TRUE</span>
-    <span class="op">)</span> <span class="op">+</span>
-    <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_layout.html" class="external-link">tm_layout</a></span><span class="op">(</span>
-      title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/chartr.html" class="external-link">toupper</a></span><span class="op">(</span><span class="va">region_name</span><span class="op">)</span>,
-      title.position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"left"</span>, <span class="st">"top"</span><span class="op">)</span>,
-      bg.color <span class="op">=</span> <span class="st">"honeydew3"</span>,
-      outer.bg.color <span class="op">=</span> <span class="st">"honeydew"</span>,
-      legend.stack <span class="op">=</span> <span class="st">"horizontal"</span>,
-      legend.outside <span class="op">=</span> <span class="cn">TRUE</span>,
-      legend.outside.position <span class="op">=</span> <span class="st">"bottom"</span>,
-      frame.lwd <span class="op">=</span> <span class="fl">5</span>
-    <span class="op">)</span>
-  
-<span class="op">}</span></code></pre></div>
-<p>With our function built, we can now easily compare regional differences.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">oxfordshire_results</span> <span class="op">=</span> <span class="fu">pct_zones_rnet_current</span><span class="op">(</span>region_name <span class="op">=</span> <span class="st">"oxfordshire"</span><span class="op">)</span>
-<span class="va">cambrideshire_results</span> <span class="op">=</span> <span class="fu">pct_zones_rnet_current</span><span class="op">(</span>region_name <span class="op">=</span> <span class="st">"cambridgeshire"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tmap_arrange.html" class="external-link">tmap_arrange</a></span><span class="op">(</span><span class="va">oxfordshire_results</span>, <span class="va">cambrideshire_results</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
-<p><img src="km-cycled_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;"></p>
-<p>In comparison to Oxfordshire, Cambridgeshire spatial distribution of km’s cycled exhibit a high number of cycling not only in the centre of the region. While Oxfordshire obtains a zone with a higher number of km’s cycled through it, in general Cambridgeshire displays a higher number in its quartile range. Interesting!</p>
-<p>Now lets say we wanted to compare two cities. Lets take London and Greater Manchester.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">london_results</span> <span class="op">=</span> <span class="fu">pct_zones_rnet_current</span><span class="op">(</span>region_name <span class="op">=</span> <span class="st">"london"</span><span class="op">)</span>
-<span class="va">gm_results</span> <span class="op">=</span> <span class="fu">pct_zones_rnet_current</span><span class="op">(</span>region_name <span class="op">=</span> <span class="st">"greater-manchester"</span><span class="op">)</span>
-<span class="co">#tmap_mode("view")  </span>
-<span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tmap_arrange.html" class="external-link">tmap_arrange</a></span><span class="op">(</span><span class="va">london_results</span>, <span class="va">gm_results</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
-<p><img src="km-cycled_files/figure-html/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;"></p>
-<p>Jheeze! The maps provides insight at a highly granular level. Both Greater Manchester and London have similar quartile ranges and are fairly monocentric, however, LSOA’s in London such as <code>E01032739</code> obtain billions in km’s cycled per year; likely due to working population differences. Nonetheless, outer LSOA’s in both Greater Manchester and London also feature in the highest quartile, representing that cycle uptake is not dominant solely in the centre of the regions.</p>
+<p>Now say we wanted to compare the results of Oxfordshire, with its
+regional neighbor Cambridgeshire. This can be achieved by wrapping the
+previous method into a function.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">pct_zones_rnet_current</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">region_name</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="co"># Get road network for preselected regin</span></span>
+<span>  <span class="va">rnet</span> <span class="op">=</span> <span class="fu">pct</span><span class="fu">::</span><span class="fu"><a href="../reference/get_pct_rnet.html">get_pct_rnet</a></span><span class="op">(</span>region <span class="op">=</span> <span class="va">region_name</span><span class="op">)</span></span>
+<span>  <span class="co"># Calculate road length</span></span>
+<span>  <span class="va">rnet</span><span class="op">$</span><span class="va">segment_length</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_measures.html" class="external-link">st_length</a></span><span class="op">(</span><span class="va">rnet</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="co"># Calculate daily km cycled</span></span>
+<span>  <span class="va">rnet</span><span class="op">$</span><span class="va">m_cycled_per_working_day</span> <span class="op">=</span> <span class="va">rnet</span><span class="op">$</span><span class="va">segment_length</span> <span class="op">*</span> <span class="va">rnet</span><span class="op">$</span><span class="va">bicycle</span></span>
+<span>  <span class="co"># Convert to centroids to avoid double counting flows that cross zones</span></span>
+<span>  <span class="va">rnet_centroids</span> <span class="op">=</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_unary.html" class="external-link">st_centroid</a></span><span class="op">(</span><span class="va">rnet</span><span class="op">)</span></span>
+<span>  <span class="co"># Get LSOA spatial data</span></span>
+<span>  <span class="va">zones</span> <span class="op">=</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/valid.html" class="external-link">st_make_valid</a></span><span class="op">(</span><span class="fu">pct</span><span class="fu">::</span><span class="fu"><a href="../reference/get_pct_zones.html">get_pct_zones</a></span><span class="op">(</span>region <span class="op">=</span> <span class="va">region_name</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="co"># Calculate cyced miles per zone</span></span>
+<span>  <span class="va">cycled_m_per_zone</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/aggregate.html" class="external-link">aggregate</a></span><span class="op">(</span><span class="va">rnet_centroids</span><span class="op">[</span><span class="st">"m_cycled_per_working_day"</span><span class="op">]</span>, <span class="va">zones</span>, FUN <span class="op">=</span> <span class="va">sum</span><span class="op">)</span></span>
+<span>  <span class="co"># Calculate miles cycled per year from commuting</span></span>
+<span>  <span class="va">zones</span><span class="op">$</span><span class="va">mkm_cycled_for_commuting_per_year_estimated</span> <span class="op">=</span> <span class="va">cycled_m_per_zone</span><span class="op">$</span><span class="va">m_cycled_per_working_day</span> <span class="op">*</span></span>
+<span>    <span class="fl">2</span> <span class="op">*</span> <span class="fl">200</span> <span class="op">/</span> <span class="co"># estimate of trips days per year, morning and afternoon</span></span>
+<span>    <span class="fl">1e9</span></span>
+<span>  <span class="co"># Plot results</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tmap_mode.html" class="external-link">tmap_mode</a></span><span class="op">(</span><span class="st">"plot"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html" class="external-link">tm_shape</a></span><span class="op">(</span><span class="va">zones</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_polygons.html" class="external-link">tm_fill</a></span><span class="op">(</span></span>
+<span>      col <span class="op">=</span> <span class="st">"mkm_cycled_for_commuting_per_year_estimated"</span>,</span>
+<span>      style <span class="op">=</span> <span class="st">"quantile"</span>,</span>
+<span>      palette <span class="op">=</span> <span class="st">"plasma"</span>,</span>
+<span>      title <span class="op">=</span> <span class="st">"Million km's cycled by commuters per year\n(2011 Census Data)"</span>,</span>
+<span>      legend.size.is.portrait <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>    <span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_layout.html" class="external-link">tm_layout</a></span><span class="op">(</span></span>
+<span>      title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/chartr.html" class="external-link">toupper</a></span><span class="op">(</span><span class="va">region_name</span><span class="op">)</span>,</span>
+<span>      title.position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"left"</span>, <span class="st">"top"</span><span class="op">)</span>,</span>
+<span>      bg.color <span class="op">=</span> <span class="st">"honeydew3"</span>,</span>
+<span>      outer.bg.color <span class="op">=</span> <span class="st">"honeydew"</span>,</span>
+<span>      legend.stack <span class="op">=</span> <span class="st">"horizontal"</span>,</span>
+<span>      legend.outside <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>      legend.outside.position <span class="op">=</span> <span class="st">"bottom"</span>,</span>
+<span>      frame.lwd <span class="op">=</span> <span class="fl">5</span></span>
+<span>    <span class="op">)</span></span>
+<span>  </span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>With our function built, we can now easily compare regional
+differences.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">oxfordshire_results</span> <span class="op">=</span> <span class="fu">pct_zones_rnet_current</span><span class="op">(</span>region_name <span class="op">=</span> <span class="st">"oxfordshire"</span><span class="op">)</span></span>
+<span><span class="va">cambrideshire_results</span> <span class="op">=</span> <span class="fu">pct_zones_rnet_current</span><span class="op">(</span>region_name <span class="op">=</span> <span class="st">"cambridgeshire"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tmap_arrange.html" class="external-link">tmap_arrange</a></span><span class="op">(</span><span class="va">oxfordshire_results</span>, <span class="va">cambrideshire_results</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<p>In comparison to Oxfordshire, Cambridgeshire spatial distribution of
+km’s cycled exhibit a high number of cycling not only in the centre of
+the region. While Oxfordshire obtains a zone with a higher number of
+km’s cycled through it, in general Cambridgeshire displays a higher
+number in its quartile range. Interesting!</p>
+<p>Now lets say we wanted to compare two cities. Lets take London and
+Greater Manchester.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">london_results</span> <span class="op">=</span> <span class="fu">pct_zones_rnet_current</span><span class="op">(</span>region_name <span class="op">=</span> <span class="st">"london"</span><span class="op">)</span></span>
+<span><span class="va">gm_results</span> <span class="op">=</span> <span class="fu">pct_zones_rnet_current</span><span class="op">(</span>region_name <span class="op">=</span> <span class="st">"greater-manchester"</span><span class="op">)</span></span>
+<span><span class="co">#tmap_mode("view")  </span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tmap_arrange.html" class="external-link">tmap_arrange</a></span><span class="op">(</span><span class="va">london_results</span>, <span class="va">gm_results</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<p>Jheeze! The maps provides insight at a highly granular level. Both
+Greater Manchester and London have similar quartile ranges and are
+fairly monocentric, however, LSOA’s in London such as
+<code>E01032739</code> obtain billions in km’s cycled per year; likely
+due to working population differences. Nonetheless, outer LSOA’s in both
+Greater Manchester and London also feature in the highest quartile,
+representing that cycle uptake is not dominant solely in the centre of
+the regions.</p>
 </div>
 <div class="section level2">
 <h2 id="using-pct-models-to-visualize-potential-cycle-uptake">Using PCT models to visualize potential cycle uptake<a class="anchor" aria-label="anchor" href="#using-pct-models-to-visualize-potential-cycle-uptake"></a>
 </h2>
-<p>While the results based on the 2011 census provide interesting and valuable results, a lot has changed since 2011 and other scenarios should be explored. The PCT package features numerous models (e.g. <code>govtarget_slc</code>,<code>gendereq_slc</code> and <code>ebike_slc</code>). In this example, lets examine London and Manchester again, but this time, lets use the PCT E-bike model scenario. The PCT E-Bike model assumes commuters will use e-Bikes for longer or hillier trips (based on data from Dutch and Swiss travel surveys). In order to model this, we will build a function similar to what we used for the census data, but change the daily miles cycled to use the <code>ebike_slc</code> column.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">pct_zones_rnet_ebikes</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">region_name</span><span class="op">)</span> <span class="op">{</span>
-  <span class="co"># Get road network for pre-selected region</span>
-  <span class="va">rnet</span> <span class="op">=</span> <span class="fu">pct</span><span class="fu">::</span><span class="fu"><a href="../reference/get_pct_rnet.html">get_pct_rnet</a></span><span class="op">(</span>region <span class="op">=</span> <span class="va">region_name</span><span class="op">)</span>
-  <span class="co"># Calculate road length</span>
-  <span class="va">rnet</span><span class="op">$</span><span class="va">segment_length</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_measures.html" class="external-link">st_length</a></span><span class="op">(</span><span class="va">rnet</span><span class="op">)</span><span class="op">)</span>
-  <span class="co"># Calculate daily miles cycled</span>
-  <span class="va">rnet</span><span class="op">$</span><span class="va">m_cycled_per_working_day</span> <span class="op">=</span> <span class="va">rnet</span><span class="op">$</span><span class="va">segment_length</span> <span class="op">*</span> <span class="va">rnet</span><span class="op">$</span><span class="va">ebike_slc</span>
-  <span class="co"># Convert to centroids to avoid double counting flows that cross zones</span>
-  <span class="va">rnet_centroids</span> <span class="op">=</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_unary.html" class="external-link">st_centroid</a></span><span class="op">(</span><span class="va">rnet</span><span class="op">)</span>
-  <span class="co"># Get LSOA spatial data</span>
-  <span class="va">zones</span> <span class="op">=</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/valid.html" class="external-link">st_make_valid</a></span><span class="op">(</span><span class="fu">pct</span><span class="fu">::</span><span class="fu"><a href="../reference/get_pct_zones.html">get_pct_zones</a></span><span class="op">(</span>region <span class="op">=</span> <span class="va">region_name</span><span class="op">)</span><span class="op">)</span>
-  <span class="co"># Calculate cycled miles per zone</span>
-  <span class="va">cycled_m_per_zone</span> <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/aggregate.sf.html" class="external-link">aggregate</a></span><span class="op">(</span><span class="va">rnet_centroids</span><span class="op">[</span><span class="st">"m_cycled_per_working_day"</span><span class="op">]</span>, <span class="va">zones</span>, FUN <span class="op">=</span> <span class="va">sum</span><span class="op">)</span>
-  <span class="co"># Calculate km cycled per year from commuting</span>
-  <span class="va">zones</span><span class="op">$</span><span class="va">mkm_cycled_for_commuting_per_year_estimated</span> <span class="op">=</span> <span class="va">cycled_m_per_zone</span><span class="op">$</span><span class="va">m_cycled_per_working_day</span> <span class="op">*</span>
-    <span class="fl">2</span> <span class="op">*</span> <span class="fl">200</span> <span class="op">/</span> <span class="co"># estimate of trips days per year, morning and afternoon</span>
-    <span class="fl">1e9</span>
-  <span class="co">#Plot results</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tmap_mode.html" class="external-link">tmap_mode</a></span><span class="op">(</span><span class="st">"plot"</span><span class="op">)</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html" class="external-link">tm_shape</a></span><span class="op">(</span><span class="va">zones</span><span class="op">)</span> <span class="op">+</span>
-    <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_polygons.html" class="external-link">tm_fill</a></span><span class="op">(</span>
-      col <span class="op">=</span> <span class="st">"mkm_cycled_for_commuting_per_year_estimated"</span>,
-      style <span class="op">=</span> <span class="st">"quantile"</span>,
-      palette <span class="op">=</span> <span class="st">"plasma"</span>,
-      title <span class="op">=</span> <span class="st">"Million km's cycled by commuters per year\n(E-Bike model)"</span>,
-      legend.size.is.portrait <span class="op">=</span> <span class="cn">TRUE</span>
-    <span class="op">)</span> <span class="op">+</span>
-    <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_layout.html" class="external-link">tm_layout</a></span><span class="op">(</span>
-      title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/chartr.html" class="external-link">toupper</a></span><span class="op">(</span><span class="va">region_name</span><span class="op">)</span>,
-      title.position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"left"</span>, <span class="st">"top"</span><span class="op">)</span>,
-      bg.color <span class="op">=</span> <span class="st">"honeydew3"</span>,
-      outer.bg.color <span class="op">=</span> <span class="st">"honeydew"</span>,
-      legend.stack <span class="op">=</span> <span class="st">"horizontal"</span>,
-      legend.outside <span class="op">=</span> <span class="cn">TRUE</span>,
-      legend.outside.position <span class="op">=</span> <span class="st">"bottom"</span>,
-      frame.lwd <span class="op">=</span> <span class="fl">5</span>
-    <span class="op">)</span>
-<span class="op">}</span></code></pre></div>
-<p>With our E-Bikes function built, we can map the results to visualise the effect an E-bike scenario may have on these two cities.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">london_results_ebikes</span> <span class="op">=</span> <span class="fu">pct_zones_rnet_ebikes</span><span class="op">(</span>region_name <span class="op">=</span> <span class="st">"london"</span><span class="op">)</span>
-<span class="va">gm_results_ebikes</span> <span class="op">=</span> <span class="fu">pct_zones_rnet_ebikes</span><span class="op">(</span>region_name <span class="op">=</span> <span class="st">"greater-manchester"</span><span class="op">)</span>
-<span class="co">#tmap_mode("view")</span>
-<span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tmap_arrange.html" class="external-link">tmap_arrange</a></span><span class="op">(</span><span class="va">london_results_ebikes</span>, <span class="va">gm_results_ebikes</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
-<p><img src="km-cycled_files/figure-html/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;"></p>
-<p>Wow! The maps show how an E-Bike scenario could increase cycle uptake by ~500%. As this model illustrates, an E-Bike scenario would mean more LSOA’s would be in the highest quartile of distance cycled. This would mean safer roads, cleaner air and a more sustainable future.</p>
+<p>While the results based on the 2011 census provide interesting and
+valuable results, a lot has changed since 2011 and other scenarios
+should be explored. The PCT package features numerous models
+(e.g. <code>govtarget_slc</code>,<code>gendereq_slc</code> and
+<code>ebike_slc</code>). In this example, lets examine London and
+Manchester again, but this time, lets use the PCT E-bike model scenario.
+The PCT E-Bike model assumes commuters will use e-Bikes for longer or
+hillier trips (based on data from Dutch and Swiss travel surveys). In
+order to model this, we will build a function similar to what we used
+for the census data, but change the daily miles cycled to use the
+<code>ebike_slc</code> column.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">pct_zones_rnet_ebikes</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">region_name</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="co"># Get road network for pre-selected region</span></span>
+<span>  <span class="va">rnet</span> <span class="op">=</span> <span class="fu">pct</span><span class="fu">::</span><span class="fu"><a href="../reference/get_pct_rnet.html">get_pct_rnet</a></span><span class="op">(</span>region <span class="op">=</span> <span class="va">region_name</span><span class="op">)</span></span>
+<span>  <span class="co"># Calculate road length</span></span>
+<span>  <span class="va">rnet</span><span class="op">$</span><span class="va">segment_length</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_measures.html" class="external-link">st_length</a></span><span class="op">(</span><span class="va">rnet</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="co"># Calculate daily miles cycled</span></span>
+<span>  <span class="va">rnet</span><span class="op">$</span><span class="va">m_cycled_per_working_day</span> <span class="op">=</span> <span class="va">rnet</span><span class="op">$</span><span class="va">segment_length</span> <span class="op">*</span> <span class="va">rnet</span><span class="op">$</span><span class="va">ebike_slc</span></span>
+<span>  <span class="co"># Convert to centroids to avoid double counting flows that cross zones</span></span>
+<span>  <span class="va">rnet_centroids</span> <span class="op">=</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_unary.html" class="external-link">st_centroid</a></span><span class="op">(</span><span class="va">rnet</span><span class="op">)</span></span>
+<span>  <span class="co"># Get LSOA spatial data</span></span>
+<span>  <span class="va">zones</span> <span class="op">=</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/valid.html" class="external-link">st_make_valid</a></span><span class="op">(</span><span class="fu">pct</span><span class="fu">::</span><span class="fu"><a href="../reference/get_pct_zones.html">get_pct_zones</a></span><span class="op">(</span>region <span class="op">=</span> <span class="va">region_name</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="co"># Calculate cycled miles per zone</span></span>
+<span>  <span class="va">cycled_m_per_zone</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/aggregate.html" class="external-link">aggregate</a></span><span class="op">(</span><span class="va">rnet_centroids</span><span class="op">[</span><span class="st">"m_cycled_per_working_day"</span><span class="op">]</span>, <span class="va">zones</span>, FUN <span class="op">=</span> <span class="va">sum</span><span class="op">)</span></span>
+<span>  <span class="co"># Calculate km cycled per year from commuting</span></span>
+<span>  <span class="va">zones</span><span class="op">$</span><span class="va">mkm_cycled_for_commuting_per_year_estimated</span> <span class="op">=</span> <span class="va">cycled_m_per_zone</span><span class="op">$</span><span class="va">m_cycled_per_working_day</span> <span class="op">*</span></span>
+<span>    <span class="fl">2</span> <span class="op">*</span> <span class="fl">200</span> <span class="op">/</span> <span class="co"># estimate of trips days per year, morning and afternoon</span></span>
+<span>    <span class="fl">1e9</span></span>
+<span>  <span class="co">#Plot results</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tmap_mode.html" class="external-link">tmap_mode</a></span><span class="op">(</span><span class="st">"plot"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html" class="external-link">tm_shape</a></span><span class="op">(</span><span class="va">zones</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_polygons.html" class="external-link">tm_fill</a></span><span class="op">(</span></span>
+<span>      col <span class="op">=</span> <span class="st">"mkm_cycled_for_commuting_per_year_estimated"</span>,</span>
+<span>      style <span class="op">=</span> <span class="st">"quantile"</span>,</span>
+<span>      palette <span class="op">=</span> <span class="st">"plasma"</span>,</span>
+<span>      title <span class="op">=</span> <span class="st">"Million km's cycled by commuters per year\n(E-Bike model)"</span>,</span>
+<span>      legend.size.is.portrait <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>    <span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_layout.html" class="external-link">tm_layout</a></span><span class="op">(</span></span>
+<span>      title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/chartr.html" class="external-link">toupper</a></span><span class="op">(</span><span class="va">region_name</span><span class="op">)</span>,</span>
+<span>      title.position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"left"</span>, <span class="st">"top"</span><span class="op">)</span>,</span>
+<span>      bg.color <span class="op">=</span> <span class="st">"honeydew3"</span>,</span>
+<span>      outer.bg.color <span class="op">=</span> <span class="st">"honeydew"</span>,</span>
+<span>      legend.stack <span class="op">=</span> <span class="st">"horizontal"</span>,</span>
+<span>      legend.outside <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>      legend.outside.position <span class="op">=</span> <span class="st">"bottom"</span>,</span>
+<span>      frame.lwd <span class="op">=</span> <span class="fl">5</span></span>
+<span>    <span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>With our E-Bikes function built, we can map the results to visualise
+the effect an E-bike scenario may have on these two cities.</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">london_results_ebikes</span> <span class="op">=</span> <span class="fu">pct_zones_rnet_ebikes</span><span class="op">(</span>region_name <span class="op">=</span> <span class="st">"london"</span><span class="op">)</span></span>
+<span><span class="va">gm_results_ebikes</span> <span class="op">=</span> <span class="fu">pct_zones_rnet_ebikes</span><span class="op">(</span>region_name <span class="op">=</span> <span class="st">"greater-manchester"</span><span class="op">)</span></span>
+<span><span class="co">#tmap_mode("view")</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tmap_arrange.html" class="external-link">tmap_arrange</a></span><span class="op">(</span><span class="va">london_results_ebikes</span>, <span class="va">gm_results_ebikes</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<p>Wow! The maps show how an E-Bike scenario could increase cycle uptake
+by ~500%. As this model illustrates, an E-Bike scenario would mean more
+LSOA’s would be in the highest quartile of distance cycled. This would
+mean safer roads, cleaner air and a more sustainable future.</p>
 </div>
 <div class="section level2">
 <h2 id="conclusions-and-next-steps">Conclusions and next steps<a class="anchor" aria-label="anchor" href="#conclusions-and-next-steps"></a>
 </h2>
-<p>As demonstrated, the PCT packages provides easy methods to visualize cycle potential. This article has briefly shown how you can use the PCT package models to understand what future cycle uptake could look like and how to calculate the number of km’s cycled per year at a granular level. If this article is of use/interest, why not try for your local region showing the potential based on different models. You can also try the following resources (in R and online):</p>
+<p>As demonstrated, the PCT packages provides easy methods to visualize
+cycle potential. This article has briefly shown how you can use the PCT
+package models to understand what future cycle uptake could look like
+and how to calculate the number of km’s cycled per year at a granular
+level. If this article is of use/interest, why not try for your local
+region showing the potential based on different models. You can also try
+the following resources (in R and online):</p>
 <ul>
 <li>Have a play with the PCT web application</li>
-<li>For more of a deep dive into the methods, see the pct_training vignette</li>
-<li>See the pct-international to see how to apply the methods internationally</li>
+<li>For more of a deep dive into the methods, see the pct_training
+vignette</li>
+<li>See the pct-international to see how to apply the methods
+internationally</li>
 </ul>
-<p>We’re interested to know how you’ve used the methods/data so please get in touch on <a href="https://twitter.com/robinlovelace" class="external-link"> social media </a> and <a href="https://github.com/ITSLeeds/pct" class="external-link"> GitHub </a> letting us know how get on. Any comments/contributions to this analysis: welcome.</p>
+<p>We’re interested to know how you’ve used the methods/data so please
+get in touch on social media  and
+<a href="https://github.com/ITSLeeds/pct" class="external-link"> GitHub </a> letting us know
+how get on. Any comments/contributions to this analysis: welcome.</p>
 </div>
   </div>
 
@@ -313,7 +377,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
