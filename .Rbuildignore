@@ -22,6 +22,4 @@ data-raw/*
 ^CRAN-SUBMISSION$
 ^cran-comments\.md$
 ^LSOA_(Dec_2011)_Boundaries_Super_Generalised_Clipped_(BSC)_EW_V3\.geojson$
-^Local_Authority_Districts_(December_2011)_GB_BGC\.geojson$
-^Local_Authority_Districts_(December_2021)_UK_BUC\.geojson$
-^Local_Planning_Authorities_(April_2019)_UK_BUC\.geojson$
+^*.geojson$
