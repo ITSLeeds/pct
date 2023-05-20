@@ -157,11 +157,13 @@ code](https://itsleeds.github.io/pct/reference/uptake_pct_govtarget.html)
 see how these models work):
 
 ``` r
-distances = 1:20
-hilliness = 0:5
+max_distance = 50
+distances = 1:max_distance
+max_hilliness = 5
+hilliness = 0:max_hilliness
 uptake_df = data.frame(
-  distances = rep(distances, 6),
-  hilliness = rep(hilliness, each = 20)
+  distances = rep(distances, times = max_hilliness + 1),
+  hilliness = rep(hilliness, each = max_distance)
 )
 p_govtarget = uptake_pct_govtarget(
     distance = uptake_df$distances,
